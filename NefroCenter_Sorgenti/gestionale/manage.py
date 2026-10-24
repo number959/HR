@@ -20,7 +20,8 @@ def _main():
     if a.command=='init':
         if existed:
             import sqlite3
-            with sqlite3.connect(core.DB) as c:
+            from contextlib import closing
+            with closing(sqlite3.connect(core.DB)) as c:
                 if c.execute("SELECT 1 FROM sqlite_master WHERE name='users'").fetchone() and c.execute('SELECT 1 FROM users').fetchone():raise SystemExit('Archivio già inizializzato. Non viene modificato.')
         if not a.key_file.exists():Auth.create_key(a.key_file)
         core.init_db();auth=Auth(a.key_file)

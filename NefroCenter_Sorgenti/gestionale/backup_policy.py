@@ -14,6 +14,7 @@ import shutil
 import sqlite3
 import tempfile
 import threading
+from contextlib import closing
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -183,7 +184,8 @@ def _digest(path):
 def _inspect(path):
     """Read a completed standalone database, including every HR document hash."""
     _safe_path(path)
-    with sqlite3.connect(path.as_uri() + '?mode=ro&immutable=1', uri=True) as conn:
+    # closing(): the read-only file must be released before the temporary probe copy is deleted.
+    with closing(sqlite3.connect(path.as_uri() + '?mode=ro&immutable=1', uri=True)) as conn:
         if conn.execute('PRAGMA integrity_check').fetchall() != [('ok',)]:
             raise ValueError('Integrità SQLite non superata.')
         if conn.execute('PRAGMA foreign_key_check').fetchone() is not None:
