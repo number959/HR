@@ -4,7 +4,9 @@ import json
 import unittest
 from concurrent.futures import ThreadPoolExecutor
 import core
+import agreements
 import approvals
+import workforce
 import test_structures as fixtures
 
 
@@ -206,6 +208,27 @@ class ApprovalTests(unittest.TestCase):
         core.mutate(self.manager, 'reopen', {**self.req(), 'reason': 'Processo diverso: correggere mese'})
         self.assertEqual(self.read()['workflow']['status'], 'returned')
         self.assertEqual(self.read()['history'][0]['action'], 'reopen')
+
+    def test_group_agreement_cannot_change_a_submitted_month(self):
+        # Personale di gruppo must respect the same freeze as Accordi e calcoli.
+        with core.connect() as c:
+            cfg = core.center(c, self.one)['config']; assignment = workforce.ensure_person(c, self.one, self.pid); c.commit()
+        data = {**agreements.proposal(cfg, {}), 'confirmed': True, 'basis': 'all', 'fixed_deduction': 0}
+        workforce.mutate(core, self.hr, 'workforce_economic', dict(
+            cid=self.one, pid=self.pid, assignment_version=assignment['version'], effective_from='2026-10-01',
+            effective_to='', version=0, reason='Condizioni concordate con HR', data=data))
+        self.enable(); self.step('submit', self.operator)
+        before = self.read()
+        with core.connect() as c:
+            assignment = workforce._assignment(c, self.one, self.pid)
+        preview = workforce.preview(core, self.hr, self.one, self.pid, '2026-10')
+        with self.assertRaisesRegex(ValueError, 'Approvazioni'):
+            workforce.mutate(core, self.hr, 'workforce_apply', dict(
+                cid=self.one, pid=self.pid, assignment_version=assignment['version'], month='2026-10',
+                revision=preview['revision'], reason='Applicazione dopo l’invio del mese'))
+        after = self.read()
+        self.assertEqual((after['fingerprint'], after['stale'], after['verified']),
+                         (before['fingerprint'], False, before['verified']))
 
     def test_malformed_versions_and_actions_are_rejected(self):
         self.enable()

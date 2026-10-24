@@ -326,6 +326,9 @@ def preview(app,user,cid,pid,month):
 
 def _apply(app,c,user,body,assignment):
     cid,pid=assignment['cid'],assignment['pid'];reason=_reason(body);month=body.get('month','')
+    # Same freeze as a monthly agreement saved from Accordi e calcoli.
+    import approvals
+    approvals.guard_mutation(app,c,user,'agreement_save',{'cid':cid,'month':month})
     current=_preview(app,c,cid,pid,month)
     if current['closed']:
         raise ValueError('Mese chiuso: riaprirlo prima di cambiare accordo.')
