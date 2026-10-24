@@ -156,7 +156,7 @@
   }
   function snapshot(cid,month){
     const source=allowedCenter(cid),out=copy(source);out.user=user();out.centers=centers();out.period=copy(period(cid,month));if(db.v011){out.approval=approvalRead(cid,month);out.approval.frozen=out.approval.policy.enabled&&['submitted','manager_approved','hr_approved'].includes(out.approval.workflow.status);}out.entries=copy(entriesFor(cid,month));out.summary=summary(cid,month);out.alerts=[];
-    if(!out.period.verified)out.alerts.push('Calendario e parametri del mese da verificare dal responsabile.');
+    if(!out.period.verified)out.alerts.push('Calendario e parametri del mese da verificare dal responsabile del centro.');
     out.summary.forEach(r=>{if(r.missing)out.alerts.push(`${r.name}: ${r.missing} turni senza orari.`);if(r.pending)out.alerts.push(`${r.name}: ${r.pending} fasce pianificate da consuntivare.`)});
     if(month!==db.month)out.workload=[];
     if(role!=='admin')out.users=[];
@@ -355,7 +355,7 @@
   function payrollPreview(cid,first,last){
     requireHR(cid);monthsBetween(first,last);const cfg=db.payrollConfigs[cid],s=db.snapshots[cid],config=cfg.config,issues=[],rows=[],all=s.entries.filter(e=>e.layer==='actual'&&e.day.slice(0,7)>=first&&e.day.slice(0,7)<=last),people=new Set();let known=0;
     const add=(message,e,severity='error')=>issues.push({severity,message,day:e?.day||'',person_id:e?.person_id||''});
-    if(config.status!=='confirmed')add('Modèle en bozza: il tracciato deve essere verificato con il consulente.'.replace('Modèle','Modello'));
+    if(config.status!=='confirmed')add('Confermare il modello dopo la verifica delle specifiche con il consulente.');
     all.forEach(e=>{const p=effectivePerson(cid,e.person_id,e.day),m=minutes(e),registration=config.registrations[p.id]||p.registration,code=config.causes[e.code]||'';people.add(p.id);if(m!==null)known+=m;if(!registration)add('Matricola mancante per '+p.name,e);if(!code)add('Associa la causale '+e.code+' al codice del consulente.',e);if(e.kind==='work'&&m===null)add('Orari mancanti per '+p.name,e);if(!p.effective_contract)add('Decorrenza contrattuale non disponibile: '+p.name,e,'warning');
       const row={template_version:cfg.version,center_code:s.center.code,registration,person_name:p.name,global_id:p.global_id||'',day:e.day,slot:e.slot,payroll_code:code,source_code:e.code,kind:e.kind,start:e.start,end:e.end,overnight:Number(e.overnight),pause_minutes:e.pause,worked_minutes:m,worked_hours:m===null?null:Math.round(m/60*100)/100,work_shifts:Number(e.kind==='work'),absence_slots:Number(e.kind==='absence'),absence_days:e.kind==='absence'?Number(all.find(x=>x.person_id===e.person_id&&x.day===e.day&&x.code===e.code)?.id===e.id):0,credited_minutes:e.credit_minutes||0,holiday:Number(e.holiday),work_site:e.work_site,role:p.role,weekly_hours:p.weekly_hours??null,part_time_percent:p.part_time_percent??null,contract_type:p.contract_type||'',ccnl:p.ccnl||'',level:p.level||'',source_id:e.id};
       config.columns.forEach(c=>{if(['weekly_hours','part_time_percent'].includes(c.field)&&row[c.field]===null)add('Dato contrattuale mancante per '+p.name+': '+c.label,e)});rows.push(config.columns.map(c=>c.field==='day'&&config.connector?.date_format==='DD/MM/YYYY'?row.day.split('-').reverse().join('/'):row[c.field]??null));
@@ -371,14 +371,14 @@
   function saveEntry(body){
     const s=allowedCenter(body.cid),p=period(body.cid,body.month),raw=body.entry,cfg=p.config;
     if(!writeAllowed())fail('Questo profilo può consultare le presenze, senza modificarle.',403);
-    if(p.closed)fail('Mese chiuso: il responsabile deve riaprirlo.');
+    if(p.closed)fail('Mese chiuso: per modificarlo serve la riapertura motivata del responsabile del centro o dell’amministratore.');
     if(body.revision!==s.center.revision)fail('I dati sono cambiati. Ricarica prima di salvare.');
     const person=s.people.find(x=>x.id===raw.person_id&&x.active),slot=cfg.slots.find(x=>x.id===raw.slot&&x.active),code=cfg.codes.find(x=>x.id===raw.code&&x.active),old=s.entries.find(x=>x.id===raw.id);
     if(!person||!slot||!code)fail('Persona, fascia o causale non valida.');
     if(!raw.day.startsWith(body.month+'-')||!/^\d{4}-\d{2}-\d{2}$/.test(raw.day))fail('Data fuori dal mese selezionato.');
     if(!['actual','planned'].includes(raw.layer))fail('Registro non valido.');
     if(code.allowed_slots.length&&!code.allowed_slots.includes(slot.id))fail('Causale non autorizzata per questa fascia.');
-    if(role==='operator'&&raw.layer==='planned'&&!cfg.operator_planned)fail('Pianificazione riservata al responsabile.',403);
+    if(role==='operator'&&raw.layer==='planned'&&!cfg.operator_planned)fail('Pianificazione riservata al responsabile del centro e all’amministratore.',403);
     if(raw.id&&!old)fail('Registrazione non trovata.');
     if(old&&['day','slot','person_id','layer'].some(k=>old[k]!==raw[k]))fail('Per spostare una registrazione, eliminala e reinseriscila.');
     const expected=old?.kind==='work'?old:slot;
@@ -389,9 +389,12 @@
     if(![s.center.name,...cfg.sites].includes(e.work_site))fail('Sede non autorizzata.');
     if(!!e.start!==!!e.end||[e.start,e.end].some(t=>t&&!/^([01]\d|2[0-3]):[0-5]\d$/.test(t)))fail('Indica entrambi gli orari nel formato HH:MM.');
     if(e.kind==='work'&&e.start&&(minutes(e)<=0||minutes(e)+Number(e.pause)>1440)||!Number.isInteger(Number(e.pause))||e.pause<0||!e.start&&e.pause)fail('Durata o pausa non valida.');
-    const span=x=>{if(minutes(x)===null)return null;const a=new Date(x.day+'T'+x.start).getTime(),b=new Date(x.day+'T'+x.end).getTime()+(x.overnight?86400000:0);return[a,b]};
-    for(const other of s.entries){if(other.id===e.id||other.person_id!==e.person_id||other.layer!==e.layer)continue;if(entryKey(other)===entryKey(e))fail('La fascia è già compilata. Aprila per modificarla.');const a=span(e),b=span(other);if(a&&b&&a[0]<b[1]&&b[0]<a[1])fail('Sovrapposizione con il '+other.day)}
-    if(old)s.entries[s.entries.indexOf(old)]=e;else s.entries.push(e);audit(body.cid,'Presenza salvata');return {ok:true,warnings:[]};
+    // Same checks as the server: linked identities in other centres and minimum rest between shifts.
+    const span=x=>{if(minutes(x)===null)return null;const a=Date.parse(x.day+'T'+x.start+':00Z'),b=Date.parse(x.day+'T'+x.end+':00Z')+(x.overnight?86400000:0);return[a,b]};
+    const comparisons=linkedPeople(body.cid,person.id).flatMap(a=>db.snapshots[a.cid].entries.filter(x=>x.person_id===a.pid).map(x=>({...x,person_id:person.id})));
+    const warnings=[];
+    for(const other of comparisons){if(other.id===e.id||other.layer!==e.layer)continue;if(entryKey(other)===entryKey(e))fail('La fascia è già compilata. Aprila per modificarla.');const a=span(e),b=span(other);if(a&&b){if(a[0]<b[1]&&b[0]<a[1])fail('Sovrapposizione con il '+other.day);if(Math.min(Math.abs(a[0]-b[1]),Math.abs(b[0]-a[1]))/3600000<cfg.min_rest_hours)warnings.push('Intervallo inferiore a '+cfg.min_rest_hours+' ore.')}}
+    if(old)s.entries[s.entries.indexOf(old)]=e;else s.entries.push(e);audit(body.cid,'Presenza salvata');return {ok:true,warnings:[...new Set(warnings)]};
   }
   function saveHR(body){
     requireHR(body.cid);const s=db.snapshots[body.cid],pid=body.pid||uid();
@@ -422,7 +425,7 @@
   const assetKinds={badge:'Badge',keys:'Chiavi',device:'Dispositivo',other:'Altra dotazione'};
   const departureTaskLabels={badge:'Restituzione badge',keys:'Restituzione chiavi',devices:'Restituzione dispositivi e altre dotazioni',documents:'Consegna e verifica dei documenti',access:'Conferma con IT della gestione degli accessi'};
   const departureNotice='La chiusura del percorso non cambia automaticamente rapporto, sede o stato del dipendente e non disattiva account esterni. Aggiorna fascicolo e accessi nelle rispettive procedure autorizzate.';
-  const reminderTopics={contract:'Contratti e periodo di prova',document:'Documenti',qualification:'Qualifiche e verifiche',onboarding:'Attività di onboarding',attendance:'Presenze del mese precedente'};
+  const reminderTopics={contract:'Contratti e periodo di prova',document:'Documenti',qualification:'Qualifiche e verifiche',onboarding:'Onboarding in ritardo',attendance:'Presenze del mese precedente da verificare'};
   const connectorDefault=()=>({mode:'generic',provider:'',format_name:'',format_version:'',specification_reference:'',expected_columns:[],date_format:'YYYY-MM-DD',encoding:'utf-8-sig'});
   const checkVersion=(body,item)=>{if(!Number.isInteger(body.version)||body.version!==(item?.version||0))fail('I dati sono cambiati. Ricarica prima di salvare.')};
   const requiredNote=(value,label='Motivazione')=>{if(typeof value!=='string'||value.trim().length<8||value.length>2000)fail(label+': indica almeno 8 caratteri.');return value.trim()};
@@ -439,26 +442,35 @@
   }
   const approvalKey=(cid,month)=>cid+'|'+month;
   function approvalFingerprint(cid,month){return communicationFingerprint({people:db.snapshots[cid].people,entries:entriesFor(cid,month),config:period(cid,month).config,verified:period(cid,month).verified})}
+  // Mirrors approvals.py: same checks, actions per role and state, and freeze rules.
+  const FROZEN=['submitted','manager_approved','hr_approved'];
+  function approvalChecks(cid,month,includeCalendar=true){
+    const p=period(cid,month),actual=entriesFor(cid,month).filter(e=>e.layer==='actual'),checks=[];
+    if(includeCalendar&&!p.verified)checks.push('Verificare calendario e parametri prima dell’approvazione finale.');
+    if(!actual.length)checks.push('Mese senza registrazioni effettive.');
+    if(summary(cid,month).some(r=>r.pending))checks.push('Completare le fasce pianificate rimaste senza consuntivo.');
+    if(actual.some(e=>String(e.work_site).includes('da specificare')||String(e.note||'').includes('Colore sede da verificare')))checks.push('Risolvere le sedi importate non definite.');
+    if(p.config.require_times_on_close&&actual.some(e=>e.kind==='work'&&minutes(e)===null))checks.push('Completare gli orari richiesti per la chiusura.');
+    return checks;
+  }
+  function approvalActions(policy,status,closed,stale){
+    if(!policy.enabled)return [];
+    if(closed)return ['admin','hr','manager'].includes(role)?['reopen']:[];
+    if(['draft','returned'].includes(status))return writeAllowed()?['submit']:[];
+    if(status==='submitted'&&managerAllowed())return [...(stale?[]:['manager_approve']),'return'];
+    if(status==='manager_approved'&&['admin','hr'].includes(role))return [...(stale?[]:['hr_approve']),'return'];
+    if(status==='submitted'&&role==='hr')return ['return'];
+    return [];
+  }
   function approvalRead(cid,month){
-    allowedCenter(cid);monthsBetween(month,month);const p=period(cid,month),policy=db.v011.policies[cid],workflow=db.v011.approvals[approvalKey(cid,month)]||{status:'draft',version:0,note:'',history:[]},fingerprint=approvalFingerprint(cid,month),checks=[],rows=summary(cid,month),entries=entriesFor(cid,month);
-    if(!p.verified)checks.push('Verifica calendario e parametri del mese.');
-    if(!entries.some(e=>e.layer==='actual'))checks.push('Mese senza registrazioni effettive.');
-    if(rows.some(r=>r.pending))checks.push('Completa le fasce pianificate prive di consuntivo.');
-    if(p.config.require_times_on_close&&rows.some(r=>r.missing))checks.push('Completa gli orari richiesti per la chiusura.');
-    const legacy_closed=p.closed&&workflow.status!=='hr_approved',stale=['submitted','manager_approved','hr_approved'].includes(workflow.status)&&workflow.fingerprint!==fingerprint,actions=[];
-    if(policy.enabled&&!legacy_closed){
-      if(['draft','returned'].includes(workflow.status)&&writeAllowed())actions.push('submit');
-      if(workflow.status==='submitted'&&managerAllowed())actions.push('manager_approve','return');
-      if(workflow.status==='manager_approved'&&['admin','hr'].includes(role))actions.push('hr_approve','return');
-      if(workflow.status==='hr_approved'&&['admin','hr'].includes(role))actions.push('reopen');
-    }
-    if(legacy_closed&&managerAllowed())actions.push('reopen');
-    return {cid,month,policy:copy(policy),workflow:copy(workflow),actions,checks,fingerprint,verified:p.verified,history:copy(workflow.history||[]),summary:{people:rows.length,entries:entries.length,work_entries:entries.filter(e=>e.kind==='work').length},legacy_closed,stale,can_configure:role==='admin'};
+    allowedCenter(cid);monthsBetween(month,month);const p=period(cid,month),policy=db.v011.policies[cid],workflow=db.v011.approvals[approvalKey(cid,month)]||{status:'draft',version:0,note:'',history:[]},fingerprint=approvalFingerprint(cid,month),rows=summary(cid,month),entries=entriesFor(cid,month);
+    const legacy_closed=p.closed&&workflow.status!=='hr_approved',stale=FROZEN.includes(workflow.status)&&!!workflow.fingerprint&&workflow.fingerprint!==fingerprint;
+    return {cid,month,policy:copy(policy),workflow:copy(workflow),actions:approvalActions(policy,workflow.status,p.closed,stale),checks:approvalChecks(cid,month),fingerprint,verified:p.verified,closed:p.closed,history:copy(workflow.history||[]),summary:{people:rows.length,entries:entries.length,work_entries:entries.filter(e=>e.kind==='work'&&e.layer==='actual').length},legacy_closed,stale,can_configure:role==='admin'};
   }
   function approvalGuard(cid,month,action){
     const d=approvalRead(cid,month);if(!d.policy.enabled)return;
-    if(action==='close')fail('Usa Approvazioni: la chiusura richiede la verifica del responsabile e l’approvazione HR.');
-    if(['submitted','manager_approved','hr_approved'].includes(d.workflow.status))fail('Mese inviato in approvazione: occorre una restituzione o riapertura prima di modificarlo.');
+    if(['close','reopen'].includes(action))fail('Usare la pagina Approvazioni per chiudere o riaprire questo mese.');
+    if(FROZEN.includes(d.workflow.status))fail('Mese inviato o approvato: richiedere la restituzione o la riapertura dalla pagina Approvazioni.');
   }
   function approvalConfigure(body){
     allowedCenter(body.cid);if(role!=='admin')fail('Configurazione riservata all’amministratore.',403);const item=db.v011.policies[body.cid];checkVersion(body,item);requiredNote(body.reason);
@@ -467,18 +479,20 @@
     Object.assign(item,{enabled:body.enabled,version:item.version+1});audit(body.cid,'Configurazione approvazione aggiornata');return {ok:true,policy:copy(item)};
   }
   function approvalTransition(body){
-    const d=approvalRead(body.cid,body.month),w=d.workflow;checkVersion(body,w);if(body.fingerprint!==d.fingerprint)fail('I dati del mese sono cambiati: aggiorna la pagina.');if(!d.actions.includes(body.action))fail('Passaggio non consentito al tuo ruolo.',403);
-    const action=body.action,note=['return','reopen'].includes(action)?requiredNote(body.note):String(body.note||'').slice(0,2000);
-    if(['manager_approve','hr_approve'].includes(action)&&d.stale)fail('Dati cambiati dopo l’invio: restituisci il mese.');
-    if(action==='manager_approve'){
-      const remaining=d.checks.filter(x=>!x.startsWith('Verifica calendario'));
-      if(remaining.length)fail(remaining.join(' '));if(!d.verified&&body.calendar_checked!==true)fail('Conferma la verifica del calendario.');period(body.cid,body.month).verified=true;
+    const d=approvalRead(body.cid,body.month),w=d.workflow;checkVersion(body,w);if(body.fingerprint!==d.fingerprint)fail('I dati o lo stato sono cambiati. Ricaricare prima di procedere.');
+    if(!d.actions.includes(body.action))fail('Passaggio non consentito per il ruolo o lo stato attuale. Se i dati sono cambiati, restituire prima il mese.',403);
+    const action=body.action,note=['return','reopen'].includes(action)?requiredNote(body.note):String(body.note||'').trim().slice(0,2000),p=period(body.cid,body.month);
+    if(['submit','manager_approve','hr_approve'].includes(action)){
+      if(action==='manager_approve'&&!p.verified&&body.calendar_checked!==true)fail('Confermare la verifica di calendario e parametri.');
+      // The manager's confirmation counts as calendar verification only when every other check passes.
+      const checks=approvalChecks(body.cid,body.month,action==='hr_approve');if(checks.length)fail(checks.join(' '));
+      if(action==='manager_approve')p.verified=true;
     }
-    if(action==='hr_approve'&&d.checks.length)fail(d.checks.join(' '));
-    const status={submit:'submitted',manager_approve:'manager_approved',hr_approve:'hr_approved',return:'returned',reopen:'draft'}[action];
+    if(action==='hr_approve')p.closed=true;
+    else if(['return','reopen'].includes(action)){p.closed=false;p.verified=false;p.note=note}
+    const status={submit:'submitted',manager_approve:'manager_approved',hr_approve:'hr_approved',return:'returned',reopen:'returned'}[action];
     const next={...w,status,version:w.version+1,note,updated_at:now(),updated_by:user().username,fingerprint:approvalFingerprint(body.cid,body.month)};
     next.history=[{version:next.version,status,action,note,stamp:now(),actor:user().username},...(w.history||[])];db.v011.approvals[approvalKey(body.cid,body.month)]=next;
-    if(action==='hr_approve')period(body.cid,body.month).closed=true;if(['return','reopen'].includes(action))period(body.cid,body.month).closed=false;
     audit(body.cid,'Approvazione: '+status);return approvalRead(body.cid,body.month);
   }
   function documentLocate(cid,id){requireHR(cid);for(const [pid,d] of Object.entries(db.hrDetails[cid]||{})){const doc=d.documents.find(x=>x.id===id);if(doc)return {...copy(doc),cid,pid}}fail('Documento non trovato.')}
@@ -580,14 +594,25 @@
     for(const [k,min,max] of [['hour',0,23],['max_daily_messages',1,200],['max_overdue_days',1,90]])if(!Number.isInteger(config[k])||config[k]<min||config[k]>max)fail('Limite o orario non valido.');
     if(!['structure_hr','central_hr','both'].includes(config.recipient_mode))fail('Destinazione non valida.');if(config.recipient_mode!=='structure_hr')config.central_hr_email=communicationEmail(config.central_hr_email).toLowerCase();return config;
   }
+  // Mirrors reminders._offset: overdue-only topics, missed days recovered once, overdue limit.
+  function reminderOffset(config,due,overdueOnly){
+    const delta=Math.round((Date.parse(due+'T00:00:00Z')-Date.parse(TODAY+'T00:00:00Z'))/86400000);
+    if(delta< -config.max_overdue_days)return null;
+    if(overdueOnly)return delta<=0?0:null;
+    if(delta<0)return config.offsets.includes(0)?0:null;
+    const options=config.offsets.filter(n=>delta<=n);return options.length?Math.min(...options):null;
+  }
   function reminderPreview(body){
     communicationAccess();const config=reminderConfig(body),routes={},warnings=[],candidates=[];
     for(const ct of db.centers.filter(c=>!config.centers.length||config.centers.includes(c.id))){const emails=new Set();if(config.recipient_mode!=='central_hr'){try{emails.add(communicationEmail(db.structures.structures.find(s=>s.cid===ct.id)?.fields.hr_email).toLowerCase())}catch{warnings.push({cid:ct.id,message:ct.name+': recapito HR mancante o non valido.'})}}if(config.recipient_mode!=='structure_hr')emails.add(config.central_hr_email);routes[ct.id]=[...emails].sort();
       for(const person of db.snapshots[ct.id].people.filter(p=>p.active)){const d=hrDetail(ct.id,person.id);if(d.profile.stage==='ended')continue;
-        function add(topic,key,due){if(!due||!config.topics.includes(topic))return;const delta=Math.round((Date.parse(due)-Date.parse(TODAY))/86400000);if(delta< -config.max_overdue_days||topic==='onboarding'&&delta>0)return;const options=config.offsets.filter(n=>n>=Math.max(delta,0));if(!options.length||delta<0&&!config.offsets.includes(0))return;const threshold=Math.min(...options);for(const email of emails){const event_key=communicationFingerprint([ct.id,key,due,threshold,email]);candidates.push({event_key,cid:ct.id,source_key:key,due,threshold,email,topic,label:person.name,status:(db.v011.reminderProcessed||[]).includes(event_key)?'simulated':'pending'})}}
+        function add(topic,key,due){if(!due||!config.topics.includes(topic))return;const threshold=reminderOffset(config,due,['onboarding','attendance'].includes(topic));if(threshold===null)return;for(const email of emails){const event_key=communicationFingerprint([ct.id,key,due,threshold,email]);candidates.push({event_key,cid:ct.id,source_key:key,due,threshold,email,topic,label:person.name,status:(db.v011.reminderProcessed||[]).includes(event_key)?'simulated':'pending'})}}
         for(const [key,topic] of [['end_date','contract'],['probation_end','contract'],['identity_expiry','document'],['registration_expiry','qualification'],['work_permit_expiry','qualification'],['next_review','qualification']])add(topic,person.id+':'+key,d.profile.fields[key]);
         for(const doc of d.documents)add('document','document:'+doc.id,doc.expiry);for(const task of d.profile.tasks.filter(t=>!['done','na'].includes(t.status)))add('onboarding','task:'+person.id+':'+task.id,task.due);
       }
+      // Previous month still open and unverified: one overdue-only reminder per structure (as on the server).
+      const previous=new Date(Date.UTC(+TODAY.slice(0,4),+TODAY.slice(5,7)-2,1)).toISOString().slice(0,7),prev=previous===db.month?db.snapshots[ct.id].period:db.periodOverrides[ct.id+'|'+previous];
+      if(config.topics.includes('attendance')&&db.snapshots[ct.id].entries.some(e=>e.day.startsWith(previous+'-'))&&!prev?.closed&&!prev?.verified){const due=TODAY.slice(0,7)+'-01',threshold=reminderOffset(config,due,true);if(threshold!==null)for(const email of emails){const event_key=communicationFingerprint([ct.id,'attendance:'+previous,due,threshold,email]);candidates.push({event_key,cid:ct.id,source_key:'attendance:'+previous,due,threshold,email,topic:'attendance',label:previous,status:(db.v011.reminderProcessed||[]).includes(event_key)?'simulated':'pending'})}}
     }
     const grouped=new Map();for(const e of candidates.filter(e=>e.status==='pending')){const key=e.cid+'|'+e.email;if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(e)}
     const messages=[...grouped.values()].map(events=>{const {cid,email}=events[0],name=db.snapshots[cid].center.name,counts={};for(const e of events)counts[e.topic]=(counts[e.topic]||0)+1;return {cid,email,name:'Ufficio HR · '+name,subject:'Promemoria HR · '+name,body:'Riepilogo dimostrativo delle attività per '+name+'.\n\n'+Object.entries(counts).map(([k,n])=>reminderTopics[k]+': '+n).join('\n')+'\n\nConsulta il portale con il tuo account autorizzato. Questo messaggio non contiene nomi di dipendenti o allegati. Nessuna email viene inviata dalla demo.',event_keys:events.map(e=>e.event_key),count:events.length}});
@@ -712,7 +737,7 @@
       case 'communication_send':return communicationSend(body);
       case 'communication_config_save':communicationAccess();fail('La demo simula soltanto gli invii. Non inserire server o credenziali reali: configura SMTP nell’installazione aziendale.');break;
       case 'entry':return saveEntry(body);
-      case 'delete':{const s=allowedCenter(cid),p=period(cid,selectedMonth);if(!writeAllowed()||role==='operator'&&!p.config.operator_delete)fail('Eliminazione riservata al responsabile.',403);if(p.closed)fail('Mese chiuso.');const e=s.entries.find(e=>e.id===body.id&&e.day.startsWith(selectedMonth));if(!e)fail('Registrazione non trovata.');s.entries=s.entries.filter(x=>x!==e);audit(cid,'Presenza eliminata');return {ok:true}}
+      case 'delete':{const s=allowedCenter(cid),p=period(cid,selectedMonth);if(!writeAllowed())fail('Questo profilo può consultare le presenze, senza modificarle.',403);if(role==='operator'&&!p.config.operator_delete)fail('Eliminazione riservata al responsabile del centro e all’amministratore.',403);if(p.closed)fail('Mese chiuso: per modificarlo serve la riapertura motivata del responsabile del centro o dell’amministratore.');const e=s.entries.find(e=>e.id===body.id&&e.day.startsWith(selectedMonth));if(!e)fail('Registrazione non trovata nel mese.');if(e.layer==='planned'&&role==='operator'&&!p.config.operator_planned)fail('Pianificazione riservata al responsabile del centro e all’amministratore.',403);s.entries=s.entries.filter(x=>x!==e);audit(cid,'Presenza eliminata');return {ok:true}}
       case 'hr_save':return saveHR(body);
       case 'hr_task':{requireHR(cid);hrDetail(cid,body.pid);const d=db.hrDetails[cid][body.pid];if(d.profile.version!==body.version)fail('Fascicolo modificato: ricarica.');const t=d.profile.tasks.find(t=>t.id===body.task_id);if(!t||!['todo','doing','done','na'].includes(body.status))fail('Attività non valida.');if(body.status==='na'&&!String(body.note||'').trim())fail('Indica il motivo della non applicabilità.');Object.assign(t,{status:body.status,due:body.due||'',owner:String(body.owner||'').slice(0,150),note:String(body.note||'').slice(0,1000)});d.profile.version++;d.history.unshift({version:d.profile.version,stamp:now(),actor:'demo.'+role});audit(cid,'Attività di onboarding aggiornata');return {ok:true}}
       case 'hr_settings':requireHR(cid);db.hrLists[cid].settings={...copy(body.settings),version:(db.hrLists[cid].settings.version||0)+1};audit(cid,'Modello onboarding aggiornato');return {ok:true};

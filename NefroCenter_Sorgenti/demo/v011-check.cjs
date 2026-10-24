@@ -22,7 +22,15 @@ async function call(ctx,url,body,expected=200){const r=await ctx.fetch('/api/'+u
  const verified=await workflow('manager_approve',{calendar_checked:true});assert.equal(verified.workflow.status,'manager_approved');
  await call(c,'approval_transition',{cid,month,version:verified.workflow.version,fingerprint:verified.fingerprint,action:'hr_approve'},403);
  await as('hr');const approved=await workflow('hr_approve');assert.equal(approved.workflow.status,'hr_approved');assert.equal((await call(c,`state?cid=${cid}&month=${month}`)).period.closed,true);
- const reopened=await workflow('reopen');assert.equal(reopened.workflow.status,'draft');assert.equal(reopened.history.length,4);
+ const reopened=await workflow('reopen');assert.equal(reopened.workflow.status,'returned');assert.equal(reopened.history.length,4);assert.equal(reopened.closed,false);assert.equal(reopened.verified,false);
+ // Parity with approvals.py: HR may return a submitted month, the manager may reopen an approved one.
+ await as('operator');await workflow('submit');await as('hr');assert.deepEqual((await call(c,`approvals?cid=${cid}&month=${month}`)).actions,['return']);
+ assert.equal((await workflow('return')).workflow.status,'returned');
+ await as('operator');await workflow('submit');await as('manager');await workflow('manager_approve',{calendar_checked:true});await as('hr');await workflow('hr_approve');
+ await as('manager');assert.deepEqual((await call(c,`approvals?cid=${cid}&month=${month}`)).actions,['reopen']);assert.equal((await workflow('reopen')).workflow.status,'returned');
+ // The site cannot submit a month with planned shifts still lacking the actual record.
+ await as('operator');const october=await call(c,`approvals?cid=${cid}&month=2026-10`);assert.ok(october.checks.some(x=>x.includes('fasce pianificate')));
+ await call(c,'approval_transition',{cid,month:'2026-10',version:october.workflow.version,fingerprint:october.fingerprint,action:'submit',note:''},400);
  await as('admin');await call(c,'close',{cid,month},400);
  // Documents are visible centrally; manager resubmits but cannot validate.
  const listing=await call(c,'hr?cid='+cid),person=listing.employees[0].id;

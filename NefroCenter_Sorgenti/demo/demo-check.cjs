@@ -44,11 +44,16 @@ async function call(ctx,url,body,expected=200){const r=await ctx.fetch('/api/'+u
    assert.equal(person.structure.fields.contact_name,'Referente modificato demo');
    if(role==='manager')await call(c,'structures?cid='+seed.centers.find(x=>x.id!==cid).id,undefined,403);
   }
-  if(hr){const list=await call(c,'hr?cid='+cid);await call(c,'hr?cid='+cid+'&pid='+list.employees[0].id);await call(c,'payroll_preview?cid='+cid+'&from=2026-10&to=2026-10');}
+  if(hr){const list=await call(c,'hr?cid='+cid);await call(c,'hr?cid='+cid+'&pid='+list.employees[0].id);const payroll=await call(c,'payroll_preview?cid='+cid+'&from=2026-10&to=2026-10');
+   // Same wording as the server for a draft template.
+   assert.ok(payroll.issues.some(i=>i.message==='Confermare il modello dopo la verifica delle specifiche con il consulente.'));assert.ok(!JSON.stringify(payroll.issues).includes(' en bozza'));}
   if(role==='admin'){
    const current=await call(c,'state?cid='+cid+'&month=2026-10'),pid=current.people[0].id,old=current.entries.length;
    await call(c,'entry',{cid,month:'2026-10',revision:current.center.revision,entry:{person_id:pid,day:'2026-10-26',slot:'m',code:'m',layer:'actual',start:'07:00',end:'13:00',pause:0,overnight:false,holiday:false,work_site:s.center.name,note:'Prova fittizia'}});
    const changed=await call(c,'state?cid='+cid+'&month=2026-10');assert.equal(changed.entries.length,old+1);
+   // Minimum rest warning, as returned by the server: evening shift six hours after the morning one.
+   const rest=await call(c,'entry',{cid,month:'2026-10',revision:changed.center.revision,entry:{person_id:pid,day:'2026-10-26',slot:'s',code:'s',layer:'actual',note:'Prova riposo minimo'}});assert.deepEqual(rest.warnings,['Intervallo inferiore a 11 ore.']);
+   const after=await call(c,'state?cid='+cid+'&month=2026-10'),evening=after.entries.find(e=>e.day==='2026-10-26'&&e.slot==='s'&&e.person_id===pid);await call(c,'delete',{cid,month:'2026-10',revision:after.center.revision,id:evening.id});
    const st=await call(c,'statistics?from=2026-10&to=2026-10&cid='+cid);assert.equal(st.summary.work_shifts,stats.summary.work_shifts+1);
    await call(c,'backup_policy');const x=await c.fetch('/api/export_xlsx?kind=presenze_centro&cid='+cid);assert.equal(x.status,200);assert.equal(Buffer.from(await x.arrayBuffer()).subarray(0,2).toString(),'PK');
   }
