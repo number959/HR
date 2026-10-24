@@ -1,0 +1,30 @@
+Carico: registrare i totali per fascia
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Responsabili e amministratori abilitati
+
+[00:00:00.000] Prima di iniziare
+Registrare conteggi aggregati dei pazienti e leggere i rapporti organizzativi della sede.
+
+Modifica riservata a responsabili e amministratori.
+
+[00:00:12.000] Passo 1 di 5
+Apri Carico e controlla centro, mese, data e fascia.
+
+[00:00:22.000] Passo 2 di 5
+Inserisci il numero di pazienti ordinari e in contumacia, usando interi non negativi.
+
+[00:00:32.000] Passo 3 di 5
+Premi Salva conteggio e verifica la riga della data e fascia selezionate.
+
+[00:00:42.000] Passo 4 di 5
+Leggi rapporti INF/MED e indici rispetto ai parametri della sede. Il personale pertinente deriva dalle presenze e dai ruoli configurati.
+
+[00:00:55.000] Passo 5 di 5
+Se compare N/D, controlla dati e configurazione senza sostituirlo con zero. I risultati vanno valutati dai referenti.
+
+[00:01:07.000] Controlla il risultato
+La tabella conserva un riferimento organizzativo per data e fascia, distinto dalle informazioni cliniche.
+
+[00:01:17.000] Se qualcosa non funziona
+N/D: può mancare personale pertinente o un conteggio; verifica la fonte.

@@ -1,0 +1,27 @@
+Scadenze: risalire al dato da aggiornare
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Utenti autorizzati al fascicolo HR
+
+[00:00:00.000] Prima di iniziare
+Trovare le date da controllare e aggiornarle nella sezione che le genera.
+
+Apri il fascicolo della persona.
+
+[00:00:12.000] Passo 1 di 4
+Apri Scadenze e leggi oggetto, data e stato della voce.
+
+[00:00:22.000] Passo 2 di 4
+Premi Apri sezione per raggiungere il campo di origine: contratto, qualifiche, onboarding, anagrafica o documento.
+
+[00:00:33.000] Passo 3 di 4
+Verifica il dato con il referente e aggiorna la sezione pertinente. Per un documento rinnovato carica il nuovo allegato.
+
+[00:00:45.000] Passo 4 di 4
+Salva, torna a Scadenze e controlla che la voce rifletta il dato aggiornato.
+
+[00:00:55.000] Controlla il risultato
+La scadenza è coerente con il fascicolo; non hai creato un secondo elenco da mantenere manualmente.
+
+[00:01:06.000] Se qualcosa non funziona
+Una data trascorsa richiede controllo: non prova automaticamente un’inadempienza.

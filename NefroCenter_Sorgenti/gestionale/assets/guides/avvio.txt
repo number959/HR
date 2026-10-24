@@ -1,0 +1,30 @@
+Primo accesso: entrare e orientarsi
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Tutti gli utenti con un account nominativo
+
+[00:00:00.000] Prima di iniziare
+Accedere al portale e riconoscere subito sede, mese e ruolo con cui si lavora.
+
+Installazione aziendale: indirizzo HTTPS, nome utente, password iniziale e codice di attivazione forniti dall’amministratore.
+
+[00:00:16.000] Passo 1 di 5
+Apri l’indirizzo del portale. Nell’installazione aziendale inserisci nome utente e password iniziale.
+
+[00:00:26.000] Passo 2 di 5
+Al primo accesso usa il codice di attivazione. Collega l’app Authenticator tramite QR, inserisci il codice a 6 cifre e scegli una password personale di almeno 12 caratteri.
+
+[00:00:42.000] Passo 3 di 5
+Conserva i codici di recupero fuori dal telefono e conferma di averli salvati. Nei successivi accessi servono password e Authenticator; ogni codice di recupero si usa una sola volta.
+
+[00:00:59.000] Passo 4 di 5
+Una volta entrato, controlla il centro in alto, il mese e il ruolo accanto al tuo nome. Cambia centro prima di aprire un fascicolo o compilare il registro.
+
+[00:01:15.000] Passo 5 di 5
+Apri Guide e tutorial per cercare una procedura; Aiuto per questa pagina mantiene il contesto del lavoro. Quando termini, premi Esci.
+
+[00:01:28.000] Controlla il risultato
+Vedi i centri assegnati e le pagine del tuo ruolo; la sede e il mese corretti sono visibili nell’intestazione.
+
+[00:01:40.000] Se qualcosa non funziona
+Authenticator rifiutato: abilita data e ora automatiche sul telefono e prova un codice nuovo.

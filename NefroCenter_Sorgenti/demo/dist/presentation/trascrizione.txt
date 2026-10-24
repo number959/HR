@@ -1,0 +1,35 @@
+NEFROCENTER — PRESENTAZIONE AGGIORNATA v0.11
+Voce sintetica italiana: ElsaNeural. Dati esclusivamente fittizi.
+
+00:00:00 · Un portale per sedi e HR
+NefroCenter riunisce persone, presenze e attività amministrative in un portale condiviso tra le strutture e l’ufficio risorse umane.
+
+00:00:10 · La visione del gruppo
+La dashboard mostra la situazione delle sedi. Totali, stato dei mesi e attività da completare aiutano i referenti a individuare dove intervenire.
+
+00:00:21 · Presenze e pianificazione
+Nel registro, pianificato e consuntivo restano distinti. Gli utenti autorizzati inseriscono fasce, causali e orari; i controlli segnalano registrazioni mancanti e dati da verificare.
+
+00:00:36 · Fascicolo e struttura
+Il fascicolo raccoglie anagrafica, contratto, onboarding e scadenze. I recapiti della struttura sono collegati alla persona, così la sede e l’ufficio centrale consultano gli stessi riferimenti.
+
+00:00:50 · Verifica documentale HR
+I documenti caricati dalle sedi sono disponibili a HR centrale. HR può verificarli o richiedere una correzione. La sede li ripresenta; lo storico conserva autore, data e motivazione.
+
+00:01:05 · Approvazione del mese
+Con il flusso attivo, la sede invia il mese e il registro si blocca. Il responsabile verifica i dati; HR approva la chiusura. Per correggere, il mese viene restituito con una motivazione.
+
+00:01:20 · Copertura e sostituzioni
+La copertura confronta i minimi della struttura con i turni pianificati. Disponibilità e proposte di sostituzione aiutano a organizzare il lavoro, con conferma del responsabile della sede destinataria.
+
+00:01:35 · Email e promemoria
+Prepara email da modelli e liste, controlla l’anteprima e conferma i destinatari. I promemoria delle scadenze si configurano separatamente. Nella demo tutto è simulato; gli invii reali richiedono la posta aziendale.
+
+00:01:51 · Preparazione dei dati paghe
+Il modulo paghe importa le specifiche del file e controlla colonne, causali e dati prima dell’esportazione. Il tracciato va concordato e collaudato con il consulente; il portale non produce cedolini.
+
+00:02:06 · Uscite e restituzioni
+Per cessazioni e trasferimenti, una checklist segue le attività e la restituzione di badge, chiavi e dispositivi. Il percorso si completa dopo le verifiche, senza modificare automaticamente anagrafiche o account esterni.
+
+00:02:22 · Guide e prova della demo
+Guide, tutorial e videoguide spiegano le procedure e le impostazioni. Apri la demo, scegli un ruolo e prova i percorsi con i colleghi. Ogni visitatore lavora su una copia separata con dati fittizi.

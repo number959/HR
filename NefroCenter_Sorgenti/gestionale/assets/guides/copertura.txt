@@ -1,0 +1,36 @@
+Copertura turni: trovare e gestire le scoperture
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Copertura aggregata: tutti i ruoli nei centri autorizzati. Note e proposte: HR e responsabili. Minimi e conferma sostituzioni: responsabile della destinazione o amministratore.
+
+[00:00:00.000] Prima di iniziare
+Confrontare il personale pianificato con i minimi della sede e valutare una sostituzione.
+
+I minimi sono riferimenti organizzativi definiti dalla sede, non una certificazione clinica.
+
+[00:00:15.000] Passo 1 di 7
+Scegli centro e mese e apri Copertura turni. In Copertura del mese leggi minimi, pianificati, consuntivi e mancanti separatamente.
+
+[00:00:27.000] Passo 2 di 7
+In Fabbisogni il responsabile definisce giorno della settimana, fascia, qualifica e minimo. Un’eccezione per data prevale sulla settimana tipo. Salva e controlla il riepilogo.
+
+[00:00:41.000] Passo 3 di 7
+In Disponibilità HR o il responsabile registra persona, intervallo e indicazione. Non disponibile esclude il pianificato in conflitto; Disponibile e Preferenza non assegnano un turno.
+
+[00:00:56.000] Passo 4 di 7
+Prima di proporre tra sedi, verifica che le due anagrafiche della stessa persona siano collegate in Personale di gruppo e che il proponente possa accedere a entrambe le sedi.
+
+[00:01:13.000] Passo 5 di 7
+In Sostituzioni scegli persona e sede d’origine, giorno, fascia e causale di lavoro della destinazione. Motiva e invia la proposta.
+
+[00:01:26.000] Passo 6 di 7
+Il responsabile della destinazione o l’amministratore controlla e usa Accetta e pianifica oppure Rifiuta, con nota. All’accettazione il programma ricontrolla disponibilità e conflitti.
+
+[00:01:40.000] Passo 7 di 7
+Aggiorna la copertura. Per il lavoro effettivamente svolto registra poi il Consuntivo nelle Presenze.
+
+[00:01:50.000] Controlla il risultato
+Le fasce da coprire sono visibili; una proposta accettata crea un solo turno pianificato e conserva la decisione.
+
+[00:02:02.000] Se qualcosa non funziona
+Nessun candidato: controlla anagrafiche attive, identità collegate e accesso alle due sedi.

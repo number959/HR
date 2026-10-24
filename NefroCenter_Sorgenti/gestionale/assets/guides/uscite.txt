@@ -1,0 +1,36 @@
+Uscite e dotazioni: completare la riconsegna
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: HR centrale, amministratori e responsabili dei centri assegnati
+
+[00:00:00.000] Prima di iniziare
+Seguire cessazione o trasferimento e chiudere il percorso solo dopo attività e restituzioni.
+
+HR centrale, amministratori e responsabili gestiscono le sedi autorizzate.
+
+[00:00:14.000] Passo 1 di 7
+Apri Uscite e dotazioni. In Dotazioni premi Registra consegna per affidare un bene: scegli persona, tipo, codice inventario, descrizione e data effettiva.
+
+[00:00:28.000] Passo 2 di 7
+In Percorsi di uscita premi Nuovo percorso. Indica persona, Cessazione o Trasferimento, data prevista, referente e motivazione di almeno 8 caratteri.
+
+[00:00:41.000] Passo 3 di 7
+Apri il percorso e aggiorna le attività per badge, chiavi, dispositivi, documenti e accessi: stato, scadenza, responsabile e nota. Non applicabile richiede una motivazione.
+
+[00:00:55.000] Passo 4 di 7
+Quando un bene è realmente riconsegnato, usa Registra restituzione e indica data e condizioni. Danni o inutilizzabilità richiedono una descrizione.
+
+[00:01:08.000] Passo 5 di 7
+Controlla i blocchi. Completa percorso è disponibile solo con attività obbligatorie concluse o motivate e nessuna dotazione ancora assegnata. Inserisci la nota finale e conferma.
+
+[00:01:23.000] Passo 6 di 7
+Consulta lo storico. Annulla percorso conserva le dotazioni ancora affidate; una restituzione registrata non viene riscritta.
+
+[00:01:34.000] Passo 7 di 7
+Completa separatamente le modifiche autorizzate a fascicolo, sedi e account: chiudere il percorso non cessa il rapporto, non trasferisce la persona e non disabilita accessi esterni.
+
+[00:01:49.000] Controlla il risultato
+La chiusura documenta verifiche e restituzioni; le attività mancanti restano visibili prima della conferma.
+
+[00:01:59.000] Se qualcosa non funziona
+Percorso già aperto: gestisci quello corrente oppure annullalo con motivazione prima di crearne un altro.

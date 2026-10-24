@@ -1,0 +1,30 @@
+Sicurezza: gestire telefono, recuperi e sessioni
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Ogni utente gestisce il proprio account
+
+[00:00:00.000] Prima di iniziare
+Mantenere un modo affidabile per accedere e revocare le sessioni non più necessarie.
+
+Apri il tuo account da Sicurezza · 2FA.
+
+[00:00:13.000] Passo 1 di 5
+Controlla attività recenti, sessioni e numero di codici di recupero disponibili.
+
+[00:00:23.000] Passo 2 di 5
+Per sostituire il telefono premi Cambia dispositivo, collega il nuovo Authenticator e conferma il codice prima di dismettere il vecchio.
+
+[00:00:36.000] Passo 3 di 5
+Rigenera codici sostituisce i precedenti: conserva la nuova serie in un luogo riservato e separato dal telefono.
+
+[00:00:48.000] Passo 4 di 5
+Per Cambia password inserisci quella attuale e ripeti la nuova, di almeno 12 caratteri. Il cambio disconnette le sessioni.
+
+[00:01:00.000] Passo 5 di 5
+Usa Esci dagli altri dispositivi per revocare le altre sessioni; Esci nell’intestazione termina quella corrente.
+
+[00:01:11.000] Controlla il risultato
+I dispositivi e le sessioni rimasti validi sono quelli che intendi usare; i nuovi recuperi sono disponibili se necessari.
+
+[00:01:23.000] Se qualcosa non funziona
+Telefono perso: usa password e un recupero monouso, oppure chiedi il ripristino al referente dopo verifica d’identità.

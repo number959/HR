@@ -1,0 +1,126 @@
+{
+  "text": "Nel registro, pianificato e consuntivo restano distinti. Gli utenti autorizzati inseriscono fasce, causali e orari; i controlli segnalano registrazioni mancanti e dati da verificare.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 2963750,
+      "text": "Nel"
+    },
+    {
+      "offset": 4108330,
+      "duration": 6830000,
+      "text": "registro"
+    },
+    {
+      "offset": 12613330,
+      "duration": 8376250,
+      "text": "pianificato"
+    },
+    {
+      "offset": 21118750,
+      "duration": 644160,
+      "text": "e"
+    },
+    {
+      "offset": 21891660,
+      "duration": 8247500,
+      "text": "consuntivo"
+    },
+    {
+      "offset": 30267910,
+      "duration": 4381250,
+      "text": "restano"
+    },
+    {
+      "offset": 34778330,
+      "duration": 7216660,
+      "text": "distinti"
+    },
+    {
+      "offset": 44716660,
+      "duration": 1932910,
+      "text": "Gli"
+    },
+    {
+      "offset": 46778330,
+      "duration": 4123750,
+      "text": "utenti"
+    },
+    {
+      "offset": 51030830,
+      "duration": 8247500,
+      "text": "autorizzati"
+    },
+    {
+      "offset": 59407080,
+      "duration": 6572080,
+      "text": "inseriscono"
+    },
+    {
+      "offset": 66108330,
+      "duration": 4897080,
+      "text": "fasce"
+    },
+    {
+      "offset": 73324580,
+      "duration": 5541250,
+      "text": "causali"
+    },
+    {
+      "offset": 78995000,
+      "duration": 644160,
+      "text": "e"
+    },
+    {
+      "offset": 79767910,
+      "duration": 4381250,
+      "text": "orari"
+    },
+    {
+      "offset": 86469160,
+      "duration": 1030830,
+      "text": "i"
+    },
+    {
+      "offset": 87628750,
+      "duration": 6830000,
+      "text": "controlli"
+    },
+    {
+      "offset": 94587500,
+      "duration": 5927910,
+      "text": "segnalano"
+    },
+    {
+      "offset": 100644160,
+      "duration": 7732080,
+      "text": "registrazioni"
+    },
+    {
+      "offset": 108505000,
+      "duration": 7474160,
+      "text": "mancanti"
+    },
+    {
+      "offset": 116108330,
+      "duration": 1288750,
+      "text": "e"
+    },
+    {
+      "offset": 117525830,
+      "duration": 3092910,
+      "text": "dati"
+    },
+    {
+      "offset": 120747500,
+      "duration": 902080,
+      "text": "da"
+    },
+    {
+      "offset": 121778330,
+      "duration": 7345410,
+      "text": "verificare"
+    }
+  ]
+}

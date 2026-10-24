@@ -1,0 +1,33 @@
+Dipendenti: aprire o creare un fascicolo
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Responsabili dei centri assegnati, HR centrale e amministratori
+
+[00:00:00.000] Prima di iniziare
+Raccogliere i dati amministrativi della persona e ritrovare documenti, onboarding e scadenze.
+
+HR centrale e amministratori accedono a tutte le sedi; i responsabili soltanto a quelle assegnate.
+
+[00:00:16.000] Passo 1 di 6
+Apri Dipendenti nel centro corretto. Cerca per nome, matricola o reparto e usa il filtro dello stato del rapporto.
+
+[00:00:28.000] Passo 2 di 6
+Apri una persona esistente oppure premi Nuovo dipendente. Compila i dati identificativi e il ruolo nel registro.
+
+[00:00:40.000] Passo 3 di 6
+Completa le sezioni pertinenti: Anagrafica, Recapiti, Rapporto di lavoro, Amministrazione e Qualifiche. Riferimento impostazioni spiega ogni campo.
+
+[00:00:52.000] Passo 4 di 6
+Premi Salva fascicolo. Il primo salvataggio crea le attività onboarding dal modello della sede e dalla data d’ingresso.
+
+[00:01:04.000] Passo 5 di 6
+Apri Documenti per gli allegati e Scadenze per le date da controllare. Struttura di riferimento mostra i recapiti condivisi della sede.
+
+[00:01:17.000] Passo 6 di 6
+Prima di passare a Presenze della persona o Accordo del mese salva le modifiche del fascicolo.
+
+[00:01:28.000] Controlla il risultato
+Il fascicolo è conservato sul server centrale ed è consultabile da HR e dai responsabili autorizzati.
+
+[00:01:39.000] Se qualcosa non funziona
+Matricola già usata: controlla l’anagrafica esistente prima di crearne una nuova.

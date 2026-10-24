@@ -1,0 +1,30 @@
+Qualifiche: registrare scadenze e campi aggiuntivi
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Utenti autorizzati al fascicolo HR
+
+[00:00:00.000] Prima di iniziare
+Tenere ordinati i riferimenti amministrativi delle qualifiche e i dati specifici della sede.
+
+Apri il fascicolo in Dipendenti.
+
+[00:00:12.000] Passo 1 di 5
+Apri Qualifiche. Registra ordine o albo, numero e scadenza pertinente, se prevista.
+
+[00:00:22.000] Passo 2 di 5
+Completa eventuale scadenza del titolo di soggiorno/lavoro e prossima verifica amministrativa quando necessarie.
+
+[00:00:32.000] Passo 3 di 5
+Compila i campi personalizzati rispettando il tipo richiesto: testo, numero, data o Sì/No.
+
+[00:00:42.000] Passo 4 di 5
+Usa le note per riferimenti amministrativi utili. Diagnosi e referti rimangono nei sistemi del medico competente.
+
+[00:00:53.000] Passo 5 di 5
+Premi Salva fascicolo e apri Scadenze per controllare le date.
+
+[00:01:03.000] Controlla il risultato
+Le date salvate alimentano le scadenze; i campi personalizzati richiesti e ancora vuoti restano segnalati.
+
+[00:01:14.000] Se qualcosa non funziona
+Campo del tipo sbagliato: correggi il valore oppure verifica la definizione nel Modello onboarding.

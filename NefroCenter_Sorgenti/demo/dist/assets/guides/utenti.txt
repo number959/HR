@@ -1,0 +1,33 @@
+Utenti e permessi: assegnare il ruolo corretto
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Solo amministratori
+
+[00:00:00.000] Prima di iniziare
+Creare un account nominativo con il ruolo e le sedi necessari al lavoro della persona.
+
+Operazione riservata agli amministratori.
+
+[00:00:12.000] Passo 1 di 6
+Apri Utenti e permessi e premi Nuovo utente. Inserisci nome, nome utente e password iniziale di almeno 12 caratteri.
+
+[00:00:24.000] Passo 2 di 6
+Scegli il ruolo: Compilatore per il registro, Lettore per consultazione, Responsabile per la sede, HR centrale per processi HR di gruppo, Amministratore per configurazione e account.
+
+[00:00:39.000] Passo 3 di 6
+Assegna i centri ai ruoli di sede. HR centrale e amministratore hanno ambito globale; l’utente Lettore non riceve automaticamente tutte le sedi.
+
+[00:00:53.000] Passo 4 di 6
+Salva e conserva il codice di attivazione mostrato, valido 7 giorni. Consegnalo riservatamente alla persona, separato dalla password.
+
+[00:01:05.000] Passo 5 di 6
+Per revocare l’accesso togli Account attivo e salva. Le modifiche all’account revocano le sessioni.
+
+[00:01:15.000] Passo 6 di 6
+Per un telefono perso, verifica l’identità prima di usare Ripristina 2FA con motivazione. Il vecchio dispositivo, i recuperi e le sessioni vengono revocati.
+
+[00:01:29.000] Controlla il risultato
+L’utente accede con credenziali proprie e trova le funzioni e le sedi assegnate.
+
+[00:01:39.000] Se qualcosa non funziona
+Il codice non viene inviato automaticamente via email: consegnalo con il canale aziendale previsto.

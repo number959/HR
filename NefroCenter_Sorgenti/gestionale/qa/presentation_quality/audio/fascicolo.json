@@ -1,0 +1,136 @@
+{
+  "text": "Il fascicolo raccoglie anagrafica, contratto, onboarding e scadenze. I recapiti della struttura sono collegati alla persona, così la sede e l’ufficio centrale consultano gli stessi riferimenti.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 1932910,
+      "text": "Il"
+    },
+    {
+      "offset": 3077500,
+      "duration": 6830000,
+      "text": "fascicolo"
+    },
+    {
+      "offset": 10036250,
+      "duration": 4639160,
+      "text": "raccoglie"
+    },
+    {
+      "offset": 14804160,
+      "duration": 7602910,
+      "text": "anagrafica"
+    },
+    {
+      "offset": 24597910,
+      "duration": 7474160,
+      "text": "contratto"
+    },
+    {
+      "offset": 33876250,
+      "duration": 6958750,
+      "text": "onboarding"
+    },
+    {
+      "offset": 40963750,
+      "duration": 773330,
+      "text": "e"
+    },
+    {
+      "offset": 41865830,
+      "duration": 7345410,
+      "text": "scadenze"
+    },
+    {
+      "offset": 51932910,
+      "duration": 1675410,
+      "text": "I"
+    },
+    {
+      "offset": 53737080,
+      "duration": 5283330,
+      "text": "recapiti"
+    },
+    {
+      "offset": 59149580,
+      "duration": 2319580,
+      "text": "della"
+    },
+    {
+      "offset": 61597910,
+      "duration": 6185410,
+      "text": "struttura"
+    },
+    {
+      "offset": 67912500,
+      "duration": 2319580,
+      "text": "sono"
+    },
+    {
+      "offset": 70360830,
+      "duration": 5283330,
+      "text": "collegati"
+    },
+    {
+      "offset": 75773330,
+      "duration": 1546250,
+      "text": "alla"
+    },
+    {
+      "offset": 77448330,
+      "duration": 5541250,
+      "text": "persona"
+    },
+    {
+      "offset": 85567080,
+      "duration": 2963750,
+      "text": "così"
+    },
+    {
+      "offset": 88659580,
+      "duration": 1417500,
+      "text": "la"
+    },
+    {
+      "offset": 90206250,
+      "duration": 3479580,
+      "text": "sede"
+    },
+    {
+      "offset": 93814580,
+      "duration": 515409,
+      "text": "e"
+    },
+    {
+      "offset": 94458750,
+      "duration": 4639160,
+      "text": "l’ufficio"
+    },
+    {
+      "offset": 99226660,
+      "duration": 5927910,
+      "text": "centrale"
+    },
+    {
+      "offset": 105283330,
+      "duration": 7474160,
+      "text": "consultano"
+    },
+    {
+      "offset": 112886660,
+      "duration": 1417500,
+      "text": "gli"
+    },
+    {
+      "offset": 114432910,
+      "duration": 3737080,
+      "text": "stessi"
+    },
+    {
+      "offset": 118298750,
+      "duration": 7602910,
+      "text": "riferimenti"
+    }
+  ]
+}

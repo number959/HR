@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "file": "Presentazione_NefroCenter_v0.11_qualita.mp4",
+      "bytes": 6344626,
+      "sha256": "e53707bd86f618cc6f2cdd30c7c1e074aa81cb32feae69a8977e7bf6b68c498d",
+      "frames": "4710",
+      "decode": "passed",
+      "audio": false
+    },
+    {
+      "file": "Presentazione_NefroCenter_v0.11_qualita_con_audio.mp4",
+      "bytes": 9753275,
+      "sha256": "c554ff5da559de9fbdb30b80146a7e96cb8b98e1a073ea5d050647274e7960db",
+      "frames": "4710",
+      "decode": "passed",
+      "audio": true
+    }
+  ],
+  "duration": 157,
+  "chapters": 11,
+  "caption_cues": 40,
+  "captions": "word aligned, original punctuation, at most two lines / 42 characters",
+  "audio_loudness": {
+    "input_i": "-16.11",
+    "input_tp": "-1.47",
+    "input_lra": "4.20",
+    "input_thresh": "-26.42",
+    "output_i": "-16.03",
+    "output_tp": "-1.50",
+    "output_lra": "4.00",
+    "output_thresh": "-26.34",
+    "normalization_type": "dynamic",
+    "target_offset": "0.03"
+  },
+  "status": "passed"
+}

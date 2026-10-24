@@ -1,0 +1,146 @@
+{
+  "text": "I documenti caricati dalle sedi sono disponibili a HR centrale. HR può verificarli o richiedere una correzione. La sede li ripresenta; lo storico conserva autore, data e motivazione.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 1288750,
+      "text": "I"
+    },
+    {
+      "offset": 2432910,
+      "duration": 5799160,
+      "text": "documenti"
+    },
+    {
+      "offset": 8360830,
+      "duration": 5154580,
+      "text": "caricati"
+    },
+    {
+      "offset": 13644160,
+      "duration": 2448330,
+      "text": "dalle"
+    },
+    {
+      "offset": 16221660,
+      "duration": 4252500,
+      "text": "sedi"
+    },
+    {
+      "offset": 20602910,
+      "duration": 2448330,
+      "text": "sono"
+    },
+    {
+      "offset": 23180410,
+      "duration": 6958750,
+      "text": "disponibili"
+    },
+    {
+      "offset": 30267910,
+      "duration": 515409,
+      "text": "a"
+    },
+    {
+      "offset": 30912500,
+      "duration": 5412500,
+      "text": "HR"
+    },
+    {
+      "offset": 36453750,
+      "duration": 6572080,
+      "text": "centrale"
+    },
+    {
+      "offset": 45747500,
+      "duration": 7216660,
+      "text": "HR"
+    },
+    {
+      "offset": 53092910,
+      "duration": 1675410,
+      "text": "può"
+    },
+    {
+      "offset": 54897080,
+      "duration": 9149580,
+      "text": "verificarli"
+    },
+    {
+      "offset": 64175410,
+      "duration": 1288750,
+      "text": "o"
+    },
+    {
+      "offset": 65592910,
+      "duration": 4897080,
+      "text": "richiedere"
+    },
+    {
+      "offset": 70618750,
+      "duration": 1804160,
+      "text": "una"
+    },
+    {
+      "offset": 72551660,
+      "duration": 8376250,
+      "text": "correzione"
+    },
+    {
+      "offset": 83634160,
+      "duration": 2319580,
+      "text": "La"
+    },
+    {
+      "offset": 86082500,
+      "duration": 3479580,
+      "text": "sede"
+    },
+    {
+      "offset": 89690830,
+      "duration": 1160000,
+      "text": "li"
+    },
+    {
+      "offset": 90979160,
+      "duration": 7087500,
+      "text": "ripresenta"
+    },
+    {
+      "offset": 100386660,
+      "duration": 1160000,
+      "text": "lo"
+    },
+    {
+      "offset": 101675410,
+      "duration": 5025830,
+      "text": "storico"
+    },
+    {
+      "offset": 106830000,
+      "duration": 5412500,
+      "text": "conserva"
+    },
+    {
+      "offset": 112371250,
+      "duration": 5154580,
+      "text": "autore"
+    },
+    {
+      "offset": 119072080,
+      "duration": 4897080,
+      "text": "data"
+    },
+    {
+      "offset": 124097910,
+      "duration": 1160000,
+      "text": "e"
+    },
+    {
+      "offset": 125386660,
+      "duration": 9407080,
+      "text": "motivazione"
+    }
+  ]
+}

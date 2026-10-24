@@ -1,0 +1,89 @@
+{
+  "lucide": {
+    "package": "lucide-static",
+    "version": "0.468.0",
+    "license_url": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/LICENSE",
+    "files": [
+      {
+        "name": "users-round",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/users-round.svg",
+        "sha256": "e7ccd113816a1631cefa00ffadc7d6ec3d439d1fb706bae8c390047edd6e71a2"
+      },
+      {
+        "name": "calendar-days",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/calendar-days.svg",
+        "sha256": "b91ebeecee30b2b6f9258f4fdf25c5fc91adbd265bf071139774dea2f9e51ac7"
+      },
+      {
+        "name": "layout-dashboard",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/layout-dashboard.svg",
+        "sha256": "6b92134b591c618a936c6a03e73fcdb0883a4d8a673455a902f8f8ff8912eccb"
+      },
+      {
+        "name": "clipboard-check",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/clipboard-check.svg",
+        "sha256": "e038524adde1b7553d49f11e7590e67a0f82e97e0e27045842eb94ecec5ca8c9"
+      },
+      {
+        "name": "settings-2",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/settings-2.svg",
+        "sha256": "1ec1cc186ecdbd74e9b82033a08dbc9f2f0e406f4b6ac2f082ac5e52cfa0f411"
+      },
+      {
+        "name": "refresh-cw",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/refresh-cw.svg",
+        "sha256": "d63b359b0fe05e03cff8aaa7acf82f9569733e83f7fb4742d583a086972c4bb0"
+      },
+      {
+        "name": "building-2",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/building-2.svg",
+        "sha256": "b8e1a849a72553128b8f4e565033ab756daf2160de3ec9ec41ccd47058942d47"
+      },
+      {
+        "name": "shield-check",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/shield-check.svg",
+        "sha256": "0e9116845c6053cd3bfa09a3e4c232f5fb28c3abab75792287d2aed31c24ebe7"
+      },
+      {
+        "name": "file-text",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/file-text.svg",
+        "sha256": "512f414d72aabc5218b94a9da571df70d8e0b014cfb32ec366b559ec868952d6"
+      },
+      {
+        "name": "user-plus",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/user-plus.svg",
+        "sha256": "8fb2d84b799cad13758b8a95174b02581f366a7070ffed75779e439031e47746"
+      },
+      {
+        "name": "log-out",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/log-out.svg",
+        "sha256": "3f28d1eedd9a71ec6933578fc1b7cd21c56618e8b9b8339e55bfc133b4eb6bee"
+      },
+      {
+        "name": "download",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/download.svg",
+        "sha256": "f68a21e11115edc0aef51ac6f8f4618e14d2b92055f1cb9f5d670efc696bea85"
+      },
+      {
+        "name": "check",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/check.svg",
+        "sha256": "538432eec072ceeccf5a7aacf347a2ad2bff9937d203dbd0b4f4245d7accd93c"
+      },
+      {
+        "name": "lock-keyhole",
+        "source": "https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/lock-keyhole.svg",
+        "sha256": "d2c052ce26b89b063a4b1ecaa98198803b7d881cb0d176cb33c067e5140b2dd0"
+      }
+    ]
+  },
+  "roboto": {
+    "source": "https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2",
+    "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/roboto/OFL.txt",
+    "sha256": "1404ca348bd75ef836f4dd8b6f2cc719458642d1237c368296b2fc652dca47dc"
+  },
+  "logo": {
+    "source": "https://www.nefrocenter.it/wp-content/uploads/2021/06/logo-grande.png",
+    "owner": "Gruppo NefroCenter",
+    "sha256": "81349901996545f9a821cc0d4e3aa208fcfc2a4d615ae9de3d7d016dc94a829f"
+  }
+}

@@ -1,0 +1,33 @@
+Backup ed esportazioni: scegliere il file corretto
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Excel secondo i permessi; gestione backup riservata agli amministratori
+
+[00:00:00.000] Prima di iniziare
+Scaricare il prospetto richiesto e distinguere un’esportazione da una copia completa dell’archivio.
+
+Le esportazioni dipendono dai permessi; i backup sono riservati all’amministratore.
+
+[00:00:14.000] Passo 1 di 6
+Apri Backup ed esportazioni e scegli Prospetto: registro, presenze complessive, statistiche, fascicoli, onboarding/scadenze oppure accordi.
+
+[00:00:25.000] Passo 2 di 6
+Imposta i filtri richiesti. Il registro usa un centro, un mese e Pianificato o Consuntivo; i prospetti HR descrivono la situazione attuale.
+
+[00:00:39.000] Passo 3 di 6
+Premi Scarica Excel e controlla nome e contenuto del file. Per dati riservati può essere richiesta una nuova verifica di sicurezza.
+
+[00:00:52.000] Passo 4 di 6
+Come amministratore, configura destinazione separata, conservazione e frequenza delle prove. Il database attivo deve restare sul disco locale del server.
+
+[00:01:05.000] Passo 5 di 6
+Crea backup adesso, poi usa Copia e prova ripristino per verificare anche la destinazione separata. Controlla data, esito ed eventuali errori.
+
+[00:01:18.000] Passo 6 di 6
+Custodisci separatamente la chiave 2FA e pianifica un ripristino completo di prova seguendo INSTALLAZIONE_WEB.md.
+
+[00:01:28.000] Controlla il risultato
+Il prospetto contiene i dati richiesti; il backup completo conserva anche i documenti, con esiti di verifica consultabili.
+
+[00:01:40.000] Se qualcosa non funziona
+Excel non è un backup: non include i file allegati binari né l’intera configurazione.

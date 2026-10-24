@@ -1,0 +1,17 @@
+{
+  "release": "0.7",
+  "source_sha256": "9cbf7e2a710d46831225d025cec190bb02b58e572eef76caddebf722a0c9a6ec",
+  "month": "2026-02",
+  "people": 17,
+  "entries": 231,
+  "work_entries": 194,
+  "absence_entries": 37,
+  "missing_work_hours": 194,
+  "unconfirmed_agreements": 17,
+  "recognized_formula_groups": 10,
+  "matched_AT_and_BA": 10,
+  "comparison_manual_theoretical_units": 26,
+  "calendar_working_days": 24,
+  "excel_or_vba_executed": false,
+  "original_unchanged": true
+}

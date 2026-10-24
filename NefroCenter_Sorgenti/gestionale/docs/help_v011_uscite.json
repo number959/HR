@@ -1,0 +1,274 @@
+{
+  "topics": [
+    {
+      "id": "uscite",
+      "title": "Uscite, trasferimenti e dotazioni",
+      "audience": "HR centrale, amministratori e responsabili dei centri assegnati",
+      "goal": "Seguire il percorso amministrativo di uscita e registrare consegne e restituzioni senza perdere lo storico.",
+      "steps": [
+        "Apri Uscite e dotazioni. Scegli Percorsi di uscita oppure Dotazioni e usa struttura, ricerca e stato per trovare la persona o il codice inventario.",
+        "In Dotazioni premi Registra consegna. Seleziona struttura e dipendente, tipo, codice inventario, descrizione e data di consegna. La restituzione prevista è facoltativa. Ogni codice può avere una sola assegnazione attiva nella stessa struttura.",
+        "In Percorsi di uscita premi Nuovo percorso. Indica la persona, Cessazione o Trasferimento, data prevista, responsabile e motivazione di almeno 8 caratteri. Per il trasferimento serve una destinazione diversa a cui il tuo account è autorizzato.",
+        "Apri il percorso. Le cinque attività iniziali riguardano badge, chiavi, dispositivi, documenti e verifica degli accessi con IT. Aggiorna stato, scadenza e responsabile; Non applicabile richiede una motivazione.",
+        "Per ogni dotazione effettivamente restituita apri Dotazioni e Registra restituzione. Indica data, condizioni e una nota; danni o inutilizzabilità richiedono almeno 8 caratteri di descrizione.",
+        "Completa percorso diventa disponibile quando tutte le attività obbligatorie sono completate o motivate come non applicabili e non risultano dotazioni assegnate. Inserisci una nota finale e conferma. Annulla percorso conserva le dotazioni ancora da restituire.",
+        "Consulta lo storico del percorso o della dotazione per autore, data e versione. I percorsi chiusi e le restituzioni non si riscrivono; per una nuova consegna crea una nuova assegnazione.",
+        "Aggiorna separatamente fascicolo, assegnazioni alle sedi e accessi aziendali secondo la procedura autorizzata. La chiusura del percorso non trasferisce la persona, non cessa il rapporto e non disattiva account esterni automaticamente."
+      ],
+      "result": "Responsabili e HR vedono attività ancora aperte e dotazioni affidate, con chiusura esplicita e storico delle operazioni.",
+      "errors": [
+        "Esiste già un percorso aperto: apri quello corrente oppure annullalo con una motivazione prima di crearne un altro.",
+        "Destinazione non autorizzata: il trasferimento richiede accesso a entrambe le strutture; coinvolgi HR centrale.",
+        "Completa percorso disabilitato: controlla attività e dotazioni ancora assegnate.",
+        "Codice già assegnato: registra la restituzione reale della precedente assegnazione prima di una nuova consegna.",
+        "Le date di consegna e restituzione effettive non possono essere future; la restituzione non può precedere la consegna.",
+        "Dati aggiornati da un collega: riapri la scheda prima di salvare."
+      ],
+      "tour": [
+        {
+          "selector": "[data-departure-section=\"cases\"]",
+          "text": "Gestisci le attività di cessazione o trasferimento."
+        },
+        {
+          "selector": "[data-departure-section=\"assets\"]",
+          "text": "Consulta consegne e restituzioni delle dotazioni."
+        },
+        {
+          "selector": "#departureNew",
+          "text": "Crea il percorso o registra una consegna."
+        },
+        {
+          "selector": "[data-departure-open]",
+          "text": "Apri attività, blocchi e storico del percorso."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "id": "departure.filter.center",
+      "topic": "uscite",
+      "section": "Filtri",
+      "label": "Struttura",
+      "effect": "Limita i risultati ai centri autorizzati; Tutte mostra il perimetro del tuo account.",
+      "example": "Centro Uno."
+    },
+    {
+      "id": "departure.filter.search",
+      "topic": "uscite",
+      "section": "Filtri",
+      "label": "Cerca persona o codice",
+      "effect": "Cerca nome, matricola, responsabile, codice inventario o descrizione.",
+      "example": "BADGE 001."
+    },
+    {
+      "id": "departure.filter.status",
+      "topic": "uscite",
+      "section": "Filtri",
+      "label": "Stato",
+      "effect": "Filtra i percorsi per avanzamento oppure le dotazioni per restituzione.",
+      "example": "Da restituire."
+    },
+    {
+      "id": "departure.case.center",
+      "topic": "uscite",
+      "section": "Percorso",
+      "label": "Struttura del percorso",
+      "effect": "Sede di provenienza della persona; non modificabile dopo la creazione.",
+      "example": "Centro Uno."
+    },
+    {
+      "id": "departure.case.person",
+      "topic": "uscite",
+      "section": "Percorso",
+      "label": "Dipendente",
+      "effect": "Anagrafica della sede, anche non attiva; non modificabile dopo la creazione.",
+      "example": "Persona Demo · DEM001."
+    },
+    {
+      "id": "departure.case.kind",
+      "topic": "uscite",
+      "section": "Percorso",
+      "label": "Tipo",
+      "effect": "Cessazione o Trasferimento; quest’ultimo richiede la destinazione.",
+      "example": "Trasferimento."
+    },
+    {
+      "id": "departure.case.date",
+      "topic": "uscite",
+      "section": "Percorso",
+      "label": "Data prevista",
+      "effect": "Data organizzativa prevista per cessazione o trasferimento; le attività iniziali la usano come scadenza.",
+      "example": "2026-11-30."
+    },
+    {
+      "id": "departure.case.destination",
+      "topic": "uscite",
+      "section": "Percorso",
+      "label": "Struttura di destinazione",
+      "effect": "Deve essere diversa e autorizzata. Il percorso non copia né trasferisce i dati della persona.",
+      "example": "Centro Due."
+    },
+    {
+      "id": "departure.case.owner",
+      "topic": "uscite",
+      "section": "Percorso",
+      "label": "Responsabile del percorso",
+      "effect": "Referente nominativo o ufficio incaricato; assegnato inizialmente anche alle attività.",
+      "example": "Ufficio HR centrale."
+    },
+    {
+      "id": "departure.case.reason",
+      "topic": "uscite",
+      "section": "Percorso",
+      "label": "Motivazione",
+      "effect": "Testo di almeno 8 caratteri per spiegare il percorso.",
+      "example": "Trasferimento concordato alla sede Due."
+    },
+    {
+      "id": "departure.task.status",
+      "topic": "uscite",
+      "section": "Attività",
+      "label": "Stato attività",
+      "effect": "Da fare, In corso, Completata o Non applicabile. Solo gli ultimi due soddisfano il blocco della chiusura.",
+      "example": "Completata dopo conferma di IT."
+    },
+    {
+      "id": "departure.task.due",
+      "topic": "uscite",
+      "section": "Attività",
+      "label": "Scadenza attività",
+      "effect": "Data entro cui svolgere l’attività; aggiornabile senza cambiare la data del percorso.",
+      "example": "2026-11-28."
+    },
+    {
+      "id": "departure.task.owner",
+      "topic": "uscite",
+      "section": "Attività",
+      "label": "Responsabile attività",
+      "effect": "Referente che deve completare la specifica attività.",
+      "example": "Referente IT aziendale."
+    },
+    {
+      "id": "departure.task.note",
+      "topic": "uscite",
+      "section": "Attività",
+      "label": "Nota attività",
+      "effect": "Spiega l’esito o la non applicabilità; per Non applicabile servono almeno 8 caratteri.",
+      "example": "Nessuna chiave affidata al dipendente."
+    },
+    {
+      "id": "departure.close.note",
+      "topic": "uscite",
+      "section": "Chiusura",
+      "label": "Motivazione / verifica effettuata",
+      "effect": "Nota finale obbligatoria per completamento o annullamento, almeno 8 caratteri.",
+      "example": "Attività e restituzioni verificate."
+    },
+    {
+      "id": "departure.close.confirm",
+      "topic": "uscite",
+      "section": "Chiusura",
+      "label": "Conferma completamento",
+      "effect": "Richiesta per completare; ricorda che anagrafiche e accessi si aggiornano separatamente.",
+      "example": "Conferma dopo le verifiche finali."
+    },
+    {
+      "id": "departure.asset.center",
+      "topic": "uscite",
+      "section": "Consegna",
+      "label": "Struttura consegna",
+      "effect": "Sede che gestisce la consegna e il codice inventario.",
+      "example": "Centro Uno."
+    },
+    {
+      "id": "departure.asset.person",
+      "topic": "uscite",
+      "section": "Consegna",
+      "label": "Dipendente assegnatario",
+      "effect": "Persona del centro a cui è stata affidata la dotazione.",
+      "example": "Persona Demo."
+    },
+    {
+      "id": "departure.asset.kind",
+      "topic": "uscite",
+      "section": "Consegna",
+      "label": "Tipo dotazione",
+      "effect": "Badge, Chiavi, Dispositivo oppure Altra dotazione.",
+      "example": "Dispositivo."
+    },
+    {
+      "id": "departure.asset.code",
+      "topic": "uscite",
+      "section": "Consegna",
+      "label": "Codice inventario",
+      "effect": "Identificatore obbligatorio, unico tra le assegnazioni attive della sede; maiuscole e spazi ripetuti non creano codici distinti.",
+      "example": "PC 042."
+    },
+    {
+      "id": "departure.asset.label",
+      "topic": "uscite",
+      "section": "Consegna",
+      "label": "Descrizione dotazione",
+      "effect": "Descrizione riconoscibile del bene consegnato.",
+      "example": "Notebook ufficio HR."
+    },
+    {
+      "id": "departure.asset.delivery",
+      "topic": "uscite",
+      "section": "Consegna",
+      "label": "Data consegna",
+      "effect": "Data effettiva, non futura. Persona, tipo, codice e data di consegna non possono essere riscritti dopo la registrazione.",
+      "example": "2026-10-22."
+    },
+    {
+      "id": "departure.asset.due",
+      "topic": "uscite",
+      "section": "Consegna",
+      "label": "Restituzione prevista",
+      "effect": "Facoltativa; non può precedere la consegna. Una data superata evidenzia il ritardo.",
+      "example": "2026-11-30."
+    },
+    {
+      "id": "departure.asset.note",
+      "topic": "uscite",
+      "section": "Consegna",
+      "label": "Nota consegna",
+      "effect": "Informazioni utili sulla consegna, senza password o codici di accesso.",
+      "example": "Consegnato con alimentatore."
+    },
+    {
+      "id": "departure.return.date",
+      "topic": "uscite",
+      "section": "Restituzione",
+      "label": "Data restituzione",
+      "effect": "Data effettiva tra la consegna e oggi.",
+      "example": "2026-10-22."
+    },
+    {
+      "id": "departure.return.condition",
+      "topic": "uscite",
+      "section": "Restituzione",
+      "label": "Condizioni",
+      "effect": "Buone condizioni, Danneggiata o Non utilizzabile.",
+      "example": "Danneggiata."
+    },
+    {
+      "id": "departure.return.note",
+      "topic": "uscite",
+      "section": "Restituzione",
+      "label": "Nota restituzione",
+      "effect": "Descrizione dei problemi obbligatoria, almeno 8 caratteri, per beni danneggiati o inutilizzabili.",
+      "example": "Schermo danneggiato sul lato destro."
+    },
+    {
+      "id": "departure.history",
+      "topic": "uscite",
+      "section": "Storico",
+      "label": "Storico e versione",
+      "effect": "Percorsi: ultimi 100 aggiornamenti; dotazioni: ultimi 50. La versione impedisce sovrascritture concorrenti.",
+      "example": "Autore e data della restituzione."
+    }
+  ],
+  "topic_updates": {}
+}

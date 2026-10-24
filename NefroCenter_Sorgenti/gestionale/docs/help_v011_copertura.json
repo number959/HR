@@ -1,0 +1,59 @@
+{
+  "topics": [
+    {
+      "id": "copertura",
+      "title": "Copertura, disponibilità e sostituzioni",
+      "audience": "Copertura aggregata: tutti i ruoli nei centri autorizzati. Note e proposte: HR e responsabili. Minimi e conferma sostituzioni: responsabile della destinazione o amministratore.",
+      "goal": "Confrontare il pianificato con i minimi organizzativi della sede e registrare sostituzioni controllate tra strutture.",
+      "steps": [
+        "Seleziona centro e mese, poi apri Copertura. Leggi separatamente personale pianificato, consuntivi e posti mancanti: i minimi confrontano il pianificato e non certificano l’adeguatezza clinica.",
+        "In Fabbisogni, il responsabile indica giorno della settimana, fascia, qualifica e minimo. Le eccezioni per data prevalgono sulla settimana tipo; minimo zero annulla il fabbisogno per quella combinazione. Salva e controlla la tabella.",
+        "In Disponibilità, HR o il responsabile sceglie persona, date inclusive e indicazione. Non disponibile esclude dal conteggio i turni pianificati in conflitto e impedisce nuove sostituzioni; Disponibile e Preferenza non assegnano turni. Le note sono riservate ai referenti autorizzati.",
+        "Per una sostituzione, verifica in Personale di gruppo che le anagrafiche della stessa persona nelle due sedi siano collegate esplicitamente. Non basta che abbiano stesso nome o matricola. Chi propone deve accedere a entrambe le sedi.",
+        "In Sostituzioni, scegli persona e origine, giorno, fascia e causale di lavoro della destinazione. Scrivi la motivazione e invia la proposta. Il programma verifica turni già presenti, indisponibilità e conflitti anche oltre la mezzanotte.",
+        "Il responsabile della destinazione o l’amministratore legge la proposta e conferma la valutazione con una nota. Accetta e pianifica aggiunge soltanto il turno pianificato; Rifiuta conserva la motivazione senza modificare le presenze.",
+        "Aggiorna la copertura dopo ogni modifica. Se i dati sono cambiati dalla proposta, rifiutala e preparane una aggiornata. Per il lavoro realmente svolto compila il consuntivo nelle Presenze."
+      ],
+      "result": "La sede vede le fasce da coprire; ogni sostituzione accettata produce un unico turno pianificato e una decisione tracciata.",
+      "errors": [
+        "Minimo da configurare: il software non deduce un fabbisogno clinico o contrattuale; il responsabile deve indicare il riferimento organizzativo.",
+        "Nessun candidato: controlla anagrafiche attive, collegamento esplicito e accesso a entrambe le sedi.",
+        "Orari mancanti o sovrapposti: correggi il registro prima di contare il turno come coperto. Un turno di lavoro senza orari rende incerta la disponibilità dell’intera giornata di inizio, e anche della successiva se potenzialmente notturno.",
+        "Mese chiuso o in approvazione: una sostituzione non può modificare il pianificato finché il percorso del mese non consente nuovamente la compilazione.",
+        "Versione modificata: ricarica prima di ripetere il salvataggio, senza sovrascrivere il lavoro di un altro referente."
+      ],
+      "tour": [
+        {"selector": "#centerSelect", "text": "Scegli la struttura di destinazione del confronto o della sostituzione."},
+        {"selector": "#monthPick", "text": "Il mese determina i turni mostrati e le proposte da valutare."},
+        {"selector": "[data-staffing-section=coverage]", "text": "Confronta minimi e pianificati; il consuntivo rimane separato."},
+        {"selector": "[data-staffing-section=requirements]", "text": "Leggi o configura settimana tipo ed eccezioni per data."},
+        {"selector": "[data-staffing-section=availability]", "text": "Registra indicazioni organizzative e note riservate ai referenti."},
+        {"selector": "[data-staffing-section=proposals]", "text": "Proponi o valuta una sostituzione tra anagrafiche già collegate."}
+      ]
+    }
+  ],
+  "settings": [
+    {"id":"staffing_day","topic":"copertura","section":"Filtri copertura","label":"Giorno","effect":"Mostra le fasce del giorno scelto nel mese selezionato.","example":"5 ottobre: tutte le fasce del giorno."},
+    {"id":"staffing_role","topic":"copertura","section":"Filtri copertura","label":"Qualifica","effect":"Filtra i conteggi per la qualifica valida nella data del turno, considerando le decorrenze registrate.","example":"INF: personale con qualifica infermieristica nella data."},
+    {"id":"staffing_state","topic":"copertura","section":"Filtri copertura","label":"Copertura","effect":"Seleziona fasce da coprire, coperte, sopra il minimo o senza minimo configurato.","example":"Da coprire: pianificati validi inferiori al minimo."},
+    {"id":"staffing_weekday","topic":"copertura","section":"Fabbisogni","label":"Giorno della settimana","effect":"Ripete il riferimento organizzativo ogni settimana. Non modifica i turni già registrati.","example":"Lunedì per la fascia Mattina."},
+    {"id":"staffing_override","topic":"copertura","section":"Fabbisogni","label":"Data dell’eccezione","effect":"Sostituisce il minimo settimanale della stessa fascia e qualifica solo nella data indicata.","example":"Una festività con minimo zero."},
+    {"id":"staffing_requirement_slot","topic":"copertura","section":"Fabbisogni","label":"Fascia","effect":"Associa il minimo a una fascia attiva della configurazione del centro.","example":"Mattina, Pomeriggio o Notte."},
+    {"id":"staffing_requirement_role","topic":"copertura","section":"Fabbisogni","label":"Qualifica del fabbisogno","effect":"Indica quale qualifica concorre al confronto del minimo.","example":"INF e MED hanno minimi distinti."},
+    {"id":"staffing_minimum","topic":"copertura","section":"Fabbisogni","label":"Personale minimo","effect":"Numero intero da 0 a 1000 scelto dal responsabile; ogni persona conta una volta per giorno, fascia e qualifica.","example":"Minimo 3, pianificati 2: un posto mancante."},
+    {"id":"staffing_remove_requirement","topic":"copertura","section":"Fabbisogni","label":"Rimuovi riga","effect":"Toglie il minimo al salvataggio. Rimuovere un’eccezione rende nuovamente applicabile il minimo settimanale.","example":"Elimina un’eccezione non più necessaria e salva."},
+    {"id":"staffing_available_person","topic":"copertura","section":"Disponibilità","label":"Persona","effect":"Seleziona l’anagrafica del centro. Una disponibilità esistente conserva la stessa persona.","example":"Scegli la persona prima di inserire le date."},
+    {"id":"staffing_available_from","topic":"copertura","section":"Disponibilità","label":"Dal giorno","effect":"Primo giorno incluso nell’indicazione. Due indicazioni attive della stessa persona e sede non possono sovrapporsi.","example":"Dal 5 ottobre."},
+    {"id":"staffing_available_to","topic":"copertura","section":"Disponibilità","label":"Al giorno incluso","effect":"Ultimo giorno incluso; intervallo massimo 367 giorni. Le indisponibilità considerano anche la fine di un turno notturno.","example":"Al 6 ottobre include tutto il giorno 6."},
+    {"id":"staffing_available_status","topic":"copertura","section":"Disponibilità","label":"Indicazione","effect":"Disponibile o Preferenza non creano turni; Non disponibile impedisce sostituzioni in conflitto ed esclude i pianificati interessati dalla copertura.","example":"Non disponibile durante un periodo concordato."},
+    {"id":"staffing_available_note","topic":"copertura","section":"Disponibilità","label":"Nota riservata ai referenti HR","effect":"Testo organizzativo fino a 1000 caratteri visibile solo a HR, amministratori e responsabili autorizzati.","example":"Disponibilità concordata con il referente."},
+    {"id":"staffing_available_active","topic":"copertura","section":"Disponibilità","label":"Indicazione attiva","effect":"Togliere la spunta ritira l’indicazione dai controlli mantenendola nell’elenco e nell’audit.","example":"Ritira un’indisponibilità annullata."},
+    {"id":"staffing_proposal_person","topic":"copertura","section":"Sostituzioni","label":"Persona e struttura di origine","effect":"Mostra solo persone attive collegate esplicitamente tra la destinazione e un’altra sede accessibile.","example":"La stessa persona già censita in due strutture."},
+    {"id":"staffing_proposal_day","topic":"copertura","section":"Sostituzioni","label":"Giorno del turno","effect":"Identifica il giorno d’inizio del turno pianificato, anche quando termina il giorno successivo.","example":"Notte del 5: inizia il 5 e termina il 6."},
+    {"id":"staffing_proposal_slot","topic":"copertura","section":"Sostituzioni","label":"Fascia di destinazione","effect":"Usa gli orari e la pausa della fascia del mese di destinazione.","example":"Mattina dalle 07:00 alle 13:00 se così configurata."},
+    {"id":"staffing_proposal_code","topic":"copertura","section":"Sostituzioni","label":"Causale di lavoro","effect":"Consente solo causali attive di lavoro ammesse nella fascia scelta.","example":"Mattina per la fascia Mattina."},
+    {"id":"staffing_proposal_note","topic":"copertura","section":"Sostituzioni","label":"Motivazione della sostituzione","effect":"Nota obbligatoria da 8 a 1000 caratteri conservata con la proposta.","example":"Copertura concordata per la fascia scoperta."},
+    {"id":"staffing_decision_note","topic":"copertura","section":"Valutazione sostituzioni","label":"Motivazione / controllo effettuato","effect":"Registra la ragione dell’accettazione o del rifiuto; richiede da 8 a 1000 caratteri.","example":"Verificate disponibilità e assenza di sovrapposizioni."},
+    {"id":"staffing_decision_confirm","topic":"copertura","section":"Valutazione sostituzioni","label":"Confermo persona, giorno e fascia","effect":"La conferma consente di aggiungere il solo pianificato. Mese bloccato, dati modificati o conflitti impediscono l’accettazione.","example":"Controlla il riepilogo prima di Conferma e registra pianificato."}
+  ]
+}

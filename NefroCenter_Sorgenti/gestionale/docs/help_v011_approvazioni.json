@@ -1,0 +1,112 @@
+{
+  "topics": [
+    {
+      "id": "approvazioni",
+      "title": "Approvazione mensile: sede, responsabile e HR",
+      "audience": "Tutti leggono le sedi autorizzate; invio ai compilatori e responsabili, verifica ai responsabili, approvazione finale a HR e amministratori",
+      "goal": "Far verificare e approvare lo stesso insieme di presenze prima della chiusura del mese e del tracciato paghe.",
+      "steps": [
+        "Apri Approvazioni, seleziona centro e mese. Leggi lo stato, i controlli bloccanti e lo storico. I centri esistenti mantengono il flusso disattivato finché un amministratore non lo attiva.",
+        "Un amministratore apre Configurazione del flusso, seleziona Richiedi verifica del responsabile e approvazione finale HR, inserisce il motivo di almeno 8 caratteri e salva. Può essere richiesta una conferma recente del codice Authenticator.",
+        "La sede completa il consuntivo e risolve le anomalie. Un compilatore, responsabile o amministratore preme Invia al responsabile. Da questo momento le presenze sono bloccate fino a una restituzione.",
+        "Il responsabile controlla i dati, conferma la verifica di calendario e parametri e invia a HR. Se servono correzioni, preme Restituisci per correzioni con una nota di almeno 8 caratteri: la sede corregge e invia nuovamente.",
+        "HR centrale controlla il mese in attesa, poi approva e chiude oppure restituisce con motivazione. HR non acquisisce il permesso di modificare direttamente le presenze. Il responsabile non può effettuare questa approvazione finale.",
+        "Dopo la chiusura, HR, amministratore o responsabile della sede può riaprire il mese motivando la correzione. La precedente approvazione viene invalidata e il mese deve ripetere il percorso. Lo storico conserva attore, data, versione e note.",
+        "Se dati anagrafici o contrattuali cambiano dopo l’invio, il sistema segnala una versione da rivedere: restituisci il mese e verifica di nuovo. Il tracciato paghe richiede l’approvazione corrente quando il flusso è attivo."
+      ],
+      "result": "Il mese è chiuso dopo il passaggio finale di HR. Ogni passaggio resta attribuito all’utente che lo ha eseguito.",
+      "errors": [
+        "Dati o stato cambiati: premi Aggiorna stato e verifica le differenze prima di ripetere il passaggio. Non vengono sovrascritte le decisioni di un altro utente.",
+        "Mese senza consuntivi, pianificati ancora aperti, sedi importate non definite o orari obbligatori assenti: correggi le presenze prima dell’invio.",
+        "Configurazione non disattivabile: restituisci o completa tutti i mesi in corso prima di disattivare il flusso.",
+        "Mese già chiuso prima dell’attivazione: resta uno storico precedente, senza attribuzione retroattiva di approvazione HR. La riapertura avvia il nuovo percorso.",
+        "Non trovi un pulsante: il passaggio dipende dal tuo ruolo, dallo stato corrente e dalla sede assegnata."
+      ],
+      "tour": [
+        {
+          "selector": "#approvalStatus",
+          "text": "Leggi lo stato del mese e il ruolo che deve intervenire."
+        },
+        {
+          "selector": "#approvalChecks",
+          "text": "Risolvi i controlli prima dell’invio o dell’approvazione."
+        },
+        {
+          "selector": "#approvalActions",
+          "text": "Sono disponibili soltanto i passaggi consentiti al tuo ruolo."
+        },
+        {
+          "selector": "#approvalHistory",
+          "text": "Lo storico conserva chi ha inviato, verificato, restituito e approvato."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "id": "approval.enabled",
+      "topic": "approvazioni",
+      "section": "Configurazione del flusso",
+      "label": "Richiedi verifica del responsabile e approvazione finale HR",
+      "effect": "Attiva il percorso per il centro selezionato. Le sedi esistenti partono con questa opzione disattivata. I mesi già chiusi restano storici precedenti. Solo l’amministratore può modificarla.",
+      "example": "Attivare dopo aver concordato il processo con la sede e con HR."
+    },
+    {
+      "id": "approval.policy_reason",
+      "topic": "approvazioni",
+      "section": "Configurazione del flusso",
+      "label": "Motivo della modifica",
+      "effect": "Registra la motivazione dell’attivazione o disattivazione; richiede almeno 8 e al massimo 2000 caratteri.",
+      "example": "Avvio del processo mensile concordato con HR."
+    },
+    {
+      "id": "approval.note",
+      "topic": "approvazioni",
+      "section": "Passaggio del mese",
+      "label": "Nota del passaggio",
+      "effect": "Accompagna il passaggio nello storico visibile agli utenti autorizzati della sede. È obbligatoria con almeno 8 caratteri per restituzione e riapertura; limite 2000 caratteri.",
+      "example": "Correggere l’orario di uscita del turno del 14 ottobre."
+    },
+    {
+      "id": "approval.calendar_checked",
+      "topic": "approvazioni",
+      "section": "Verifica del responsabile",
+      "label": "Ho verificato calendario e parametri del mese",
+      "effect": "Conferma la verifica del calendario durante il passaggio del responsabile. Se il mese non era già verificato, la conferma è necessaria per inviarlo a HR.",
+      "example": "Confermare dopo aver controllato festività, giorni lavorativi e regole del mese."
+    }
+  ],
+  "topic_updates": {
+    "riepilogo": {
+      "audience": "Consultazione secondo ruolo; chiusura ordinaria ai responsabili, approvazione finale HR quando il flusso è attivo",
+      "steps": [
+        "Scegli centro e mese, poi confronta turni, giorni, ore note, fuori sede, festivi e assenze.",
+        "Controlla Da consuntivare e turni senza orari. Torna a Presenze o Da completare per correggere gli elementi mancanti; se il mese è già inviato serve prima una restituzione da Approvazioni.",
+        "Esporta riepilogo CSV, dettaglio CSV o Stampa se il tuo account è autorizzato. Questi riepiloghi sono distinti dal tracciato paghe, che applica i propri controlli prima del download.",
+        "Se il flusso di approvazione è attivo, Chiudi mese e Riapri mese portano alla pagina Approvazioni: la sede invia, il responsabile verifica e HR approva la chiusura. Consulta il tutorial Approvazioni per tutti i passaggi.",
+        "Se il flusso è disattivato, il responsabile verifica parametri e calendario in Controlli, poi preme Chiudi mese. Per una correzione successiva preme Riapri mese e inserisce la motivazione.",
+        "La chiusura blocca le modifiche. Quando il flusso è attivo, la riapertura motivata invalida l’approvazione e il mese deve essere inviato, verificato e approvato di nuovo."
+      ],
+      "errors": [
+        "Mese inviato o approvato: chiedi la restituzione o riapertura tramite Approvazioni; le presenze restano protette fino al passaggio autorizzato.",
+        "Chiusura rifiutata per orari mancanti: completa gli orari se il centro li richiede.",
+        "Mese chiuso prima dell’attivazione del flusso: il sistema conserva lo stato storico e non attribuisce un’approvazione HR retroattiva."
+      ]
+    },
+    "controlli": {
+      "steps": [
+        "Scegli centro e mese, poi leggi ogni segnalazione: intervalli tra turni, orari, calendario e registrazioni da verificare.",
+        "Confronta la versione dei parametri del mese con quella attuale del centro. Un mese compilato può conservare una versione precedente.",
+        "Correggi i dati nella pagina di origine. Se il mese è già stato inviato nel flusso di approvazione, chiedi prima la restituzione; la verifica e le presenze non si possono modificare durante il controllo.",
+        "Se autorizzato e il mese è modificabile, spunta Ho verificato parametri e calendario del mese, scrivi una nota utile e premi Salva verifica.",
+        "Nel flusso attivo il responsabile può confermare la verifica del calendario anche durante il passaggio da Inviato a In attesa di HR nella pagina Approvazioni. La verifica da sola non costituisce l’approvazione finale.",
+        "Consulta il registro delle modifiche per autore, data e operazione. Per chiudere il mese usa Approvazioni quando il flusso è attivo; altrimenti usa Riepilogo."
+      ],
+      "errors": [
+        "Mese chiuso o inviato: per modificare la verifica serve la riapertura o restituzione autorizzata.",
+        "Dati cambiati dopo l’invio: restituisci il mese dalla pagina Approvazioni e avvia una nuova verifica.",
+        "Una segnalazione organizzativa va valutata dal referente; non equivale da sola a una certificazione."
+      ]
+    }
+  }
+}

@@ -1,0 +1,111 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.636
+Programmare riepiloghi HR dopo aver
+verificato destinatari, contenuti e limiti
+
+2
+00:00:05.636 --> 00:00:09.818
+di invio. HR centrale consulta; soltanto
+
+3
+00:00:09.818 --> 00:00:14.000
+l’amministratore configura e attiva la
+programmazione.
+
+4
+00:00:14.000 --> 00:00:21.053
+Apri Promemoria e controlla lo stato. La
+prima installazione parte disattivata; il
+
+5
+00:00:21.053 --> 00:00:26.000
+servizio di posta si configura in
+Comunicazioni.
+
+6
+00:00:26.000 --> 00:00:32.812
+Scegli strutture e argomenti. Nessuna sede
+selezionata significa tutte le sedi;
+
+7
+00:00:32.812 --> 00:00:37.000
+verifica sempre il perimetro nell’anteprima.
+
+8
+00:00:37.000 --> 00:00:43.714
+Imposta giorni di anticipo, limite degli
+arretrati, ora italiana e massimo
+
+9
+00:00:43.714 --> 00:00:50.000
+quotidiano. Per esempio 30,15,7,0 indica le
+soglie prima della scadenza.
+
+10
+00:00:50.000 --> 00:00:57.720
+Scegli email HR delle strutture, ufficio HR
+centrale oppure entrambi. I recapiti delle
+
+11
+00:00:57.720 --> 00:01:05.000
+sedi arrivano da Strutture; non vengono
+usate le email personali dei dipendenti.
+
+12
+00:01:05.000 --> 00:01:12.217
+Seleziona l’abilitazione e premi Genera
+anteprima. Controlla tutti gli indirizzi e i
+
+13
+00:01:12.217 --> 00:01:19.000
+riepiloghi: contengono conteggi per sede,
+senza nomi dei dipendenti o allegati.
+
+14
+00:01:19.000 --> 00:01:24.636
+Conferma i recapiti e premi Salva
+programmazione. Per sospendere, togli
+
+15
+00:01:24.636 --> 00:01:28.818
+l’abilitazione e salva. Cambi di
+configurazione
+
+16
+00:01:28.818 --> 00:01:33.000
+o recapiti richiedono una nuova verifica.
+
+17
+00:01:33.000 --> 00:01:39.320
+Controlla lo storico. Gli errori e gli esiti
+incerti non vengono reinviati
+
+18
+00:01:39.320 --> 00:01:43.120
+automaticamente né dalle campagne manuali:
+
+19
+00:01:43.120 --> 00:01:48.000
+verifica il servizio di posta prima di
+agire.
+
+20
+00:01:48.000 --> 00:01:55.850
+Il server elabora gli eventi previsti entro
+i limiti configurati, evitando copie dello
+
+21
+00:01:55.850 --> 00:02:01.000
+stesso evento e anticipo allo stesso
+recapito.
+
+22
+00:02:01.000 --> 00:02:05.500
+Anteprima senza messaggi: controlla soglie,
+
+23
+00:02:05.500 --> 00:02:11.000
+arretrati, eventi già gestiti e attività
+completate.

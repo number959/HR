@@ -1,0 +1,160 @@
+{
+  "topics": [
+    {
+      "id": "promemoria",
+      "title": "Promemoria automatici HR",
+      "audience": "HR centrale e amministratori; configurazione solo amministratori",
+      "goal": "Programmare riepiloghi delle attività HR verso recapiti verificati, consultando gli esiti degli invii.",
+      "steps": [
+        "Apri Promemoria. La programmazione è disattivata nella prima installazione. Per inviare, l’amministratore deve prima configurare e abilitare SMTP in Comunicazioni; le prove nella demo sono sempre simulate.",
+        "Seleziona strutture e argomenti. Senza selezione di strutture si considerano tutte le sedi; nuovi recapiti o recapiti modificati richiedono una nuova verifica. Scegli contratti, documenti, qualifiche, onboarding e/o presenze del mese precedente da verificare.",
+        "Inserisci gli anticipi separati da virgola (esempio 30,15,7,0), il limite degli arretrati, l’ora locale e il numero massimo di messaggi quotidiani. Onboarding e presenze si segnalano solo alla scadenza o in ritardo. Il server controlla ogni pochi minuti dopo l’ora indicata, nel fuso Europe/Rome.",
+        "Scegli referente HR della struttura, ufficio HR centrale oppure entrambi. Completa l’email centrale se necessaria; i recapiti di sede provengono dalla pagina Strutture. Le email personali dei dipendenti non vengono utilizzate.",
+        "Seleziona Abilita, premi Genera anteprima e controlla tutti i recapiti elencati e i messaggi previsti. L’anteprima non invia email. I testi riportano conteggi per struttura, senza nomi dei dipendenti o allegati.",
+        "L’amministratore spunta la conferma dei recapiti e preme Salva programmazione. La conferma vale anche per futuri eventi destinati agli stessi recapiti. Una modifica alla configurazione richiede una nuova anteprima. Per sospendere togli Abilita e salva.",
+        "Leggi lo storico e apri Leggi riepilogo. Accettato SMTP significa accettazione da parte del server di posta, non prova della consegna o lettura. Errori ed esiti incerti non sono reinviati automaticamente o dalle campagne manuali: verifica prima il registro del servizio di posta."
+      ],
+      "result": "Il server elabora gli eventi non ancora gestiti, con limiti di invio e storico consultabile. Lo stesso evento e anticipo non genera copie duplicate allo stesso recapito.",
+      "errors": [
+        "SMTP non pronto: configura il servizio in Comunicazioni. La pagina Promemoria da sola non abilita la posta aziendale.",
+        "Recapito HR assente o non valido: aggiorna Strutture e genera una nuova anteprima. Se un recapito cambia dopo l’attivazione, gli invii per quella sede sono sospesi finché non vengono riconfermati.",
+        "Configurazione o destinatari cambiati: ricarica e ripeti anteprima e conferma. Un’anteprima di ieri deve essere rigenerata.",
+        "Nessun messaggio nell’anteprima: gli eventi potrebbero essere già elaborati, fuori dagli anticipi scelti, più vecchi del limite o già completati. I recapiti confermati rimangono validi per i prossimi eventi.",
+        "Ripristino di un backup: i promemoria vengono disattivati; eventuali invii in sospeso diventano di esito incerto. Controlla il registro del servizio di posta prima di riattivare.",
+        "Il server deve essere acceso per effettuare i controlli. Se resta spento, al riavvio viene recuperata la soglia più recente applicabile, entro il limite degli arretrati."
+      ],
+      "tour": [
+        {
+          "selector": "#reminderEnabled",
+          "text": "Controlla se la programmazione è attiva."
+        },
+        {
+          "selector": "#reminderMode",
+          "text": "Scegli quali recapiti aziendali riceveranno i riepiloghi."
+        },
+        {
+          "selector": "#reminderPreview",
+          "text": "Leggi destinatari e contenuti prima di attivare."
+        },
+        {
+          "selector": "#reminderHistory",
+          "text": "Consulta gli esiti senza creare invii duplicati."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "id": "reminder.enabled",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Attivazione",
+      "effect": "Abilita i controlli automatici dopo il salvataggio. Richiede SMTP pronto, anteprima aggiornata e conferma dei recapiti.",
+      "example": "Disattiva e salva per sospendere i prossimi messaggi."
+    },
+    {
+      "id": "reminder.centers",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Strutture incluse",
+      "effect": "Limita le sedi da controllare. Nessuna selezione include tutte; un nuovo recapito richiede riconferma.",
+      "example": "Seleziona due strutture per avviare una prova aziendale."
+    },
+    {
+      "id": "reminder.topics",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Argomenti",
+      "effect": "Seleziona le attività da riepilogare: contratti/prova, documenti, qualifiche, onboarding e presenze precedenti.",
+      "example": "Documenti e qualifiche per il controllo amministrativo."
+    },
+    {
+      "id": "reminder.offsets",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Anticipi in giorni",
+      "effect": "Da uno a otto interi fra 0 e 365, separati da virgola. Ogni soglia viene elaborata una volta per evento e recapito; 0 copre scadenza e arretrati.",
+      "example": "30,15,7,0."
+    },
+    {
+      "id": "reminder.overdue",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Arretrati: massimo giorni",
+      "effect": "Da 1 a 90 giorni. Le scadenze più vecchie restano consultabili nel portale e sono escluse dai riepiloghi automatici.",
+      "example": "30 esclude gli eventi scaduti da oltre un mese."
+    },
+    {
+      "id": "reminder.mode",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Destinazione",
+      "effect": "Referente HR della struttura, solo ufficio HR centrale o entrambi. Indirizzi uguali per la stessa sede sono deduplicati.",
+      "example": "Entrambi per informare sede e ufficio centrale."
+    },
+    {
+      "id": "reminder.central",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Email ufficio HR centrale",
+      "effect": "Recapito esplicito obbligatorio per destinazione centrale o entrambe; non utilizza indirizzi personali dei dipendenti.",
+      "example": "hr@azienda.it."
+    },
+    {
+      "id": "reminder.hour",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Ora locale di avvio",
+      "effect": "Intero da 0 a 23 nel fuso Europe/Rome. Il worker controlla periodicamente dopo questa ora; non è un appuntamento al minuto.",
+      "example": "8 per iniziare i controlli al mattino."
+    },
+    {
+      "id": "reminder.limit",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Massimo messaggi al giorno",
+      "effect": "Limite da 1 a 200 per tutti i riepiloghi automatici. Si sommano anche i vincoli orari e di lotto SMTP condivisi con le comunicazioni.",
+      "example": "20 per contenere il volume quotidiano."
+    },
+    {
+      "id": "reminder.preview",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Genera anteprima",
+      "effect": "Calcola gli eventi correnti e mostra tutti i recapiti da autorizzare. Non effettua invii. Mostra fino a 100 messaggi di esempio e il totale completo.",
+      "example": "Controlla il recapito di ogni struttura prima di confermare."
+    },
+    {
+      "id": "reminder.confirm",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Conferma dei recapiti",
+      "effect": "Autorizza gli invii programmati ai recapiti dell’anteprima, anche per eventi futuri, solo con questa configurazione. Ogni modifica invalida l’anteprima.",
+      "example": "Spunta dopo aver controllato tutti gli indirizzi."
+    },
+    {
+      "id": "reminder.save",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Salva programmazione",
+      "effect": "Salva la versione corrente; respinge modifiche concorrenti e abilitazioni prive di conferma valida. Solo amministratore.",
+      "example": "Salva dopo avere disabilitato per fermare i prossimi invii."
+    },
+    {
+      "id": "reminder.reload",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Aggiorna esiti",
+      "effect": "Rilegge lo stato e lo storico senza avviare invii. Le modifiche locali non salvate restano nella sessione.",
+      "example": "Aggiorna dopo l’ora programmata."
+    },
+    {
+      "id": "reminder.history",
+      "topic": "promemoria",
+      "section": "Promemoria automatici",
+      "label": "Storico e riepilogo",
+      "effect": "Mostra fino a 100 messaggi con destinatario, conteggio eventi, contenuto ed esito. Accettazione SMTP non garantisce consegna.",
+      "example": "Apri Leggi riepilogo per verificare un messaggio."
+    }
+  ]
+}

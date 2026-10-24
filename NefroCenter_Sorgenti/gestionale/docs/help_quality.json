@@ -1,0 +1,1451 @@
+{
+  "version": "0.11.1",
+  "topic_updates": {
+    "avvio": {
+      "title": "Primo accesso: entrare e orientarsi",
+      "goal": "Accedere al portale e riconoscere subito sede, mese e ruolo con cui si lavora.",
+      "audience": "Tutti gli utenti con un account nominativo",
+      "before": [
+        "Installazione aziendale: indirizzo HTTPS, nome utente, password iniziale e codice di attivazione forniti dall’amministratore.",
+        "Demo pubblica: scegli un ruolo; i dati sono fittizi e ogni visitatore lavora sulla propria copia."
+      ],
+      "steps": [
+        "Apri l’indirizzo del portale. Nell’installazione aziendale inserisci nome utente e password iniziale.",
+        "Al primo accesso usa il codice di attivazione. Collega l’app Authenticator tramite QR, inserisci il codice a 6 cifre e scegli una password personale di almeno 12 caratteri.",
+        "Conserva i codici di recupero fuori dal telefono e conferma di averli salvati. Nei successivi accessi servono password e Authenticator; ogni codice di recupero si usa una sola volta.",
+        "Una volta entrato, controlla il centro in alto, il mese e il ruolo accanto al tuo nome. Cambia centro prima di aprire un fascicolo o compilare il registro.",
+        "Apri Guide e tutorial per cercare una procedura; Aiuto per questa pagina mantiene il contesto del lavoro. Quando termini, premi Esci."
+      ],
+      "result": "Vedi i centri assegnati e le pagine del tuo ruolo; la sede e il mese corretti sono visibili nell’intestazione.",
+      "example": "Nella demo scegli HR centrale, apri Documenti HR e poi cambia ruolo in Compilatore: i fascicoli riservati non sono più accessibili.",
+      "errors": [
+        "Authenticator rifiutato: abilita data e ora automatiche sul telefono e prova un codice nuovo.",
+        "Attivazione scaduta: chiedi un nuovo codice all’amministratore; il programma non lo spedisce automaticamente per email.",
+        "Connessione interrotta: attendi il ripristino, ricarica e controlla quali dati risultano salvati prima di ripetere l’operazione."
+      ],
+      "tour": [
+        {
+          "selector": "#centerSelect",
+          "text": "Controlla qui la sede su cui stai lavorando."
+        },
+        {
+          "selector": "#monthPick",
+          "text": "Il mese determina registro, controlli e accordi."
+        },
+        {
+          "selector": "#account",
+          "text": "Password, Authenticator e codici di recupero sono in Sicurezza · 2FA."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "dashboard": {
+      "title": "Dashboard: scegliere il centro da verificare",
+      "goal": "Individuare le sedi da controllare nel mese e aprire il loro registro.",
+      "audience": "Tutti, limitatamente ai centri autorizzati",
+      "before": [
+        "Controlla il mese selezionato.",
+        "I valori comprendono soltanto i centri autorizzati al tuo account."
+      ],
+      "steps": [
+        "Apri Dashboard e seleziona il mese del confronto.",
+        "Leggi insieme turni e ore: un turno senza orari è registrato, ma non produce ore stimate.",
+        "Nella tabella confronta compilazione, persone, ore e ultima attività. Il numero di persone attive non equivale al personale presente ogni giorno.",
+        "Premi Apri centro sulla sede da approfondire. Per trovare gli elementi incompleti usa Da completare.",
+        "Torna alla Dashboard e premi Aggiorna dopo le correzioni; la pagina si aggiorna anche ogni minuto. Se disponibile, Esporta CSV scarica il quadro dei centri."
+      ],
+      "result": "Sai quale centro richiede un controllo e puoi raggiungerlo senza cambiare manualmente più filtri.",
+      "example": "Due sedi mostrano 40 turni ciascuna, ma una ha meno ore: prima di confrontare il carico, controlla se mancano ingresso e uscita.",
+      "errors": [
+        "Centro assente: verifica le assegnazioni con l’amministratore.",
+        "Ore basse: apri i dati prima di concludere che siano state lavorate meno ore.",
+        "Mese vuoto: verifica periodo e sede; l’assenza di dati non dimostra l’assenza di attività."
+      ],
+      "tour": [
+        {
+          "selector": "#monthPick",
+          "text": "Scegli il mese del confronto."
+        },
+        {
+          "selector": "#refreshDashboard",
+          "text": "Richiedi l’aggiornamento dei dati condivisi."
+        },
+        {
+          "selector": "[data-dash-center]",
+          "text": "Apri il registro di questo centro."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "completare": {
+      "title": "Da completare: correggere una segnalazione",
+      "goal": "Passare da una segnalazione al dato da correggere e controllare che il problema sia risolto.",
+      "audience": "Ogni utente vede le attività consentite dal proprio ruolo",
+      "before": [
+        "Scegli il mese per le presenze; le scadenze HR descrivono invece la situazione attuale.",
+        "Sono visibili soltanto le attività e i dettagli consentiti al tuo ruolo."
+      ],
+      "steps": [
+        "Apri Da completare. Seleziona centro, categoria e priorità; usa la ricerca per restringere l’elenco.",
+        "Leggi persona, data e motivo. Per una registrazione futura verifica se si tratta semplicemente di un turno ancora pianificato.",
+        "Apri la voce: il portale porta alla pagina di origine, per esempio Presenze, fascicolo o Controlli.",
+        "Correggi e salva nella pagina aperta. Inserisci un consuntivo solo dopo aver verificato che il turno sia stato svolto.",
+        "Torna a Da completare e aggiorna l’elenco. Verifica che la segnalazione sia scomparsa o che il suo contenuto corrisponda ai dati corretti."
+      ],
+      "result": "L’elenco riflette la correzione effettuata; non occorre cancellare manualmente la segnalazione.",
+      "example": "Una voce segnala un turno senza orari: apri il registro, inserisci ingresso e uscita verificati e aggiorna la lista.",
+      "errors": [
+        "Non puoi aprire un fascicolo: chiedi il corretto accesso al referente, senza usare l’account di un collega.",
+        "La voce rimane: riapri il dato e controlla che il salvataggio sia riuscito e che la causa indicata sia stata risolta."
+      ],
+      "tour": [
+        {
+          "selector": "#tasksCenter",
+          "text": "Limita il lavoro a una sede autorizzata."
+        },
+        {
+          "selector": "#tasksCategory",
+          "text": "Scegli il tipo di segnalazione."
+        },
+        {
+          "selector": "[data-task-index]",
+          "text": "Apri il dato che ha generato questa voce."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "presenze": {
+      "title": "Presenze: registrare e correggere un turno",
+      "goal": "Salvare un turno previsto o svolto distinguendo correttamente pianificazione, lavoro e assenze.",
+      "audience": "Compilatori, responsabili e amministratori secondo i permessi del centro; lettori in consultazione",
+      "before": [
+        "Il registro deve essere aperto e, se il flusso è attivo, non deve essere già inviato in approvazione.",
+        "Compilatori e responsabili operano secondo i permessi del centro; HR e lettori consultano il registro."
+      ],
+      "steps": [
+        "Scegli centro e mese. Seleziona Consuntivo per il lavoro svolto oppure Pianificato per i turni previsti.",
+        "Cerca la persona o filtra la qualifica. Su uno schermo piccolo puoi usare la vista 7 giorni: i totali restano mensili.",
+        "Apri la cella della persona e del giorno. Controlla la fascia, poi scegli la causale ammessa.",
+        "Per un turno di lavoro inserisci ingresso, uscita e pausa reali, se il tuo profilo li può modificare. Per l’uscita dopo mezzanotte seleziona Uscita il giorno successivo.",
+        "Controlla la sede effettiva, l’eventuale festivo e la nota. Premi Salva presenza e verifica la cella e i totali aggiornati.",
+        "Per correggere, riapri la stessa cella. Elimina rimuove una registrazione soltanto se il tuo ruolo e il centro lo consentono."
+      ],
+      "result": "La registrazione compare nella fascia e nel livello scelti. Le ore lavorate restano distinte dai crediti delle assenze.",
+      "example": "Per un turno effettivo dalle 08:00 alle 14:00 con 30 minuti di pausa, registra Consuntivo: le ore note risultano 5:30.",
+      "errors": [
+        "Mese inviato: serve una restituzione nella pagina Approvazione mese; mese chiuso: serve una riapertura motivata.",
+        "Campo disabilitato: il tuo profilo non può modificarlo; chiedi al responsabile.",
+        "Dati cambiati: ricarica, confronta la registrazione aggiornata e ripeti soltanto la correzione ancora necessaria."
+      ],
+      "tour": [
+        {
+          "selector": "#centerSelect",
+          "text": "Conferma il centro prima di scrivere."
+        },
+        {
+          "selector": "#monthPick",
+          "text": "Controlla mese e stato aperto/chiuso."
+        },
+        {
+          "selector": "#actual",
+          "text": "Consuntivo contiene quanto è avvenuto."
+        },
+        {
+          "selector": "#planned",
+          "text": "Pianificato contiene ciò che è previsto."
+        },
+        {
+          "selector": "#gridWindow",
+          "text": "Passa a 7 giorni per lavorare su uno schermo piccolo."
+        },
+        {
+          "selector": "[data-day]",
+          "text": "Questa cella identifica una persona, una data e una fascia."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "dipendenti": {
+      "title": "Dipendenti: aprire o creare un fascicolo",
+      "goal": "Raccogliere i dati amministrativi della persona e ritrovare documenti, onboarding e scadenze.",
+      "audience": "Responsabili dei centri assegnati, HR centrale e amministratori",
+      "before": [
+        "HR centrale e amministratori accedono a tutte le sedi; i responsabili soltanto a quelle assegnate.",
+        "Prima di creare una persona, cerca nome e matricola per evitare doppioni."
+      ],
+      "steps": [
+        "Apri Dipendenti nel centro corretto. Cerca per nome, matricola o reparto e usa il filtro dello stato del rapporto.",
+        "Apri una persona esistente oppure premi Nuovo dipendente. Compila i dati identificativi e il ruolo nel registro.",
+        "Completa le sezioni pertinenti: Anagrafica, Recapiti, Rapporto di lavoro, Amministrazione e Qualifiche. Riferimento impostazioni spiega ogni campo.",
+        "Premi Salva fascicolo. Il primo salvataggio crea le attività onboarding dal modello della sede e dalla data d’ingresso.",
+        "Apri Documenti per gli allegati e Scadenze per le date da controllare. Struttura di riferimento mostra i recapiti condivisi della sede.",
+        "Prima di passare a Presenze della persona o Accordo del mese salva le modifiche del fascicolo."
+      ],
+      "result": "Il fascicolo è conservato sul server centrale ed è consultabile da HR e dai responsabili autorizzati.",
+      "example": "Crea una persona fittizia con ingresso il 1° novembre: dopo Salva fascicolo trovi le attività onboarding generate dal modello della sede.",
+      "errors": [
+        "Matricola già usata: controlla l’anagrafica esistente prima di crearne una nuova.",
+        "Codice fiscale o IBAN non valido: confronta il dato con la fonte; il controllo del formato non prova l’identità o la titolarità.",
+        "Campo richiesto incompleto: il fascicolo può restare una bozza, ma il dato mancante viene segnalato."
+      ],
+      "tour": [
+        {
+          "selector": "#hrSearch",
+          "text": "Cerca un fascicolo senza crearne un doppione."
+        },
+        {
+          "selector": "#hrNew",
+          "text": "Crea un fascicolo nel centro selezionato."
+        },
+        {
+          "selector": "#hrSettings",
+          "text": "Il modello determina le checklist dei nuovi fascicoli."
+        },
+        {
+          "selector": "#hrSave",
+          "text": "Salva tutte le sezioni anagrafiche del fascicolo."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "anagrafica": {
+      "title": "Anagrafica: identificare la persona nel registro",
+      "goal": "Salvare identità, matricola e abilitazione al registro senza confondere lo stato del rapporto con i permessi di accesso.",
+      "audience": "Utenti autorizzati al fascicolo HR",
+      "before": [
+        "Apri il fascicolo in Dipendenti.",
+        "Tieni a disposizione i riferimenti identificativi verificati secondo la procedura aziendale."
+      ],
+      "steps": [
+        "Apri Anagrafica e confronta nome, cognome, codice fiscale e dati di nascita con la fonte verificata.",
+        "Controlla Nome completo nel registro, Matricola e Ruolo nelle presenze: sono i riferimenti usati nelle pagine operative.",
+        "Imposta Stato del rapporto e Abilitato alla compilazione delle presenze separatamente. La spunta riguarda la persona nel registro e non crea un account di accesso.",
+        "Completa gli estremi e la scadenza del documento di identità, se previsti. Premi Salva fascicolo.",
+        "Riapri la scheda e controlla i riferimenti; in Scadenze verifica l’eventuale data del documento."
+      ],
+      "result": "La persona è riconoscibile nel centro e la sua disponibilità nel registro rispecchia la scelta salvata.",
+      "example": "Una persona con rapporto cessato può conservare il fascicolo storico; l’abilitazione al registro viene gestita separatamente.",
+      "errors": [
+        "Matricola duplicata nel centro: verifica il fascicolo già presente.",
+        "Un dipendente non compare nelle celle: controlla l’abilitazione al registro e i filtri della pagina Presenze.",
+        "Salvare l’anagrafica non crea credenziali: gli account si gestiscono in Utenti e permessi."
+      ],
+      "tour": [
+        {
+          "selector": "[data-hr-section=\"anagrafica\"]",
+          "text": "Apri anagrafica."
+        },
+        {
+          "selector": "#hrSave",
+          "text": "Conferma il salvataggio del fascicolo."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "recapiti": {
+      "title": "Recapiti: distinguere i contatti personali e aziendali",
+      "goal": "Aggiornare indirizzi e recapiti che l’ufficio può usare per le attività amministrative.",
+      "audience": "Utenti autorizzati al fascicolo HR",
+      "before": [
+        "Apri il fascicolo corretto.",
+        "Verifica a chi appartiene ciascun indirizzo email prima di registrarlo."
+      ],
+      "steps": [
+        "Apri Recapiti e completa la residenza: indirizzo, CAP, comune, provincia e Paese.",
+        "Indica il domicilio quando diverso. Registra email personale, telefono, email aziendale e PEC nei rispettivi campi.",
+        "Se previsto dalla procedura aziendale, inserisci nominativo e telefono del contatto di emergenza.",
+        "Premi Salva fascicolo e riapri Recapiti per controllare i valori.",
+        "Per un invio usa Comunicazioni: la lista sceglie esplicitamente il campo email da usare. Salvare un recapito non invia un messaggio."
+      ],
+      "result": "Il fascicolo conserva contatti distinti; chi prepara una comunicazione può selezionare il recapito corretto.",
+      "example": "L’email personale serve al fascicolo; una lista aziendale configurata su Email aziendale usa il campo aziendale, non quello personale.",
+      "errors": [
+        "Email non valida: inserisci un solo indirizzo nel campo e correggi eventuali spazi o errori di battitura.",
+        "Destinatario assente nell’anteprima: controlla il campo email scelto dalla lista e salva prima il fascicolo."
+      ],
+      "tour": [
+        {
+          "selector": "[data-hr-section=\"recapiti\"]",
+          "text": "Apri recapiti."
+        },
+        {
+          "selector": "#hrSave",
+          "text": "Conferma il salvataggio del fascicolo."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "contratto": {
+      "title": "Rapporto di lavoro: registrare i dati attuali",
+      "goal": "Conservare i riferimenti del rapporto attuale e capire quando usare lo storico con decorrenze.",
+      "audience": "Utenti autorizzati al fascicolo HR",
+      "before": [
+        "Apri il fascicolo della persona.",
+        "Disponi dei dati contrattuali verificati; gli esempi della guida non sono condizioni da applicare."
+      ],
+      "steps": [
+        "Apri Rapporto di lavoro e indica società, reparto, responsabile, tipologia, CCNL, livello e mansione pertinenti.",
+        "Inserisci data d’ingresso, eventuale termine del rapporto e fine prova. Le date finali non possono precedere l’ingresso.",
+        "Registra ore settimanali e percentuale part-time secondo il contratto. Completa i riferimenti disponibili, come contratto, centro di costo, sede, badge e tutor.",
+        "Premi Salva fascicolo e controlla le scadenze generate dalle date.",
+        "Per conservare una variazione valida da una data precisa, usa lo storico in Personale di gruppo. Per un accordo economico del mese usa Accordi e calcoli."
+      ],
+      "result": "Il fascicolo descrive il rapporto attuale; lo storico e gli accordi mensili rimangono funzioni distinte.",
+      "example": "Se l’orario cambia dal 1° dicembre, aggiorna i riferimenti attuali quando necessario e registra la decorrenza nello storico di gruppo.",
+      "errors": [
+        "Fine contratto precedente all’ingresso: verifica entrambe le date.",
+        "Una modifica al fascicolo non ricostruisce automaticamente i contratti passati: usa Personale di gruppo."
+      ],
+      "tour": [
+        {
+          "selector": "[data-hr-section=\"contratto\"]",
+          "text": "Apri rapporto di lavoro."
+        },
+        {
+          "selector": "#hrSave",
+          "text": "Conferma il salvataggio del fascicolo."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "amministrazione": {
+      "title": "Amministrazione: verificare i riferimenti di pagamento",
+      "goal": "Conservare i dati amministrativi necessari ai referenti autorizzati.",
+      "audience": "Utenti autorizzati al fascicolo HR",
+      "before": [
+        "Apri il fascicolo e verifica la persona.",
+        "Usa dati ricevuti e controllati tramite la procedura aziendale."
+      ],
+      "steps": [
+        "Apri Amministrazione e indica referente paghe e modalità di pagamento, quando previsti.",
+        "Compila IBAN, intestatario e banca se pertinenti; confrontali con la documentazione disponibile.",
+        "Inserisci la Partita IVA soltanto per i rapporti che la richiedono.",
+        "Premi Salva fascicolo e controlla l’esito. Se il formato è rifiutato, correggi il dato nella sua sezione."
+      ],
+      "result": "I riferimenti sono disponibili nel fascicolo agli utenti HR autorizzati. Nessun pagamento viene eseguito.",
+      "example": "Dopo una variazione dell’IBAN verificata dall’ufficio, aggiorna il campo e salva; il portale conserva il riferimento ma non dispone bonifici.",
+      "errors": [
+        "IBAN rifiutato: controlla caratteri e cifre sulla fonte, senza sostituirli con un esempio della guida.",
+        "IBAN accettato: il controllo numerico non verifica a chi appartenga il conto."
+      ],
+      "tour": [
+        {
+          "selector": "[data-hr-section=\"amministrazione\"]",
+          "text": "Apri amministrazione."
+        },
+        {
+          "selector": "#hrSave",
+          "text": "Conferma il salvataggio del fascicolo."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "qualifiche": {
+      "title": "Qualifiche: registrare scadenze e campi aggiuntivi",
+      "goal": "Tenere ordinati i riferimenti amministrativi delle qualifiche e i dati specifici della sede.",
+      "audience": "Utenti autorizzati al fascicolo HR",
+      "before": [
+        "Apri il fascicolo in Dipendenti.",
+        "Controlla quali informazioni sono richieste dalle procedure della sede."
+      ],
+      "steps": [
+        "Apri Qualifiche. Registra ordine o albo, numero e scadenza pertinente, se prevista.",
+        "Completa eventuale scadenza del titolo di soggiorno/lavoro e prossima verifica amministrativa quando necessarie.",
+        "Compila i campi personalizzati rispettando il tipo richiesto: testo, numero, data o Sì/No.",
+        "Usa le note per riferimenti amministrativi utili. Diagnosi e referti rimangono nei sistemi del medico competente.",
+        "Premi Salva fascicolo e apri Scadenze per controllare le date."
+      ],
+      "result": "Le date salvate alimentano le scadenze; i campi personalizzati richiesti e ancora vuoti restano segnalati.",
+      "example": "Un campo personalizzato di tipo Data può registrare la data di una verifica interna; il suo significato va concordato nel modello della sede.",
+      "errors": [
+        "Campo del tipo sbagliato: correggi il valore oppure verifica la definizione nel Modello onboarding.",
+        "Scadenza assente: controlla che la data sia stata compilata e salvata nel campo corretto."
+      ],
+      "tour": [
+        {
+          "selector": "[data-hr-section=\"qualifiche\"]",
+          "text": "Apri qualifiche e campi del centro."
+        },
+        {
+          "selector": "#hrSave",
+          "text": "Conferma il salvataggio del fascicolo."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "onboarding": {
+      "title": "Onboarding: aggiornare un’attività di ingresso",
+      "goal": "Assegnare responsabile, scadenza e stato a un’attività del nuovo dipendente.",
+      "audience": "Utenti autorizzati al fascicolo HR",
+      "before": [
+        "Salva prima il fascicolo, con la data d’ingresso.",
+        "Le attività iniziali derivano dal modello del centro al momento della creazione."
+      ],
+      "steps": [
+        "Nel fascicolo apri Onboarding. Leggi descrizione, fase, responsabile e scadenza dell’attività.",
+        "Premi Aggiorna sull’attività da gestire e scegli Da fare, In corso, Completata o Non applicabile.",
+        "Indica responsabile e scadenza. Aggiungi una nota utile; Non applicabile richiede una motivazione.",
+        "Premi Salva attività e controlla lo stato e l’avanzamento della checklist.",
+        "Se cambiano ingresso o modello, verifica le attività esistenti una per una: non vengono rischedulate automaticamente."
+      ],
+      "result": "La checklist mostra il lavoro aperto e concluso; lo storico identifica chi ha aggiornato l’attività.",
+      "example": "Dopo la consegna effettiva del badge, il referente imposta la relativa attività su Completata e annota il riferimento della consegna.",
+      "errors": [
+        "Nessuna attività nel fascicolo nuovo: salva prima la scheda.",
+        "Spuntare Completata registra il lavoro svolto; non invia comunicazioni obbligatorie né esegue attività nei sistemi esterni."
+      ],
+      "tour": [
+        {
+          "selector": "[data-hr-section=\"onboarding\"]",
+          "text": "Apri le attività d’ingresso."
+        },
+        {
+          "selector": "[data-hr-task]",
+          "text": "Aggiorna questa attività con stato e motivazione."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "documenti": {
+      "title": "Documenti: caricare un file e seguirne la verifica",
+      "goal": "Caricare un allegato dalla sede e renderlo consultabile all’ufficio HR centrale.",
+      "audience": "Caricamento e consultazione: responsabili autorizzati, HR centrale e amministratori",
+      "before": [
+        "Apri e salva il fascicolo della persona nel centro corretto.",
+        "Sono ammessi PDF, PNG e JPEG entro 6 MiB. Nella demo si usa soltanto l’allegato fittizio previsto."
+      ],
+      "steps": [
+        "Apri Documenti nel fascicolo. Scegli il file e indica categoria ed eventuale scadenza.",
+        "Premi Allega al fascicolo e attendi la conferma. Il nuovo file risulta Ricevuto · da verificare ed è già disponibile a HR centrale.",
+        "Apri Verifica e storico, poi Apri il documento da controllare. Confronta il contenuto con il fascicolo.",
+        "HR centrale o un amministratore sceglie Conferma: verificato da HR oppure Richiedi una correzione. Per la correzione scrive un motivo di almeno 8 caratteri, poi salva la verifica.",
+        "La sede legge la nota e risolve il problema. Se cambia il contenuto, allega un nuovo file, che nasce già da verificare. Su una richiesta aperta usa Richiedi una nuova verifica e spiega la correzione; il file originale non si riscrive.",
+        "Controlla esito e storico. Scarica solo se serve una copia locale; Rimuovi richiede una motivazione e non elimina le copie nei backup precedenti."
+      ],
+      "result": "Sede e HR vedono lo stesso allegato, con esito, note e storico della verifica.",
+      "example": "La sede carica un contratto incompleto. HR richiede la pagina mancante; la sede allega la versione completa e indica a quale richiesta si riferisce.",
+      "errors": [
+        "Il responsabile può caricare e richiedere una nuova verifica; soltanto HR e amministratori registrano la decisione di verifica.",
+        "Scaduto dipende dalla data: non cancella una verifica storica e un rinnovo richiede un nuovo allegato.",
+        "File rifiutato: controlla formato reale e dimensione; rinominare l’estensione non converte il contenuto.",
+        "Verifica cambiata da un collega: riapri la finestra e leggi l’esito corrente prima di salvare."
+      ],
+      "tour": [
+        {
+          "selector": "#hrDocumentFile",
+          "text": "Carica l’allegato nel fascicolo della persona."
+        },
+        {
+          "selector": "[data-hr-review]",
+          "text": "Apri esito, note e storico della verifica."
+        },
+        {
+          "selector": "#hrReviewStatus",
+          "text": "Scegli un’azione consentita dal tuo ruolo."
+        },
+        {
+          "selector": "#hrReviewNote",
+          "text": "Spiega correzione o nuova richiesta."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "scadenze": {
+      "title": "Scadenze: risalire al dato da aggiornare",
+      "goal": "Trovare le date da controllare e aggiornarle nella sezione che le genera.",
+      "audience": "Utenti autorizzati al fascicolo HR",
+      "before": [
+        "Apri il fascicolo della persona.",
+        "Le date dipendono dai dati effettivamente salvati: un campo vuoto non genera una scadenza."
+      ],
+      "steps": [
+        "Apri Scadenze e leggi oggetto, data e stato della voce.",
+        "Premi Apri sezione per raggiungere il campo di origine: contratto, qualifiche, onboarding, anagrafica o documento.",
+        "Verifica il dato con il referente e aggiorna la sezione pertinente. Per un documento rinnovato carica il nuovo allegato.",
+        "Salva, torna a Scadenze e controlla che la voce rifletta il dato aggiornato."
+      ],
+      "result": "La scadenza è coerente con il fascicolo; non hai creato un secondo elenco da mantenere manualmente.",
+      "example": "Il contratto viene prorogato: dopo la verifica dell’ufficio aggiorni la data nella sezione del rapporto e controlli la nuova scadenza.",
+      "errors": [
+        "Una data trascorsa richiede controllo: non prova automaticamente un’inadempienza.",
+        "Un’attività completata non è più tra quelle aperte: consultala in Onboarding.",
+        "Per i riepiloghi via email usa la configurazione separata di Promemoria."
+      ],
+      "tour": [
+        {
+          "selector": "[data-hr-section=\"scadenze\"]",
+          "text": "Apri le scadenze della persona."
+        },
+        {
+          "selector": "[data-hr-deadline-section]",
+          "text": "Raggiungi il campo che genera questa scadenza."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "modellohr": {
+      "title": "Modello onboarding: preparare i nuovi fascicoli",
+      "goal": "Definire attività e campi aggiuntivi che la sede userà per i nuovi dipendenti.",
+      "audience": "Responsabili autorizzati, HR centrale e amministratori",
+      "before": [
+        "Apri Dipendenti nel centro da configurare.",
+        "Le modifiche al modello non riscrivono le checklist già create."
+      ],
+      "steps": [
+        "Premi Modello onboarding. Controlla il centro indicato nella finestra.",
+        "Per ogni attività scegli fase, descrizione, responsabile e giorni rispetto all’ingresso: −7 indica una settimana prima, 0 il giorno d’ingresso.",
+        "Aggiungi o rimuovi le attività concordate. Il modello ammette da 1 a 80 compiti.",
+        "Aggiungi i campi personalizzati necessari, fino a 40: etichetta, tipo e indicazione Richiesto. Un campo richiesto vuoto viene segnalato ma non impedisce la bozza.",
+        "Premi Salva modello protetto. Al prossimo nuovo fascicolo controlla le attività e le scadenze generate."
+      ],
+      "result": "I nuovi fascicoli usano il modello aggiornato; quelli esistenti mantengono le proprie attività e i valori già registrati.",
+      "example": "Aggiungi “Conferma dotazione” con scadenza +3 giorni: un nuovo ingresso il 10 novembre riceverà l’attività con scadenza il 13 novembre.",
+      "errors": [
+        "Versione cambiata: riapri il modello prima di ripetere la modifica.",
+        "Attività vecchie non aggiornate: è previsto; modifica quelle necessarie nel singolo fascicolo."
+      ],
+      "tour": [
+        {
+          "selector": "#hrSettings",
+          "text": "Apri il modello del centro."
+        },
+        {
+          "selector": "#hrAddTemplateTask",
+          "text": "Aggiungi un’attività al modello."
+        },
+        {
+          "selector": "#hrAddCustom",
+          "text": "Aggiungi un campo amministrativo."
+        },
+        {
+          "selector": "#hrSaveTemplate",
+          "text": "Salva il modello per i nuovi fascicoli."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "personale": {
+      "title": "Personale di gruppo: collegare sedi e decorrenze",
+      "goal": "Riconoscere una stessa persona in più sedi e registrare condizioni valide da una data precisa.",
+      "audience": "HR centrale e amministratori; funzioni di sede secondo autorizzazione",
+      "before": [
+        "Verifica l’identità della persona prima di collegare due anagrafiche; nome o matricola uguali non bastano.",
+        "Le operazioni disponibili dipendono dal ruolo e dall’accesso alle sedi interessate."
+      ],
+      "steps": [
+        "Apri Personale di gruppo e cerca la persona. Controlla sedi, matricole e dati identificativi prima di intervenire.",
+        "Quando autorizzato, collega esplicitamente le anagrafiche alla stessa identità di gruppo e indica la motivazione. I fascicoli di sede rimangono distinti.",
+        "Apri lo storico contrattuale e registra decorrenza, eventuale termine e condizioni verificate: contratto, ore, part-time e qualifica.",
+        "Evita periodi sovrapposti: chiudi l’intervallo precedente e motiva eventuali correzioni. Controlla la situazione alla data di interesse.",
+        "Per le condizioni economiche usa lo storico e l’anteprima del mese. Applica soltanto dopo aver controllato i dati e le eventuali richieste di verifica manuale.",
+        "Riapri Accordi e calcoli per verificare il risultato del mese. Una variazione nello storico non riscrive da sola gli accordi già applicati."
+      ],
+      "result": "Le sedi condividono un riferimento di identità verificato e lo storico conserva le decorrenze senza perdere i dati locali.",
+      "example": "Una persona opera in due sedi: colleghi le due anagrafiche dopo la verifica. I suoi turni possono così essere controllati per conflitti tra sedi.",
+      "errors": [
+        "Omonimia o identità incerta: non effettuare il collegamento finché i riferimenti non sono verificati.",
+        "Periodi sovrapposti: correggi gli estremi prima di salvare.",
+        "Variazione economica non applicabile automaticamente: segui la segnalazione dell’anteprima e verifica l’accordo mensile."
+      ],
+      "tour": [],
+      "duration": "Lettura · 2 min"
+    },
+    "hrcentrale": {
+      "title": "Documenti HR: controllare gli allegati delle sedi",
+      "goal": "Trovare i documenti ricevuti da remoto, aprirli e registrare il controllo HR.",
+      "audience": "HR centrale, amministratori e responsabili dei centri assegnati",
+      "before": [
+        "HR centrale e amministratori vedono tutte le sedi; i responsabili solo quelle assegnate.",
+        "Compilatori e lettori non accedono all’archivio documentale HR."
+      ],
+      "steps": [
+        "Apri Documenti HR. Scegli una struttura oppure tutte quelle autorizzate.",
+        "Combina persona o matricola, categoria, scadenza e Verifica HR. Premi Applica filtri.",
+        "Controlla persona, sede, autore e data prima di premere Visualizza. Fascicolo apre la scheda per gestire rinnovi o nuovi allegati.",
+        "Apri Verifica e storico. HR o l’amministratore sceglie Conferma: verificato da HR oppure Richiedi una correzione, motiva e salva la verifica.",
+        "Filtra Da correggere per seguire le richieste aperte. Il responsabile può richiedere una nuova verifica dopo aver risolto il problema.",
+        "Usa Precedenti e Successivi per le pagine disponibili; Aggiorna rilegge i caricamenti remoti. Azzera filtri ripristina l’elenco autorizzato."
+      ],
+      "result": "HR individua rapidamente file ricevuti, correzioni aperte e documenti già verificati, senza chiedere copie via email.",
+      "example": "HR filtra una sede e Da correggere per preparare una verifica con il responsabile; ogni riga apre il documento e la motivazione registrata.",
+      "errors": [
+        "File appena caricato non trovato: aggiorna, azzera i filtri e controlla sede e persona.",
+        "Un file verificato può anche essere scaduto: esito HR e validità della data sono informazioni distinte.",
+        "Versione cambiata: rileggi la decisione corrente prima di registrare un altro esito."
+      ],
+      "tour": [
+        {
+          "selector": "#hrDocCenter",
+          "text": "Restringi l’archivio a una struttura autorizzata."
+        },
+        {
+          "selector": "#hrDocReview",
+          "text": "Trova ricevuti, correzioni, verificati e scaduti."
+        },
+        {
+          "selector": "[data-central-review]",
+          "text": "Apri decisioni e storico del documento."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "accordi": {
+      "title": "Accordi e calcoli: verificare il mese della persona",
+      "goal": "Confermare il modello economico e le quantità pertinenti a una persona, una sede e un mese.",
+      "audience": "Responsabili autorizzati, HR centrale e amministratori secondo i permessi",
+      "before": [
+        "Disponi dell’accordo reale verificato; i valori della demo non sono tariffe aziendali.",
+        "La modifica manuale è riservata a responsabili e amministratori; HR centrale consulta e usa i percorsi autorizzati dello storico."
+      ],
+      "steps": [
+        "Scegli centro e mese, poi premi Apri accordo sulla persona. Leggi origine dei valori, versione e avvisi.",
+        "Seleziona il modello Turni, Ore o Quota fissa e la base di conteggio prevista dall’accordo.",
+        "Imposta teorico, tariffe, quota fissa, detrazioni e rettifiche. Riferimento impostazioni descrive l’effetto di ogni campo.",
+        "Controlla le causali non lavorate incluse nel conteggiabile e la scelta sulle presenze fuori sede.",
+        "Dopo il confronto con l’accordo, spunta la verifica, inserisci una motivazione di almeno 8 caratteri e premi Salva accordo del mese.",
+        "Rileggi stato, quantità e importo. Se il risultato non è calcolabile, risolvi la segnalazione prima di utilizzarlo."
+      ],
+      "result": "La versione confermata riguarda solo la persona, il centro e il mese selezionati e resta nello storico.",
+      "example": "Un accordo a ore usa gli orari registrati: un turno con uscita mancante richiede una correzione, non una stima automatica.",
+      "errors": [
+        "Tariffa a turno e tariffa oraria sono diverse: controlla l’unità prima di confermare.",
+        "Mese chiuso o in approvazione: le modifiche sono bloccate fino al passaggio autorizzato.",
+        "Un importo negativo resta una segnalazione da verificare; il software non esegue pagamenti."
+      ],
+      "tour": [
+        {
+          "selector": "[data-agreement]",
+          "text": "Apri l’accordo individuale del mese."
+        },
+        {
+          "selector": "#ag-model",
+          "text": "Scegli turni, ore o quota fissa."
+        },
+        {
+          "selector": "#ag-confirmed",
+          "text": "Conferma soltanto dopo la verifica."
+        },
+        {
+          "selector": "#saveAgreement",
+          "text": "Salva con una motivazione; il servizio può chiedere la verifica 2FA."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "riepilogo": {
+      "title": "Riepilogo: controllare i totali e chiudere il mese",
+      "goal": "Riconciliare i totali e seguire il percorso di chiusura previsto dalla sede.",
+      "audience": "Consultazione secondo ruolo; chiusura ordinaria ai responsabili, approvazione finale HR quando il flusso è attivo",
+      "before": [
+        "Scegli centro e mese; distingui dati consuntivi e pianificati.",
+        "Se il flusso approvazioni è attivo, la chiusura finale spetta a HR o all’amministratore."
+      ],
+      "steps": [
+        "Apri Riepilogo e confronta turni, giorni, ore note, fuori sede, festivi, assenze e crediti.",
+        "Controlla Da consuntivare e turni senza orari. Correggi nelle Presenze; se il mese è già inviato, richiedi prima una restituzione.",
+        "Quando autorizzato, usa Esporta riepilogo CSV, Esporta dettaglio CSV o Stampa. Il tracciato Paghe è un’esportazione distinta con controlli propri.",
+        "Con il flusso attivo, Chiudi mese porta ad Approvazione mese: segui invio della sede, verifica del responsabile e approvazione HR.",
+        "Con il flusso disattivato, il responsabile salva la verifica in Controlli, poi usa Chiudi mese. Per una correzione successiva usa Riapri mese e motiva.",
+        "Controlla lo stato Mese chiuso. Nel flusso attivo, una riapertura invalida l’approvazione e richiede di ripetere i passaggi."
+      ],
+      "result": "Il mese risulta chiuso e il registro è protetto dalle modifiche ordinarie.",
+      "example": "Prima della chiusura trovi due fasce da consuntivare: chiedi conferma alla sede, completa le registrazioni reali e aggiorna i totali.",
+      "errors": [
+        "Chiusura bloccata: leggi la causa e completa consuntivi, orari richiesti o verifica del calendario.",
+        "Mese già inviato: correggilo solo dopo la restituzione nel flusso di approvazione.",
+        "Mese chiuso prima dell’attivazione: resta storico precedente e non riceve una verifica HR retroattiva."
+      ],
+      "tour": [
+        {
+          "selector": "#exportSummary",
+          "text": "Scarica il riepilogo, se autorizzato."
+        },
+        {
+          "selector": "#closeMonth",
+          "text": "Chiudi o riapri il mese selezionato con i permessi necessari."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "controlli": {
+      "title": "Controlli: leggere anomalie e salvare la verifica",
+      "goal": "Verificare dati, calendario e parametri del mese lasciando un riferimento del controllo.",
+      "audience": "Tutti in consultazione secondo ruolo; verifica del mese ai responsabili",
+      "before": [
+        "Scegli la sede e il mese da controllare.",
+        "Solo responsabili e amministratori salvano la verifica; gli altri ruoli consultano secondo i permessi."
+      ],
+      "steps": [
+        "Apri Controlli e leggi le segnalazioni una per una. Torna alla pagina di origine per correggere il dato.",
+        "Confronta la versione dei parametri del mese con quella corrente della sede: un mese compilato può conservare regole precedenti.",
+        "Quando il mese è modificabile, spunta Ho verificato parametri e calendario del mese. Inserisci una nota che indichi cosa hai controllato.",
+        "Premi Salva verifica e rileggi lo stato. Nel flusso approvazioni il responsabile può verificare il calendario anche durante il passaggio verso HR.",
+        "Consulta il registro per autore, data e operazione. Per la chiusura passa ad Approvazione mese, se attivo, oppure a Riepilogo."
+      ],
+      "result": "La verifica del calendario è registrata; non equivale da sola alla chiusura o all’approvazione finale HR.",
+      "example": "Il responsabile confronta le festività del mese con il calendario autorizzato e annota il riferimento prima di salvare la verifica.",
+      "errors": [
+        "Mese inviato o chiuso: richiedi la restituzione o riapertura prima di modificare dati e verifica.",
+        "Riferimenti cambiati dopo l’invio: avvia una nuova verifica tramite Approvazione mese.",
+        "Una segnalazione organizzativa va valutata dal referente; non è di per sé una certificazione."
+      ],
+      "tour": [
+        {
+          "selector": "#verifiedPeriod",
+          "text": "Dichiara la verifica del calendario e delle regole."
+        },
+        {
+          "selector": "#periodNote",
+          "text": "Lascia un riferimento utile al controllo."
+        },
+        {
+          "selector": "#saveVerify",
+          "text": "Salva la verifica del mese."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "parametri": {
+      "title": "Parametri: configurare fasce, causali e regole",
+      "goal": "Cambiare le regole della sede sapendo quali dati risentono subito della modifica e quali conservano una versione mensile.",
+      "audience": "Responsabili e amministratori abilitati; altri ruoli in lettura",
+      "before": [
+        "Modifiche riservate a responsabili e amministratori nel proprio ambito.",
+        "Concorda le regole prima di salvarle e controlla sede e mese."
+      ],
+      "steps": [
+        "Apri Parametri e confronta la versione corrente del centro con quella del mese.",
+        "In Fasce e orari definisci orari, pausa e passaggio al giorno successivo. In Causali controlla tipo, stato Attiva e fasce autorizzate.",
+        "In Calendario e ruoli imposta apertura, festività, qualifiche e sedi esterne. In Permessi e controlli scegli le azioni ammesse al compilatore.",
+        "In Parametri economici imposta le proposte per i nuovi accordi. In Carico e stampa completa i riferimenti organizzativi e il separatore CSV.",
+        "Usa Riferimento impostazioni per capire ogni campo; premi Salva nuova versione dopo la verifica. I permessi del compilatore entrano in vigore subito.",
+        "Per aggiornare le regole di un periodo idoneo usa Applica al mese vuoto selezionato e motiva. Un mese già compilato conserva le proprie regole."
+      ],
+      "result": "La nuova configurazione è versionata; gli accordi già salvati non cambiano automaticamente.",
+      "example": "Aggiungi una nuova fascia serale: controlla orari, causale di lavoro e fasce ammesse prima di usarla in un mese nuovo.",
+      "errors": [
+        "Causale assente nel registro: verifica Attiva e Fasce autorizzate.",
+        "Tariffa precedente nell’accordo: modifica e conferma l’accordo del mese; i valori iniziali non lo riscrivono.",
+        "Pausa o turno notturno incoerenti: correggi orari, minuti di pausa e Giorno +1."
+      ],
+      "tour": [
+        {
+          "selector": "[data-config-tab=\"fasce\"]",
+          "text": "Definisci le fasce del centro."
+        },
+        {
+          "selector": "[data-config-tab=\"permessi\"]",
+          "text": "I permessi del compilatore hanno effetto immediato."
+        },
+        {
+          "selector": "#saveConfig",
+          "text": "Salva una nuova versione di configurazione."
+        },
+        {
+          "selector": "#applyConfig",
+          "text": "Applica le regole solo a un mese vuoto idoneo."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "centri": {
+      "title": "Centri: creare una sede o importare il modello",
+      "goal": "Aggiungere una sede separata e controllare i dati prima della prima compilazione.",
+      "audience": "Tutti vedono i centri assegnati; creazione e importazione agli amministratori",
+      "before": [
+        "Creazione centri e importazione sono riservate agli amministratori.",
+        "Per importare serve un modello Excel compatibile entro 12 MB, non un foglio generico."
+      ],
+      "steps": [
+        "Apri Centri. Per lavorare su una sede esistente usa il suo pulsante di apertura.",
+        "Per una sede nuova premi Aggiungi centro, inserisci nome e codice univoco e scegli i valori iniziali o una configurazione da copiare.",
+        "Controlla fasce, causali, calendario e ruoli copiati prima della compilazione. La copia della configurazione non è una copia dei dipendenti.",
+        "Per il modello compatibile premi Importa modello Excel. Leggi l’anteprima: centro, mese, persone e avvisi.",
+        "Conferma soltanto dopo il confronto. L’importazione crea un centro separato ed è preceduta da backup; non modifica il file originale.",
+        "Assegna la sede ai relativi account in Utenti e permessi."
+      ],
+      "result": "La nuova sede è presente nell’archivio centrale e può essere assegnata agli utenti.",
+      "example": "Per aprire una sede con fasce simili a un’altra, copi la configurazione iniziale e poi verifichi festività e recapiti propri.",
+      "errors": [
+        "Codice già usato: scegli quello corretto e univoco del centro.",
+        "Excel rifiutato o avvisi inattesi: interrompi la conferma e verifica il modello di origine.",
+        "Non ripetere un’importazione per correggere il centro già creato: prima controlla l’esito della precedente."
+      ],
+      "tour": [
+        {
+          "selector": "#newCenter",
+          "text": "Crea un centro con nome, codice e configurazione iniziale."
+        },
+        {
+          "selector": "#importExcel",
+          "text": "Apri l’anteprima di un modello Excel compatibile."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "statistiche": {
+      "title": "Statistiche: confrontare dati completi e dati mancanti",
+      "goal": "Confrontare periodi e sedi usando gli stessi filtri e leggendo prima la qualità dei dati.",
+      "audience": "Account autorizzati; contenuti HR solo ai ruoli abilitati",
+      "before": [
+        "Decidi quale periodo e quali sedi confrontare.",
+        "Le statistiche HR richiedono un ruolo autorizzato e descrivono la situazione attuale."
+      ],
+      "steps": [
+        "Apri Statistiche. Seleziona un centro o il gruppo autorizzato e un intervallo Dal mese / Al mese entro 24 mesi.",
+        "Se serve, filtra la qualifica e, per un singolo centro, la persona. Aggiorna il confronto.",
+        "Controlla prima completezza degli orari e mesi senza dati. Le ore non disponibili non vengono stimate.",
+        "Leggi ore note, turni, fasce di assenza e fuori sede. Seleziona un mese o un centro per approfondire e apri il registro dal dettaglio persona.",
+        "Esporta Excel quando disponibile: nell’installazione operativa segue filtri e permessi della pagina. Nella demo gli Excel sono esempi sul campione iniziale."
+      ],
+      "result": "Il confronto conserva un perimetro chiaro e rende distinguibili valori registrati e informazioni mancanti.",
+      "example": "Confronta settembre e ottobre dello stesso centro: prima della variazione delle ore controlla se entrambi i mesi hanno gli orari completi.",
+      "errors": [
+        "Quota assenze: è riferita alle fasce registrate, non a ore contrattuali, saldo ferie o tasso ufficiale di assenteismo.",
+        "Qualifica storica: il sistema usa le decorrenze disponibili; dove mancano, non ricostruisce un ruolo passato presunto.",
+        "La stessa persona in più sedi può comparire più volte nei dettagli per centro; controlla il livello del prospetto."
+      ],
+      "tour": [
+        {
+          "selector": "#statsCenter",
+          "text": "Seleziona il perimetro autorizzato."
+        },
+        {
+          "selector": "#statsFrom",
+          "text": "Scegli il primo mese del confronto."
+        },
+        {
+          "selector": "#statsTo",
+          "text": "Scegli l’ultimo mese."
+        },
+        {
+          "selector": "#statsExcel",
+          "text": "Esporta gli stessi filtri in Excel."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "esportazioni": {
+      "title": "Backup ed esportazioni: scegliere il file corretto",
+      "goal": "Scaricare il prospetto richiesto e distinguere un’esportazione da una copia completa dell’archivio.",
+      "audience": "Excel secondo i permessi; gestione backup riservata agli amministratori",
+      "before": [
+        "Le esportazioni dipendono dai permessi; i backup sono riservati all’amministratore.",
+        "Per la seconda copia serve una cartella NAS o destinazione separata raggiungibile dal servizio."
+      ],
+      "steps": [
+        "Apri Backup ed esportazioni e scegli Prospetto: registro, presenze complessive, statistiche, fascicoli, onboarding/scadenze oppure accordi.",
+        "Imposta i filtri richiesti. Il registro usa un centro, un mese e Pianificato o Consuntivo; i prospetti HR descrivono la situazione attuale.",
+        "Premi Scarica Excel e controlla nome e contenuto del file. Per dati riservati può essere richiesta una nuova verifica di sicurezza.",
+        "Come amministratore, configura destinazione separata, conservazione e frequenza delle prove. Il database attivo deve restare sul disco locale del server.",
+        "Crea backup adesso, poi usa Copia e prova ripristino per verificare anche la destinazione separata. Controlla data, esito ed eventuali errori.",
+        "Custodisci separatamente la chiave 2FA e pianifica un ripristino completo di prova seguendo INSTALLAZIONE_WEB.md."
+      ],
+      "result": "Il prospetto contiene i dati richiesti; il backup completo conserva anche i documenti, con esiti di verifica consultabili.",
+      "example": "Per il consulente interno scarichi un prospetto Excel; per recuperare il sistema dopo un guasto servono invece backup del database e chiave privata.",
+      "errors": [
+        "Excel non è un backup: non include i file allegati binari né l’intera configurazione.",
+        "Copia NAS non riuscita: verifica percorso montato, permessi dell’account del servizio e spazio.",
+        "La prova tecnica del backup non sostituisce il collaudo di accessi e documenti su un ambiente di ripristino."
+      ],
+      "tour": [
+        {
+          "selector": "#exportKind",
+          "text": "Scegli quale prospetto scaricare."
+        },
+        {
+          "selector": "#exportCenter",
+          "text": "Definisci la sede o il gruppo autorizzato."
+        },
+        {
+          "selector": "#exportDownload",
+          "text": "Scarica il file Excel."
+        },
+        {
+          "selector": "#backupNow",
+          "text": "Crea e verifica una copia del database."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "paghe": {
+      "title": "Paghe: preparare e verificare il tracciato",
+      "goal": "Produrre un file coerente con le specifiche ricevute dal consulente, senza presumere un gestionale destinatario.",
+      "audience": "HR centrale, amministratori e responsabili autorizzati",
+      "before": [
+        "Finché il fornitore non è noto, conserva Modello generico in bozza.",
+        "Chiedi un esempio vuoto e le specifiche: intestazioni, causali, matricole, date, separatori e codifica."
+      ],
+      "steps": [
+        "Apri Paghe nel centro corretto. Per usare le specifiche ricevute scegli Tracciato del consulente e indica gestionale, nome, versione e riferimento del formato.",
+        "Apri Leggi le intestazioni o un file di specifiche. Incolla solo la riga delle intestazioni CSV, oppure carica un file UTF-8 fino a 32 KiB; è ammessa anche la specifica JSON esportata dal portale.",
+        "Premi Leggi e prepara la bozza. Controlla ogni associazione, ordine, tipo, obbligatorietà e lunghezza; le intestazioni sconosciute restano Da associare. Il modello salvato cambia solo quando lo salvi.",
+        "Completa separatori, formato data, codifica, codici delle causali e matricole alternative, se necessarie. Salva prima in bozza.",
+        "Dopo la verifica con il consulente scegli Verificato con il consulente, indica il riferimento e conferma esplicitamente. Una modifica successiva richiede una nuova conferma.",
+        "Genera l’anteprima per il periodo scelto. Risolvi i blocchi su orari, matricole, causali e colonne; con il flusso attivo, ogni mese deve avere un’approvazione HR corrente.",
+        "Controlla quantità e formato, poi scarica CSV o Excel. Se dati o modello cambiano, rigenera l’anteprima. Collauda il file nell’importatore reale del consulente.",
+        "Per condividere soltanto il formato usa Scarica le specifiche salvate: il JSON non contiene presenze o matricole personali."
+      ],
+      "result": "Hai un file locale controllato rispetto al modello configurato, da collaudare e consegnare tramite i canali aziendali.",
+      "example": "Il consulente richiede Matricola;Data;Causale;Ore: importi la sola intestazione, associ le quattro colonne e verifichi formato data e decimali prima del file pilota.",
+      "errors": [
+        "Righe dei dipendenti nel file intestazioni: rimuovile e lascia soltanto la prima riga.",
+        "Gestionale o specifica incompleti: mantieni la bozza; non è dichiarata una compatibilità certificata.",
+        "Colonna non associata o carattere non rappresentabile: correggi mappatura o dato secondo la specifica concordata.",
+        "Tracciati a larghezza fissa o campi non disponibili richiedono un adattamento dedicato. Il portale non produce cedolini né invia il file automaticamente."
+      ],
+      "tour": [
+        {
+          "selector": "#payrollConnectorMode",
+          "text": "Scegli il modello generico oppure le specifiche ricevute dal consulente."
+        },
+        {
+          "selector": "#payrollColumns",
+          "text": "Associa i dati e verifica intestazioni, ordine e regole delle colonne."
+        },
+        {
+          "selector": "#payrollSave",
+          "text": "Salva una nuova versione; un tracciato consulente confermato richiede verifica esplicita."
+        },
+        {
+          "selector": "#payrollPreviewLoad",
+          "text": "Genera i controlli per il periodo, prima di scaricare il file."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "utenti": {
+      "title": "Utenti e permessi: assegnare il ruolo corretto",
+      "goal": "Creare un account nominativo con il ruolo e le sedi necessari al lavoro della persona.",
+      "audience": "Solo amministratori",
+      "before": [
+        "Operazione riservata agli amministratori.",
+        "Concorda ruolo e sedi prima della creazione; non usare un account condiviso."
+      ],
+      "steps": [
+        "Apri Utenti e permessi e premi Nuovo utente. Inserisci nome, nome utente e password iniziale di almeno 12 caratteri.",
+        "Scegli il ruolo: Compilatore per il registro, Lettore per consultazione, Responsabile per la sede, HR centrale per processi HR di gruppo, Amministratore per configurazione e account.",
+        "Assegna i centri ai ruoli di sede. HR centrale e amministratore hanno ambito globale; l’utente Lettore non riceve automaticamente tutte le sedi.",
+        "Salva e conserva il codice di attivazione mostrato, valido 7 giorni. Consegnalo riservatamente alla persona, separato dalla password.",
+        "Per revocare l’accesso togli Account attivo e salva. Le modifiche all’account revocano le sessioni.",
+        "Per un telefono perso, verifica l’identità prima di usare Ripristina 2FA con motivazione. Il vecchio dispositivo, i recuperi e le sessioni vengono revocati."
+      ],
+      "result": "L’utente accede con credenziali proprie e trova le funzioni e le sedi assegnate.",
+      "example": "Un referente HR che deve leggere documenti di tutte le sedi riceve HR centrale; non serve assegnargli Amministratore per questo compito.",
+      "errors": [
+        "Il codice non viene inviato automaticamente via email: consegnalo con il canale aziendale previsto.",
+        "Cambiare la password dall’amministrazione non disabilita il secondo fattore.",
+        "Il percorso Uscite registra le attività, ma non disabilita da solo gli account: completa anche questa operazione."
+      ],
+      "tour": [
+        {
+          "selector": "#newUser",
+          "text": "Crea un account nominativo."
+        },
+        {
+          "selector": "#userRole",
+          "text": "Scegli il profilo adatto alle attività."
+        },
+        {
+          "selector": "#saveUser",
+          "text": "Salva e conserva il codice di prima attivazione."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "sicurezza": {
+      "title": "Sicurezza: gestire telefono, recuperi e sessioni",
+      "goal": "Mantenere un modo affidabile per accedere e revocare le sessioni non più necessarie.",
+      "audience": "Ogni utente gestisce il proprio account",
+      "before": [
+        "Apri il tuo account da Sicurezza · 2FA.",
+        "Prima di cambiare telefono assicurati di avere accesso al dispositivo attuale o ai codici di recupero."
+      ],
+      "steps": [
+        "Controlla attività recenti, sessioni e numero di codici di recupero disponibili.",
+        "Per sostituire il telefono premi Cambia dispositivo, collega il nuovo Authenticator e conferma il codice prima di dismettere il vecchio.",
+        "Rigenera codici sostituisce i precedenti: conserva la nuova serie in un luogo riservato e separato dal telefono.",
+        "Per Cambia password inserisci quella attuale e ripeti la nuova, di almeno 12 caratteri. Il cambio disconnette le sessioni.",
+        "Usa Esci dagli altri dispositivi per revocare le altre sessioni; Esci nell’intestazione termina quella corrente."
+      ],
+      "result": "I dispositivi e le sessioni rimasti validi sono quelli che intendi usare; i nuovi recuperi sono disponibili se necessari.",
+      "example": "Prima di consegnare il vecchio telefono, colleghi e verifichi quello nuovo e conservi i nuovi codici di recupero.",
+      "errors": [
+        "Telefono perso: usa password e un recupero monouso, oppure chiedi il ripristino al referente dopo verifica d’identità.",
+        "Password dimenticata: segui il recupero previsto dall’azienda; non esiste una password universale.",
+        "Conferma di sicurezza richiesta: ripeti password e codice personale per l’operazione riservata."
+      ],
+      "tour": [
+        {
+          "selector": "#rotateMfa",
+          "text": "Collega il nuovo telefono prima di dismettere il vecchio."
+        },
+        {
+          "selector": "#newRecovery",
+          "text": "Genera una nuova serie di codici monouso."
+        },
+        {
+          "selector": "#changePassword",
+          "text": "Cambia la password personale."
+        },
+        {
+          "selector": "#revokeSessions",
+          "text": "Chiudi le sessioni degli altri dispositivi."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "carico": {
+      "title": "Carico: registrare i totali per fascia",
+      "goal": "Registrare conteggi aggregati dei pazienti e leggere i rapporti organizzativi della sede.",
+      "audience": "Responsabili e amministratori abilitati",
+      "before": [
+        "Modifica riservata a responsabili e amministratori.",
+        "Il mese deve essere modificabile; usa soltanto conteggi aggregati, senza dati identificativi dei pazienti."
+      ],
+      "steps": [
+        "Apri Carico e controlla centro, mese, data e fascia.",
+        "Inserisci il numero di pazienti ordinari e in contumacia, usando interi non negativi.",
+        "Premi Salva conteggio e verifica la riga della data e fascia selezionate.",
+        "Leggi rapporti INF/MED e indici rispetto ai parametri della sede. Il personale pertinente deriva dalle presenze e dai ruoli configurati.",
+        "Se compare N/D, controlla dati e configurazione senza sostituirlo con zero. I risultati vanno valutati dai referenti."
+      ],
+      "result": "La tabella conserva un riferimento organizzativo per data e fascia, distinto dalle informazioni cliniche.",
+      "example": "Per la mattina registri 18 pazienti ordinari e 2 in contumacia: la tabella usa il peso configurato per il riferimento infermieristico.",
+      "errors": [
+        "N/D: può mancare personale pertinente o un conteggio; verifica la fonte.",
+        "I rapporti non certificano adeguatezza clinica o conformità normativa.",
+        "Mese inviato o chiuso: serve il passaggio autorizzato prima di modificare il conteggio."
+      ],
+      "tour": [
+        {
+          "selector": "#patDay",
+          "text": "Scegli la data del conteggio."
+        },
+        {
+          "selector": "#patSlot",
+          "text": "Seleziona la fascia corretta."
+        },
+        {
+          "selector": "#patOrdinary",
+          "text": "Inserisci solo un totale aggregato."
+        },
+        {
+          "selector": "#savePatients",
+          "text": "Salva il conteggio per data e fascia."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "guida": {
+      "title": "Guide e tutorial: trovare la risposta giusta",
+      "goal": "Scegliere un percorso per ruolo, trovare una procedura e capire l’effetto di un singolo campo.",
+      "audience": "Tutti gli utenti",
+      "before": [
+        "Puoi aprire la guida senza modificare i dati del portale.",
+        "Le istruzioni descrivono anche funzioni riservate ad altri ruoli: i permessi continuano a valere."
+      ],
+      "steps": [
+        "Apri Guide e tutorial. Parti da un percorso per ruolo oppure cerca una parola, come documento, approvazione, IBAN o backup.",
+        "Apri la procedura e leggi Per chi, Prima di iniziare e obiettivo. Segui i passaggi nell’ordine indicato.",
+        "Confronta il risultato atteso con ciò che vedi nel portale. L’esempio è fittizio: usa solo dati aziendali verificati nell’installazione operativa.",
+        "Per un singolo campo passa a Riferimento impostazioni: leggi effetto ed esempio prima di cambiare un valore.",
+        "Nella videoguida usa pausa, capitoli e sottotitoli per seguire un passaggio. La trascrizione conserva anche il testo consultabile.",
+        "Dalla pagina di lavoro usa Aiuto per questa pagina e Avvia tour: vengono evidenziati solo i comandi disponibili e visibili, senza eseguire salvataggi."
+      ],
+      "result": "Hai una procedura collegata al lavoro da svolgere e un controllo finale per capire se l’operazione è riuscita.",
+      "example": "Cerchi “approvazione”: apri la guida del mese, verifica il ruolo del passaggio e poi torna alla pagina per eseguirlo.",
+      "errors": [
+        "Comando del tour non visibile: apri prima la pagina o la sezione indicata.",
+        "Campo o azione assenti: controlla ruolo, sede e stato del dato; la guida non amplia le autorizzazioni."
+      ],
+      "tour": [],
+      "duration": "Lettura · 2 min"
+    },
+    "strutture": {
+      "title": "Strutture: aggiornare la rubrica condivisa",
+      "goal": "Mantenere recapiti e referenti della sede in un solo punto, consultabile dai fascicoli collegati.",
+      "audience": "HR centrale e amministratori; responsabili nei centri assegnati",
+      "before": [
+        "HR centrale e amministratori vedono tutte le sedi; i responsabili soltanto quelle assegnate.",
+        "Verifica gli indirizzi HR e amministrativi prima di usarli per comunicazioni o promemoria."
+      ],
+      "steps": [
+        "Apri Strutture e cerca per nome, codice o referente. Premi Apri scheda sulla sede corretta.",
+        "Completa ragione sociale, riferimenti fiscali e indirizzo disponibili. I campi della rubrica sono facoltativi.",
+        "Registra separatamente email generale, HR, amministrazione e PEC: un solo indirizzo per campo.",
+        "Indica telefono, referente, direttore e sito web completo di https://. Usa le note per informazioni organizzative aggiornate.",
+        "Premi Salva struttura. Nel fascicolo di un dipendente apri Struttura di riferimento per verificare gli stessi recapiti.",
+        "Se modifichi un recapito usato dai promemoria, l’amministratore deve controllare e riconfermare i destinatari nella loro configurazione."
+      ],
+      "result": "Tutti i fascicoli della sede mostrano i riferimenti aggiornati, senza ricopiare la rubrica per ogni persona.",
+      "example": "Cambia il referente HR della sede: aggiorni l’email nella rubrica e controlli il fascicolo di una persona della stessa struttura.",
+      "errors": [
+        "Email non valida: usa un solo indirizzo, senza nome del destinatario o righe aggiuntive.",
+        "Versione cambiata: riapri la scheda e confronta i dati salvati da un collega.",
+        "Cambiare la rubrica non trasferisce il dipendente e non modifica le sue presenze."
+      ],
+      "tour": [
+        {
+          "selector": "#structureSearch",
+          "text": "Cerca una struttura tra i centri autorizzati."
+        },
+        {
+          "selector": "[data-structure-open]",
+          "text": "Apri la scheda condivisa della struttura."
+        },
+        {
+          "selector": "#structure_hr_email",
+          "text": "Questo è il recapito HR della struttura, distinto dall’email personale del dipendente."
+        },
+        {
+          "selector": "#structureSave",
+          "text": "Salva i dati condivisi con tutti i fascicoli del centro."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "comunicazioni": {
+      "title": "Comunicazioni: dal modello all’invio verificato",
+      "goal": "Preparare email individuali per una lista, controllando destinatari e testo prima della conferma.",
+      "audience": "HR centrale e amministratori; configurazione del servizio riservata agli amministratori",
+      "before": [
+        "Modelli, liste e bozze: HR centrale e amministratori. Servizio SMTP: solo amministratore.",
+        "Puoi preparare bozze con SMTP disattivato. Nella demo ogni invio è soltanto simulato."
+      ],
+      "steps": [
+        "Apri Comunicazioni e scegli un modello oppure preparane uno con nome, oggetto e testo. Usa solo le variabili elencate dal portale.",
+        "In Liste scegli dipendenti o contatti delle strutture. Seleziona sedi, filtri e campo email da usare; aggiungi eventuali esclusioni.",
+        "Nella composizione scegli modello e lista, adatta il messaggio e premi Genera anteprima.",
+        "Controlla i destinatari effettivi, i duplicati rimossi, gli indirizzi mancanti e i testi personalizzati. Correggi le anomalie e rigenera l’anteprima.",
+        "Salva la bozza: conserva testi e destinatari come verificati. Le modifiche successive alla rubrica non aggiornano quella bozza.",
+        "Con SMTP configurato, apri la bozza e conferma il lotto proposto. Ogni email ha un solo destinatario; il lotto successivo richiede una nuova azione.",
+        "Leggi gli esiti per destinatario. Per le campagne manuali puoi ritentare gli invii falliti; gli esiti incerti e i promemoria automatici richiedono le rispettive verifiche."
+      ],
+      "result": "La campagna conserva i messaggi preparati e gli esiti dei tentativi, senza esporre la lista agli altri destinatari.",
+      "example": "Per ricordare un documento ai referenti delle sedi, prepari una lista dei contatti HR, controlli l’anteprima e confermi il lotto soltanto dopo la verifica.",
+      "errors": [
+        "Accettato SMTP significa preso in carico dal server, non prova della consegna o lettura.",
+        "Anteprima superata: rigenerala se cambiano modello, lista o dati prima della bozza.",
+        "Esito incerto: confronta lo storico del fornitore prima di preparare un altro messaggio per lo stesso destinatario.",
+        "Invio interrotto: Riconcilia invio interrotto, quando disponibile, sospende i tentativi incerti e non spedisce nuovi messaggi."
+      ],
+      "tour": [
+        {
+          "selector": "[data-comm-section=\"templates\"]",
+          "text": "Prepara e salva i modelli con le sole variabili ammesse."
+        },
+        {
+          "selector": "[data-comm-section=\"lists\"]",
+          "text": "Definisci destinatari, filtri e indirizzi da escludere."
+        },
+        {
+          "selector": "[data-comm-section=\"compose\"]",
+          "text": "Componi una comunicazione e consulta le bozze e gli invii."
+        },
+        {
+          "selector": "#commPreview",
+          "text": "Ricalcola i destinatari e leggi le email personalizzate senza inviarle."
+        },
+        {
+          "selector": "#commDraftCreate",
+          "text": "Conserva la versione verificata dei destinatari e dei testi."
+        },
+        {
+          "selector": "#commCampaignSelect",
+          "text": "Apri una bozza o controlla gli esiti dei singoli destinatari."
+        },
+        {
+          "selector": "[data-comm-section=\"settings\"]",
+          "text": "Solo l’amministratore configura e abilita il servizio di posta."
+        },
+        {
+          "selector": "#commSendOpen",
+          "text": "Rileggi la bozza prima di confermare l’invio reale del lotto."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "approvazioni": {
+      "title": "Approvazione mese: seguire i tre passaggi",
+      "goal": "Far controllare le presenze alla sede, al responsabile e a HR prima della chiusura.",
+      "audience": "Tutti leggono le sedi autorizzate; invio ai compilatori e responsabili, verifica ai responsabili, approvazione finale a HR e amministratori",
+      "before": [
+        "L’amministratore deve attivare il flusso per la sede. Nella demo è già attivo.",
+        "L’invio è disponibile a compilatori, responsabili e amministratori; la verifica al responsabile; l’approvazione finale a HR o amministratore."
+      ],
+      "steps": [
+        "Apri Approvazione mese e controlla centro, mese, stato e Controlli prima dell’approvazione.",
+        "Se serve attivarlo, l’amministratore apre Configurazione del flusso, seleziona la richiesta di verifica e approvazione HR, motiva e salva.",
+        "La sede completa i consuntivi e risolve i blocchi, poi preme Invia al responsabile. Da questo momento le presenze sono protette dalle modifiche.",
+        "Il responsabile controlla dati e calendario, spunta la verifica e usa Conferma verifica e invia a HR. Se serve correggere, usa Restituisci per correzioni con una nota di almeno 8 caratteri.",
+        "HR controlla il mese e usa Approva e chiudi mese oppure lo restituisce con motivazione. HR non modifica direttamente le presenze.",
+        "Dopo una restituzione, la sede corregge e invia nuovamente. Dopo la chiusura, una riapertura motivata invalida l’approvazione e richiede di ripetere il percorso.",
+        "Consulta lo Storico dei passaggi. Se i dati di riferimento sono cambiati, restituisci e verifica la nuova versione prima dell’approvazione o dell’esportazione paghe."
+      ],
+      "result": "Lo stato è Approvato da HR e il periodo è chiuso; lo storico identifica autore, momento e motivo dei passaggi.",
+      "example": "La sede invia ottobre; il responsabile rileva un’uscita mancante e restituisce il mese. Dopo la correzione, sede, responsabile e HR ripetono i rispettivi passaggi.",
+      "errors": [
+        "Pulsante assente: controlla ruolo, sede e stato; ogni passaggio è disponibile solo al ruolo previsto.",
+        "Invio bloccato: completa consuntivi, orari richiesti o sedi importate non definite indicati nei controlli.",
+        "Versione cambiata: Aggiorna stato prima di decidere; non approvare dati diversi da quelli verificati.",
+        "Mese già chiuso prima del flusso: resta storico precedente, senza approvazione HR attribuita retroattivamente."
+      ],
+      "tour": [
+        {
+          "selector": "#approvalStatus",
+          "text": "Leggi lo stato del mese e il ruolo che deve intervenire."
+        },
+        {
+          "selector": "#approvalChecks",
+          "text": "Risolvi i controlli prima dell’invio o dell’approvazione."
+        },
+        {
+          "selector": "#approvalActions",
+          "text": "Sono disponibili soltanto i passaggi consentiti al tuo ruolo."
+        },
+        {
+          "selector": "#approvalHistory",
+          "text": "Lo storico conserva chi ha inviato, verificato, restituito e approvato."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "copertura": {
+      "title": "Copertura turni: trovare e gestire le scoperture",
+      "goal": "Confrontare il personale pianificato con i minimi della sede e valutare una sostituzione.",
+      "audience": "Copertura aggregata: tutti i ruoli nei centri autorizzati. Note e proposte: HR e responsabili. Minimi e conferma sostituzioni: responsabile della destinazione o amministratore.",
+      "before": [
+        "I minimi sono riferimenti organizzativi definiti dalla sede, non una certificazione clinica.",
+        "Tutti vedono i conteggi autorizzati; disponibilità e note sono riservate a HR e responsabili."
+      ],
+      "steps": [
+        "Scegli centro e mese e apri Copertura turni. In Copertura del mese leggi minimi, pianificati, consuntivi e mancanti separatamente.",
+        "In Fabbisogni il responsabile definisce giorno della settimana, fascia, qualifica e minimo. Un’eccezione per data prevale sulla settimana tipo. Salva e controlla il riepilogo.",
+        "In Disponibilità HR o il responsabile registra persona, intervallo e indicazione. Non disponibile esclude il pianificato in conflitto; Disponibile e Preferenza non assegnano un turno.",
+        "Prima di proporre tra sedi, verifica che le due anagrafiche della stessa persona siano collegate in Personale di gruppo e che il proponente possa accedere a entrambe le sedi.",
+        "In Sostituzioni scegli persona e sede d’origine, giorno, fascia e causale di lavoro della destinazione. Motiva e invia la proposta.",
+        "Il responsabile della destinazione o l’amministratore controlla e usa Accetta e pianifica oppure Rifiuta, con nota. All’accettazione il programma ricontrolla disponibilità e conflitti.",
+        "Aggiorna la copertura. Per il lavoro effettivamente svolto registra poi il Consuntivo nelle Presenze."
+      ],
+      "result": "Le fasce da coprire sono visibili; una proposta accettata crea un solo turno pianificato e conserva la decisione.",
+      "example": "La mattina richiede due infermieri ma ne risulta uno disponibile: il responsabile verifica una persona già collegata alle due sedi e propone il turno alla destinazione.",
+      "errors": [
+        "Nessun candidato: controlla anagrafiche attive, identità collegate e accesso alle due sedi.",
+        "Turno escluso: risolvi indisponibilità, sovrapposizioni o orari mancanti prima di contarlo come coperto.",
+        "Mese inviato o chiuso: non puoi aggiungere il pianificato fino al passaggio autorizzato.",
+        "Proposta superata: rifiutala e preparane una aggiornata dopo aver verificato i nuovi dati."
+      ],
+      "tour": [
+        {
+          "selector": "#centerSelect",
+          "text": "Scegli la struttura di destinazione del confronto o della sostituzione."
+        },
+        {
+          "selector": "#monthPick",
+          "text": "Il mese determina i turni mostrati e le proposte da valutare."
+        },
+        {
+          "selector": "[data-staffing-section=coverage]",
+          "text": "Confronta minimi e pianificati; il consuntivo rimane separato."
+        },
+        {
+          "selector": "[data-staffing-section=requirements]",
+          "text": "Leggi o configura settimana tipo ed eccezioni per data."
+        },
+        {
+          "selector": "[data-staffing-section=availability]",
+          "text": "Registra indicazioni organizzative e note riservate ai referenti."
+        },
+        {
+          "selector": "[data-staffing-section=proposals]",
+          "text": "Proponi o valuta una sostituzione tra anagrafiche già collegate."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "promemoria": {
+      "title": "Promemoria: configurare destinatari e scadenze",
+      "goal": "Programmare riepiloghi HR dopo aver verificato destinatari, contenuti e limiti di invio.",
+      "audience": "HR centrale e amministratori; configurazione solo amministratori",
+      "before": [
+        "HR centrale consulta; soltanto l’amministratore configura e attiva la programmazione.",
+        "Per gli invii reali occorrono SMTP abilitato e server acceso. Nella demo gli esiti sono simulati."
+      ],
+      "steps": [
+        "Apri Promemoria e controlla lo stato. La prima installazione parte disattivata; il servizio di posta si configura in Comunicazioni.",
+        "Scegli strutture e argomenti. Nessuna sede selezionata significa tutte le sedi; verifica sempre il perimetro nell’anteprima.",
+        "Imposta giorni di anticipo, limite degli arretrati, ora italiana e massimo quotidiano. Per esempio 30,15,7,0 indica le soglie prima della scadenza.",
+        "Scegli email HR delle strutture, ufficio HR centrale oppure entrambi. I recapiti delle sedi arrivano da Strutture; non vengono usate le email personali dei dipendenti.",
+        "Seleziona l’abilitazione e premi Genera anteprima. Controlla tutti gli indirizzi e i riepiloghi: contengono conteggi per sede, senza nomi dei dipendenti o allegati.",
+        "Conferma i recapiti e premi Salva programmazione. Per sospendere, togli l’abilitazione e salva. Cambi di configurazione o recapiti richiedono una nuova verifica.",
+        "Controlla lo storico. Gli errori e gli esiti incerti non vengono reinviati automaticamente né dalle campagne manuali: verifica il servizio di posta prima di agire."
+      ],
+      "result": "Il server elabora gli eventi previsti entro i limiti configurati, evitando copie dello stesso evento e anticipo allo stesso recapito.",
+      "example": "Configuri promemoria a 15 e 7 giorni per i documenti e scegli l’email HR di una sede; l’anteprima mostra i conteggi da inviare a quel referente.",
+      "errors": [
+        "Anteprima senza messaggi: controlla soglie, arretrati, eventi già gestiti e attività completate.",
+        "Recapito assente o cambiato: aggiorna Strutture, genera una nuova anteprima e riconferma.",
+        "Server spento: i controlli riprendono al riavvio entro il limite degli arretrati; non viene eseguito un invio mentre il servizio è fermo.",
+        "Dopo un ripristino i promemoria sono disattivati: confronta gli invii con il fornitore prima della riattivazione."
+      ],
+      "tour": [
+        {
+          "selector": "#reminderEnabled",
+          "text": "Controlla se la programmazione è attiva."
+        },
+        {
+          "selector": "#reminderMode",
+          "text": "Scegli quali recapiti aziendali riceveranno i riepiloghi."
+        },
+        {
+          "selector": "#reminderPreview",
+          "text": "Leggi destinatari e contenuti prima di attivare."
+        },
+        {
+          "selector": "#reminderHistory",
+          "text": "Consulta gli esiti senza creare invii duplicati."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    },
+    "uscite": {
+      "title": "Uscite e dotazioni: completare la riconsegna",
+      "goal": "Seguire cessazione o trasferimento e chiudere il percorso solo dopo attività e restituzioni.",
+      "audience": "HR centrale, amministratori e responsabili dei centri assegnati",
+      "before": [
+        "HR centrale, amministratori e responsabili gestiscono le sedi autorizzate.",
+        "Per il trasferimento serve accesso sia all’origine sia alla destinazione."
+      ],
+      "steps": [
+        "Apri Uscite e dotazioni. In Dotazioni premi Registra consegna per affidare un bene: scegli persona, tipo, codice inventario, descrizione e data effettiva.",
+        "In Percorsi di uscita premi Nuovo percorso. Indica persona, Cessazione o Trasferimento, data prevista, referente e motivazione di almeno 8 caratteri.",
+        "Apri il percorso e aggiorna le attività per badge, chiavi, dispositivi, documenti e accessi: stato, scadenza, responsabile e nota. Non applicabile richiede una motivazione.",
+        "Quando un bene è realmente riconsegnato, usa Registra restituzione e indica data e condizioni. Danni o inutilizzabilità richiedono una descrizione.",
+        "Controlla i blocchi. Completa percorso è disponibile solo con attività obbligatorie concluse o motivate e nessuna dotazione ancora assegnata. Inserisci la nota finale e conferma.",
+        "Consulta lo storico. Annulla percorso conserva le dotazioni ancora affidate; una restituzione registrata non viene riscritta.",
+        "Completa separatamente le modifiche autorizzate a fascicolo, sedi e account: chiudere il percorso non cessa il rapporto, non trasferisce la persona e non disabilita accessi esterni."
+      ],
+      "result": "La chiusura documenta verifiche e restituzioni; le attività mancanti restano visibili prima della conferma.",
+      "example": "Alla cessazione una persona restituisce il badge ma conserva un dispositivo da riconsegnare: il percorso rimane aperto finché la restituzione non è registrata.",
+      "errors": [
+        "Percorso già aperto: gestisci quello corrente oppure annullalo con motivazione prima di crearne un altro.",
+        "Completa percorso disabilitato: controlla checklist e dotazioni assegnate.",
+        "Codice inventario già affidato: registra la restituzione effettiva prima di una nuova consegna nella stessa sede.",
+        "Consegna e restituzione effettive non possono essere future; la restituzione non può precedere la consegna."
+      ],
+      "tour": [
+        {
+          "selector": "[data-departure-section=\"cases\"]",
+          "text": "Gestisci le attività di cessazione o trasferimento."
+        },
+        {
+          "selector": "[data-departure-section=\"assets\"]",
+          "text": "Consulta consegne e restituzioni delle dotazioni."
+        },
+        {
+          "selector": "#departureNew",
+          "text": "Crea il percorso o registra una consegna."
+        },
+        {
+          "selector": "[data-departure-open]",
+          "text": "Apri attività, blocchi e storico del percorso."
+        }
+      ],
+      "duration": "Lettura · 2 min"
+    }
+  },
+  "quickstarts": [
+    {
+      "id": "primi-passi",
+      "title": "Primi passi nel portale",
+      "role": "Tutti",
+      "description": "Impara a riconoscere sede, mese e strumenti di aiuto prima di lavorare sui dati.",
+      "topics": [
+        "avvio",
+        "dashboard",
+        "guida",
+        "sicurezza"
+      ]
+    },
+    {
+      "id": "compilatore",
+      "title": "Compilare e inviare il mese",
+      "role": "Compilatore",
+      "description": "Registra il lavoro svolto, correggi le segnalazioni e invia le presenze al responsabile.",
+      "topics": [
+        "presenze",
+        "completare",
+        "riepilogo",
+        "approvazioni"
+      ]
+    },
+    {
+      "id": "responsabile",
+      "title": "Verificare il lavoro della sede",
+      "role": "Responsabile centro",
+      "description": "Controlla copertura e registrazioni, completa le verifiche e inoltra il mese a HR.",
+      "topics": [
+        "copertura",
+        "presenze",
+        "controlli",
+        "approvazioni",
+        "uscite"
+      ]
+    },
+    {
+      "id": "hr",
+      "title": "Gestire un fascicolo e i documenti",
+      "role": "HR centrale",
+      "description": "Apri la persona, verifica gli allegati delle sedi e segui le attività amministrative.",
+      "topics": [
+        "dipendenti",
+        "onboarding",
+        "documenti",
+        "hrcentrale",
+        "scadenze",
+        "uscite"
+      ]
+    },
+    {
+      "id": "hr-mese",
+      "title": "Preparare la chiusura HR",
+      "role": "HR centrale",
+      "description": "Controlla il mese, approva la versione verificata e prepara il file per il consulente.",
+      "topics": [
+        "dashboard",
+        "approvazioni",
+        "paghe",
+        "comunicazioni",
+        "promemoria"
+      ]
+    },
+    {
+      "id": "amministratore",
+      "title": "Preparare una sede e gli accessi",
+      "role": "Amministratore",
+      "description": "Configura centro, recapiti, regole e account; verifica copie di sicurezza e invii prima dell’uso.",
+      "topics": [
+        "centri",
+        "strutture",
+        "parametri",
+        "utenti",
+        "esportazioni",
+        "promemoria"
+      ]
+    },
+    {
+      "id": "direzione",
+      "title": "Leggere l’andamento delle sedi",
+      "role": "Direzione / lettore",
+      "description": "Confronta presenze e copertura distinguendo dati completi, mancanti e semplici indicatori.",
+      "topics": [
+        "dashboard",
+        "statistiche",
+        "copertura",
+        "riepilogo"
+      ]
+    }
+  ],
+  "settings": []
+}

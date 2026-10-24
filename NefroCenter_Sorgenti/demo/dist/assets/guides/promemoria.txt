@@ -1,0 +1,36 @@
+Promemoria: configurare destinatari e scadenze
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: HR centrale e amministratori; configurazione solo amministratori
+
+[00:00:00.000] Prima di iniziare
+Programmare riepiloghi HR dopo aver verificato destinatari, contenuti e limiti di invio.
+
+HR centrale consulta; soltanto l’amministratore configura e attiva la programmazione.
+
+[00:00:14.000] Passo 1 di 7
+Apri Promemoria e controlla lo stato. La prima installazione parte disattivata; il servizio di posta si configura in Comunicazioni.
+
+[00:00:26.000] Passo 2 di 7
+Scegli strutture e argomenti. Nessuna sede selezionata significa tutte le sedi; verifica sempre il perimetro nell’anteprima.
+
+[00:00:37.000] Passo 3 di 7
+Imposta giorni di anticipo, limite degli arretrati, ora italiana e massimo quotidiano. Per esempio 30,15,7,0 indica le soglie prima della scadenza.
+
+[00:00:50.000] Passo 4 di 7
+Scegli email HR delle strutture, ufficio HR centrale oppure entrambi. I recapiti delle sedi arrivano da Strutture; non vengono usate le email personali dei dipendenti.
+
+[00:01:05.000] Passo 5 di 7
+Seleziona l’abilitazione e premi Genera anteprima. Controlla tutti gli indirizzi e i riepiloghi: contengono conteggi per sede, senza nomi dei dipendenti o allegati.
+
+[00:01:19.000] Passo 6 di 7
+Conferma i recapiti e premi Salva programmazione. Per sospendere, togli l’abilitazione e salva. Cambi di configurazione o recapiti richiedono una nuova verifica.
+
+[00:01:33.000] Passo 7 di 7
+Controlla lo storico. Gli errori e gli esiti incerti non vengono reinviati automaticamente né dalle campagne manuali: verifica il servizio di posta prima di agire.
+
+[00:01:48.000] Controlla il risultato
+Il server elabora gli eventi previsti entro i limiti configurati, evitando copie dello stesso evento e anticipo allo stesso recapito.
+
+[00:02:01.000] Se qualcosa non funziona
+Anteprima senza messaggi: controlla soglie, arretrati, eventi già gestiti e attività completate.

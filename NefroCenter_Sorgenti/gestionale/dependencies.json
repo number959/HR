@@ -1,0 +1,25 @@
+[
+  {
+    "package": "pyotp",
+    "url": "https://files.pythonhosted.org/packages/c3/c0/c33c8792c3e50193ef55adb95c1c3c2786fe281123291c2dbf0eaab95a6f/pyotp-2.9.0-py3-none-any.whl",
+    "sha256": "81c2e5865b8ac55e825b0358e496e1d9387c811e85bb40e71a3b29b288963612"
+  },
+  {
+    "package": "segno",
+    "url": "https://files.pythonhosted.org/packages/d6/02/12c73fd423eb9577b97fc1924966b929eff7074ae6b2e15dd3d30cb9e4ae/segno-1.6.6-py3-none-any.whl",
+    "sha256": "28c7d081ed0cf935e0411293a465efd4d500704072cdb039778a2ab8736190c7"
+  },
+  {
+    "package": "cryptography",
+    "version": "50.0.2",
+    "license": "Apache-2.0 OR BSD-3-Clause",
+    "source": "https://pypi.org/project/cryptography/50.0.2/"
+  },
+  {
+    "package": "XlsxWriter",
+    "version": "3.2.9",
+    "license": "BSD-2-Clause",
+    "source": "https://pypi.org/project/XlsxWriter/3.2.9/",
+    "included": true
+  }
+]

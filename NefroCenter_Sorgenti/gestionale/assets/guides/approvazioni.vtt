@@ -1,0 +1,104 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.222
+Far controllare le presenze alla sede, al
+responsabile e a HR prima della chiusura.
+
+2
+00:00:08.222 --> 00:00:16.000
+L’amministratore deve attivare il flusso per
+la sede. Nella demo è già attivo.
+
+3
+00:00:16.000 --> 00:00:21.000
+Apri Approvazione mese e controlla centro,
+
+4
+00:00:21.000 --> 00:00:26.000
+mese, stato e Controlli prima
+dell’approvazione.
+
+5
+00:00:26.000 --> 00:00:32.211
+Se serve attivarlo, l’amministratore apre
+Configurazione del flusso, seleziona la
+
+6
+00:00:32.211 --> 00:00:38.000
+richiesta di verifica e approvazione HR,
+motiva e salva.
+
+7
+00:00:38.000 --> 00:00:46.522
+La sede completa i consuntivi e risolve i
+blocchi, poi preme Invia al responsabile. Da
+
+8
+00:00:46.522 --> 00:00:52.000
+questo momento le presenze sono protette
+dalle modifiche.
+
+9
+00:00:52.000 --> 00:00:58.968
+Il responsabile controlla dati e calendario,
+spunta la verifica e usa Conferma verifica e
+
+10
+00:00:58.968 --> 00:01:03.806
+invia a HR. Se serve correggere, usa
+Restituisci
+
+11
+00:01:03.806 --> 00:01:09.000
+per correzioni con una nota di almeno 8
+caratteri.
+
+12
+00:01:09.000 --> 00:01:17.429
+HR controlla il mese e usa Approva e chiudi
+mese oppure lo restituisce con motivazione.
+
+13
+00:01:17.429 --> 00:01:22.000
+HR non modifica direttamente le presenze.
+
+14
+00:01:22.000 --> 00:01:29.652
+Dopo una restituzione, la sede corregge e
+invia nuovamente. Dopo la chiusura, una
+
+15
+00:01:29.652 --> 00:01:36.000
+riapertura motivata invalida l’approvazione
+e richiede di ripetere il percorso.
+
+16
+00:01:36.000 --> 00:01:44.087
+Consulta lo Storico dei passaggi. Se i dati
+di riferimento sono cambiati, restituisci e
+
+17
+00:01:44.087 --> 00:01:50.000
+verifica la nuova versione prima
+dell’approvazione o dell’esportazione paghe.
+
+18
+00:01:50.000 --> 00:01:57.400
+Lo stato è Approvato da HR e il periodo è
+chiuso; lo
+
+19
+00:01:57.400 --> 00:02:03.000
+storico identifica autore, momento e motivo
+dei passaggi.
+
+20
+00:02:03.000 --> 00:02:08.267
+Pulsante assente: controlla ruolo, sede e
+stato;
+
+21
+00:02:08.267 --> 00:02:14.000
+ogni passaggio è disponibile solo al ruolo
+previsto.

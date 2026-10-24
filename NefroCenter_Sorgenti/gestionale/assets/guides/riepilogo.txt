@@ -1,0 +1,33 @@
+Riepilogo: controllare i totali e chiudere il mese
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Consultazione secondo ruolo; chiusura ordinaria ai responsabili, approvazione finale HR quando il flusso è attivo
+
+[00:00:00.000] Prima di iniziare
+Riconciliare i totali e seguire il percorso di chiusura previsto dalla sede.
+
+Scegli centro e mese; distingui dati consuntivi e pianificati.
+
+[00:00:13.000] Passo 1 di 6
+Apri Riepilogo e confronta turni, giorni, ore note, fuori sede, festivi, assenze e crediti.
+
+[00:00:23.000] Passo 2 di 6
+Controlla Da consuntivare e turni senza orari. Correggi nelle Presenze; se il mese è già inviato, richiedi prima una restituzione.
+
+[00:00:36.000] Passo 3 di 6
+Quando autorizzato, usa Esporta riepilogo CSV, Esporta dettaglio CSV o Stampa. Il tracciato Paghe è un’esportazione distinta con controlli propri.
+
+[00:00:49.000] Passo 4 di 6
+Con il flusso attivo, Chiudi mese porta ad Approvazione mese: segui invio della sede, verifica del responsabile e approvazione HR.
+
+[00:01:02.000] Passo 5 di 6
+Con il flusso disattivato, il responsabile salva la verifica in Controlli, poi usa Chiudi mese. Per una correzione successiva usa Riapri mese e motiva.
+
+[00:01:16.000] Passo 6 di 6
+Controlla lo stato Mese chiuso. Nel flusso attivo, una riapertura invalida l’approvazione e richiede di ripetere i passaggi.
+
+[00:01:28.000] Controlla il risultato
+Il mese risulta chiuso e il registro è protetto dalle modifiche ordinarie.
+
+[00:01:38.000] Se qualcosa non funziona
+Chiusura bloccata: leggi la causa e completa consuntivi, orari richiesti o verifica del calendario.

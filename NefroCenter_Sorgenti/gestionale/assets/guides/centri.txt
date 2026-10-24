@@ -1,0 +1,33 @@
+Centri: creare una sede o importare il modello
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Tutti vedono i centri assegnati; creazione e importazione agli amministratori
+
+[00:00:00.000] Prima di iniziare
+Aggiungere una sede separata e controllare i dati prima della prima compilazione.
+
+Creazione centri e importazione sono riservate agli amministratori.
+
+[00:00:13.000] Passo 1 di 6
+Apri Centri. Per lavorare su una sede esistente usa il suo pulsante di apertura.
+
+[00:00:23.000] Passo 2 di 6
+Per una sede nuova premi Aggiungi centro, inserisci nome e codice univoco e scegli i valori iniziali o una configurazione da copiare.
+
+[00:00:37.000] Passo 3 di 6
+Controlla fasce, causali, calendario e ruoli copiati prima della compilazione. La copia della configurazione non è una copia dei dipendenti.
+
+[00:00:50.000] Passo 4 di 6
+Per il modello compatibile premi Importa modello Excel. Leggi l’anteprima: centro, mese, persone e avvisi.
+
+[00:01:01.000] Passo 5 di 6
+Conferma soltanto dopo il confronto. L’importazione crea un centro separato ed è preceduta da backup; non modifica il file originale.
+
+[00:01:14.000] Passo 6 di 6
+Assegna la sede ai relativi account in Utenti e permessi.
+
+[00:01:24.000] Controlla il risultato
+La nuova sede è presente nell’archivio centrale e può essere assegnata agli utenti.
+
+[00:01:34.000] Se qualcosa non funziona
+Codice già usato: scegli quello corretto e univoco del centro.

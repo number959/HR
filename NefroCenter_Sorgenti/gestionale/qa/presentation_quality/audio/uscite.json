@@ -1,0 +1,161 @@
+{
+  "text": "Per cessazioni e trasferimenti, una checklist segue le attività e la restituzione di badge, chiavi e dispositivi. Il percorso si completa dopo le verifiche, senza modificare automaticamente anagrafiche o account esterni.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 2061660,
+      "text": "Per"
+    },
+    {
+      "offset": 3206250,
+      "duration": 7602910,
+      "text": "cessazioni"
+    },
+    {
+      "offset": 10938330,
+      "duration": 644160,
+      "text": "e"
+    },
+    {
+      "offset": 11711250,
+      "duration": 9020410,
+      "text": "trasferimenti"
+    },
+    {
+      "offset": 22793750,
+      "duration": 2577500,
+      "text": "una"
+    },
+    {
+      "offset": 25500000,
+      "duration": 6830000,
+      "text": "checklist"
+    },
+    {
+      "offset": 32458750,
+      "duration": 3865830,
+      "text": "segue"
+    },
+    {
+      "offset": 36453750,
+      "duration": 902080,
+      "text": "le"
+    },
+    {
+      "offset": 37484580,
+      "duration": 5927910,
+      "text": "attività"
+    },
+    {
+      "offset": 43541250,
+      "duration": 902080,
+      "text": "e"
+    },
+    {
+      "offset": 44572080,
+      "duration": 1030830,
+      "text": "la"
+    },
+    {
+      "offset": 45732080,
+      "duration": 7602910,
+      "text": "restituzione"
+    },
+    {
+      "offset": 53463750,
+      "duration": 1160000,
+      "text": "di"
+    },
+    {
+      "offset": 54752500,
+      "duration": 3737080,
+      "text": "badge"
+    },
+    {
+      "offset": 60809160,
+      "duration": 4381250,
+      "text": "chiavi"
+    },
+    {
+      "offset": 65319580,
+      "duration": 515409,
+      "text": "e"
+    },
+    {
+      "offset": 65963750,
+      "duration": 9020410,
+      "text": "dispositivi"
+    },
+    {
+      "offset": 77706250,
+      "duration": 2061660,
+      "text": "Il"
+    },
+    {
+      "offset": 79897080,
+      "duration": 6700830,
+      "text": "percorso"
+    },
+    {
+      "offset": 86726660,
+      "duration": 1160000,
+      "text": "si"
+    },
+    {
+      "offset": 88015410,
+      "duration": 5283330,
+      "text": "completa"
+    },
+    {
+      "offset": 93427910,
+      "duration": 2577500,
+      "text": "dopo"
+    },
+    {
+      "offset": 96134160,
+      "duration": 773330,
+      "text": "le"
+    },
+    {
+      "offset": 97036250,
+      "duration": 6314580,
+      "text": "verifiche"
+    },
+    {
+      "offset": 105799160,
+      "duration": 4123750,
+      "text": "senza"
+    },
+    {
+      "offset": 110051660,
+      "duration": 6700830,
+      "text": "modificare"
+    },
+    {
+      "offset": 116881250,
+      "duration": 9149580,
+      "text": "automaticamente"
+    },
+    {
+      "offset": 126159580,
+      "duration": 7474160,
+      "text": "anagrafiche"
+    },
+    {
+      "offset": 133762910,
+      "duration": 773330,
+      "text": "o"
+    },
+    {
+      "offset": 134665000,
+      "duration": 4510410,
+      "text": "account"
+    },
+    {
+      "offset": 139304160,
+      "duration": 6572080,
+      "text": "esterni"
+    }
+  ]
+}

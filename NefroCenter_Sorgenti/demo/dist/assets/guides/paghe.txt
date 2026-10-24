@@ -1,0 +1,39 @@
+Paghe: preparare e verificare il tracciato
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: HR centrale, amministratori e responsabili autorizzati
+
+[00:00:00.000] Prima di iniziare
+Produrre un file coerente con le specifiche ricevute dal consulente, senza presumere un gestionale destinatario.
+
+Finché il fornitore non è noto, conserva Modello generico in bozza.
+
+[00:00:15.000] Passo 1 di 8
+Apri Paghe nel centro corretto. Per usare le specifiche ricevute scegli Tracciato del consulente e indica gestionale, nome, versione e riferimento del formato.
+
+[00:00:29.000] Passo 2 di 8
+Apri Leggi le intestazioni o un file di specifiche. Incolla solo la riga delle intestazioni CSV, oppure carica un file UTF-8 fino a 32 KiB; è ammessa anche la specifica JSON esportata dal portale.
+
+[00:00:48.000] Passo 3 di 8
+Premi Leggi e prepara la bozza. Controlla ogni associazione, ordine, tipo, obbligatorietà e lunghezza; le intestazioni sconosciute restano Da associare. Il modello salvato cambia solo quando lo salvi.
+
+[00:01:04.000] Passo 4 di 8
+Completa separatori, formato data, codifica, codici delle causali e matricole alternative, se necessarie. Salva prima in bozza.
+
+[00:01:16.000] Passo 5 di 8
+Dopo la verifica con il consulente scegli Verificato con il consulente, indica il riferimento e conferma esplicitamente. Una modifica successiva richiede una nuova conferma.
+
+[00:01:30.000] Passo 6 di 8
+Genera l’anteprima per il periodo scelto. Risolvi i blocchi su orari, matricole, causali e colonne; con il flusso attivo, ogni mese deve avere un’approvazione HR corrente.
+
+[00:01:45.000] Passo 7 di 8
+Controlla quantità e formato, poi scarica CSV o Excel. Se dati o modello cambiano, rigenera l’anteprima. Collauda il file nell’importatore reale del consulente.
+
+[00:01:59.000] Passo 8 di 8
+Per condividere soltanto il formato usa Scarica le specifiche salvate: il JSON non contiene presenze o matricole personali.
+
+[00:02:11.000] Controlla il risultato
+Hai un file locale controllato rispetto al modello configurato, da collaudare e consegnare tramite i canali aziendali.
+
+[00:02:23.000] Se qualcosa non funziona
+Righe dei dipendenti nel file intestazioni: rimuovile e lascia soltanto la prima riga.

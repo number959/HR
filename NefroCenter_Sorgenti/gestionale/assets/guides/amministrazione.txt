@@ -1,0 +1,27 @@
+Amministrazione: verificare i riferimenti di pagamento
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Utenti autorizzati al fascicolo HR
+
+[00:00:00.000] Prima di iniziare
+Conservare i dati amministrativi necessari ai referenti autorizzati.
+
+Apri il fascicolo e verifica la persona.
+
+[00:00:11.000] Passo 1 di 4
+Apri Amministrazione e indica referente paghe e modalità di pagamento, quando previsti.
+
+[00:00:21.000] Passo 2 di 4
+Compila IBAN, intestatario e banca se pertinenti; confrontali con la documentazione disponibile.
+
+[00:00:31.000] Passo 3 di 4
+Inserisci la Partita IVA soltanto per i rapporti che la richiedono.
+
+[00:00:41.000] Passo 4 di 4
+Premi Salva fascicolo e controlla l’esito. Se il formato è rifiutato, correggi il dato nella sua sezione.
+
+[00:00:53.000] Controlla il risultato
+I riferimenti sono disponibili nel fascicolo agli utenti HR autorizzati. Nessun pagamento viene eseguito.
+
+[00:01:03.000] Se qualcosa non funziona
+IBAN rifiutato: controlla caratteri e cifre sulla fonte, senza sostituirli con un esempio della guida.

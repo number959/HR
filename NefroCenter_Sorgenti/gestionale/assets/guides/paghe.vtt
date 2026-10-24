@@ -1,0 +1,124 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.500
+Produrre un file coerente con le specifiche
+ricevute dal consulente, senza presumere un
+
+2
+00:00:06.500 --> 00:00:10.231
+gestionale destinatario. Finché il fornitore
+
+3
+00:00:10.231 --> 00:00:15.000
+non è noto, conserva Modello generico in
+bozza.
+
+4
+00:00:15.000 --> 00:00:22.652
+Apri Paghe nel centro corretto. Per usare le
+specifiche ricevute scegli Tracciato del
+
+5
+00:00:22.652 --> 00:00:29.000
+consulente e indica gestionale, nome,
+versione e riferimento del formato.
+
+6
+00:00:29.000 --> 00:00:36.353
+Apri Leggi le intestazioni o un file di
+specifiche. Incolla solo la riga delle
+
+7
+00:00:36.353 --> 00:00:44.088
+intestazioni CSV, oppure carica un file
+UTF-8 fino a 32 KiB; è ammessa anche la
+
+8
+00:00:44.088 --> 00:00:48.000
+specifica JSON esportata dal portale.
+
+9
+00:00:48.000 --> 00:00:53.929
+Premi Leggi e prepara la bozza. Controlla
+ogni associazione, ordine, tipo,
+
+10
+00:00:53.929 --> 00:00:59.857
+obbligatorietà e lunghezza; le intestazioni
+sconosciute restano Da associare. Il modello
+
+11
+00:00:59.857 --> 00:01:04.000
+salvato cambia solo quando lo salvi.
+
+12
+00:01:04.000 --> 00:01:10.706
+Completa separatori, formato data, codifica,
+codici delle causali e matricole
+
+13
+00:01:10.706 --> 00:01:16.000
+alternative, se necessarie. Salva prima in
+bozza.
+
+14
+00:01:16.000 --> 00:01:22.333
+Dopo la verifica con il consulente scegli
+Verificato con il consulente, indica il
+
+15
+00:01:22.333 --> 00:01:26.000
+riferimento e conferma esplicitamente. Una
+
+16
+00:01:26.000 --> 00:01:30.000
+modifica successiva richiede una nuova
+conferma.
+
+17
+00:01:30.000 --> 00:01:36.154
+Genera l’anteprima per il periodo scelto.
+Risolvi i blocchi su orari, matricole,
+
+18
+00:01:36.154 --> 00:01:40.923
+causali e colonne; con il flusso attivo,
+ogni
+
+19
+00:01:40.923 --> 00:01:45.000
+mese deve avere un’approvazione HR corrente.
+
+20
+00:01:45.000 --> 00:01:53.087
+Controlla quantità e formato, poi scarica
+CSV o Excel. Se dati o modello cambiano,
+
+21
+00:01:53.087 --> 00:01:59.000
+rigenera l’anteprima. Collauda il file
+nell’importatore reale del consulente.
+
+22
+00:01:59.000 --> 00:02:06.778
+Per condividere soltanto il formato usa
+Scarica le specifiche salvate: il JSON non
+
+23
+00:02:06.778 --> 00:02:11.000
+contiene presenze o matricole personali.
+
+24
+00:02:11.000 --> 00:02:18.647
+Hai un file locale controllato rispetto al
+modello configurato, da collaudare e
+
+25
+00:02:18.647 --> 00:02:23.000
+consegnare tramite i canali aziendali.
+
+26
+00:02:23.000 --> 00:02:33.000
+Righe dei dipendenti nel file intestazioni:
+rimuovile e lascia soltanto la prima riga.

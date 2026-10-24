@@ -1,0 +1,116 @@
+{
+  "text": "La dashboard mostra la situazione delle sedi. Totali, stato dei mesi e attività da completare aiutano i referenti a individuare dove intervenire.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 2190830,
+      "text": "La"
+    },
+    {
+      "offset": 3335000,
+      "duration": 5927910,
+      "text": "dashboard"
+    },
+    {
+      "offset": 9391660,
+      "duration": 4123750,
+      "text": "mostra"
+    },
+    {
+      "offset": 13644160,
+      "duration": 1160000,
+      "text": "la"
+    },
+    {
+      "offset": 14932910,
+      "duration": 6185410,
+      "text": "situazione"
+    },
+    {
+      "offset": 21247500,
+      "duration": 2319580,
+      "text": "delle"
+    },
+    {
+      "offset": 23695830,
+      "duration": 4897080,
+      "text": "sedi"
+    },
+    {
+      "offset": 31314580,
+      "duration": 5799160,
+      "text": "Totali"
+    },
+    {
+      "offset": 38273330,
+      "duration": 3350410,
+      "text": "stato"
+    },
+    {
+      "offset": 41752500,
+      "duration": 1804160,
+      "text": "dei"
+    },
+    {
+      "offset": 43685410,
+      "duration": 4123750,
+      "text": "mesi"
+    },
+    {
+      "offset": 47938330,
+      "duration": 128750,
+      "text": "e"
+    },
+    {
+      "offset": 48195830,
+      "duration": 5670000,
+      "text": "attività"
+    },
+    {
+      "offset": 53995000,
+      "duration": 1030830,
+      "text": "da"
+    },
+    {
+      "offset": 55154580,
+      "duration": 7216660,
+      "text": "completare"
+    },
+    {
+      "offset": 62500000,
+      "duration": 5154580,
+      "text": "aiutano"
+    },
+    {
+      "offset": 67783330,
+      "duration": 773330,
+      "text": "i"
+    },
+    {
+      "offset": 68685410,
+      "duration": 5799160,
+      "text": "referenti"
+    },
+    {
+      "offset": 74613330,
+      "duration": 773330,
+      "text": "a"
+    },
+    {
+      "offset": 75515410,
+      "duration": 6700830,
+      "text": "individuare"
+    },
+    {
+      "offset": 82345410,
+      "duration": 1932910,
+      "text": "dove"
+    },
+    {
+      "offset": 84407080,
+      "duration": 7732080,
+      "text": "intervenire"
+    }
+  ]
+}

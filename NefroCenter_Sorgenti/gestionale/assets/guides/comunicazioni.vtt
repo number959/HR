@@ -1,0 +1,103 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.320
+Preparare email individuali per una lista,
+controllando destinatari e testo prima della
+
+2
+00:00:06.320 --> 00:00:11.200
+conferma. Modelli, liste e bozze: HR
+centrale e
+
+3
+00:00:11.200 --> 00:00:15.000
+amministratori. Servizio SMTP: solo
+amministratore.
+
+4
+00:00:15.000 --> 00:00:22.571
+Apri Comunicazioni e scegli un modello
+oppure preparane uno con nome, oggetto e
+
+5
+00:00:22.571 --> 00:00:28.000
+testo. Usa solo le variabili elencate dal
+portale.
+
+6
+00:00:28.000 --> 00:00:35.474
+In Liste scegli dipendenti o contatti delle
+strutture. Seleziona sedi, filtri e campo
+
+7
+00:00:35.474 --> 00:00:40.000
+email da usare; aggiungi eventuali
+esclusioni.
+
+8
+00:00:40.000 --> 00:00:44.769
+Nella composizione scegli modello e lista,
+
+9
+00:00:44.769 --> 00:00:50.000
+adatta il messaggio e premi Genera
+anteprima.
+
+10
+00:00:50.000 --> 00:00:56.950
+Controlla i destinatari effettivi, i
+duplicati rimossi, gli indirizzi mancanti e
+
+11
+00:00:56.950 --> 00:01:03.000
+i testi personalizzati. Correggi le anomalie
+e rigenera l’anteprima.
+
+12
+00:01:03.000 --> 00:01:10.333
+Salva la bozza: conserva testi e destinatari
+come verificati. Le modifiche successive
+
+13
+00:01:10.333 --> 00:01:15.000
+alla rubrica non aggiornano quella bozza.
+
+14
+00:01:15.000 --> 00:01:23.250
+Con SMTP configurato, apri la bozza e
+conferma il lotto proposto. Ogni email ha un
+
+15
+00:01:23.250 --> 00:01:29.000
+solo destinatario; il lotto successivo
+richiede una nuova azione.
+
+16
+00:01:29.000 --> 00:01:35.680
+Leggi gli esiti per destinatario. Per le
+campagne manuali puoi ritentare gli invii
+
+17
+00:01:35.680 --> 00:01:40.200
+falliti; gli esiti incerti e i promemoria
+
+18
+00:01:40.200 --> 00:01:44.000
+automatici richiedono le rispettive
+verifiche.
+
+19
+00:01:44.000 --> 00:01:50.444
+La campagna conserva i messaggi preparati e
+gli esiti dei
+
+20
+00:01:50.444 --> 00:01:56.000
+tentativi, senza esporre la lista agli altri
+destinatari.
+
+21
+00:01:56.000 --> 00:02:06.000
+Accettato SMTP significa preso in carico dal
+server, non prova della consegna o lettura.

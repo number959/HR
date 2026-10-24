@@ -1,0 +1,6 @@
+node_modules/
+qa-output/
+*.log
+__pycache__/
+*.py[cod]
+*.tmp.mp4

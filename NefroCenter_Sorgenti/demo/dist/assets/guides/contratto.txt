@@ -1,0 +1,30 @@
+Rapporto di lavoro: registrare i dati attuali
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Utenti autorizzati al fascicolo HR
+
+[00:00:00.000] Prima di iniziare
+Conservare i riferimenti del rapporto attuale e capire quando usare lo storico con decorrenze.
+
+Apri il fascicolo della persona.
+
+[00:00:12.000] Passo 1 di 5
+Apri Rapporto di lavoro e indica società, reparto, responsabile, tipologia, CCNL, livello e mansione pertinenti.
+
+[00:00:23.000] Passo 2 di 5
+Inserisci data d’ingresso, eventuale termine del rapporto e fine prova. Le date finali non possono precedere l’ingresso.
+
+[00:00:35.000] Passo 3 di 5
+Registra ore settimanali e percentuale part-time secondo il contratto. Completa i riferimenti disponibili, come contratto, centro di costo, sede, badge e tutor.
+
+[00:00:49.000] Passo 4 di 5
+Premi Salva fascicolo e controlla le scadenze generate dalle date.
+
+[00:00:59.000] Passo 5 di 5
+Per conservare una variazione valida da una data precisa, usa lo storico in Personale di gruppo. Per un accordo economico del mese usa Accordi e calcoli.
+
+[00:01:14.000] Controlla il risultato
+Il fascicolo descrive il rapporto attuale; lo storico e gli accordi mensili rimangono funzioni distinte.
+
+[00:01:25.000] Se qualcosa non funziona
+Fine contratto precedente all’ingresso: verifica entrambe le date.

@@ -1,0 +1,96 @@
+{
+  "text": "NefroCenter riunisce persone, presenze e attività amministrative in un portale condiviso tra le strutture e l’ufficio risorse umane.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 9278330,
+      "text": "NefroCenter"
+    },
+    {
+      "offset": 10422500,
+      "duration": 4897080,
+      "text": "riunisce"
+    },
+    {
+      "offset": 15448330,
+      "duration": 5799160,
+      "text": "persone"
+    },
+    {
+      "offset": 23695830,
+      "duration": 6443330,
+      "text": "presenze"
+    },
+    {
+      "offset": 30267910,
+      "duration": 257910,
+      "text": "e"
+    },
+    {
+      "offset": 30654580,
+      "duration": 5154580,
+      "text": "attività"
+    },
+    {
+      "offset": 35938330,
+      "duration": 8762910,
+      "text": "amministrative"
+    },
+    {
+      "offset": 44830000,
+      "duration": 1160000,
+      "text": "in"
+    },
+    {
+      "offset": 46118750,
+      "duration": 1160000,
+      "text": "un"
+    },
+    {
+      "offset": 47407080,
+      "duration": 4123750,
+      "text": "portale"
+    },
+    {
+      "offset": 51659580,
+      "duration": 6443330,
+      "text": "condiviso"
+    },
+    {
+      "offset": 58232080,
+      "duration": 2190830,
+      "text": "tra"
+    },
+    {
+      "offset": 60551660,
+      "duration": 902080,
+      "text": "le"
+    },
+    {
+      "offset": 61582500,
+      "duration": 5927910,
+      "text": "strutture"
+    },
+    {
+      "offset": 67639160,
+      "duration": 515409,
+      "text": "e"
+    },
+    {
+      "offset": 68283330,
+      "duration": 4767910,
+      "text": "l’ufficio"
+    },
+    {
+      "offset": 73180410,
+      "duration": 4767910,
+      "text": "risorse"
+    },
+    {
+      "offset": 78077500,
+      "duration": 4639160,
+      "text": "umane"
+    }
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "settings": [
+    {
+      "id": "payroll.mode",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Destinazione del file",
+      "effect": "Distingue un modello generico dalle specifiche di un consulente; il cambio riporta il modello in bozza.",
+      "example": "Tracciato del consulente."
+    },
+    {
+      "id": "payroll.provider",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Gestionale destinatario",
+      "effect": "Nome del gestionale comunicato dal consulente; obbligatorio per confermare il suo tracciato.",
+      "example": "Nome effettivo del prodotto, quando comunicato."
+    },
+    {
+      "id": "payroll.format_name",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Nome tracciato",
+      "effect": "Identifica il formato di importazione concordato.",
+      "example": "Presenze giornaliere."
+    },
+    {
+      "id": "payroll.format_version",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Versione specifiche",
+      "effect": "Versione della specifica esterna; distinta dalla versione interna del modello.",
+      "example": "2026.10."
+    },
+    {
+      "id": "payroll.specification_reference",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Riferimento alle specifiche",
+      "effect": "Documento e data che attestano il formato richiesto.",
+      "example": "Istruzioni ricevute il 20/10/2026."
+    },
+    {
+      "id": "payroll.name",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Nome modello",
+      "effect": "Etichetta del modello del centro. Ogni salvataggio crea una nuova versione.",
+      "example": "Presenze centro Alfa."
+    },
+    {
+      "id": "payroll.status",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Stato del modello",
+      "effect": "Una bozza produce anteprime ma non consente il download operativo.",
+      "example": "Bozza da concordare."
+    },
+    {
+      "id": "payroll.confirmation_note",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Riferimento alla verifica",
+      "effect": "Nota di almeno 8 caratteri sulla verifica col consulente; obbligatoria per confermare.",
+      "example": "Specifiche verificate con il referente il 20/10."
+    },
+    {
+      "id": "payroll.confirm_connector",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Conferma esplicita della versione",
+      "effect": "Attesta la verifica di questa versione; si azzera dopo ogni modifica locale.",
+      "example": "Seleziona solo dopo aver controllato intestazioni e formato."
+    },
+    {
+      "id": "payroll.delimiter",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Separatore CSV",
+      "effect": "Carattere che divide i campi nel file prodotto.",
+      "example": "Punto e virgola, virgola o tabulazione."
+    },
+    {
+      "id": "payroll.decimal_separator",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Separatore decimale",
+      "effect": "Rappresentazione delle quantità decimali nel CSV e nell’anteprima.",
+      "example": "6,5 ore oppure 6.5 ore."
+    },
+    {
+      "id": "payroll.date_format",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Formato date",
+      "effect": "Formato delle date esportate nel CSV; Excel conserva celle data.",
+      "example": "GG/MM/AAAA."
+    },
+    {
+      "id": "payroll.encoding",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Codifica CSV",
+      "effect": "UTF-8 con BOM, UTF-8 o Windows-1252; caratteri non compatibili bloccano il tracciato consulente.",
+      "example": "UTF-8 con BOM, se concordato."
+    },
+    {
+      "id": "payroll.spec_kind",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Contenuto delle specifiche",
+      "effect": "Legge una sola intestazione CSV o il formato JSON esportato dal software. Non importa presenze.",
+      "example": "Sola intestazione CSV."
+    },
+    {
+      "id": "payroll.spec_delimiter",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Separatore intestazioni",
+      "effect": "Separatore del testo che si sta leggendo; viene proposto anche per il modello importato.",
+      "example": "Punto e virgola."
+    },
+    {
+      "id": "payroll.spec_file",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "File delle specifiche",
+      "effect": "File UTF-8 massimo 32 KiB, senza righe di dati dei dipendenti.",
+      "example": "File CSV con la sola prima riga."
+    },
+    {
+      "id": "payroll.column_mapping",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Dato del registro",
+      "effect": "Associa un dato a ogni intestazione. Matricola, data e causale paghe devono essere presenti.",
+      "example": "MATR → Matricola paghe."
+    },
+    {
+      "id": "payroll.column_header",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Intestazione e ordine",
+      "effect": "Definisce nomi e sequenza esatti delle colonne; frecce su e giù spostano anche le loro regole.",
+      "example": "MATR;GIORNO;CAUSALE;ORE."
+    },
+    {
+      "id": "payroll.column_type",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Tipo della colonna",
+      "effect": "Richiede testo, intero, decimale o data. Il dato associato deve essere compatibile.",
+      "example": "Ore lavorate decimali → Decimale."
+    },
+    {
+      "id": "payroll.column_required",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Colonna obbligatoria",
+      "effect": "Un valore vuoto blocca il download se la colonna è obbligatoria.",
+      "example": "Ore facoltative per righe di assenza."
+    },
+    {
+      "id": "payroll.column_max_length",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Massimo caratteri",
+      "effect": "Limita la lunghezza del valore formattato; vuoto significa nessun limite aggiuntivo.",
+      "example": "Matricola massimo 12 caratteri."
+    },
+    {
+      "id": "payroll.causes",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Corrispondenza causali",
+      "effect": "Codice paghe per ogni causale presente nei consuntivi.",
+      "example": "Mattina → codice ordinario indicato dal consulente."
+    },
+    {
+      "id": "payroll.registrations",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Matricole alternative",
+      "effect": "Codice personale limitato al modello di questo centro. Se vuoto usa l’anagrafica.",
+      "example": "00017 resta testo e mantiene gli zeri iniziali."
+    },
+    {
+      "id": "payroll.period",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Periodo dell’anteprima",
+      "effect": "Mese iniziale e finale inclusi, massimo 24 mesi; cambiare periodo invalida l’anteprima.",
+      "example": "Ottobre–dicembre 2026."
+    },
+    {
+      "id": "payroll.spec_download",
+      "topic": "paghe",
+      "section": "Tracciato del consulente",
+      "label": "Scarica le specifiche salvate",
+      "effect": "Esporta solo regole di formato e associazioni delle colonne, senza dati personali o causali/matricole individuali.",
+      "example": "JSON da far verificare al consulente."
+    }
+  ],
+  "topic_updates": {
+    "paghe": {
+      "title": "Paghe: specifiche del consulente e file verificati",
+      "goal": "Preparare un file con intestazioni, regole e quantità concordate con il consulente.",
+      "steps": [
+        "Apri Paghe nel centro corretto. Finché non conosci il gestionale destinatario, mantieni Modello generico in bozza e chiedi al consulente un esempio vuoto e le specifiche del tracciato.",
+        "Seleziona Tracciato del consulente. Indica gestionale, nome del tracciato, versione e riferimento alle specifiche ricevute. Non viene stabilito un collegamento di rete al gestionale.",
+        "Per partire dalle specifiche, apri Leggi le intestazioni o un file di specifiche. Incolla la sola riga delle intestazioni CSV oppure carica un file UTF-8 fino a 32 KiB; seleziona il suo separatore. Sono accettate anche le specifiche JSON esportate dalla pagina.",
+        "Premi Leggi e prepara la bozza: le colonne della bozza vengono sostituite, mentre il modello salvato non cambia. Associa ogni intestazione a un dato del registro; le intestazioni sconosciute restano Da associare. Verifica ordine, tipo, obbligatorietà e lunghezza massima di ogni colonna.",
+        "Configura separatore CSV e decimale, formato data e codifica richiesti. Completa i codici delle causali e le eventuali matricole paghe alternative; una matricola alternativa vuota usa quella dell’anagrafica.",
+        "Salva inizialmente una bozza. Quando il consulente ha verificato questa versione, scegli Verificato con il consulente, indica il riferimento della verifica e seleziona la conferma esplicita. Ogni successiva modifica richiede una nuova conferma.",
+        "Genera l’anteprima per un periodo fino a 24 mesi. Risolvi tutti i controlli bloccanti: orari, matricole, causali, associazioni, tipi, lunghezze e caratteri non rappresentabili. Le ore assenti rimangono vuote.",
+        "Se il flusso approvazioni è attivo per il centro, completa l’approvazione HR e la chiusura di ogni mese del periodo. Un’approvazione superata da modifiche successive richiede nuova verifica.",
+        "Controlla le quantità e il formato nell’anteprima, poi scarica CSV o Excel. Se presenze o modello cambiano, rigenera l’anteprima. Consegna il file con i canali aziendali e collauda un mese pilota nell’importatore reale del consulente.",
+        "Usa Scarica le specifiche salvate per condividere il formato JSON senza presenze, matricole personali o mappature delle causali. Il JSON descrive solo le regole del file."
+      ],
+      "result": "Un file locale verificato contro la specifica configurata, pronto per il collaudo nel gestionale del consulente. Nessun invio automatico o cedolino viene prodotto.",
+      "errors": [
+        "Gestionale sconosciuto o specifiche incomplete: conserva la bozza; il software non presume compatibilità con un fornitore.",
+        "Riga dati nel CSV delle intestazioni: rimuovi tutte le righe dei dipendenti e mantieni soltanto la prima.",
+        "Tipo, lunghezza o codifica non validi: correggi l’associazione o il dato di origine, verificando la regola col consulente.",
+        "File non corrispondente all’anteprima: una modifica ha invalidato i controlli; genera una nuova anteprima.",
+        "Tracciati a larghezza fissa, riepiloghi aggregati o campi non disponibili richiedono un adattamento specifico. Non modificare arbitrariamente le intestazioni per simulare compatibilità."
+      ],
+      "tour": [
+        {
+          "selector": "#payrollConnectorMode",
+          "text": "Scegli il modello generico oppure le specifiche ricevute dal consulente."
+        },
+        {
+          "selector": "#payrollColumns",
+          "text": "Associa i dati e verifica intestazioni, ordine e regole delle colonne."
+        },
+        {
+          "selector": "#payrollSave",
+          "text": "Salva una nuova versione; un tracciato consulente confermato richiede verifica esplicita."
+        },
+        {
+          "selector": "#payrollPreviewLoad",
+          "text": "Genera i controlli per il periodo, prima di scaricare il file."
+        }
+      ]
+    }
+  },
+  "topics": []
+}

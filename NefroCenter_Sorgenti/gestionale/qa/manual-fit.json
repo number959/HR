@@ -1,0 +1,334 @@
+[
+  {
+    "document": "Guida_NefroCenter_v0.11_illustrata",
+    "sections": 42,
+    "overflow": [],
+    "fit": [
+      {
+        "id": "copertina",
+        "title": "Usare il portale,un passaggio alla volta.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "come-leggere",
+        "title": "Una guida da usarementre lavori.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Parti dal tuo ruolo.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Parti dal tuo ruolo.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "workflow",
+        "title": "Una presenza, tre verifiche.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "indice",
+        "title": "Indice operativo.",
+        "height_mm": 262.5,
+        "overflow": false
+      },
+      {
+        "id": "indice-2",
+        "title": "Indice operativo · continua.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "avvio",
+        "title": "Primo accesso: entrare e orientarsi",
+        "height_mm": 260.7,
+        "overflow": false
+      },
+      {
+        "id": "dashboard",
+        "title": "Dashboard: scegliere il centro da verificare",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "completare",
+        "title": "Da completare: correggere una segnalazione",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "guida",
+        "title": "Guide e tutorial: trovare la risposta giusta",
+        "height_mm": 262.2,
+        "overflow": false
+      },
+      {
+        "id": "sicurezza",
+        "title": "Sicurezza: gestire telefono, recuperi e sessioni",
+        "height_mm": 261.7,
+        "overflow": false
+      },
+      {
+        "id": "presenze",
+        "title": "Presenze: registrare e correggere un turno",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "riepilogo",
+        "title": "Riepilogo: controllare i totali e chiudere il mese",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "controlli",
+        "title": "Controlli: leggere anomalie e salvare la verifica",
+        "height_mm": 261.1,
+        "overflow": false
+      },
+      {
+        "id": "approvazioni",
+        "title": "Approvazione mese: seguire i tre passaggi",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "copertura",
+        "title": "Copertura turni: trovare e gestire le scoperture",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "carico",
+        "title": "Carico: registrare i totali per fascia",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "dipendenti",
+        "title": "Dipendenti: aprire o creare un fascicolo",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "anagrafica",
+        "title": "Anagrafica: identificare la persona nel registro",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "recapiti",
+        "title": "Recapiti: distinguere i contatti personali e aziendali",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "contratto",
+        "title": "Rapporto di lavoro: registrare i dati attuali",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "amministrazione",
+        "title": "Amministrazione: verificare i riferimenti di pagamento",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "qualifiche",
+        "title": "Qualifiche: registrare scadenze e campi aggiuntivi",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "onboarding",
+        "title": "Onboarding: aggiornare un’attività di ingresso",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "documenti",
+        "title": "Documenti: caricare un file e seguirne la verifica",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "hrcentrale",
+        "title": "Documenti HR: controllare gli allegati delle sedi",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "scadenze",
+        "title": "Scadenze: risalire al dato da aggiornare",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "strutture",
+        "title": "Strutture: aggiornare la rubrica condivisa",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "personale",
+        "title": "Personale di gruppo: collegare sedi e decorrenze",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "accordi",
+        "title": "Accordi e calcoli: verificare il mese della persona",
+        "height_mm": 261.9,
+        "overflow": false
+      },
+      {
+        "id": "paghe",
+        "title": "Paghe: preparare e verificare il tracciato",
+        "height_mm": 265.6,
+        "overflow": false
+      },
+      {
+        "id": "statistiche",
+        "title": "Statistiche: confrontare dati completi e dati mancanti",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "esportazioni",
+        "title": "Backup ed esportazioni: scegliere il file corretto",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "comunicazioni",
+        "title": "Comunicazioni: dal modello all’invio verificato",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "promemoria",
+        "title": "Promemoria: configurare destinatari e scadenze",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "uscite",
+        "title": "Uscite e dotazioni: completare la riconsegna",
+        "height_mm": 265.1,
+        "overflow": false
+      },
+      {
+        "id": "modellohr",
+        "title": "Modello onboarding: preparare i nuovi fascicoli",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "parametri",
+        "title": "Parametri: configurare fasce, causali e regole",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "centri",
+        "title": "Centri: creare una sede o importare il modello",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "utenti",
+        "title": "Utenti e permessi: assegnare il ruolo corretto",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "fine",
+        "title": "Avvia una sede pilota.",
+        "height_mm": 260,
+        "overflow": false
+      }
+    ]
+  },
+  {
+    "document": "Presentazione_HR_NefroCenter_v0.11_illustrata",
+    "sections": 11,
+    "overflow": [],
+    "fit": [
+      {
+        "id": "hr-cover",
+        "title": "Le strutture e HR,nello stesso portale.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "indice",
+        "title": "Un archivio centrale.Compiti riconoscibili.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Dalla sede al controllo HR.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Un mese chiusodopo le verifiche.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Vedere le scoperture.Confermare le sostituzioni.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Il fascicolo accompagnail rapporto di lavoro.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Preparare i messaggi.Controllare i destinatari.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Preparare dati verificabiliper direzione e consulente.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "A ciascuno il lavorodi propria competenza.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Una demo in dieci minuti.",
+        "height_mm": 260,
+        "overflow": false
+      },
+      {
+        "id": "",
+        "title": "Una sede pilota,con HR e IT insieme.",
+        "height_mm": 260,
+        "overflow": false
+      }
+    ]
+  }
+]

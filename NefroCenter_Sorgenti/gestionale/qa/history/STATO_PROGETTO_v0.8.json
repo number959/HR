@@ -1,0 +1,71 @@
+{
+  "project": "NefroCenter — Persone e Presenze Web",
+  "version": "0.8",
+  "date": "2026-10-17",
+  "language": "it",
+  "deployment": "not_deployed",
+  "handoff": "INIZIA_QUI_CODEX.md",
+  "conversation": "CONTESTO_CONVERSAZIONE.md",
+  "installation": "INSTALLAZIONE_WEB.md",
+  "entrypoints": [
+    "web_server.py",
+    "manage.py"
+  ],
+  "stack": {
+    "backend": "Python + Waitress",
+    "database": "SQLite WAL, local to one application server",
+    "frontend": "HTML, CSS, vanilla JavaScript"
+  },
+  "verification": {
+    "unit_tests": 95,
+    "unit_pass": true,
+    "browser_pass": true,
+    "python": "3.12.14",
+    "node": "24.19.0",
+    "playwright": "1.62.1",
+    "chromium": "155.0.8059.79",
+    "logs": [
+      "qa/unit-tests.log",
+      "qa/browser-tests.log"
+    ]
+  },
+  "new_modules": [
+    "analytics.py",
+    "excel_exports.py",
+    "backup_tools.py",
+    "assets/statistics.js",
+    "assets/exports.js"
+  ],
+  "export_kinds": [
+    "presenze_centro",
+    "presenze_totali",
+    "statistiche",
+    "dipendenti",
+    "onboarding",
+    "accordi"
+  ],
+  "limits": {
+    "max_months": 24,
+    "xlsx_max_rows": 100000,
+    "backup_download_max_bytes": 268435456,
+    "automatic_remote_backup": false,
+    "production_2fa_required": true,
+    "xlsx_contains_live_formulas": false
+  },
+  "rollback": [
+    "rollback/Presenze_Web_v0.7_Rollback.zip",
+    "rollback/Presenze_Web_v0.6_Rollback.zip"
+  ],
+  "source_excel_included": false,
+  "source_video_included": false,
+  "real_employee_data_included": false,
+  "handoff_focus": [
+    "statistiche",
+    "backup_database",
+    "excel_per_centro",
+    "excel_complessivi_e_prospetti_hr",
+    "rifinitura_interfacce_con_rollback",
+    "collaudo_ambiente_reale"
+  ],
+  "start_from": "INIZIA_QUI_CODEX.md — Ultime richieste: da dove riprendere adesso"
+}

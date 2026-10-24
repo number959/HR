@@ -1,0 +1,30 @@
+Controlli: leggere anomalie e salvare la verifica
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Tutti in consultazione secondo ruolo; verifica del mese ai responsabili
+
+[00:00:00.000] Prima di iniziare
+Verificare dati, calendario e parametri del mese lasciando un riferimento del controllo.
+
+Scegli la sede e il mese da controllare.
+
+[00:00:13.000] Passo 1 di 5
+Apri Controlli e leggi le segnalazioni una per una. Torna alla pagina di origine per correggere il dato.
+
+[00:00:25.000] Passo 2 di 5
+Confronta la versione dei parametri del mese con quella corrente della sede: un mese compilato può conservare regole precedenti.
+
+[00:00:37.000] Passo 3 di 5
+Quando il mese è modificabile, spunta Ho verificato parametri e calendario del mese. Inserisci una nota che indichi cosa hai controllato.
+
+[00:00:50.000] Passo 4 di 5
+Premi Salva verifica e rileggi lo stato. Nel flusso approvazioni il responsabile può verificare il calendario anche durante il passaggio verso HR.
+
+[00:01:04.000] Passo 5 di 5
+Consulta il registro per autore, data e operazione. Per la chiusura passa ad Approvazione mese, se attivo, oppure a Riepilogo.
+
+[00:01:17.000] Controlla il risultato
+La verifica del calendario è registrata; non equivale da sola alla chiusura o all’approvazione finale HR.
+
+[00:01:28.000] Se qualcosa non funziona
+Mese inviato o chiuso: richiedi la restituzione o riapertura prima di modificare dati e verifica.

@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-24",
+  "checks": {
+    "app_browser": {
+      "status": "pass",
+      "log": "qa/browser-quality.log",
+      "scope": [
+        "2FA and account permissions",
+        "four interface styles",
+        "HR forms preserve unsaved changes",
+        "monthly approvals",
+        "document review",
+        "staffing",
+        "departures and equipment",
+        "reminder preview without sends",
+        "payroll specification in draft",
+        "help video chapters and responsive layout",
+        "desktop and 390/320px"
+      ]
+    },
+    "http": {
+      "status": "pass",
+      "existing_tests": 9,
+      "new_asset_boundary_test": 1,
+      "log": "qa/web-quality.log"
+    },
+    "demo_adapter": {
+      "status": "pass",
+      "scripts": [
+        "demo-check.cjs",
+        "v011-check.cjs"
+      ],
+      "roles": 5,
+      "regression": "Manager cannot configure monthly approval policy; 403 leaves policy unchanged"
+    },
+    "demo_welcome_roles": {
+      "status": "pass",
+      "script": "roles-check.cjs",
+      "viewports": [
+        1400,
+        768,
+        390,
+        320
+      ]
+    },
+    "demo_browser_final": {
+      "status": "pass",
+      "log": "qa-output/demo-quality-final.log"
+    },
+    "help_quality": {
+      "status": "pass",
+      "log": "qa-output/help-quality.log",
+      "procedures": 34,
+      "settings": 323,
+      "role_paths": 7,
+      "viewports": [
+        1400,
+        390,
+        320
+      ],
+      "media": "Full HD1920x1080; chapter seeking before first load; Italian captions; PDF; screenshots"
+    },
+    "local_demo_range": {
+      "status": "pass",
+      "tests": 4,
+      "script": "test_demo_server.py",
+      "scope": [
+        "206 and Content-Range",
+        "closed,open,suffix byte ranges",
+        "416 malformed or unsatisfiable ranges",
+        "HEAD full response",
+        "If-Range ignored with full response"
+      ],
+      "reason": "SimpleHTTPRequestHandler did not allow initial chapter seeks; avvia_demo.py now serves MP4 byte ranges"
+    },
+    "presentation_browser": {
+      "status": "pass",
+      "duration": 157,
+      "chapters": 11,
+      "viewports": [
+        1400,
+        390,
+        320
+      ],
+      "scope": "playback, captions, downloads, chapter seek before playback, close/pause"
+    }
+  }
+}

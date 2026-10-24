@@ -1,0 +1,37 @@
+{
+  "final_guida_screenshot_matches_embedded_html": true,
+  "topics": 34,
+  "settings": 323,
+  "pdf_pages": [
+    42,
+    11
+  ],
+  "portable_sources_match": true,
+  "files": [
+    {
+      "name": "Guida_NefroCenter_v0.11_illustrata.pdf",
+      "bytes": 6855973,
+      "sha256": "75bbb109a10f3f21845b56f93c86951e0042f7e123941d441aaabe04ab4164ad"
+    },
+    {
+      "name": "Guida_NefroCenter_v0.11_illustrata.html",
+      "bytes": 7958850,
+      "sha256": "1cd294784642173ce836ed60df30c9edf5c4cc8c501d8cc16982982cc2b1690b"
+    },
+    {
+      "name": "Presentazione_HR_NefroCenter_v0.11_illustrata.pdf",
+      "bytes": 1137364,
+      "sha256": "559e5f688cc69c7f14360ad724fc9e2dcfd20511279af1f40ea14bc7f448e64e"
+    },
+    {
+      "name": "Presentazione_HR_NefroCenter_v0.11_illustrata.html",
+      "bytes": 1274295,
+      "sha256": "e9c95e5a842ca9279c8afed4bb25b1b3a691d793e76613216bf022e57e676be9"
+    },
+    {
+      "name": "Riferimento_Impostazioni_NefroCenter_v0.11.html",
+      "bytes": 107005,
+      "sha256": "6dec43266dabb9fa1e23ba5f4e2fdca334c755f50fb9fc276679f9a9bd954f74"
+    }
+  ]
+}

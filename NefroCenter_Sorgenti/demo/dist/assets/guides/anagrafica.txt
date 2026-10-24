@@ -1,0 +1,30 @@
+Anagrafica: identificare la persona nel registro
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Utenti autorizzati al fascicolo HR
+
+[00:00:00.000] Prima di iniziare
+Salvare identità, matricola e abilitazione al registro senza confondere lo stato del rapporto con i permessi di accesso.
+
+Apri il fascicolo in Dipendenti.
+
+[00:00:14.000] Passo 1 di 5
+Apri Anagrafica e confronta nome, cognome, codice fiscale e dati di nascita con la fonte verificata.
+
+[00:00:25.000] Passo 2 di 5
+Controlla Nome completo nel registro, Matricola e Ruolo nelle presenze: sono i riferimenti usati nelle pagine operative.
+
+[00:00:37.000] Passo 3 di 5
+Imposta Stato del rapporto e Abilitato alla compilazione delle presenze separatamente. La spunta riguarda la persona nel registro e non crea un account di accesso.
+
+[00:00:52.000] Passo 4 di 5
+Completa gli estremi e la scadenza del documento di identità, se previsti. Premi Salva fascicolo.
+
+[00:01:03.000] Passo 5 di 5
+Riapri la scheda e controlla i riferimenti; in Scadenze verifica l’eventuale data del documento.
+
+[00:01:13.000] Controlla il risultato
+La persona è riconoscibile nel centro e la sua disponibilità nel registro rispecchia la scelta salvata.
+
+[00:01:24.000] Se qualcosa non funziona
+Matricola duplicata nel centro: verifica il fascicolo già presente.

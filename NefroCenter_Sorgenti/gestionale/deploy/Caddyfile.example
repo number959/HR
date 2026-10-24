@@ -1,0 +1,5 @@
+# Sostituire con il dominio vero; DNS e HTTPS vanno configurati sul server.
+presenze.example.it {
+    encode gzip
+    reverse_proxy 127.0.0.1:8080
+}

@@ -1,0 +1,30 @@
+Modello onboarding: preparare i nuovi fascicoli
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Responsabili autorizzati, HR centrale e amministratori
+
+[00:00:00.000] Prima di iniziare
+Definire attività e campi aggiuntivi che la sede userà per i nuovi dipendenti.
+
+Apri Dipendenti nel centro da configurare.
+
+[00:00:12.000] Passo 1 di 5
+Premi Modello onboarding. Controlla il centro indicato nella finestra.
+
+[00:00:22.000] Passo 2 di 5
+Per ogni attività scegli fase, descrizione, responsabile e giorni rispetto all’ingresso: −7 indica una settimana prima, 0 il giorno d’ingresso.
+
+[00:00:35.000] Passo 3 di 5
+Aggiungi o rimuovi le attività concordate. Il modello ammette da 1 a 80 compiti.
+
+[00:00:45.000] Passo 4 di 5
+Aggiungi i campi personalizzati necessari, fino a 40: etichetta, tipo e indicazione Richiesto. Un campo richiesto vuoto viene segnalato ma non impedisce la bozza.
+
+[00:00:59.000] Passo 5 di 5
+Premi Salva modello protetto. Al prossimo nuovo fascicolo controlla le attività e le scadenze generate.
+
+[00:01:10.000] Controlla il risultato
+I nuovi fascicoli usano il modello aggiornato; quelli esistenti mantengono le proprie attività e i valori già registrati.
+
+[00:01:22.000] Se qualcosa non funziona
+Versione cambiata: riapri il modello prima di ripetere la modifica.

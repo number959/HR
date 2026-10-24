@@ -1,0 +1,124 @@
+{
+  "topics": [],
+  "topic_updates": {
+    "documenti": {
+      "id": "documenti",
+      "title": "Documenti da remoto e verifica HR",
+      "audience": "Caricamento e consultazione: responsabili autorizzati, HR centrale e amministratori",
+      "goal": "Caricare allegati sul portale centrale, verificarli e gestire le richieste di correzione.",
+      "steps": [
+        "Apri Dipendenti, scegli la persona e salva il fascicolo prima di entrare nella sezione Documenti. Controlla sempre la struttura selezionata.",
+        "Seleziona un PDF, PNG o JPEG reale entro 6 MiB, indica categoria ed eventuale scadenza e premi Allega al fascicolo. HR centrale lo vede subito nel portale comune.",
+        "Il nuovo allegato compare come Ricevuto · da verificare. Il caricamento conferma la ricezione del file, non la sua validazione da parte di HR.",
+        "Apri Verifica e storico e usa Apri il documento da controllare. HR centrale e amministratori possono confermare Verificato da HR oppure richiedere una correzione.",
+        "Per una correzione scrivi una nota di almeno 8 caratteri che spieghi il problema. La sede legge il motivo e può richiedere una nuova verifica, con una nota che spieghi la soluzione.",
+        "Il file allegato resta immutabile: se cambia il contenuto, carica un nuovo documento e indica nella nota a quale correzione si riferisce. Un allegato scaduto richiede un rinnovo prima di poter essere verificato.",
+        "Consulta lo storico paginato per autore, data, nota e versione di ogni decisione. Se un collega ha aggiornato la verifica, riapri la scheda prima di salvare.",
+        "Scarica solo quando serve una copia locale. Rimuovi richiede un motivo; le copie presenti nei backup precedenti seguono la conservazione aziendale."
+      ],
+      "result": "Ogni allegato conserva ricezione, decisioni HR e richieste di nuova verifica, consultabili dalle sedi autorizzate.",
+      "errors": [
+        "Compilatori e lettori non accedono ai fascicoli o agli allegati HR.",
+        "Il responsabile può caricare e richiedere una nuova verifica; la decisione finale è riservata a HR e amministratori.",
+        "Scaduto è un avviso calcolato dalla data: non cancella una decisione storica di verifica.",
+        "Un PDF rinominato da un altro formato o un file oltre 6 MiB viene rifiutato.",
+        "La nuova verifica non modifica il contenuto del file: allega il rinnovo o la versione corretta."
+      ],
+      "tour": [
+        {
+          "selector": "#hrDocumentFile",
+          "text": "Carica l’allegato nel fascicolo della persona."
+        },
+        {
+          "selector": "[data-hr-review]",
+          "text": "Apri esito, note e storico della verifica."
+        },
+        {
+          "selector": "#hrReviewStatus",
+          "text": "Scegli un’azione consentita dal tuo ruolo."
+        },
+        {
+          "selector": "#hrReviewNote",
+          "text": "Spiega correzione o nuova richiesta."
+        }
+      ]
+    },
+    "hrcentrale": {
+      "id": "hrcentrale",
+      "title": "Documenti HR centrali",
+      "audience": "HR centrale, amministratori e responsabili dei centri assegnati",
+      "goal": "Visionare i documenti amministrativi caricati dalle sedi.",
+      "steps": [
+        "Apri Documenti HR e seleziona tutte le strutture autorizzate oppure una singola sede.",
+        "Combina persona o matricola, categoria, scadenza e filtro Verifica HR, quindi premi Applica filtri. Azzera filtri torna all’archivio completo autorizzato.",
+        "Ricevuti mostra i file in attesa di verifica; Da correggere quelli con una richiesta aperta; Verificati mostra le decisioni HR. Scaduti comprende anche file verificati in passato.",
+        "Controlla persona, centro, autore e data di caricamento. Visualizza apre il documento; Scarica produce una copia; Fascicolo permette di caricare eventuali rinnovi.",
+        "Apri Verifica e storico, leggi il file e registra l’esito consentito dal tuo ruolo. HR può validare o richiedere correzioni; il responsabile può inviare nuovamente alla verifica un documento da correggere.",
+        "Usa Precedenti e Successivi per navigare nell’elenco o nello storico. Dopo un caricamento remoto premi Aggiorna: il documento è già nel database centrale, senza sincronizzazioni manuali."
+      ],
+      "result": "HR segue documenti ricevuti, correzioni e verifiche delle strutture; ogni responsabile vede soltanto i propri centri.",
+      "errors": [
+        "Compilatori e lettori non accedono ai fascicoli o agli allegati HR.",
+        "Il responsabile può caricare e richiedere una nuova verifica; la decisione finale è riservata a HR e amministratori.",
+        "Scaduto è un avviso calcolato dalla data: non cancella una decisione storica di verifica.",
+        "Se una scheda è cambiata in un’altra sessione, ricaricala e verifica il nuovo esito prima di decidere."
+      ],
+      "tour": [
+        {
+          "selector": "#hrDocCenter",
+          "text": "Restringi l’archivio a una struttura autorizzata."
+        },
+        {
+          "selector": "#hrDocReview",
+          "text": "Trova ricevuti, correzioni, verificati e scaduti."
+        },
+        {
+          "selector": "[data-central-review]",
+          "text": "Apri decisioni e storico del documento."
+        }
+      ]
+    }
+  },
+  "settings": [
+    {
+      "id": "document.review.status",
+      "topic": "documenti",
+      "section": "Verifica HR",
+      "label": "Nuovo esito",
+      "effect": "HR e amministratori registrano Verificato o Da correggere; la sede può richiedere una nuova verifica di un documento Da correggere.",
+      "example": "Da correggere: manca una firma."
+    },
+    {
+      "id": "document.review.note",
+      "topic": "documenti",
+      "section": "Verifica HR",
+      "label": "Nota per HR e per la sede",
+      "effect": "Motivazione condivisa con gli utenti HR autorizzati. Correzione e nuova verifica richiedono almeno 8 caratteri.",
+      "example": "Firma mancante nell’ultima pagina."
+    },
+    {
+      "id": "document.review.version",
+      "topic": "documenti",
+      "section": "Verifica HR",
+      "label": "Versione verifica",
+      "effect": "Valore gestito dal sistema: impedisce di sovrascrivere una decisione più recente.",
+      "example": "Riapri la scheda se compare un conflitto."
+    },
+    {
+      "id": "document.review.history",
+      "topic": "documenti",
+      "section": "Verifica HR",
+      "label": "Storico paginato",
+      "effect": "Mostra 25 decisioni per pagina, con autore, data, nota ed esito.",
+      "example": "Passa agli eventi precedenti."
+    },
+    {
+      "id": "document.review.filter",
+      "topic": "hrcentrale",
+      "section": "Filtri archivio",
+      "label": "Verifica HR",
+      "effect": "Filtra per stato registrato oppure per scadenza calcolata. Verificati può includere file successivamente scaduti, evidenziati.",
+      "example": "Scaduti, anche se già verificati."
+    }
+  ]
+}

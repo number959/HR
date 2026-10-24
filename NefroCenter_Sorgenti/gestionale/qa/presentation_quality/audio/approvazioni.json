@@ -1,0 +1,166 @@
+{
+  "text": "Con il flusso attivo, la sede invia il mese e il registro si blocca. Il responsabile verifica i dati; HR approva la chiusura. Per correggere, il mese viene restituito con una motivazione.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 1675410,
+      "text": "Con"
+    },
+    {
+      "offset": 2819580,
+      "duration": 1030830,
+      "text": "il"
+    },
+    {
+      "offset": 3979580,
+      "duration": 3737080,
+      "text": "flusso"
+    },
+    {
+      "offset": 7845410,
+      "duration": 5154580,
+      "text": "attivo"
+    },
+    {
+      "offset": 14030830,
+      "duration": 2061660,
+      "text": "la"
+    },
+    {
+      "offset": 16221660,
+      "duration": 3221660,
+      "text": "sede"
+    },
+    {
+      "offset": 19572080,
+      "duration": 3865830,
+      "text": "invia"
+    },
+    {
+      "offset": 23567080,
+      "duration": 773330,
+      "text": "il"
+    },
+    {
+      "offset": 24469160,
+      "duration": 3995000,
+      "text": "mese"
+    },
+    {
+      "offset": 28592910,
+      "duration": 386659,
+      "text": "e"
+    },
+    {
+      "offset": 29108330,
+      "duration": 1030830,
+      "text": "il"
+    },
+    {
+      "offset": 30267910,
+      "duration": 5927910,
+      "text": "registro"
+    },
+    {
+      "offset": 36324580,
+      "duration": 1160000,
+      "text": "si"
+    },
+    {
+      "offset": 37613330,
+      "duration": 5025830,
+      "text": "blocca"
+    },
+    {
+      "offset": 45360830,
+      "duration": 1932910,
+      "text": "Il"
+    },
+    {
+      "offset": 47422500,
+      "duration": 8634160,
+      "text": "responsabile"
+    },
+    {
+      "offset": 56185410,
+      "duration": 5283330,
+      "text": "verifica"
+    },
+    {
+      "offset": 61597910,
+      "duration": 644160,
+      "text": "i"
+    },
+    {
+      "offset": 62371250,
+      "duration": 4767910,
+      "text": "dati"
+    },
+    {
+      "offset": 69458750,
+      "duration": 7474160,
+      "text": "HR"
+    },
+    {
+      "offset": 77061660,
+      "duration": 4639160,
+      "text": "approva"
+    },
+    {
+      "offset": 81830000,
+      "duration": 773330,
+      "text": "la"
+    },
+    {
+      "offset": 82732080,
+      "duration": 6314580,
+      "text": "chiusura"
+    },
+    {
+      "offset": 91752500,
+      "duration": 1932910,
+      "text": "Per"
+    },
+    {
+      "offset": 93814580,
+      "duration": 6958750,
+      "text": "correggere"
+    },
+    {
+      "offset": 101932910,
+      "duration": 1675410,
+      "text": "il"
+    },
+    {
+      "offset": 103737080,
+      "duration": 3350410,
+      "text": "mese"
+    },
+    {
+      "offset": 107216660,
+      "duration": 2577500,
+      "text": "viene"
+    },
+    {
+      "offset": 109922500,
+      "duration": 6830000,
+      "text": "restituito"
+    },
+    {
+      "offset": 116881250,
+      "duration": 1804160,
+      "text": "con"
+    },
+    {
+      "offset": 118814580,
+      "duration": 1675410,
+      "text": "una"
+    },
+    {
+      "offset": 120618750,
+      "duration": 9020410,
+      "text": "motivazione"
+    }
+  ]
+}

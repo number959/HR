@@ -1,0 +1,171 @@
+{
+  "text": "Guide, tutorial e videoguide spiegano le procedure e le impostazioni. Apri la demo, scegli un ruolo e prova i percorsi con i colleghi. Ogni visitatore lavora su una copia separata con dati fittizi.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1007910,
+      "duration": 5154580,
+      "text": "Guide"
+    },
+    {
+      "offset": 8739580,
+      "duration": 6185410,
+      "text": "tutorial"
+    },
+    {
+      "offset": 15054160,
+      "duration": 515409,
+      "text": "e"
+    },
+    {
+      "offset": 15698330,
+      "duration": 6958750,
+      "text": "videoguide"
+    },
+    {
+      "offset": 22786250,
+      "duration": 5283330,
+      "text": "spiegano"
+    },
+    {
+      "offset": 28198330,
+      "duration": 773330,
+      "text": "le"
+    },
+    {
+      "offset": 29100410,
+      "duration": 7087500,
+      "text": "procedure"
+    },
+    {
+      "offset": 36317080,
+      "duration": 1288750,
+      "text": "e"
+    },
+    {
+      "offset": 37734580,
+      "duration": 902080,
+      "text": "le"
+    },
+    {
+      "offset": 38765410,
+      "duration": 9793750,
+      "text": "impostazioni"
+    },
+    {
+      "offset": 51288750,
+      "duration": 3608330,
+      "text": "Apri"
+    },
+    {
+      "offset": 55025830,
+      "duration": 1288750,
+      "text": "la"
+    },
+    {
+      "offset": 56443330,
+      "duration": 3737080,
+      "text": "demo"
+    },
+    {
+      "offset": 62242080,
+      "duration": 3608330,
+      "text": "scegli"
+    },
+    {
+      "offset": 65979580,
+      "duration": 1030830,
+      "text": "un"
+    },
+    {
+      "offset": 67139160,
+      "duration": 5025830,
+      "text": "ruolo"
+    },
+    {
+      "offset": 72293750,
+      "duration": 1030830,
+      "text": "e"
+    },
+    {
+      "offset": 73453750,
+      "duration": 2835000,
+      "text": "prova"
+    },
+    {
+      "offset": 76417500,
+      "duration": 773330,
+      "text": "i"
+    },
+    {
+      "offset": 77319580,
+      "duration": 5541250,
+      "text": "percorsi"
+    },
+    {
+      "offset": 82989580,
+      "duration": 1675410,
+      "text": "con"
+    },
+    {
+      "offset": 84793750,
+      "duration": 386659,
+      "text": "i"
+    },
+    {
+      "offset": 85309160,
+      "duration": 6443330,
+      "text": "colleghi"
+    },
+    {
+      "offset": 94455000,
+      "duration": 3479580,
+      "text": "Ogni"
+    },
+    {
+      "offset": 98063330,
+      "duration": 7216660,
+      "text": "visitatore"
+    },
+    {
+      "offset": 105408330,
+      "duration": 4123750,
+      "text": "lavora"
+    },
+    {
+      "offset": 109661250,
+      "duration": 1417500,
+      "text": "su"
+    },
+    {
+      "offset": 111207500,
+      "duration": 1546250,
+      "text": "una"
+    },
+    {
+      "offset": 112882910,
+      "duration": 3737080,
+      "text": "copia"
+    },
+    {
+      "offset": 116748750,
+      "duration": 4767910,
+      "text": "separata"
+    },
+    {
+      "offset": 121645410,
+      "duration": 1932910,
+      "text": "con"
+    },
+    {
+      "offset": 123707500,
+      "duration": 2319580,
+      "text": "dati"
+    },
+    {
+      "offset": 126155830,
+      "duration": 6958750,
+      "text": "fittizi"
+    }
+  ]
+}

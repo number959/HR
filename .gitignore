@@ -1,0 +1,16 @@
+# Materiali di consegna: copie generate dai sorgenti (vedi strumenti/consegna.py)
+NefroCenter_Sorgenti/materiali/
+# Ambienti e file di lavoro locali
+.venv/
+node_modules/
+__pycache__/
+*.py[cod]
+qa-output/
+data/
+private/
+backups/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.key
+.env

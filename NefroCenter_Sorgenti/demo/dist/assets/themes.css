@@ -1,0 +1,119 @@
+/* Optional, reversible visual alternatives. The classic stylesheet stays intact. */
+.interface-style{display:flex;align-items:center;gap:7px;margin:0;font-size:12px;white-space:nowrap}.interface-style select{font-size:12px;padding:7px 9px;max-width:160px}
+.hr-profile-toolbar .configtabs .btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.hr-profile-toolbar .configtabs .btn:not(.primary):hover{background:var(--soft);color:var(--ink)}
+body[data-interface]:not([data-interface=classic]) #app.app-shell{min-width:0}
+body[data-interface]:not([data-interface=classic]) #app.app-shell>main{width:100%;min-width:0}
+body[data-interface]:not([data-interface=classic]) .brand img{width:185px;background:white;padding:5px;border-radius:7px}
+body[data-interface]:not([data-interface=classic]) .brand-copy{font-size:13px;max-width:170px}
+body[data-interface]:not([data-interface=classic]) .hr-record-links{background:var(--soft);border-color:var(--line)}
+body[data-interface]:not([data-interface=classic]) .metric .number{font-variant-numeric:tabular-nums}
+
+/* Spazio di lavoro: navigation rail, white work canvas, compact active records. */
+body[data-interface=workspace]{--navy:#183c6c;--blue:#254e85;--ink:#20314a;--muted:#5e6f85;--line:#dce5ed;--canvas:#f1f5f8;--soft:#edf3f8}
+body[data-interface=workspace] #app.app-shell{display:grid;grid-template-columns:205px minmax(0,1fr);grid-template-rows:auto 1fr}
+body[data-interface=workspace] #app.app-shell>header{grid-column:1/-1;padding:15px 25px;gap:18px}
+body[data-interface=workspace] .topnav{grid-column:1;grid-row:2;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:5px;padding:25px 14px;background:#17395f;border:0;min-width:0}
+body[data-interface=workspace] .topnav button{display:flex;justify-content:flex-start;color:#d5e1f0;padding:12px 14px;font-size:13px;border:0;border-radius:8px;text-align:left;white-space:normal;min-height:44px}
+body[data-interface=workspace] .topnav button:hover{background:#234c76}
+body[data-interface=workspace] .topnav button.active{background:#fff;color:#17395f;box-shadow:0 3px 12px #0c26452b}
+body[data-interface=workspace] #app.app-shell>main{grid-column:2;margin:0;padding:30px;max-width:none}
+body[data-interface=workspace] .heading{padding-bottom:22px;border-bottom:1px solid var(--line)}
+body[data-interface=workspace] .heading h1{font-size:30px;letter-spacing:-1px}
+body[data-interface=workspace] .panel{border-radius:12px;box-shadow:0 4px 18px #17395f05}
+body[data-interface=workspace] .hr-profile-heading{background:white;border:1px solid var(--line);border-radius:12px 12px 0 0;padding:22px;margin-bottom:0}
+body[data-interface=workspace] .hr-record-links{border-radius:0 0 12px 12px;border-top:0;padding:15px 22px;margin-bottom:24px}
+body[data-interface=workspace] .hr-avatar.large{background:#17395f;color:#fff;border-radius:50%;width:52px;height:52px}
+body[data-interface=workspace] .hr-profile-toolbar{gap:20px}
+body[data-interface=workspace] .hr-profile-toolbar .configtabs{background:#e5edf5;border-radius:9px;padding:5px;gap:2px}
+body[data-interface=workspace] .hr-profile-toolbar .configtabs .btn{border:0;padding:9px 11px}
+body[data-interface=workspace] .hr-profile-toolbar .configtabs .btn.primary{background:#fff;color:#17395f;box-shadow:0 1px 4px #1b345c14}
+body[data-interface=workspace] .hr-essential{border-left:3px solid #254e85;border-radius:0 8px 8px 0}
+body[data-interface=workspace] .hr-section{padding:26px}
+
+/* Essenziale: neutral chrome and a vertical index for the employee file. */
+body[data-interface=essential]{--navy:#263b53;--blue:#263b53;--ink:#253443;--muted:#5c6b79;--line:#dfe5e8;--canvas:#fff;--soft:#f3f6f7}
+body[data-interface=essential] #app.app-shell>header{padding:17px 32px;border-bottom:0}
+body[data-interface=essential] .brand-copy{display:none}
+body[data-interface=essential] .topnav{padding:0 32px;gap:24px;border-bottom:1px solid var(--line);background:#fff}
+body[data-interface=essential] .topnav button{padding:12px 0;font-size:12px;border-bottom-width:2px}
+body[data-interface=essential] .topnav button.active{border-color:#b52035;color:#253443}
+body[data-interface=essential] #app.app-shell>main{padding:33px 32px;max-width:1450px}
+body[data-interface=essential] h1{font-size:28px;letter-spacing:-.8px;font-weight:500}
+body[data-interface=essential] .panel,body[data-interface=essential] .metric{box-shadow:none;border-radius:5px}
+body[data-interface=essential] .metric{border-width:0 0 1px;padding:18px 4px}
+body[data-interface=essential] .metric .number{font-size:29px;font-weight:500}
+body[data-interface=essential] .hr-profile-heading{padding:0 0 23px;border-bottom:1px solid var(--line);gap:17px}
+body[data-interface=essential] .hr-avatar.large{border-radius:50%;background:#f3f0ee;color:#5e4750}
+body[data-interface=essential] .hr-record-links{background:transparent;border:0;padding:0;margin:0 0 24px}
+body[data-interface=essential] #hrForm{display:grid;grid-template-columns:170px minmax(0,1fr);gap:18px 30px}
+body[data-interface=essential] .hr-profile-toolbar{display:contents}
+body[data-interface=essential] .hr-profile-toolbar .configtabs{grid-column:1;grid-row:1/3;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:4px;padding-top:4px}
+body[data-interface=essential] .hr-profile-toolbar .configtabs .btn{border-radius:5px;text-align:left;min-height:40px;padding:10px 13px}
+body[data-interface=essential] .hr-profile-toolbar .configtabs .btn.primary{background:#f0f3f5;border-color:transparent;color:#263b53;box-shadow:inset 3px 0 #b52035}
+body[data-interface=essential] .hr-profile-toolbar>.actions{grid-column:2;grid-row:1;justify-content:flex-end}
+body[data-interface=essential] .hr-section{grid-column:2;grid-row:2;border:0;border-top:1px solid var(--line);padding:24px 0}
+body[data-interface=essential] .hr-essential{border-radius:5px;padding:20px;background:#f7f8f9}
+body[data-interface=essential] input,body[data-interface=essential] select,body[data-interface=essential] textarea{border-radius:5px}
+body[data-interface=essential] .btn{border-radius:5px}
+
+/* Editoriale: warm paper surfaces, blue text, editorial hierarchy. */
+body[data-interface=editorial]{--navy:#233c61;--blue:#233c61;--ink:#2e3540;--muted:#696d74;--line:#dedbd6;--canvas:#f6f4f0;--soft:#eeede8}
+body[data-interface=editorial] #app.app-shell>header{padding:21px 34px;background:#fffefb;border-bottom:1px solid var(--line)}
+body[data-interface=editorial] .brand-copy{font-family:Georgia,'Times New Roman',serif;font-size:17px}
+body[data-interface=editorial] .brand small{font-family:Roboto,Arial,sans-serif}
+body[data-interface=editorial] .topnav{padding:0 34px;background:#fffefb;border-bottom:1px solid var(--line);gap:25px}
+body[data-interface=editorial] .topnav button.active{color:#233c61;border-color:#ac283d}
+body[data-interface=editorial] #app.app-shell>main{max-width:1440px;padding:36px 34px}
+body[data-interface=editorial] h1{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-1.2px;font-size:40px;color:#233c61}
+body[data-interface=editorial] .heading{border-bottom:1px solid var(--line);padding-bottom:25px;margin-bottom:29px}
+body[data-interface=editorial] .eyebrow{color:#7b4b50;letter-spacing:2px;font-size:10px}
+body[data-interface=editorial] .panel{background:#fffefb;border-radius:4px;border-color:var(--line);box-shadow:none}
+body[data-interface=editorial] .metric{background:transparent;border:0;border-left:1px solid var(--line);border-radius:0;padding:14px 24px}
+body[data-interface=editorial] .metric .number{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:36px}
+body[data-interface=editorial] .btn{border-radius:5px}
+body[data-interface=editorial] .hr-profile-heading{background:#fffefb;padding:26px;border:1px solid var(--line);border-bottom:0;border-radius:4px 4px 0 0;margin-bottom:0}
+body[data-interface=editorial] .hr-profile-heading h2{font-family:Georgia,'Times New Roman',serif;font-size:28px;font-weight:400;color:#233c61}
+body[data-interface=editorial] .hr-avatar.large{width:62px;height:62px;border-radius:50%;background:#e9eef2;color:#233c61;font-family:Georgia,'Times New Roman',serif;font-size:22px}
+body[data-interface=editorial] .hr-record-links{background:#fffefb;border:1px solid var(--line);border-top:0;border-radius:0 0 4px 4px;padding:0 26px 24px;margin-bottom:25px}
+body[data-interface=editorial] .hr-record-links>div:first-child{border-left:2px solid #ac283d;padding-left:14px}
+body[data-interface=editorial] .hr-profile-toolbar .configtabs{gap:4px}
+body[data-interface=editorial] .hr-profile-toolbar .configtabs .btn{border-radius:0;border-width:0 0 2px;padding:11px 12px}
+body[data-interface=editorial] .hr-profile-toolbar .configtabs .btn.primary{background:transparent;color:#233c61;border-color:#ac283d}
+body[data-interface=editorial] .hr-essential,body[data-interface=editorial] .hr-document-upload{background:#f4f3ef;border-radius:4px}
+body[data-interface=editorial] input,body[data-interface=editorial] select,body[data-interface=editorial] textarea{border-color:#d9d9d4;border-radius:4px}
+
+@media(max-width:1000px){
+ body[data-interface=workspace] #app.app-shell{grid-template-columns:170px minmax(0,1fr)}
+ body[data-interface=workspace] .topnav{padding:20px 9px}
+ body[data-interface=workspace] .topnav button{font-size:12px;padding:11px 10px}
+ body[data-interface=workspace] #app.app-shell>main{padding:24px 20px}
+ body[data-interface=workspace] .header-user{margin:0}
+ body[data-interface=workspace] .brand-copy{display:none}
+ body[data-interface=essential] #hrForm{grid-template-columns:150px minmax(0,1fr);gap:20px}
+}
+@media(max-width:700px){
+ .interface-style{flex:1 1 100%;min-width:0}.interface-style select{flex:1;min-width:160px;max-width:230px;font-size:16px}
+ body[data-interface=workspace] #app.app-shell{display:block}
+ body[data-interface=workspace] .topnav{flex-direction:row;flex-wrap:wrap;padding:12px;gap:4px}
+ body[data-interface=workspace] .topnav button{flex:0 1 auto;padding:10px;min-height:44px}
+ body[data-interface=workspace] #app.app-shell>main,body[data-interface=essential] #app.app-shell>main,body[data-interface=editorial] #app.app-shell>main{padding:24px 16px}
+ body[data-interface]:not([data-interface=classic]) #app.app-shell>header{padding:16px}
+ body[data-interface=workspace] .hr-section{padding:20px 16px}
+ body[data-interface=essential] #hrForm{display:block}
+ body[data-interface=essential] .hr-profile-toolbar{display:flex;gap:16px}
+ body[data-interface=essential] .hr-profile-toolbar .configtabs{flex-direction:row;flex-wrap:wrap;padding:0;gap:4px}
+ body[data-interface=essential] .hr-profile-toolbar>.actions{width:100%;justify-content:space-between}
+ body[data-interface=essential] .hr-profile-toolbar .configtabs .btn{min-height:44px}
+ body[data-interface=essential] .topnav,body[data-interface=editorial] .topnav{padding:0 16px;gap:0 20px}
+ body[data-interface=editorial] h1{font-size:33px}
+ body[data-interface=editorial] .hr-profile-heading{padding:20px 16px}
+ body[data-interface=editorial] .hr-record-links{padding:0 16px 20px}
+ body[data-interface]:not([data-interface=classic]) .hr-record-links small{overflow-wrap:anywhere}
+}
+@media print{
+ .interface-style{display:none!important}
+ body[data-interface] #app.app-shell{display:block!important}
+ body[data-interface] #app.app-shell>main{padding:0!important;max-width:none}
+ body[data-interface] #hrForm{display:block!important}
+}

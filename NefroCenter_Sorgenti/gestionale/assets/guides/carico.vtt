@@ -1,0 +1,60 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.333
+Registrare conteggi aggregati dei pazienti e
+leggere i rapporti organizzativi della sede.
+
+2
+00:00:07.333 --> 00:00:12.000
+Modifica riservata a responsabili e
+amministratori.
+
+3
+00:00:12.000 --> 00:00:22.000
+Apri Carico e controlla centro, mese, data e
+fascia.
+
+4
+00:00:22.000 --> 00:00:32.000
+Inserisci il numero di pazienti ordinari e
+in contumacia, usando interi non negativi.
+
+5
+00:00:32.000 --> 00:00:42.000
+Premi Salva conteggio e verifica la riga
+della data e fascia selezionate.
+
+6
+00:00:42.000 --> 00:00:49.400
+Leggi rapporti INF/MED e indici rispetto ai
+parametri della sede. Il personale
+
+7
+00:00:49.400 --> 00:00:55.000
+pertinente deriva dalle presenze e dai ruoli
+configurati.
+
+8
+00:00:55.000 --> 00:01:02.647
+Se compare N/D, controlla dati e
+configurazione senza sostituirlo con zero. I
+
+9
+00:01:02.647 --> 00:01:07.000
+risultati vanno valutati dai referenti.
+
+10
+00:01:07.000 --> 00:01:12.000
+La tabella conserva un riferimento
+organizzativo per
+
+11
+00:01:12.000 --> 00:01:17.000
+data e fascia, distinto dalle informazioni
+cliniche.
+
+12
+00:01:17.000 --> 00:01:27.000
+N/D: può mancare personale pertinente o un
+conteggio; verifica la fonte.

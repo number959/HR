@@ -1,0 +1,33 @@
+Parametri: configurare fasce, causali e regole
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Responsabili e amministratori abilitati; altri ruoli in lettura
+
+[00:00:00.000] Prima di iniziare
+Cambiare le regole della sede sapendo quali dati risentono subito della modifica e quali conservano una versione mensile.
+
+Modifiche riservate a responsabili e amministratori nel proprio ambito.
+
+[00:00:16.000] Passo 1 di 6
+Apri Parametri e confronta la versione corrente del centro con quella del mese.
+
+[00:00:26.000] Passo 2 di 6
+In Fasce e orari definisci orari, pausa e passaggio al giorno successivo. In Causali controlla tipo, stato Attiva e fasce autorizzate.
+
+[00:00:39.000] Passo 3 di 6
+In Calendario e ruoli imposta apertura, festività, qualifiche e sedi esterne. In Permessi e controlli scegli le azioni ammesse al compilatore.
+
+[00:00:52.000] Passo 4 di 6
+In Parametri economici imposta le proposte per i nuovi accordi. In Carico e stampa completa i riferimenti organizzativi e il separatore CSV.
+
+[00:01:06.000] Passo 5 di 6
+Usa Riferimento impostazioni per capire ogni campo; premi Salva nuova versione dopo la verifica. I permessi del compilatore entrano in vigore subito.
+
+[00:01:20.000] Passo 6 di 6
+Per aggiornare le regole di un periodo idoneo usa Applica al mese vuoto selezionato e motiva. Un mese già compilato conserva le proprie regole.
+
+[00:01:34.000] Controlla il risultato
+La nuova configurazione è versionata; gli accordi già salvati non cambiano automaticamente.
+
+[00:01:44.000] Se qualcosa non funziona
+Causale assente nel registro: verifica Attiva e Fasce autorizzate.

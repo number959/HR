@@ -1,0 +1,36 @@
+Comunicazioni: dal modello all’invio verificato
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: HR centrale e amministratori; configurazione del servizio riservata agli amministratori
+
+[00:00:00.000] Prima di iniziare
+Preparare email individuali per una lista, controllando destinatari e testo prima della conferma.
+
+Modelli, liste e bozze: HR centrale e amministratori. Servizio SMTP: solo amministratore.
+
+[00:00:15.000] Passo 1 di 7
+Apri Comunicazioni e scegli un modello oppure preparane uno con nome, oggetto e testo. Usa solo le variabili elencate dal portale.
+
+[00:00:28.000] Passo 2 di 7
+In Liste scegli dipendenti o contatti delle strutture. Seleziona sedi, filtri e campo email da usare; aggiungi eventuali esclusioni.
+
+[00:00:40.000] Passo 3 di 7
+Nella composizione scegli modello e lista, adatta il messaggio e premi Genera anteprima.
+
+[00:00:50.000] Passo 4 di 7
+Controlla i destinatari effettivi, i duplicati rimossi, gli indirizzi mancanti e i testi personalizzati. Correggi le anomalie e rigenera l’anteprima.
+
+[00:01:03.000] Passo 5 di 7
+Salva la bozza: conserva testi e destinatari come verificati. Le modifiche successive alla rubrica non aggiornano quella bozza.
+
+[00:01:15.000] Passo 6 di 7
+Con SMTP configurato, apri la bozza e conferma il lotto proposto. Ogni email ha un solo destinatario; il lotto successivo richiede una nuova azione.
+
+[00:01:29.000] Passo 7 di 7
+Leggi gli esiti per destinatario. Per le campagne manuali puoi ritentare gli invii falliti; gli esiti incerti e i promemoria automatici richiedono le rispettive verifiche.
+
+[00:01:44.000] Controlla il risultato
+La campagna conserva i messaggi preparati e gli esiti dei tentativi, senza esporre la lista agli altri destinatari.
+
+[00:01:56.000] Se qualcosa non funziona
+Accettato SMTP significa preso in carico dal server, non prova della consegna o lettura.

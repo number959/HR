@@ -1,0 +1,33 @@
+Presenze: registrare e correggere un turno
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Compilatori, responsabili e amministratori secondo i permessi del centro; lettori in consultazione
+
+[00:00:00.000] Prima di iniziare
+Salvare un turno previsto o svolto distinguendo correttamente pianificazione, lavoro e assenze.
+
+Il registro deve essere aperto e, se il flusso è attivo, non deve essere già inviato in approvazione.
+
+[00:00:17.000] Passo 1 di 6
+Scegli centro e mese. Seleziona Consuntivo per il lavoro svolto oppure Pianificato per i turni previsti.
+
+[00:00:28.000] Passo 2 di 6
+Cerca la persona o filtra la qualifica. Su uno schermo piccolo puoi usare la vista 7 giorni: i totali restano mensili.
+
+[00:00:41.000] Passo 3 di 6
+Apri la cella della persona e del giorno. Controlla la fascia, poi scegli la causale ammessa.
+
+[00:00:52.000] Passo 4 di 6
+Per un turno di lavoro inserisci ingresso, uscita e pausa reali, se il tuo profilo li può modificare. Per l’uscita dopo mezzanotte seleziona Uscita il giorno successivo.
+
+[00:01:08.000] Passo 5 di 6
+Controlla la sede effettiva, l’eventuale festivo e la nota. Premi Salva presenza e verifica la cella e i totali aggiornati.
+
+[00:01:21.000] Passo 6 di 6
+Per correggere, riapri la stessa cella. Elimina rimuove una registrazione soltanto se il tuo ruolo e il centro lo consentono.
+
+[00:01:34.000] Controlla il risultato
+La registrazione compare nella fascia e nel livello scelti. Le ore lavorate restano distinte dai crediti delle assenze.
+
+[00:01:46.000] Se qualcosa non funziona
+Mese inviato: serve una restituzione nella pagina Approvazione mese; mese chiuso: serve una riapertura motivata.

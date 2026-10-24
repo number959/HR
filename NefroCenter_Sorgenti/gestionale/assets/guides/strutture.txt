@@ -1,0 +1,33 @@
+Strutture: aggiornare la rubrica condivisa
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: HR centrale e amministratori; responsabili nei centri assegnati
+
+[00:00:00.000] Prima di iniziare
+Mantenere recapiti e referenti della sede in un solo punto, consultabile dai fascicoli collegati.
+
+HR centrale e amministratori vedono tutte le sedi; i responsabili soltanto quelle assegnate.
+
+[00:00:16.000] Passo 1 di 6
+Apri Strutture e cerca per nome, codice o referente. Premi Apri scheda sulla sede corretta.
+
+[00:00:27.000] Passo 2 di 6
+Completa ragione sociale, riferimenti fiscali e indirizzo disponibili. I campi della rubrica sono facoltativi.
+
+[00:00:37.000] Passo 3 di 6
+Registra separatamente email generale, HR, amministrazione e PEC: un solo indirizzo per campo.
+
+[00:00:47.000] Passo 4 di 6
+Indica telefono, referente, direttore e sito web completo di https://. Usa le note per informazioni organizzative aggiornate.
+
+[00:00:59.000] Passo 5 di 6
+Premi Salva struttura. Nel fascicolo di un dipendente apri Struttura di riferimento per verificare gli stessi recapiti.
+
+[00:01:11.000] Passo 6 di 6
+Se modifichi un recapito usato dai promemoria, l’amministratore deve controllare e riconfermare i destinatari nella loro configurazione.
+
+[00:01:23.000] Controlla il risultato
+Tutti i fascicoli della sede mostrano i riferimenti aggiornati, senza ricopiare la rubrica per ogni persona.
+
+[00:01:34.000] Se qualcosa non funziona
+Email non valida: usa un solo indirizzo, senza nome del destinatario o righe aggiuntive.

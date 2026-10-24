@@ -1,0 +1,10 @@
+{
+  "source_build": "portable scripts, relative input/output paths",
+  "audio_rebuild": "passed; all saved MP3 segments reused; no new synthesis",
+  "audio_wav_sha256": "071bb77f12ebf7cd171fb075a73bed8d4920c6822c8ff03532eb20f2eb12aa78",
+  "matches_original_wav": true,
+  "portable_video_build": "same original renderer; path adaptation checked, full portable render not repeated",
+  "ffmpeg_required": true,
+  "fonts": "Liberation Sans from fonts-liberation",
+  "python_requirements": "requirements-media.txt"
+}

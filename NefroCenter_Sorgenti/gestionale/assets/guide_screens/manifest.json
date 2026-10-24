@@ -1,0 +1,1218 @@
+{
+  "created": "2026-10-22T23:32:30.099Z",
+  "source": "Schermate reali della demo, con dati sintetici; catture 2× incluse per rigenerare guide e video.",
+  "viewport": {
+    "width": 1600,
+    "height": 1000,
+    "deviceScaleFactor": 2
+  },
+  "topics": {
+    "avvio": {
+      "path": "avvio.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 0,
+        "y": 0,
+        "width": 1600,
+        "height": 1000,
+        "units": "css_pixels"
+      },
+      "focus_pixels": {
+        "x": 0,
+        "y": 0,
+        "width": 3200,
+        "height": 2000,
+        "units": "image_pixels"
+      },
+      "caption": "Accesso reale al portale aziendale: credenziali e verifica a due fattori. Archivio temporaneo dimostrativo.",
+      "source": "isolated temporary operational application; no real users or data"
+    },
+    "dashboard": {
+      "path": "dashboard.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Dashboard del gruppo",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "completare": {
+      "path": "completare.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Da completare",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "statistiche": {
+      "path": "statistiche.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Statistiche del personale",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "presenze": {
+      "path": "presenze.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Presenze: pianificato e consuntivo",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "dipendenti": {
+      "path": "dipendenti.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Dipendenti e fascicolo HR",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "personale": {
+      "path": "personale.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Personale di gruppo e storico contratti",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "hrcentrale": {
+      "path": "hrcentrale.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Documenti HR centrali",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "accordi": {
+      "path": "accordi.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Accordi e calcoli del mese",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "riepilogo": {
+      "path": "riepilogo.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Riepilogo e chiusura del mese",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "controlli": {
+      "path": "controlli.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Controlli e storico",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "parametri": {
+      "path": "parametri.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Parametri del centro: tutte le impostazioni",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "centri": {
+      "path": "centri.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Centri e importazione Excel",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "esportazioni": {
+      "path": "esportazioni.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Backup ed esportazioni",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "paghe": {
+      "path": "paghe.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Paghe: specifiche del consulente e file verificati",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "utenti": {
+      "path": "utenti.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Utenti e permessi",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "carico": {
+      "path": "carico.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Carico per fascia",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "guida": {
+      "path": "guida.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 90,
+        "width": 1370,
+        "height": 885,
+        "units": "css_pixels"
+      },
+      "caption": "Guida illustrata: percorsi per ruolo, ricerca e procedure con schermate reali",
+      "focus_pixels": {
+        "x": 430,
+        "y": 180,
+        "width": 2740,
+        "height": 1770
+      }
+    },
+    "strutture": {
+      "path": "strutture.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Strutture: rubrica e riferimenti del dipendente",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "comunicazioni": {
+      "path": "comunicazioni.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Email: modelli, liste e invii",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "copertura": {
+      "path": "copertura.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Copertura, disponibilità e sostituzioni",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "promemoria": {
+      "path": "promemoria.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Promemoria automatici HR",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "uscite": {
+      "path": "uscite.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Uscite, trasferimenti e dotazioni",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "anagrafica": {
+      "path": "anagrafica.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Fascicolo: anagrafica",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "recapiti": {
+      "path": "recapiti.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Fascicolo: recapiti",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "contratto": {
+      "path": "contratto.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Fascicolo: rapporto di lavoro",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "amministrazione": {
+      "path": "amministrazione.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Fascicolo: amministrazione",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "qualifiche": {
+      "path": "qualifiche.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Fascicolo: qualifiche e campi del centro",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "onboarding": {
+      "path": "onboarding.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Fascicolo: onboarding",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "documenti": {
+      "path": "documenti.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Documenti da remoto e verifica HR",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "scadenze": {
+      "path": "scadenze.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Fascicolo: scadenze",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "modellohr": {
+      "path": "modellohr.webp",
+      "width": 2000,
+      "height": 1816,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 0,
+        "y": 0,
+        "width": 1000,
+        "height": 907.265625,
+        "units": "css_pixels"
+      },
+      "caption": "Modello onboarding e campi personalizzati",
+      "selector": "#modal",
+      "viewportCrop": {
+        "x": 300,
+        "y": 46.359375,
+        "width": 1000,
+        "height": 907.265625
+      },
+      "focus_pixels": {
+        "x": 0,
+        "y": 0,
+        "width": 2000,
+        "height": 1815,
+        "units": "image_pixels"
+      }
+    },
+    "sicurezza": {
+      "path": "sicurezza.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Sicurezza: password, 2FA e sessioni",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "approvazioni": {
+      "path": "approvazioni.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Approvazione mensile: sede, responsabile e HR",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    }
+  },
+  "details": {
+    "roleswelcome": {
+      "path": "roleswelcome.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 100,
+        "y": 110,
+        "width": 1400,
+        "height": 780,
+        "units": "css_pixels"
+      },
+      "caption": "Schermata iniziale della demo: ruoli e accessi",
+      "focus_pixels": {
+        "x": 200,
+        "y": 220,
+        "width": 2800,
+        "height": 1560,
+        "units": "image_pixels"
+      }
+    },
+    "fascicolo": {
+      "path": "fascicolo.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Fascicolo dipendente: informazioni collegate alla struttura",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "fascicolo_struttura": {
+      "path": "fascicolo_struttura.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Recapiti della struttura di riferimento nel fascicolo",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "document_review": {
+      "path": "document_review.webp",
+      "width": 1120,
+      "height": 1804,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 0,
+        "y": 0,
+        "width": 560,
+        "height": 901.140625,
+        "units": "css_pixels"
+      },
+      "caption": "HR può richiedere una correzione e registrare la motivazione",
+      "selector": "#modal",
+      "viewportCrop": {
+        "x": 520,
+        "y": 49.421875,
+        "width": 560,
+        "height": 901.140625
+      },
+      "focus_pixels": {
+        "x": 0,
+        "y": 0,
+        "width": 1120,
+        "height": 1802,
+        "units": "image_pixels"
+      }
+    },
+    "approvazioni_in_attesa": {
+      "path": "approvazioni_in_attesa.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Mese verificato dal responsabile, in attesa dell’approvazione finale HR",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "approval_actions": {
+      "path": "approval_actions.webp",
+      "width": 2670,
+      "height": 554,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 0,
+        "y": 0,
+        "width": 1335,
+        "height": 276.03125,
+        "units": "css_pixels"
+      },
+      "caption": "Approva e chiudi oppure restituisci il mese con una motivazione",
+      "selector": "#approvalActions",
+      "viewportCrop": {
+        "x": 235,
+        "y": 1065.390625,
+        "width": 1335,
+        "height": 276.03125
+      },
+      "focus_pixels": {
+        "x": 0,
+        "y": 0,
+        "width": 2670,
+        "height": 552,
+        "units": "image_pixels"
+      }
+    },
+    "copertura_fabbisogni": {
+      "path": "copertura_fabbisogni.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Minimi per giorno, fascia e qualifica",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    },
+    "copertura_editor": {
+      "path": "copertura_editor.webp",
+      "width": 1120,
+      "height": 1816,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 0,
+        "y": 0,
+        "width": 560,
+        "height": 907.265625,
+        "units": "css_pixels"
+      },
+      "caption": "Modifica dei minimi e delle eccezioni per data",
+      "selector": "#modal",
+      "viewportCrop": {
+        "x": 520,
+        "y": 46.359375,
+        "width": 560,
+        "height": 907.265625
+      },
+      "focus_pixels": {
+        "x": 0,
+        "y": 0,
+        "width": 1120,
+        "height": 1815,
+        "units": "image_pixels"
+      }
+    },
+    "email_preview": {
+      "path": "email_preview.webp",
+      "width": 1310,
+      "height": 1502,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 0,
+        "y": 0,
+        "width": 654.4375,
+        "height": 749.625,
+        "units": "css_pixels"
+      },
+      "caption": "Anteprima personalizzata: destinatari, testo e controlli prima della bozza",
+      "selector": "#commPreviewResult",
+      "viewportCrop": {
+        "x": 260,
+        "y": 1270.421875,
+        "width": 654.4375,
+        "height": 749.625
+      },
+      "focus_pixels": {
+        "x": 0,
+        "y": 0,
+        "width": 1309,
+        "height": 1499,
+        "units": "image_pixels"
+      }
+    },
+    "promemoria_anteprima": {
+      "path": "promemoria_anteprima.webp",
+      "width": 2570,
+      "height": 506,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 0,
+        "y": 0,
+        "width": 1285,
+        "height": 251.296875,
+        "units": "css_pixels"
+      },
+      "caption": "Anteprima dei riepiloghi e dei destinatari senza inviare email",
+      "selector": "#reminderPreviewResult",
+      "viewportCrop": {
+        "x": 260,
+        "y": 1468.796875,
+        "width": 1285,
+        "height": 251.296875
+      },
+      "focus_pixels": {
+        "x": 0,
+        "y": 0,
+        "width": 2570,
+        "height": 503,
+        "units": "image_pixels"
+      }
+    },
+    "uscita_detail": {
+      "path": "uscita_detail.webp",
+      "width": 1120,
+      "height": 1816,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 0,
+        "y": 0,
+        "width": 560,
+        "height": 907.265625,
+        "units": "css_pixels"
+      },
+      "caption": "Checklist di uscita e dotazioni da restituire",
+      "selector": "#modal",
+      "viewportCrop": {
+        "x": 520,
+        "y": 46.359375,
+        "width": 560,
+        "height": 907.265625
+      },
+      "focus_pixels": {
+        "x": 0,
+        "y": 0,
+        "width": 1120,
+        "height": 1815,
+        "units": "image_pixels"
+      }
+    },
+    "uscite_dotazioni": {
+      "path": "uscite_dotazioni.webp",
+      "width": 3200,
+      "height": 2000,
+      "viewport": {
+        "width": 1600,
+        "height": 1000,
+        "deviceScaleFactor": 2
+      },
+      "focus": {
+        "x": 215,
+        "y": 155,
+        "width": 1370,
+        "height": 820,
+        "units": "css_pixels"
+      },
+      "caption": "Registro delle dotazioni consegnate e delle restituzioni",
+      "focus_pixels": {
+        "x": 430,
+        "y": 310,
+        "width": 2740,
+        "height": 1640,
+        "units": "image_pixels"
+      }
+    }
+  },
+  "errors": [],
+  "completed": true,
+  "count": {
+    "topics": 34,
+    "details": 12
+  }
+}

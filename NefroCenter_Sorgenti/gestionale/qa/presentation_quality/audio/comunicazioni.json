@@ -1,0 +1,161 @@
+{
+  "text": "Prepara email da modelli e liste, controlla l’anteprima e conferma i destinatari. I promemoria delle scadenze si configurano separatamente. Nella demo tutto è simulato; gli invii reali richiedono la posta aziendale.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 4252500,
+      "text": "Prepara"
+    },
+    {
+      "offset": 5397080,
+      "duration": 4123750,
+      "text": "email"
+    },
+    {
+      "offset": 9649580,
+      "duration": 1288750,
+      "text": "da"
+    },
+    {
+      "offset": 11067080,
+      "duration": 4252500,
+      "text": "modelli"
+    },
+    {
+      "offset": 15448330,
+      "duration": 515409,
+      "text": "e"
+    },
+    {
+      "offset": 16092910,
+      "duration": 4510410,
+      "text": "liste"
+    },
+    {
+      "offset": 22922500,
+      "duration": 5799160,
+      "text": "controlla"
+    },
+    {
+      "offset": 28850410,
+      "duration": 7602910,
+      "text": "l’anteprima"
+    },
+    {
+      "offset": 36582500,
+      "duration": 1417500,
+      "text": "e"
+    },
+    {
+      "offset": 38128750,
+      "duration": 6056660,
+      "text": "conferma"
+    },
+    {
+      "offset": 44314580,
+      "duration": 515409,
+      "text": "i"
+    },
+    {
+      "offset": 44958750,
+      "duration": 8118750,
+      "text": "destinatari"
+    },
+    {
+      "offset": 55799160,
+      "duration": 1417500,
+      "text": "I"
+    },
+    {
+      "offset": 57345410,
+      "duration": 5927910,
+      "text": "promemoria"
+    },
+    {
+      "offset": 63402080,
+      "duration": 2319580,
+      "text": "delle"
+    },
+    {
+      "offset": 65850410,
+      "duration": 6830000,
+      "text": "scadenze"
+    },
+    {
+      "offset": 72809160,
+      "duration": 1288750,
+      "text": "si"
+    },
+    {
+      "offset": 74226660,
+      "duration": 7474160,
+      "text": "configurano"
+    },
+    {
+      "offset": 81830000,
+      "duration": 9793750,
+      "text": "separatamente"
+    },
+    {
+      "offset": 94330000,
+      "duration": 3479580,
+      "text": "Nella"
+    },
+    {
+      "offset": 97938330,
+      "duration": 2448330,
+      "text": "demo"
+    },
+    {
+      "offset": 100515410,
+      "duration": 3221660,
+      "text": "tutto"
+    },
+    {
+      "offset": 103865830,
+      "duration": 515409,
+      "text": "è"
+    },
+    {
+      "offset": 104510410,
+      "duration": 6185410,
+      "text": "simulato"
+    },
+    {
+      "offset": 113273330,
+      "duration": 2190830,
+      "text": "gli"
+    },
+    {
+      "offset": 115592910,
+      "duration": 3479580,
+      "text": "invii"
+    },
+    {
+      "offset": 119200830,
+      "duration": 3865830,
+      "text": "reali"
+    },
+    {
+      "offset": 123195830,
+      "duration": 4767910,
+      "text": "richiedono"
+    },
+    {
+      "offset": 128092910,
+      "duration": 902080,
+      "text": "la"
+    },
+    {
+      "offset": 129123750,
+      "duration": 2835000,
+      "text": "posta"
+    },
+    {
+      "offset": 132087500,
+      "duration": 7345410,
+      "text": "aziendale"
+    }
+  ]
+}

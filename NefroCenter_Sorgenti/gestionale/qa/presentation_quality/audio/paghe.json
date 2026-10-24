@@ -1,0 +1,156 @@
+{
+  "text": "Il modulo paghe importa le specifiche del file e controlla colonne, causali e dati prima dell’esportazione. Il tracciato va concordato e collaudato con il consulente; il portale non produce cedolini.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 2061660,
+      "text": "Il"
+    },
+    {
+      "offset": 3206250,
+      "duration": 4510410,
+      "text": "modulo"
+    },
+    {
+      "offset": 7845410,
+      "duration": 3865830,
+      "text": "paghe"
+    },
+    {
+      "offset": 11840000,
+      "duration": 5799160,
+      "text": "importa"
+    },
+    {
+      "offset": 17767910,
+      "duration": 902080,
+      "text": "le"
+    },
+    {
+      "offset": 18799160,
+      "duration": 6185410,
+      "text": "specifiche"
+    },
+    {
+      "offset": 25113330,
+      "duration": 1546250,
+      "text": "del"
+    },
+    {
+      "offset": 26788750,
+      "duration": 2835000,
+      "text": "file"
+    },
+    {
+      "offset": 29752500,
+      "duration": 515409,
+      "text": "e"
+    },
+    {
+      "offset": 30397080,
+      "duration": 5154580,
+      "text": "controlla"
+    },
+    {
+      "offset": 35680410,
+      "duration": 5154580,
+      "text": "colonne"
+    },
+    {
+      "offset": 42767910,
+      "duration": 6314580,
+      "text": "causali"
+    },
+    {
+      "offset": 49211250,
+      "duration": 902080,
+      "text": "e"
+    },
+    {
+      "offset": 50242080,
+      "duration": 3092910,
+      "text": "dati"
+    },
+    {
+      "offset": 53463750,
+      "duration": 3221660,
+      "text": "prima"
+    },
+    {
+      "offset": 56814580,
+      "duration": 11211250,
+      "text": "dell’esportazione"
+    },
+    {
+      "offset": 70732080,
+      "duration": 2577500,
+      "text": "Il"
+    },
+    {
+      "offset": 73438330,
+      "duration": 6056660,
+      "text": "tracciato"
+    },
+    {
+      "offset": 79623750,
+      "duration": 1546250,
+      "text": "va"
+    },
+    {
+      "offset": 81299160,
+      "duration": 7860830,
+      "text": "concordato"
+    },
+    {
+      "offset": 89288750,
+      "duration": 515409,
+      "text": "e"
+    },
+    {
+      "offset": 89932910,
+      "duration": 6314580,
+      "text": "collaudato"
+    },
+    {
+      "offset": 96376250,
+      "duration": 1804160,
+      "text": "con"
+    },
+    {
+      "offset": 98309160,
+      "duration": 1030830,
+      "text": "il"
+    },
+    {
+      "offset": 99469160,
+      "duration": 7345410,
+      "text": "consulente"
+    },
+    {
+      "offset": 109520410,
+      "duration": 1546250,
+      "text": "il"
+    },
+    {
+      "offset": 111195830,
+      "duration": 4897080,
+      "text": "portale"
+    },
+    {
+      "offset": 116221660,
+      "duration": 1932910,
+      "text": "non"
+    },
+    {
+      "offset": 118283330,
+      "duration": 4381250,
+      "text": "produce"
+    },
+    {
+      "offset": 122793750,
+      "duration": 6185410,
+      "text": "cedolini"
+    }
+  ]
+}

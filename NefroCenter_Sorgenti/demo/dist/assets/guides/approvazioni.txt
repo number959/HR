@@ -1,0 +1,36 @@
+Approvazione mese: seguire i tre passaggi
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Tutti leggono le sedi autorizzate; invio ai compilatori e responsabili, verifica ai responsabili, approvazione finale a HR e amministratori
+
+[00:00:00.000] Prima di iniziare
+Far controllare le presenze alla sede, al responsabile e a HR prima della chiusura.
+
+L’amministratore deve attivare il flusso per la sede. Nella demo è già attivo.
+
+[00:00:16.000] Passo 1 di 7
+Apri Approvazione mese e controlla centro, mese, stato e Controlli prima dell’approvazione.
+
+[00:00:26.000] Passo 2 di 7
+Se serve attivarlo, l’amministratore apre Configurazione del flusso, seleziona la richiesta di verifica e approvazione HR, motiva e salva.
+
+[00:00:38.000] Passo 3 di 7
+La sede completa i consuntivi e risolve i blocchi, poi preme Invia al responsabile. Da questo momento le presenze sono protette dalle modifiche.
+
+[00:00:52.000] Passo 4 di 7
+Il responsabile controlla dati e calendario, spunta la verifica e usa Conferma verifica e invia a HR. Se serve correggere, usa Restituisci per correzioni con una nota di almeno 8 caratteri.
+
+[00:01:09.000] Passo 5 di 7
+HR controlla il mese e usa Approva e chiudi mese oppure lo restituisce con motivazione. HR non modifica direttamente le presenze.
+
+[00:01:22.000] Passo 6 di 7
+Dopo una restituzione, la sede corregge e invia nuovamente. Dopo la chiusura, una riapertura motivata invalida l’approvazione e richiede di ripetere il percorso.
+
+[00:01:36.000] Passo 7 di 7
+Consulta lo Storico dei passaggi. Se i dati di riferimento sono cambiati, restituisci e verifica la nuova versione prima dell’approvazione o dell’esportazione paghe.
+
+[00:01:50.000] Controlla il risultato
+Lo stato è Approvato da HR e il periodo è chiuso; lo storico identifica autore, momento e motivo dei passaggi.
+
+[00:02:03.000] Se qualcosa non funziona
+Pulsante assente: controlla ruolo, sede e stato; ogni passaggio è disponibile solo al ruolo previsto.

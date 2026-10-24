@@ -1,0 +1,41 @@
+{
+  "schema": "nefrocenter.payroll-spec.v1",
+  "provider": "",
+  "format_name": "Presenze per fascia da concordare",
+  "format_version": "",
+  "specification_reference": "",
+  "delimiter": ";",
+  "decimal_separator": ",",
+  "date_format": "DD/MM/YYYY",
+  "encoding": "utf-8-sig",
+  "columns": [
+    {
+      "header": "MATR",
+      "field": "registration",
+      "type": "text",
+      "required": true,
+      "max_length": 12
+    },
+    {
+      "header": "GIORNO",
+      "field": "day",
+      "type": "date",
+      "required": true,
+      "max_length": 10
+    },
+    {
+      "header": "CAUSALE",
+      "field": "payroll_code",
+      "type": "text",
+      "required": true,
+      "max_length": 8
+    },
+    {
+      "header": "ORE",
+      "field": "worked_hours",
+      "type": "decimal",
+      "required": false,
+      "max_length": 8
+    }
+  ]
+}

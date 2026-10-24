@@ -1,0 +1,146 @@
+{
+  "text": "La copertura confronta i minimi della struttura con i turni pianificati. Disponibilità e proposte di sostituzione aiutano a organizzare il lavoro, con conferma del responsabile della sede destinataria.",
+  "voice": "it-IT-ElsaNeural",
+  "events": [
+    {
+      "offset": 1015410,
+      "duration": 2061660,
+      "text": "La"
+    },
+    {
+      "offset": 3206250,
+      "duration": 7216660,
+      "text": "copertura"
+    },
+    {
+      "offset": 10551660,
+      "duration": 7216660,
+      "text": "confronta"
+    },
+    {
+      "offset": 17897080,
+      "duration": 773330,
+      "text": "i"
+    },
+    {
+      "offset": 18799160,
+      "duration": 4123750,
+      "text": "minimi"
+    },
+    {
+      "offset": 23051660,
+      "duration": 2319580,
+      "text": "della"
+    },
+    {
+      "offset": 25500000,
+      "duration": 5927910,
+      "text": "struttura"
+    },
+    {
+      "offset": 31556660,
+      "duration": 2448330,
+      "text": "con"
+    },
+    {
+      "offset": 34134160,
+      "duration": 644160,
+      "text": "i"
+    },
+    {
+      "offset": 34907080,
+      "duration": 3865830,
+      "text": "turni"
+    },
+    {
+      "offset": 38902080,
+      "duration": 9020410,
+      "text": "pianificati"
+    },
+    {
+      "offset": 50644160,
+      "duration": 10051660,
+      "text": "Disponibilità"
+    },
+    {
+      "offset": 60824580,
+      "duration": 773330,
+      "text": "e"
+    },
+    {
+      "offset": 61726660,
+      "duration": 5025830,
+      "text": "proposte"
+    },
+    {
+      "offset": 66881250,
+      "duration": 1288750,
+      "text": "di"
+    },
+    {
+      "offset": 68299160,
+      "duration": 8891660,
+      "text": "sostituzione"
+    },
+    {
+      "offset": 77319580,
+      "duration": 5412500,
+      "text": "aiutano"
+    },
+    {
+      "offset": 82860830,
+      "duration": 257910,
+      "text": "a"
+    },
+    {
+      "offset": 83247500,
+      "duration": 6314580,
+      "text": "organizzare"
+    },
+    {
+      "offset": 89690830,
+      "duration": 644160,
+      "text": "il"
+    },
+    {
+      "offset": 90463750,
+      "duration": 3995000,
+      "text": "lavoro"
+    },
+    {
+      "offset": 96778330,
+      "duration": 2190830,
+      "text": "con"
+    },
+    {
+      "offset": 99097910,
+      "duration": 5541250,
+      "text": "conferma"
+    },
+    {
+      "offset": 104767910,
+      "duration": 1546250,
+      "text": "del"
+    },
+    {
+      "offset": 106443330,
+      "duration": 8505000,
+      "text": "responsabile"
+    },
+    {
+      "offset": 115077500,
+      "duration": 2448330,
+      "text": "della"
+    },
+    {
+      "offset": 117654580,
+      "duration": 2577500,
+      "text": "sede"
+    },
+    {
+      "offset": 120360830,
+      "duration": 8634160,
+      "text": "destinataria"
+    }
+  ]
+}

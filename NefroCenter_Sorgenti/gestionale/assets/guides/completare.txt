@@ -1,0 +1,30 @@
+Da completare: correggere una segnalazione
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: Ogni utente vede le attività consentite dal proprio ruolo
+
+[00:00:00.000] Prima di iniziare
+Passare da una segnalazione al dato da correggere e controllare che il problema sia risolto.
+
+Scegli il mese per le presenze; le scadenze HR descrivono invece la situazione attuale.
+
+[00:00:17.000] Passo 1 di 5
+Apri Da completare. Seleziona centro, categoria e priorità; usa la ricerca per restringere l’elenco.
+
+[00:00:27.000] Passo 2 di 5
+Leggi persona, data e motivo. Per una registrazione futura verifica se si tratta semplicemente di un turno ancora pianificato.
+
+[00:00:39.000] Passo 3 di 5
+Apri la voce: il portale porta alla pagina di origine, per esempio Presenze, fascicolo o Controlli.
+
+[00:00:50.000] Passo 4 di 5
+Correggi e salva nella pagina aperta. Inserisci un consuntivo solo dopo aver verificato che il turno sia stato svolto.
+
+[00:01:02.000] Passo 5 di 5
+Torna a Da completare e aggiorna l’elenco. Verifica che la segnalazione sia scomparsa o che il suo contenuto corrisponda ai dati corretti.
+
+[00:01:16.000] Controlla il risultato
+L’elenco riflette la correzione effettuata; non occorre cancellare manualmente la segnalazione.
+
+[00:01:26.000] Se qualcosa non funziona
+Non puoi aprire un fascicolo: chiedi il corretto accesso al referente, senza usare l’account di un collega.

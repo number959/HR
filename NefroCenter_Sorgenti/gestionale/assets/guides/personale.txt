@@ -1,0 +1,33 @@
+Personale di gruppo: collegare sedi e decorrenze
+Videoguida illustrata Full HD, senza audio.
+Le schermate sono riferimenti reali della demo con dati fittizi.
+Profilo: HR centrale e amministratori; funzioni di sede secondo autorizzazione
+
+[00:00:00.000] Prima di iniziare
+Riconoscere una stessa persona in più sedi e registrare condizioni valide da una data precisa.
+
+Verifica l’identità della persona prima di collegare due anagrafiche; nome o matricola uguali non bastano.
+
+[00:00:17.000] Passo 1 di 6
+Apri Personale di gruppo e cerca la persona. Controlla sedi, matricole e dati identificativi prima di intervenire.
+
+[00:00:29.000] Passo 2 di 6
+Quando autorizzato, collega esplicitamente le anagrafiche alla stessa identità di gruppo e indica la motivazione. I fascicoli di sede rimangono distinti.
+
+[00:00:42.000] Passo 3 di 6
+Apri lo storico contrattuale e registra decorrenza, eventuale termine e condizioni verificate: contratto, ore, part-time e qualifica.
+
+[00:00:54.000] Passo 4 di 6
+Evita periodi sovrapposti: chiudi l’intervallo precedente e motiva eventuali correzioni. Controlla la situazione alla data di interesse.
+
+[00:01:06.000] Passo 5 di 6
+Per le condizioni economiche usa lo storico e l’anteprima del mese. Applica soltanto dopo aver controllato i dati e le eventuali richieste di verifica manuale.
+
+[00:01:21.000] Passo 6 di 6
+Riapri Accordi e calcoli per verificare il risultato del mese. Una variazione nello storico non riscrive da sola gli accordi già applicati.
+
+[00:01:35.000] Controlla il risultato
+Le sedi condividono un riferimento di identità verificato e lo storico conserva le decorrenze senza perdere i dati locali.
+
+[00:01:47.000] Se qualcosa non funziona
+Omonimia o identità incerta: non effettuare il collegamento finché i riferimenti non sono verificati.

@@ -1,0 +1,90 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.636
+Scaricare il prospetto richiesto e
+distinguere un’esportazione da una copia
+
+2
+00:00:05.636 --> 00:00:09.818
+completa dell’archivio. Le esportazioni
+dipendono dai
+
+3
+00:00:09.818 --> 00:00:14.000
+permessi; i backup sono riservati
+all’amministratore.
+
+4
+00:00:14.000 --> 00:00:20.667
+Apri Backup ed esportazioni e scegli
+Prospetto: registro, presenze complessive,
+
+5
+00:00:20.667 --> 00:00:25.000
+statistiche, fascicoli, onboarding/scadenze
+oppure accordi.
+
+6
+00:00:25.000 --> 00:00:33.364
+Imposta i filtri richiesti. Il registro usa
+un centro, un mese e Pianificato o
+
+7
+00:00:33.364 --> 00:00:39.000
+Consuntivo; i prospetti HR descrivono la
+situazione attuale.
+
+8
+00:00:39.000 --> 00:00:47.000
+Premi Scarica Excel e controlla nome e
+contenuto del file. Per dati riservati può
+
+9
+00:00:47.000 --> 00:00:52.000
+essere richiesta una nuova verifica di
+sicurezza.
+
+10
+00:00:52.000 --> 00:00:58.050
+Come amministratore, configura destinazione
+separata, conservazione e frequenza delle
+
+11
+00:00:58.050 --> 00:01:05.000
+prove. Il database attivo deve restare sul
+disco locale del server.
+
+12
+00:01:05.000 --> 00:01:12.571
+Crea backup adesso, poi usa Copia e prova
+ripristino per verificare anche la
+
+13
+00:01:12.571 --> 00:01:18.000
+destinazione separata. Controlla data, esito
+ed eventuali errori.
+
+14
+00:01:18.000 --> 00:01:23.429
+Custodisci separatamente la chiave 2FA e
+pianifica un
+
+15
+00:01:23.429 --> 00:01:28.000
+ripristino completo di prova seguendo
+INSTALLAZIONE_WEB.md.
+
+16
+00:01:28.000 --> 00:01:35.778
+Il prospetto contiene i dati richiesti; il
+backup completo conserva anche i documenti,
+
+17
+00:01:35.778 --> 00:01:40.000
+con esiti di verifica consultabili.
+
+18
+00:01:40.000 --> 00:01:50.000
+Excel non è un backup: non include i file
+allegati binari né l’intera configurazione.
