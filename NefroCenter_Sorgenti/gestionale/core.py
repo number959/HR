@@ -170,7 +170,7 @@ def snapshot(user,cid,month):
         user=fresh_user(c,user);authorize(user,cid);ct=center(c,cid);p=period(c,ct,month)
         people=objects(c,'people',cid);entries=objects(c,'entries',cid);rows=totals(people,entries,month)
         alerts=[]
-        if not p['verified']:alerts.append('Calendario e parametri del mese da verificare dall’amministratore.')
+        if not p['verified']:alerts.append('Calendario e parametri del mese da verificare dal responsabile del centro.')
         for r in rows:
             if r['missing']:alerts.append(r['name']+': '+str(r['missing'])+' turni senza orari.')
             if r['pending']:alerts.append(r['name']+': '+str(r['pending'])+' fasce pianificate da consuntivare.')
@@ -231,7 +231,7 @@ def mutate(user,action,body):
                 c.execute('UPDATE centers SET config=?,version=version+1 WHERE id=?',(dump(cfg),cid))
             else:
                 month=body['month'];p=period(c,ct,month);cfg=effective_rules(ct,p);entries=objects(c,'entries',cid);people=objects(c,'people',cid)
-                if p['closed'] and action!='reopen':raise ValueError('Mese chiuso: solo l’amministratore può riaprirlo.')
+                if p['closed'] and action!='reopen':raise ValueError('Mese chiuso: per modificarlo serve la riapertura motivata del responsabile del centro o dell’amministratore.')
                 agreements.freeze(p,people)
                 if action=='agreement_save':
                     pid=body.get('person_id');person=next((x for x in people if x['id']==pid),None)
@@ -268,10 +268,10 @@ def mutate(user,action,body):
                     after,warnings=make_entry(raw,cfg,person,ct['name'],'admin' if user['role']=='manager' else user['role'],comparisons,before);after['id']=after['id'] or uid();after['config_version']=p['version'];after['updated_by']=user['username'];after['updated_at']=now()
                     put(c,'entries',cid,after)
                 elif action=='delete':
-                    if user['role'] not in ('admin','manager') and not cfg['operator_delete']:raise PermissionError('Eliminazione riservata all’amministratore.')
+                    if user['role'] not in ('admin','manager') and not cfg['operator_delete']:raise PermissionError('Eliminazione riservata al responsabile del centro e all’amministratore.')
                     before=next((e for e in entries if e['id']==body.get('id') and e['day'].startswith(month+'-')),None)
                     if not before:raise ValueError('Registrazione non trovata nel mese.')
-                    if before['layer']=='planned' and user['role'] not in ('admin','manager') and not cfg['operator_planned']:raise PermissionError('Pianificazione riservata all’amministratore.')
+                    if before['layer']=='planned' and user['role'] not in ('admin','manager') and not cfg['operator_planned']:raise PermissionError('Pianificazione riservata al responsabile del centro e all’amministratore.')
                     c.execute('DELETE FROM entries WHERE cid=? AND id=?',(cid,before['id']))
                 elif action=='period_verify':
                     before=copy.deepcopy(p);p['verified']=bool(body.get('verified'));p['note']=str(body.get('note',''))[:2000];after=p

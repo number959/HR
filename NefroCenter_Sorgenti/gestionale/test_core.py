@@ -92,7 +92,18 @@ class AccessTests(unittest.TestCase):
     def test_disabled_export_and_plan_enforced(self):
         cfg=defaults();cfg['operator_export']=False;cfg['operator_planned']=False;app.mutate(self.admin,'center_save',{**self.req(),'config':cfg})
         with self.assertRaises(PermissionError):app.export_csv(self.operator,self.a,'2026-11')
-        with self.assertRaises(PermissionError):app.mutate(self.operator,'entry',{**self.req(month='2026-11'),'entry':dict(person_id=self.person,day='2026-11-02',slot='m',code='m',layer='planned')})
+        with self.assertRaisesRegex(PermissionError,'responsabile del centro'):app.mutate(self.operator,'entry',{**self.req(month='2026-11'),'entry':dict(person_id=self.person,day='2026-11-02',slot='m',code='m',layer='planned')})
+
+    def test_role_messages_name_the_center_manager(self):
+        # The manager can verify, reopen, plan and delete: messages must not suggest admin only.
+        app.mutate(self.admin,'user_save',{'user':dict(username='responsabile',name='Responsabile',role='manager',centers=[self.a],active=True,password=PASSWORD)})
+        _,manager=app.login(dict(username='responsabile',password=PASSWORD))
+        self.assertIn('Calendario e parametri del mese da verificare dal responsabile del centro.',app.snapshot(self.operator,self.a,'2026-10')['alerts'])
+        app.mutate(manager,'entry',{**self.req(),'entry':self.entry()});app.mutate(manager,'period_verify',{**self.req(),'verified':True})
+        app.mutate(manager,'close',self.req())
+        with self.assertRaisesRegex(ValueError,'riapertura motivata del responsabile del centro'):app.mutate(self.operator,'entry',{**self.req(),'entry':{**self.entry(),'day':'2026-10-15'}})
+        app.mutate(manager,'reopen',{**self.req(),'reason':'Correzione autorizzata'})
+        self.assertFalse(app.snapshot(manager,self.a,'2026-10')['period']['closed'])
 
     def test_overlap_explicit_identity_across_centers(self):
         app.mutate(self.admin,'person',{**self.req(self.b),'person':dict(name='Persona demo B',registration='M001',role='INF',active=True)})
@@ -117,7 +128,7 @@ class AccessTests(unittest.TestCase):
         app.mutate(self.admin,'center_save',{**self.req(),'config':cfg})
         with self.assertRaises(PermissionError):app.export_csv(self.operator,self.a,'2026-10')
         entry=app.snapshot(self.operator,self.a,'2026-10')['entries'][0]
-        with self.assertRaises(PermissionError):app.mutate(self.operator,'delete',{**self.req(),'id':entry['id']})
+        with self.assertRaisesRegex(PermissionError,'responsabile del centro'):app.mutate(self.operator,'delete',{**self.req(),'id':entry['id']})
 
 class BackupTests(unittest.TestCase):
     def setUp(self):

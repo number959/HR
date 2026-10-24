@@ -88,7 +88,7 @@ def make_entry(raw,config,person,center_name,role,existing,old=None):
     if code['allowed_slots'] and slot['id'] not in code['allowed_slots']:raise ValueError('Causale non autorizzata per questa fascia.')
     layer=raw.get('layer')
     if layer not in ('actual','planned'):raise ValueError('Registro non valido.')
-    if role!='admin' and layer=='planned' and not config['operator_planned']:raise PermissionError('Pianificazione riservata all’amministratore.')
+    if role!='admin' and layer=='planned' and not config['operator_planned']:raise PermissionError('Pianificazione riservata al responsabile del centro e all’amministratore.')
     e=dict(id=raw.get('id',''),person_id=person['id'],day=day,slot=slot['id'],code=code['id'],kind=code['kind'],code_label=code['label'],
         layer=layer,start='',end='',pause=0,overnight=False,work_site=center_name,holiday=day in config['holidays'],note=str(raw.get('note',''))[:2000],credit_minutes=code['credit_minutes'])
     if code['kind']=='work':
@@ -96,7 +96,7 @@ def make_entry(raw,config,person,center_name,role,existing,old=None):
         if role!='admin' and not config['operator_edit_times']:
             if old and old['kind']=='work':expected={k:old[k] for k in expected}
             for k,v in expected.items():
-                if k in raw and raw[k]!=v:raise PermissionError('Gli orari e le pause sono bloccati dall’amministratore.')
+                if k in raw and raw[k]!=v:raise PermissionError('Orari e pause sono bloccati dai parametri del centro: chiedi al responsabile.')
             e.update(expected)
         else:e.update({k:raw.get(k,v) for k,v in expected.items()})
         if type(e['overnight'])!=bool:raise ValueError('Giorno successivo non valido.')
