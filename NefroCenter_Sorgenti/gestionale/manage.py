@@ -5,6 +5,11 @@ import core
 from web_auth import Auth
 
 def main():
+    # Input errors become a readable console message, never a Python traceback.
+    try:_main()
+    except (ValueError,PermissionError) as ex:raise SystemExit('Operazione non completata: '+str(ex)) from None
+
+def _main():
     p=argparse.ArgumentParser(description='Amministrazione locale Presenze Web')
     p.add_argument('command',choices=['init','activate','reset-password','backup','after-restore','backup-config','backup-status','backup-sync','backup-probe'])
     p.add_argument('--data-dir',type=Path,default=Path(os.environ.get('PRESENZE_DATA_DIR','data')))
