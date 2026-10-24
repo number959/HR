@@ -3,7 +3,7 @@ const {chromium}=require('playwright');
 const path=require('path');
 const assert=require('node:assert/strict');
 (async()=>{
- const browser=await chromium.launch({executablePath:process.env.CHROMIUM_EXECUTABLE||'/usr/bin/chromium',headless:true,args:process.env.QA_CHROMIUM_NO_SANDBOX==='1'?['--no-sandbox']:[]});
+ const browser=await chromium.launch({...(process.env.CHROMIUM_EXECUTABLE?{executablePath:process.env.CHROMIUM_EXECUTABLE}:{}),headless:true,args:process.env.QA_CHROMIUM_NO_SANDBOX==='1'?['--no-sandbox']:[]});
  try{
   const page=await browser.newPage({viewport:{width:1200,height:900}});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));

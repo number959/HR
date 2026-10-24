@@ -16,14 +16,13 @@ Dalla cartella principale del software, in un ambiente con le dipendenze già in
 export NEFRO_APP_ROOT="$PWD"
 export NEFRO_MANUAL_WORK="$PWD/qa/manual-work"
 export NEFRO_MANUAL_OUT="$PWD/docs/manuali"
-export NEFRO_CHROMIUM="/usr/bin/chromium"
 mkdir -p "$NEFRO_MANUAL_WORK" "$NEFRO_MANUAL_OUT"
 python qa/build_manual.py --require-images
 node qa/render_manual.cjs
 python qa/verify_manual_pdf.py
 ```
 
-Adattare `NEFRO_CHROMIUM` al percorso del browser. Su Windows impostare le stesse variabili con la sintassi PowerShell `$env:NOME = 'percorso'`.
+Senza altre impostazioni viene usato il Chromium installato con Playwright. Per un browser diverso indicare `CHROMIUM_EXECUTABLE` (è accettato anche il nome storico `NEFRO_CHROMIUM`). Solo in un contenitore di collaudo isolato che non supporta la sandbox aggiungere `QA_CHROMIUM_NO_SANDBOX=1`. Se `NEFRO_MANUAL_OUT` non è impostata, i file vengono scritti in `docs/manuali` della cartella corrente. Su Windows impostare le stesse variabili con la sintassi PowerShell `$env:NOME = 'percorso'`.
 
 Il browser legge gli HTML attraverso un server temporaneo su `127.0.0.1`, chiuso al termine. Le immagini sono incorporate negli HTML: i documenti risultanti si consultano senza caricare risorse esterne. I link espliciti alla demo pubblica richiedono una connessione.
 
