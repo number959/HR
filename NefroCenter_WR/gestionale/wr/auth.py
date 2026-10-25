@@ -155,7 +155,7 @@ class Auth:
 
     def state(self, session):
         out = dict(stage=session['stage'], csrf=session['csrf'], user=None, recovery_remaining=None,
-                   configured=self._configured())
+                   configured=self._configured(), demo=self.demo)
         if session['stage'] == 'full':
             with self.db.read() as con:
                 user = users.load(con, session['user_id'])
@@ -511,6 +511,19 @@ def api_logout(ctx):
 def api_step_up(ctx):
     body = ctx.body
     return ctx.app.auth.step_up(ctx.session, body.get('password'), body.get('code'), body.get('recovery') is True)
+
+
+@route('POST', '/api/session/demo', auth='session')
+def api_demo(ctx):
+    """Solo demo pubblica: accesso con un profilo fittizio, senza password."""
+    if not ctx.app.auth.demo:
+        raise Forbidden('Accesso dimostrativo non disponibile.')
+    username = str(ctx.body.get('username') or '')
+    with ctx.db.read() as con:
+        row = con.execute("SELECT id FROM users WHERE username=? AND active=1 AND username LIKE 'demo.%'", (username,)).fetchone()
+    if not row:
+        raise Invalid('Profilo dimostrativo non trovato.')
+    return ctx.app.auth.demo_login(ctx.session, row['id'])
 
 
 @route('GET', '/api/security')

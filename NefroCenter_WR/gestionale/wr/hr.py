@@ -537,6 +537,11 @@ def archive(db, user, center_id='all', person='', category='', expiry='all', rev
 from .web import route  # noqa: E402
 
 
+@route('GET', '/api/hr-fields', cap='hr.fascicoli')
+def api_fields(ctx):
+    return dict(fields=field_definitions(), sections=SECTIONS, categories=CATEGORIES, stages=STAGES)
+
+
 @route('GET', '/api/hr/<cid>', cap='hr.fascicoli')
 def api_listing(ctx):
     return listing(ctx.db, ctx.user, ctx.params['cid'])
