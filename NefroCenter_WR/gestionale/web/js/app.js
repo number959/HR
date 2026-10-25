@@ -139,15 +139,16 @@ function shell() {
   } });
   const helpBtn = button('', { kind: 'ghost icon', ic: 'help', aria: 'Guida della pagina', onClick: () => toggleHelp(true) });
   const menuBtn = button('', { kind: 'ghost icon menu-button', ic: 'menu', aria: 'Apri il menu', onClick: () => toggleNav(true) });
-  const topbar = h('header', { class: 'topbar' }, menuBtn, title,
-    h('div', { class: 'context' }, centerSelect, monthBox, helpBtn, themeBtn, userMenu, logout));
+  const context = h('div', { class: 'context' }, centerSelect, monthBox);
+  const topbar = h('header', { class: 'topbar' }, menuBtn, title, context,
+    h('div', { class: 'tools' }, helpBtn, themeBtn, userMenu, logout));
   const content = h('main', { class: 'content', id: 'content', tabindex: '-1' });
   const helpPanel = h('aside', { class: 'help-panel', 'aria-label': 'Guida della pagina', 'aria-hidden': 'true' });
   const shellEl = h('div', { class: 'shell' }, nav, h('div', { class: 'main' }, app.demo ? h('div', { class: 'demo-banner',
     text: 'Demo pubblica · dati fittizi · le modifiche restano solo in questa scheda del browser' }) : null, topbar, content), helpPanel);
   nav.addEventListener('click', e => { if (e.target.closest('a')) toggleNav(false); });
   clear(app.root, shellEl);
-  refs = { shell: shellEl, nav, title, centerSelect, monthInput, monthBox, content, helpPanel };
+  refs = { shell: shellEl, nav, title, context, centerSelect, monthInput, monthBox, content, helpPanel };
   refreshTodoCount();
 }
 
@@ -194,6 +195,7 @@ async function route() {
   const ctx = page.context || [];
   refs.centerSelect.classList.toggle('hidden', !ctx.includes('center'));
   refs.monthBox.classList.toggle('hidden', !ctx.includes('month'));
+  refs.context.classList.toggle('hidden', !ctx.length);
   toggleHelp(false);
   app.current = page;
   if (page.cap && !app.can(page.cap)) {

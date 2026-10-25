@@ -39,6 +39,15 @@ def today_iso():
     return today().isoformat()
 
 
+MONTH_NAMES = ('gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre',
+               'novembre', 'dicembre')
+
+
+def month_label(month):
+    """'2026-10' → 'ottobre 2026', per i testi rivolti alle persone."""
+    return f'{MONTH_NAMES[int(month[5:7]) - 1]} {month[:4]}'
+
+
 def new_id():
     return uuid.uuid4().hex
 

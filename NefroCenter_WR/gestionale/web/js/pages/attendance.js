@@ -177,7 +177,7 @@ function dayView(ctx, snap, view, people, reload, draw) {
   const map = index(snap);
   const slots = snap.config.slots.filter(s => s.active);
   const pos = snap.days.findIndex(d => d.day === view.day);
-  const nav = h('div', { class: 'row card-body' },
+  const nav = h('div', { class: 'day-nav card-body' },
     button('', { kind: 'icon', ic: 'chevronLeft', aria: 'Giorno precedente', disabled: pos <= 0, onClick: () => { view.day = snap.days[pos - 1].day; draw(); } }),
     h('select', { 'aria-label': 'Giorno', on: { change: e => { view.day = e.target.value; draw(); } } },
       snap.days.map(d => h('option', { value: d.day, selected: d.day === view.day, text: fmt.dateLong(d.day) + (d.holiday ? ' · festivo' : '') }))),

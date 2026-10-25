@@ -6,7 +6,7 @@ from datetime import timedelta
 from . import approvals, centers, departures, hr, months, rules, users
 from .errors import Forbidden
 from .permissions import has, require
-from .util import csv_safe, month_days, stamp, today
+from .util import csv_safe, month_days, month_label, stamp, today
 from . import validate as v
 from .web import Reply
 
@@ -77,10 +77,12 @@ def todo(db, user, month, center_id='all'):
             state = months.get(con, c['id'], month)
             names = {p['id']: p for p in months.people(con, c['id'])}
             entries = months.entries(con, c['id'], month)
+            cfg, _ = months.configuration(con, c['id'], state)
+            slot_names = {s['id']: s['label'].lower() for s in cfg['slots']}
             actual = {(e['person_id'], e['day'], e['slot']) for e in entries if e['layer'] == 'actual'}
             for e in entries:
                 p = names[e['person_id']]
-                detail = f'{p["name"]} · {e["day"]} · {e["slot"]}'
+                detail = f'{p["name"]} · {slot_names.get(e["slot"], "fascia " + e["slot"])}'
                 if e['layer'] == 'actual' and e['kind'] == 'work' and rules.duration(e) is None:
                     add('orari', 'Completa gli orari del turno', c, p['id'], e['day'], 'presenze',
                         'urgent' if state['closed'] else 'normal', detail)
@@ -93,17 +95,17 @@ def todo(db, user, month, center_id='all'):
                         'urgent', f'{detail} · {e["review"]}')
             if has(user, 'mese.verifica') and not state['verified'] and not state['closed']:
                 add('calendario', 'Verifica calendario e parametri del mese', c, page='presenze',
-                    detail=f'{month} · verifica del responsabile della struttura')
+                    detail=f'{month_label(month)} · verifica del responsabile della struttura')
             if entries and not state['closed'] and last_day < on and has(user, 'mese.chiudi'):
                 add('chiusure', 'Controlla e chiudi il mese terminato', c, page='presenze',
-                    detail=f'{month} · chiusura dopo i controlli')
+                    detail=f'{month_label(month)} · chiusura dopo i controlli')
             pol = approvals.policy(con, c['id'])
             if pol['enabled']:
                 wf = approvals.workflow(con, c['id'], month)
                 acts = approvals.available_actions(user, pol, wf, state['closed'], False)
                 if any(a in acts for a in ('submit', 'manager_approve', 'hr_approve')) and (wf['status'] != 'draft' or entries):
                     add('approvazioni', 'Approvazione del mese: ' + wf['label'].lower(), c, page='approvazioni',
-                        priority='urgent' if wf['status'] in ('submitted', 'manager_approved') else 'normal', detail=month)
+                        priority='urgent' if wf['status'] in ('submitted', 'manager_approved') else 'normal', detail=month_label(month))
             if has(user, 'hr.fascicoli'):
                 for p in names.values():
                     if not p['active']:
@@ -133,7 +135,7 @@ def todo(db, user, month, center_id='all'):
                 for r in con.execute("SELECT day, slot FROM substitutions WHERE center_id=? AND status='pending' ORDER BY day",
                                      (c['id'],)):
                     add('sostituzioni', 'Valuta una sostituzione proposta', c, day=r['day'], page='copertura',
-                        priority='urgent', detail=f'{r["day"]} · fascia {r["slot"]}')
+                        priority='urgent', detail=slot_names.get(r['slot'], 'fascia ' + r['slot']).capitalize())
         if has(user, 'uscite.gestisci'):
             names = {c['id']: c for c in visible}
             for case in departures.visible_open_cases(con, user):

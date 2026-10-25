@@ -17,7 +17,7 @@ export async function render(ctx) {
   };
   const actions = [];
   if (caps['mese.verifica'] && !state.closed && !snap.approval.frozen) {
-    actions.push(button(state.verified ? 'Annulla la verifica' : 'Calendario e parametri verificati', {
+    actions.push(button(state.verified ? 'Annulla la conferma' : 'Conferma calendario e parametri', {
       kind: state.verified ? '' : 'primary', ic: 'check',
       onClick: () => run('verify', { verified: !state.verified, version: state.version, note: state.note }, 'Verifica aggiornata.'),
     }));

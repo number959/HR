@@ -211,7 +211,7 @@ export function input(name, value = '', opts = {}) {
 export function select(name, options, value, opts = {}) {
   return h('select', { name, required: opts.required, disabled: opts.disabled },
     options.map(o => {
-      const [v, label] = Array.isArray(o) ? o : [o.value ?? o.id, o.label ?? o.name];
+      const [v, label] = typeof o === 'string' ? [o, o] : Array.isArray(o) ? o : [o.value ?? o.id, o.label ?? o.name];
       return h('option', { value: v, selected: String(v) === String(value), text: label });
     }));
 }
