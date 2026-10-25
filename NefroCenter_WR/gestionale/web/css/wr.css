@@ -218,7 +218,7 @@ input, select, textarea {
 textarea { min-height: 88px; resize: vertical; }
 input:focus, select:focus, textarea:focus { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 25%, transparent); }
 input[type="checkbox"], input[type="radio"] { width: 18px; height: 18px; min-height: 0; accent-color: var(--brand); }
-.field { display: grid; gap: 6px; }
+.field { display: grid; gap: 6px; align-content: start; }
 .field .hint { font-size: .8rem; color: var(--text-3); }
 .field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--bad); }
 .field .error { font-size: .8rem; color: var(--bad); font-weight: 600; }
@@ -296,7 +296,8 @@ table.table { width: 100%; border-collapse: collapse; font-size: .9rem; }
 .loading { opacity: .55; transition: opacity .2s; pointer-events: none; }
 /* Grafici: una serie, griglia sottile, tooltip */
 .chart-wrap { position: relative; }
-.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.chart-wrap { min-height: 240px; }
+.chart { display: block; overflow: visible; }
 .chart-grid { stroke: var(--line); stroke-width: 1; }
 .chart-axis { stroke: var(--line-strong); stroke-width: 1; }
 .chart-tick { fill: var(--text-3); font-size: 11px; }

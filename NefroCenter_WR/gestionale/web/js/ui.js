@@ -87,7 +87,7 @@ export const fmt = {
     return `${(n / 1024 / 1024).toLocaleString('it-IT', { maximumFractionDigits: 1 })} MB`;
   },
   initials(name) {
-    return String(name || '?').split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0].toUpperCase()).join('');
+    return String(name || '?').split(/\s+/).filter(p => /\p{L}/u.test(p)).slice(0, 2).map(p => p[0].toUpperCase()).join('') || '?';
   },
 };
 
