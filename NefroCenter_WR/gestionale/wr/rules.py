@@ -16,6 +16,9 @@ ABSENCES = [('FE', 'Ferie'), ('PS', 'Permesso'), ('ROL', 'ROL'), ('FG', 'FG (da 
             ('AG', 'Assenza giustificata'), ('PL', 'Permesso lutto'), ('AS', 'Aspettativa non retribuita')]
 SLOT_DEFAULTS = [('m', 'Mattina', '07:00', '13:00', False, '#c99a2e'), ('p', 'Pomeriggio', '13:00', '19:00', False, '#d4793f'),
                  ('s', 'Serale', '19:00', '23:00', False, '#4f7fbf'), ('n', 'Notte', '21:00', '07:00', True, '#7a62b0')]
+# Sede provvisoria delle registrazioni importate da Excel: va sostituita con la sede reale.
+IMPORT_SITE = 'Sede esterna da specificare'
+IMPORT_SITE_REVIEW = 'Indicare la sede esterna effettiva.'
 OPERATOR_FLAGS = ('operator_planned', 'operator_edit_times', 'operator_choose_site', 'operator_mark_holiday',
                   'operator_delete', 'operator_export')
 

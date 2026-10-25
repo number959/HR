@@ -33,7 +33,9 @@ STATIC_TYPES = {
 CSP = ("default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; "
        "font-src 'self'; connect-src 'self'; frame-src 'self' blob:; frame-ancestors 'none'; base-uri 'none'; "
        "form-action 'self'; object-src 'none'")
-UPLOAD_TYPES = {'application/pdf', 'image/png', 'image/jpeg', 'application/octet-stream'}
+UPLOAD_TYPES = {'application/pdf', 'image/png', 'image/jpeg', 'application/octet-stream',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-excel.sheet.macroenabled.12'}
 DOCUMENT_CSP = "sandbox; default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; frame-ancestors 'self'"
 STATUS_TEXT = {200: 'OK', 204: 'No Content', 206: 'Partial Content', 304: 'Not Modified', 400: 'Bad Request',
                401: 'Unauthorized', 403: 'Forbidden', 404: 'Not Found', 405: 'Method Not Allowed', 409: 'Conflict',
@@ -105,7 +107,7 @@ class Request:
 
     def raw(self, limit):
         """Contenuto binario (allegati): tipo dichiarato ammesso e dimensione massima."""
-        ctype = self.environ.get('CONTENT_TYPE', '').split(';')[0].strip()
+        ctype = self.environ.get('CONTENT_TYPE', '').split(';')[0].strip().lower()
         if ctype not in UPLOAD_TYPES:
             raise WRError('Formato del file non ammesso.', code='media_type')
         length = int(self.environ.get('CONTENT_LENGTH') or 0)

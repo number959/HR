@@ -147,10 +147,11 @@ def save_entry(db, actor, center_id, month, raw):
         state = months.ensure(con, center_id, month, actor)
         values = (entry['code'], entry['kind'], entry['label'], entry['start'], entry['end'], entry['pause'],
                   int(entry['overnight']), entry['site'], int(entry['holiday']), entry['credit'], entry['note'])
+        review = rules.IMPORT_SITE_REVIEW if entry['site'] == rules.IMPORT_SITE else ''
         if old:
             con.execute('''UPDATE entries SET code=?, kind=?, label=?, start=?, end=?, pause=?, overnight=?, site=?, holiday=?,
-                           credit=?, note=?, review='', version=version+1, updated_at=?, updated_by=? WHERE id=?''',
-                        (*values, stamp(), actor.username, old['id']))
+                           credit=?, note=?, review=?, version=version+1, updated_at=?, updated_by=? WHERE id=?''',
+                        (*values, review, stamp(), actor.username, old['id']))
         else:
             con.execute('''INSERT INTO entries(code,kind,label,start,end,pause,overnight,site,holiday,credit,note,id,center_id,
                            person_id,day,slot,layer,source,rules_version,version,updated_at,updated_by)

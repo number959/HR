@@ -8,7 +8,8 @@ DB_NAME = 'wr.sqlite3'
 
 # Ordine di registrazione delle rotte: prima le più specifiche quando condividono un prefisso.
 MODULES = ('auth', 'users', 'portal', 'centers', 'structures', 'people', 'attendance', 'approvals', 'agreements',
-           'workforce', 'hr', 'reviews')
+           'workforce', 'hr', 'reviews', 'staffing', 'departures', 'payroll', 'analytics', 'exports', 'overview', 'backups',
+           'mail', 'reminders', 'excel_import')
 
 
 def load_modules():
@@ -29,4 +30,7 @@ def create(data_dir, *, origin, key_file=None, dev=False, demo=False, web_dir=No
         db.migrate()
     auth = Auth(db, key_file, demo=demo, **({'clock': clock} if clock else {}))
     load_modules()
+    if migrate:
+        from . import mail
+        mail.seed(db)
     return App(db=db, auth=auth, origin=origin, dev=dev, demo=demo, web_dir=web_dir if web_dir is not None else WEB)
