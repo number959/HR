@@ -2,6 +2,7 @@
 NefroCenter_Sorgenti/materiali/
 # Ambienti e file di lavoro locali
 .venv/
+.venv313/
 node_modules/
 __pycache__/
 *.py[cod]

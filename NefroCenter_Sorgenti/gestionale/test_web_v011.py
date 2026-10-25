@@ -22,7 +22,7 @@ class WebV011Tests(unittest.TestCase):
         for asset in ('approvals','reminders','staffing','departures'):
             for ext in ('js','css'):
                 self.assertTrue(self.client.ok('/assets/'+asset+'.'+ext))
-        self.assertEqual(self.client.ok('/health')['version'],'0.11')
+        self.assertEqual(self.client.ok('/health')['version'],'0.11.2')
 
     def test_operator_private_routes_and_scope(self):
         self.enroll();code=self.new_user('operator');client=fixture.Client(self.web);self.enroll(client,'operator',code)

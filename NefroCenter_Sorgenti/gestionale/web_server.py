@@ -80,7 +80,7 @@ class WebApp:
             if not target.is_file():raise AuthError('Guida non trovata.',404)
             types={'jpg':'image/jpeg','mp4':'video/mp4','vtt':'text/vtt; charset=utf-8','txt':'text/plain; charset=utf-8'}
             return target.read_bytes(),types[target.suffix[1:]],None
-        if method == 'GET' and path == '/health': return {'product':'PresenzeWeb','version':'0.11'}, None, None
+        if method == 'GET' and path == '/health': return {'product':'PresenzeWeb','version':'0.11.2'}, None, None
         if method not in ('GET','POST'): raise AuthError('Metodo non consentito.', 405)
         raw_sid = self.sid(env)
         if method == 'GET' and path == '/api/auth':
@@ -292,7 +292,7 @@ class WebApp:
 
 
 def main():
-    p=argparse.ArgumentParser(description='Persone e Presenze Web 0.11')
+    p=argparse.ArgumentParser(description='Persone e Presenze Web 0.11.2')
     p.add_argument('--data-dir',type=Path,default=Path(os.environ.get('PRESENZE_DATA_DIR','data')))
     p.add_argument('--key-file',type=Path,default=Path(os.environ.get('PRESENZE_KEY_FILE','private/server.key')))
     p.add_argument('--origin',default=os.environ.get('PRESENZE_ORIGIN','https://presenze.example.it'))
@@ -313,7 +313,7 @@ def main():
             except Exception: LOG.exception('Promemoria automatici non riusciti')
             time.sleep(300)
     threading.Thread(target=scheduled_reminders,daemon=True,name='Promemoria scadenze').start()
-    print('Persone e Presenze Web 0.11 · '+application.origin,flush=True)
+    print('Persone e Presenze Web 0.11.2 · '+application.origin,flush=True)
     serve(application,host='127.0.0.1',port=args.port,threads=8,max_request_body_size=MAX_BODY,
           trusted_proxy='127.0.0.1',trusted_proxy_headers={'x-forwarded-for','x-forwarded-proto'},clear_untrusted_proxy_headers=True)
 
