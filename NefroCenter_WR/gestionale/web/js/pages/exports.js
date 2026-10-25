@@ -1,0 +1,55 @@
+// Esportazioni: prospetti Excel nativi e file CSV, con le stesse regole di accesso del portale.
+import { download } from '../api.js';
+import { alertBox, button, card, errorMessage, field, h, input, select, shiftMonth, toast } from '../ui.js';
+
+const KINDS = [
+  { id: 'presenze_centro', title: 'Registro mensile della struttura', text: 'La griglia del mese come nel registro: una struttura, un mese, consuntivo o pianificato.', single: true },
+  { id: 'presenze_totali', title: 'Presenze totali', text: 'Totali per struttura, mese, ruolo, persona e causale nel periodo scelto.' },
+  { id: 'statistiche', title: 'Statistiche', text: 'Gli stessi indicatori della pagina Statistiche, in fogli separati.' },
+  { id: 'dipendenti', title: 'Anagrafiche e fascicoli', text: 'Fascicoli completi delle persone: contiene dati personali.', private: true },
+  { id: 'onboarding', title: 'Inserimento e scadenze', text: 'Attività di inserimento e scadenze aperte: contiene dati personali.', private: true },
+  { id: 'accordi', title: 'Accordi individuali', text: 'Accordi e importi calcolati del periodo: contiene dati economici.', private: true },
+];
+
+export async function render(ctx) {
+  const { app } = ctx;
+  const from = input('from', shiftMonth(app.month, -2), { type: 'month' });
+  const to = input('to', app.month, { type: 'month' });
+  const center = select('cid', [['all', 'Tutte le strutture autorizzate'], ...app.me.centers.filter(c => c.active).map(c => [c.id, c.name])], app.cid || 'all');
+  const layer = select('layer', [['actual', 'Consuntivo'], ['planned', 'Pianificato']], 'actual');
+  const run = async kind => {
+    const single = kind.single;
+    const params = new URLSearchParams({ kind: kind.id, from: single ? app.month : from.value, to: single ? app.month : to.value,
+      cid: single ? app.cid : center.value, layer: layer.value });
+    try {
+      await download(`exports/xlsx?${params}`, `${kind.id}.xlsx`);
+      toast('File Excel scaricato. L’esportazione è registrata nello storico.', 'ok');
+    } catch (err) { toast(errorMessage(err), 'bad'); }
+  };
+  const csvMonth = async detail => {
+    try {
+      await download(`attendance/${app.cid}/${app.month}/export.csv${detail ? '?detail=1' : ''}`, 'presenze.csv');
+      toast('File CSV scaricato.', 'ok');
+    } catch (err) { toast(errorMessage(err), 'bad'); }
+  };
+  const groupCsv = async () => {
+    try { await download(`overview/${app.month}/export.csv`, 'riepilogo.csv'); toast('Riepilogo scaricato.', 'ok'); } catch (err) { toast(errorMessage(err), 'bad'); }
+  };
+  const allowedPrivate = app.can('esportazioni.riservate');
+  const centerName = app.center()?.name || 'struttura scelta in alto';
+  return h('div', { class: 'stack' },
+    h('div', { class: 'page-head' }, h('div', null, h('div', { class: 'eyebrow', text: 'Esportazioni' }),
+      h('h1', { text: 'Prospetti Excel e file CSV' }),
+      h('p', { text: 'I file sono una copia del registro al momento dello scarico: le modifiche fatte nel file non tornano nel portale. Ogni scarico è registrato.' }))),
+    card('Periodo e strutture', { subtitle: 'Valgono per i prospetti su più mesi. Il registro mensile usa struttura e mese scelti in alto.' },
+      h('div', { class: 'form-grid' }, field('Dal mese', from), field('Al mese', to), field('Strutture', center), field('Registro (solo griglia mensile)', layer))),
+    h('div', { class: 'grid grid-3' }, KINDS.filter(k => !k.private || allowedPrivate).map(k => card(k.title, {
+      subtitle: k.single ? `${centerName} · mese scelto in alto` : null,
+    }, h('p', { class: 'muted', text: k.text }), k.private ? alertBox('Richiede la conferma di sicurezza e va conservato con cura.', 'warn') : null,
+    h('div', { class: 'form-actions' }, button('Scarica Excel', { kind: 'primary', ic: 'download', onClick: () => run(k) }))))),
+    card('File CSV', { subtitle: 'Per fogli di calcolo e altri programmi. Il separatore segue i parametri della struttura.' },
+      h('div', { class: 'row' },
+        app.cid ? button('Riepilogo del mese della struttura', { ic: 'download', onClick: () => csvMonth(false) }) : null,
+        app.cid ? button('Dettaglio di tutte le registrazioni del mese', { ic: 'download', onClick: () => csvMonth(true) }) : null,
+        app.can('gruppo.riepilogo') ? button('Riepilogo di gruppo (tutte le strutture)', { ic: 'download', onClick: groupCsv }) : null)));
+}

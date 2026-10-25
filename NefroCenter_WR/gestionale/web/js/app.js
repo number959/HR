@@ -21,7 +21,7 @@ export const PAGES = [
   { id: 'payroll', path: 'paghe', label: 'Paghe', icon: 'wallet', group: 'Amministrazione', cap: 'paghe.gestisci', module: 'payroll', context: ['center', 'month'] },
   { id: 'mail', path: 'comunicazioni', label: 'Comunicazioni', icon: 'mail', group: 'Amministrazione', cap: 'comunicazioni.usa', module: 'mail' },
   { id: 'reminders', path: 'promemoria', label: 'Promemoria', icon: 'bell', group: 'Amministrazione', cap: 'promemoria.vedi', module: 'reminders' },
-  { id: 'stats', path: 'statistiche', label: 'Statistiche', icon: 'chart', group: 'Analisi', cap: 'statistiche.vedi', module: 'stats', context: ['month'] },
+  { id: 'stats', path: 'statistiche', label: 'Statistiche', icon: 'chart', group: 'Analisi', cap: 'statistiche.vedi', module: 'stats' },
   { id: 'exports', path: 'esportazioni', label: 'Esportazioni', icon: 'download', group: 'Analisi', cap: 'statistiche.vedi', module: 'exports', context: ['center', 'month'] },
   { id: 'settings', path: 'parametri', label: 'Parametri struttura', icon: 'sliders', group: 'Sistema', cap: 'presenze.vedi', module: 'settings', context: ['center'] },
   { id: 'centers', path: 'strutture', label: 'Strutture', icon: 'building', group: 'Sistema', cap: 'centri.crea', module: 'centers' },
@@ -116,7 +116,7 @@ function shell() {
     h('div', { text: app.me.user.role_label }), h('div', { text: `${app.me.product} ${app.me.version}` })));
 
   const centerSelect = h('select', { class: 'context-center', 'aria-label': 'Struttura', on: { change: e => setContext(e.target.value, app.month) } },
-    app.me.centers.filter(c => c.active || app.can('centri.crea')).map(c => h('option', { value: c.id, selected: c.id === app.cid, text: c.name })));
+    centerOptions());
   const monthInput = h('input', { type: 'month', value: app.month, 'aria-label': 'Mese', on: { change: e => e.target.value && setContext(app.cid, e.target.value) } });
   const monthBox = h('div', { class: 'row', role: 'group', 'aria-label': 'Mese di riferimento' },
     button('', { kind: 'ghost icon', ic: 'chevronLeft', aria: 'Mese precedente', onClick: () => setContext(app.cid, shiftMonth(app.month, -1)) }),
@@ -152,6 +152,20 @@ function shell() {
   refreshTodoCount();
 }
 
+function centerOptions() {
+  return app.me.centers.filter(c => c.active || app.can('centri.crea'))
+    .map(c => h('option', { value: c.id, selected: c.id === app.cid, text: c.active ? c.name : `${c.name} (disattivata)` }));
+}
+
+// Dopo la creazione o la modifica di strutture: ricarica profilo e selettore della struttura.
+export async function reloadProfile() {
+  const me = await get('me');
+  app.me = me;
+  if (!me.centers.some(c => c.id === app.cid)) app.cid = me.centers.find(c => c.active)?.id || '';
+  refs.centerSelect.replaceChildren(...centerOptions());
+  refs.centerSelect.value = app.cid;
+}
+
 function toggleNav(open) {
   refs.shell.classList.toggle('nav-open', open);
   document.querySelector('.scrim')?.remove();
@@ -180,7 +194,11 @@ function parseHash() {
   return { parts, query: Object.fromEntries(new URLSearchParams(qs || '')) };
 }
 
-export function go(path) { location.hash = '#/' + path; }
+export function go(path) {
+  const target = '#/' + path;
+  if (location.hash === target) route();
+  else location.hash = target;
+}
 
 async function route() {
   const { parts, query } = parseHash();
@@ -209,7 +227,7 @@ async function route() {
   clear(refs.content, skeleton(5));
   try {
     const module = await import(`./pages/${page.module}.js`);
-    const node = await module.render({ app, params: parts.slice(1), query, go, refresh: route, setContext });
+    const node = await module.render({ app, params: parts.slice(1), query, go, refresh: route, setContext, reloadProfile });
     if (token !== app.renderToken) return;
     clear(refs.content, node);
     refs.content.focus({ preventScroll: true });

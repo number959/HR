@@ -209,7 +209,7 @@ async function taskDialog(ctx, data, pid, task) {
       return true;
     } catch (err) { if (!showErrors(form, err)) toast(errorMessage(err), 'bad'); return false; }
   } }]);
-  if (ok) ctx.go(`persone/${pid}?tab=inserimento`), ctx.refresh();
+  if (ok) ctx.go(`persone/${pid}?tab=inserimento`);
 }
 
 function documentsSection(ctx, data, pid) {

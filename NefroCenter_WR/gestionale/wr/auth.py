@@ -337,6 +337,8 @@ class Auth:
 
     def require_recent(self, session):
         self.user(session)
+        if self.demo:
+            return  # i profili dimostrativi non hanno password: la conferma non avrebbe senso
         if self.clock() - session['verified'] > self.STEP_UP_WINDOW:
             raise StepUpRequired('Per questa operazione confermare password e codice dell’app Authenticator.')
 
@@ -352,10 +354,15 @@ class Auth:
             history = [dict(at=r['at'], action=r['action']) for r in con.execute(
                 'SELECT at, action FROM security_events WHERE user_id=? ORDER BY id DESC LIMIT 20', (user.id,))]
         return dict(two_factor=bool(sec['totp_enabled']), recovery_remaining=len(json.loads(sec['recovery'])),
-                    sessions=sessions, history=history, last_login=sec['last_login'],
-                    recent=now - session['verified'] <= self.STEP_UP_WINDOW)
+                    sessions=sessions, history=history, last_login=sec['last_login'], demo=self.demo,
+                    recent=self.demo or now - session['verified'] <= self.STEP_UP_WINDOW)
+
+    def _no_demo(self):
+        if self.demo:
+            raise Forbidden('Nella demo pubblica password, app Authenticator e codici di recupero non si modificano.')
 
     def regenerate_recovery(self, session):
+        self._no_demo()
         self.require_recent(session)
         user = self.user(session)
         codes, hashes = security.new_recovery_codes()
@@ -365,6 +372,7 @@ class Auth:
         return dict(recovery_codes=codes)
 
     def rotate_start(self, session):
+        self._no_demo()
         self.require_recent(session)
         user = self.user(session)
         secret = security.new_totp_secret()
@@ -405,6 +413,7 @@ class Auth:
         return state, raw
 
     def change_password(self, session, current, new_password):
+        self._no_demo()
         user = self.user(session)
         key = 'password-change:' + user.id
         self.check_rate(key)

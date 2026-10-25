@@ -37,7 +37,7 @@ export const HELP = {
   month: {
     intro: 'Qui si controlla il mese prima della chiusura: calendario e parametri, controlli bloccanti, pazienti per fascia e storico delle modifiche.',
     steps: ['Risolvi i controlli elencati (fasce pianificate senza consuntivo, orari obbligatori, registrazioni importate da verificare).',
-      'Conferma «Calendario e parametri verificati».', 'Chiudi il mese; se serve una correzione, riaprilo indicando il motivo.'],
+      'Premi «Conferma calendario e parametri».', 'Chiudi il mese; se serve una correzione, riaprilo indicando il motivo.'],
     notes: ['Se per la struttura è attivo il percorso di approvazione, chiusura e riapertura passano dalla pagina Approvazioni.',
       'I parametri restano quelli con cui il mese è stato compilato: le novità valgono dai mesi ancora vuoti.'],
   },
