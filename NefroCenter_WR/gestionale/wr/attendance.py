@@ -11,7 +11,7 @@ import io
 from . import approvals, audit, centers, months, people, rules
 from .errors import Conflict, Forbidden, Invalid, NotFound
 from .permissions import has
-from .util import add_days, csv_safe, new_id, stamp
+from .util import add_days, csv_safe, new_id, stamp, today_iso
 from . import validate as v
 from .web import Reply
 
@@ -68,7 +68,7 @@ def snapshot(db, user, center_id, month):
         cfg, current = months.configuration(con, center_id, state)
         persons = months.people(con, center_id)
         entries = months.entries(con, center_id, month)
-        summary = rules.summarize(persons, entries)
+        summary = rules.summarize(persons, entries, today_iso())
         approval = approvals.metadata(con, user, center_id, month)
         caps = {cap: has(user, cap, current) for cap in CENTER_CAPS}
         editable = caps['presenze.compila'] and not state['closed'] and not approval['frozen']
@@ -312,7 +312,7 @@ def export_csv(db, user, center_id, month, detail=False):
                  int(e['overnight']), e['pause'], '' if minutes is None else minutes, int(e['holiday']), e['rules_version'],
                  e['updated_by'], e['note']])
     else:
-        summary = rules.summarize(persons, entries)
+        summary = rules.summarize(persons, entries, today_iso())
         causes = sorted({c for r in summary for c in r['causes']})
         row(['Stato', 'Struttura', 'Mese', 'Matricola', 'Persona', 'Ruolo', 'Turni', 'Giorni', 'Minuti lavorati con orari',
              'Turni senza orario', 'Fasce di assenza', 'Credito assenze min', 'Fuori sede', 'Festivi', 'Da consuntivare'] + causes)

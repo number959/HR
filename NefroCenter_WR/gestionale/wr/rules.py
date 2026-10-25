@@ -294,8 +294,11 @@ def _hours(value):
 
 # --- Riepilogo del mese -------------------------------------------------------------------------
 
-def summarize(people, entries):
-    """Totali per persona del mese (entries: solo il mese richiesto)."""
+def summarize(people, entries, until=None):
+    """Totali per persona del mese (entries: solo il mese richiesto).
+
+    Con until (data ISO) le fasce pianificate contano come «da consuntivare» solo per i giorni precedenti:
+    un turno previsto per oggi o per i prossimi giorni non è ancora un ritardo."""
     by_person = {p['id']: [] for p in people}
     for e in entries:
         by_person.setdefault(e['person_id'], []).append(e)
@@ -316,7 +319,8 @@ def summarize(people, entries):
                          minutes=sum(known), missing=len(work) - len(known), external=sum(bool(e['site']) for e in work),
                          festive=sum(bool(e['holiday']) for e in work), absences=len(absence),
                          credit=sum(e['credit'] for e in absence),
-                         pending=sum((e['day'], e['slot']) not in actual_keys for e in planned),
+                         pending=sum((e['day'], e['slot']) not in actual_keys and (until is None or e['day'] < until)
+                                     for e in planned),
                          planned=len(planned), causes=dict(sorted(causes.items()))))
     return rows
 

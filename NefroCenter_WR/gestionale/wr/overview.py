@@ -23,7 +23,7 @@ def group(db, user, month):
             state = months.get(con, c['id'], month)
             persons = months.people(con, c['id'])
             entries = months.entries(con, c['id'], month)
-            summary = rules.summarize(persons, entries)
+            summary = rules.summarize(persons, entries, today().isoformat())
             wf = approvals.metadata(con, user, c['id'], month)
             last = con.execute('SELECT max(at) FROM audit WHERE center_id=?', (c['id'],)).fetchone()[0]
             rows.append(dict(id=c['id'], name=c['name'], code=c['code'], closed=state['closed'], verified=state['verified'],
@@ -84,7 +84,7 @@ def todo(db, user, month, center_id='all'):
                 if e['layer'] == 'actual' and e['kind'] == 'work' and rules.duration(e) is None:
                     add('orari', 'Completa gli orari del turno', c, p['id'], e['day'], 'presenze',
                         'urgent' if state['closed'] else 'normal', detail)
-                elif (e['layer'] == 'planned' and e['kind'] == 'work' and e['day'] <= on
+                elif (e['layer'] == 'planned' and e['kind'] == 'work' and e['day'] < on
                       and (e['person_id'], e['day'], e['slot']) not in actual):
                     add('consuntivi', 'Registra il consuntivo del turno pianificato', c, p['id'], e['day'], 'presenze',
                         detail=detail)
