@@ -1,9 +1,9 @@
 import io
 import unittest
 
-import xlsxwriter
+from support import PortalCase  # aggiunge anche le librerie incluse (vendor) al percorso
 
-from support import PortalCase
+import xlsxwriter  # noqa: E402
 
 
 def sodav_workbook(empty=False):
@@ -48,7 +48,8 @@ class ExcelImport(PortalCase):
         return self.admin.request('POST', '/api/import/preview', raw=data, content_type='application/octet-stream')
 
     def test_preview_then_confirm_once(self):
-        preview = self.upload(sodav_workbook())
+        workbook = sodav_workbook()  # lo stesso file due volte (il file contiene l'ora di creazione)
+        preview = self.upload(workbook)
         self.assertEqual(preview.status, 200, preview.body)
         data = preview.data
         self.assertEqual((data['center'], data['month'], data['people'], data['entries'], data['external']),
@@ -64,7 +65,7 @@ class ExcelImport(PortalCase):
         self.assertEqual(len(holiday), 2)
         agreements = self.admin.ok('GET', f'/api/agreements/{done["center_id"]}/2026-02')
         self.assertTrue(all(r['saved'] and not r['agreement']['confirmed'] for r in agreements['rows']))
-        again = self.upload(sodav_workbook())
+        again = self.upload(workbook)
         self.portal.step_up(self.admin)
         repeat = self.admin.ok('POST', '/api/import/confirm', {'key': again.data['key']})
         self.assertTrue(repeat['already_imported'])
