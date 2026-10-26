@@ -22,8 +22,9 @@ export async function render(ctx) {
   const list = card('Strutture', { subtitle: fmt.month(queue.month), flush: true },
     table([
       { label: 'Struttura', render: c => h('strong', { text: c.center }) },
-      { label: 'Stato', render: c => c.enabled ? badge(c.label, TONE[c.status], true) : badge(c.label, c.closed ? 'ok' : '') },
-      { label: '', render: c => c.mine ? badge('Tocca a te', 'bad') : c.stale ? badge('Dati cambiati', 'warn') : null },
+      { label: 'Stato', render: c => h('div', { class: 'stack-tight' },
+        c.enabled ? badge(c.label, TONE[c.status], true) : badge(c.label, c.closed ? 'ok' : ''),
+        c.mine ? badge('Tocca a te', 'bad') : c.stale ? badge('Dati cambiati', 'warn') : null) },
     ], queue.centers, { empty: 'Nessuna struttura.', onRow: c => { ctx.go(`approvazioni/${c.center_id}`); } }));
   clear(root,
     h('div', { class: 'page-head' }, h('div', null, h('div', { class: 'eyebrow', text: 'Approvazione mensile' }),
