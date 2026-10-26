@@ -12,7 +12,6 @@ import ipaddress
 import os
 import re
 import smtplib
-import ssl
 import time
 from email.message import EmailMessage
 from email.policy import SMTP as SMTP_POLICY
@@ -440,6 +439,7 @@ def smtp_send(cfg, recipient, message_id):
         message['Reply-To'] = cfg['reply_to']
     message.set_content(recipient['body'])
     try:
+        import ssl  # solo per l'invio reale: la demo nel browser non lo carica
         context = ssl.create_default_context()
         if cfg['security'] == 'ssl':
             client = smtplib.SMTP_SSL(cfg['host'], cfg['port'], timeout=SMTP_TIMEOUT, context=context)

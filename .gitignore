@@ -15,3 +15,6 @@ backups/
 *.sqlite3-shm
 *.key
 .env
+
+# Build della demo WR (si ricrea con demo/costruisci_demo.py)
+NefroCenter_WR/demo/dist/
