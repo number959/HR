@@ -3,7 +3,7 @@ import csv
 import io
 from datetime import timedelta
 
-from . import approvals, centers, departures, hr, months, rules, users
+from . import approvals, audit, centers, departures, hr, months, rules, users
 from .errors import Forbidden
 from .permissions import has, require
 from .util import csv_safe, month_days, month_label, stamp, today
@@ -51,6 +51,34 @@ def group_csv(db, user, month):
                          'SI' if r['recorded'] else 'NO', r['people'], r['minutes'], r['shifts'], r['pending'], r['missing'],
                          r['approval']['label'] if r['approval']['enabled'] else 'Non attiva'])
     return Reply('﻿' + out.getvalue(), content_type='text/csv; charset=utf-8', filename=f'riepilogo_gruppo_{month}.csv')
+
+
+def group_xlsx(db, user, month):
+    """Lo stesso riepilogo di gruppo in Excel nativo (una riga per struttura)."""
+    from . import exports
+    with db.read() as con:
+        if not has(users.reload(con, user), 'gruppo.riepilogo'):
+            raise Forbidden('Riepilogo del gruppo riservato ad amministratore, HR centrale e Direzione.')
+    data = group(db, user, month)
+    headers = ['Struttura', 'Codice', 'Mese', 'Stato del mese', 'Presenze compilate', 'Persone attive', 'Ore note', 'Turni',
+               'Da consuntivare (fasce)', 'Turni senza orari', 'Assenze (fasce)', 'Approvazione', 'Ultima modifica']
+    rows = [[r['name'], r['code'], month, 'Chiuso' if r['closed'] else 'Aperto', 'Sì' if r['recorded'] else 'No', r['people'],
+             r['minutes'], r['shifts'], r['pending'], r['missing'], r['absences'],
+             r['approval']['label'] if r['approval']['enabled'] else 'Non attiva', r['last_update'][:16].replace('T', ' ')]
+            for r in data['centers']]
+    t = data['totals']
+    rows.append(['Totale', '', month, f'{t["closed"]} chiusi su {t["centers"]}', '', t['people'], sum(r['minutes'] for r in data['centers']),
+                 t['shifts'], t['pending'], t['missing'], sum(r['absences'] for r in data['centers']), '', ''])
+    notes = [['Contenuto', 'Una riga per struttura autorizzata: stato del mese, persone attive, ore con orari registrati, turni, '
+                           'fasce pianificate senza consuntivo, turni senza orari, assenze e stato dell’approvazione.'],
+             ['Uso', 'Copia del portale al momento dello scarico: le modifiche al file non tornano nell’archivio.']]
+    content = exports.workbook('Riepilogo di gruppo', f'Mese {month} · strutture autorizzate',
+                               [exports.sheet('Strutture', headers, rows, {5: 'number', 6: 'hours', 7: 'number', 8: 'number', 9: 'number', 10: 'number'})],
+                               notes)
+    with db.write() as con:
+        audit.record(con, users.reload(con, user), 'Esportazione Excel: riepilogo di gruppo', entity='export', entity_id='riepilogo_gruppo',
+                     after=dict(month=month, centers=len(data['centers'])))
+    return Reply(content, content_type=exports.MIME, filename=f'riepilogo_gruppo_{month}.xlsx')
 
 
 def todo(db, user, month, center_id='all'):
@@ -171,6 +199,11 @@ def api_group(ctx):
 @route('GET', '/api/overview/<month>/export.csv', cap='gruppo.riepilogo')
 def api_group_csv(ctx):
     return group_csv(ctx.db, ctx.user, ctx.params['month'])
+
+
+@route('GET', '/api/overview/<month>/export.xlsx', cap='gruppo.riepilogo')
+def api_group_xlsx(ctx):
+    return group_xlsx(ctx.db, ctx.user, ctx.params['month'])
 
 
 @route('GET', '/api/todo/<month>', cap='presenze.vedi')

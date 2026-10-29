@@ -13,7 +13,7 @@ Il portale del personale delle strutture NefroCenter: presenze e turni, persone 
 
 ## Da dove partire
 
-- **Installare il portale in azienda**: `gestionale/INSTALLAZIONE.md`.
+- **Installare il portale in azienda**: `gestionale/INSTALLAZIONE_PASSO_PASSO.md` (guida dettagliata, anche per provarlo subito) e `gestionale/INSTALLAZIONE.md` (riferimento tecnico).
 - **Portare i dati della 0.11**: `gestionale/MIGRAZIONE_DALLA_0.11.md`.
 - **Cosa è cambiato**: `gestionale/NOVITA_WR_1.0.md`.
 - **Controlli eseguiti e limiti**: `gestionale/VERIFICA.md`, `gestionale/STATO_PROGETTO.json`.

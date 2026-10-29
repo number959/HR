@@ -7,6 +7,7 @@ Produce:
 - Codice_Sorgente_NefroCenter_WR_<versione>.txt tutti i file in un solo testo UTF-8, che è anche uno script Python:
                                                  «python Codice_Sorgente_NefroCenter_WR_<versione>.txt --directory CARTELLA»
                                                  ricrea l'albero dei sorgenti verificando le impronte SHA-256
+- NefroCenter_WR_Demo_<versione>.zip            la demo già costruita (cartella demo/dist, se presente), pronta da pubblicare
 - SHA256SUMS_<versione>.txt                     impronte di ogni file consegnato
 - VERIFICA_PACCHETTO_<versione>.txt             esito dei controlli eseguiti sui pacchetti (ricostruzione dal TXT, ZIP)
 
@@ -228,6 +229,21 @@ def main():
     results.append(f'TXT: {txt_path.stat().st_size} byte; {n_text} file di testo, {n_bin} file binari ({n_unique} contenuti distinti).'
                    + (' Senza manuale e videoguide.' if a.senza_media else ''))
     results.append(f'ZIP: {zip_path.stat().st_size} byte, {len(files)} file.')
+    dist = ROOT / 'demo' / 'dist'
+    if (dist / 'index.html').exists() and (dist / '.demo-nefrocenter-wr').exists():
+        demo_zip = a.out / f'NefroCenter_WR_Demo_{version}.zip'
+        demo_files = []
+        for path in sorted(dist.rglob('*')):
+            if path.is_file() and path.name != '.demo-nefrocenter-wr':
+                demo_files.append((path.relative_to(dist).as_posix(), path.read_bytes()))
+        with zipfile.ZipFile(demo_zip, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
+            for rel, data in demo_files:
+                zf.writestr(f'NefroCenter_WR_Demo_{version}/{rel}', data)
+        with zipfile.ZipFile(demo_zip) as zf:
+            results.append(f'PASS: ZIP della demo integro, {len(zf.infolist())} file, {demo_zip.stat().st_size} byte.'
+                           if zf.testzip() is None else 'FAIL: ZIP della demo danneggiato.')
+    else:
+        results.append('INFO: demo non costruita (demo/dist assente): nessuno ZIP della demo. Eseguire prima demo/costruisci_demo.py.')
     sums = a.out / f'SHA256SUMS_{version}.txt'
     sums.write_text(''.join(f'{sha256(data)}  {rel}\n' for rel, data in files), encoding='utf-8')
     (a.out / f'VERIFICA_PACCHETTO_{version}.txt').write_text('\n'.join(results) + '\n', encoding='utf-8')

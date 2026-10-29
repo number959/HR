@@ -81,7 +81,7 @@ python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt
 
 Prove dell'interfaccia con Node.js e Playwright (Chromium): `node strumenti/giro_interfaccia.cjs CARTELLA http://127.0.0.1:8090` apre tutte le pagine di ogni profilo e raccoglie errori; `node strumenti/schermate.cjs CARTELLA` fa le schermate. Nei contenitori senza sandbox serve `QA_CHROMIUM_NO_SANDBOX=1`. Demo: `cd demo && python3 costruisci_demo.py && python3 avvia_demo.py --port 8095`, poi `node prova_demo.cjs CARTELLA http://127.0.0.1:8095`.
 
-`manage.py init` crea una **nuova** installazione e rifiuta un archivio esistente. Non eseguirlo per ispezionare o aggiornare un archivio: usare `check`. `after-restore` non è in sola lettura. Per il portale aziendale seguire `gestionale/INSTALLAZIONE.md`.
+`manage.py init` crea una **nuova** installazione e rifiuta un archivio esistente. Non eseguirlo per ispezionare o aggiornare un archivio: usare `check`. `after-restore` non è in sola lettura. Per il portale aziendale seguire `gestionale/INSTALLAZIONE_PASSO_PASSO.md` (dettagliata) o `gestionale/INSTALLAZIONE.md` (riferimento).
 
 ## 7. Verifiche eseguite e limiti
 

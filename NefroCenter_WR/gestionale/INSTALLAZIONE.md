@@ -2,7 +2,7 @@
 
 **Il portale si installa una sola volta su un server aziendale.** Le strutture e l'ufficio HR lo aprono dal browser allo stesso indirizzo HTTPS. Non c'è nulla da installare sui PC delle sedi né sui telefoni, a parte un'app Authenticator per il secondo fattore.
 
-Questa guida è per il tecnico. Per chi usa il portale: la **Guida** dentro il portale (menu Aiuto), il manuale illustrato e le videoguide in `web/help/`.
+Questa guida è il riferimento tecnico; la versione passo per passo, con tutti i comandi per Windows e Linux e la demo, è `INSTALLAZIONE_PASSO_PASSO.md`. Questa guida è per il tecnico. Per chi usa il portale: la **Guida** dentro il portale (menu Aiuto), il manuale illustrato e le videoguide in `web/help/`.
 
 ## Cosa serve
 

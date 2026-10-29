@@ -41,7 +41,7 @@ function page(ctx, snap, view, draw, reload) {
     segmented([{ id: 'actual', label: 'Consuntivo' }, { id: 'planned', label: 'Pianificato' }], view.layer, l => { view.layer = l; draw(); }, 'Registro'),
   ];
   if (caps['presenze.anagrafica']) actions.push(button('Persone', { ic: 'users', onClick: () => peopleDialog(snap, reload) }));
-  if (caps['presenze.esporta']) actions.push(button('CSV', { ic: 'download', onClick: () => exportDialog(app, snap) }));
+  if (caps['presenze.esporta']) actions.push(button('Esporta', { ic: 'download', onClick: () => exportDialog(app, snap) }));
   const head = h('div', { class: 'page-head' }, h('div', null,
     h('div', { class: 'eyebrow', text: 'Registro presenze' }), h('h1', { text: `${snap.center.name} · ${fmt.month(snap.month)}` }),
     h('div', { class: 'row' }, stateBadges(snap))), h('div', { class: 'page-actions' }, actions));
@@ -325,11 +325,13 @@ async function personForm(snap, person, reload) {
 }
 
 async function exportDialog(app, snap) {
-  await dialog('Esporta il registro in CSV', h('div', { class: 'stack' },
-    h('p', { class: 'muted', text: 'Il file si apre con Excel. Il riepilogo ha una riga per persona; il dettaglio una riga per registrazione.' })),
+  const xlsx = new URLSearchParams({ kind: 'presenze_centro', from: snap.month, to: snap.month, cid: app.cid, layer: 'actual' });
+  await dialog('Esporta il registro', h('div', { class: 'stack' },
+    h('p', { class: 'muted', text: 'Excel: la griglia del mese con totali per persona, dettaglio delle registrazioni e legenda (fogli separati). CSV: riepilogo con una riga per persona oppure dettaglio con una riga per registrazione. Il foglio nel formato del vecchio modello è nella pagina Esportazioni.' })),
   [{ label: 'Annulla', value: null },
-    { label: 'Dettaglio', onClick: async () => { await download(`attendance/${app.cid}/${snap.month}/export.csv?detail=1`, 'presenze.csv'); return true; } },
-    { label: 'Riepilogo', kind: 'primary', onClick: async () => { await download(`attendance/${app.cid}/${snap.month}/export.csv`, 'presenze.csv'); return true; } }]);
+    { label: 'CSV dettaglio', onClick: async () => { await download(`attendance/${app.cid}/${snap.month}/export.csv?detail=1`, 'presenze.csv'); return true; } },
+    { label: 'CSV riepilogo', onClick: async () => { await download(`attendance/${app.cid}/${snap.month}/export.csv`, 'presenze.csv'); return true; } },
+    { label: 'Excel', kind: 'primary', onClick: async () => { await download(`exports/xlsx?${xlsx}`, 'registro.xlsx'); return true; } }]);
 }
 
 export { chip, KIND_LABEL };
