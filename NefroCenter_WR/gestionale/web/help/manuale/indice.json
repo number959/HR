@@ -3,22 +3,22 @@
  "prodotto": "NefroCenter WR · Work Resources",
  "versione": "1.0.0",
  "data": "2026-10-29",
- "generato": "2026-10-29T19:55:34.851Z",
+ "generato": "2026-10-29T20:02:38.483Z",
  "data_dati_fittizi": "2026-10-25",
  "pagine": 66,
  "pagine_pdf": 66,
  "file": {
   "html": {
    "nome": "Manuale_NefroCenter_WR.html",
-   "byte": 12618301
+   "byte": 12616764
   },
   "css": {
    "nome": "manuale.css",
-   "byte": 6418
+   "byte": 6537
   },
   "pdf": {
    "nome": "Manuale_NefroCenter_WR.pdf",
-   "byte": 9636894
+   "byte": 9635454
   }
  },
  "capitoli": [
@@ -181,7 +181,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 72339
+   "byte": 72092
   },
   {
    "id": "attivazione-app",
@@ -190,7 +190,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 958,
-   "byte": 110173
+   "byte": 110104
   },
   {
    "id": "codici-recupero",
@@ -199,7 +199,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 88209
+   "byte": 88231
   },
   {
    "id": "pag-home",
@@ -279,8 +279,8 @@
    "didascalia": "«Accessi e ruoli»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 1044,
-   "byte": 209096
+   "altezza": 1080,
+   "byte": 208643
   },
   {
    "id": "pag-backups",
@@ -307,7 +307,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 2200,
-   "byte": 335522
+   "byte": 335428
   },
   {
    "id": "pag-guide",
@@ -334,7 +334,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1212,
-   "byte": 198732
+   "byte": 198360
   },
   {
    "id": "pag-attendance",
@@ -352,7 +352,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 212248
+   "byte": 212318
   },
   {
    "id": "presenze-pianificato",
@@ -370,7 +370,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 2200,
-   "byte": 325781
+   "byte": 325381
   },
   {
    "id": "pag-approvals",
@@ -388,7 +388,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 884,
-   "byte": 170895
+   "byte": 170901
   },
   {
    "id": "pag-people",
@@ -433,7 +433,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 185496
+   "byte": 185515
   },
   {
    "id": "pag-workforce",
@@ -460,7 +460,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1483,
-   "byte": 201940
+   "byte": 201554
   },
   {
    "id": "pag-agreements",
@@ -523,7 +523,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1343,
-   "byte": 182127
+   "byte": 182451
   },
   {
    "id": "statistiche-grafico",
@@ -550,7 +550,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 65211
+   "byte": 65140
   },
   {
    "id": "telefono-riepilogo",
@@ -586,7 +586,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 205938
+   "byte": 205789
   },
   {
    "id": "conferma-sicurezza",
@@ -595,7 +595,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 195099
+   "byte": 195298
   },
   {
    "id": "accessi-codice",
@@ -604,7 +604,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 239219
+   "byte": 239136
   }
  ],
  "controlli": {

@@ -1,6 +1,6 @@
 // Esportazioni: prospetti Excel nativi e file CSV, con le stesse regole di accesso del portale.
 import { download } from '../api.js';
-import { alertBox, button, card, errorMessage, field, h, input, select, shiftMonth, toast } from '../ui.js';
+import { alertBox, button, card, errorMessage, field, fmt, h, input, select, shiftMonth, toast } from '../ui.js';
 
 const KINDS = [
   { id: 'presenze_centro', title: 'Registro mensile della struttura', text: 'La griglia del mese come nel registro: una struttura, un mese, consuntivo o pianificato.', single: true },
@@ -35,12 +35,24 @@ export async function render(ctx) {
   const groupCsv = async () => {
     try { await download(`overview/${app.month}/export.csv`, 'riepilogo.csv'); toast('Riepilogo scaricato.', 'ok'); } catch (err) { toast(errorMessage(err), 'bad'); }
   };
+  // Foglio mensile come il vecchio modello Excel: struttura e mese scelti in alto, nessuna formula né macro.
+  const monthlyModel = async () => {
+    try {
+      await download(`exports/modello/${app.cid}/${app.month}`, `Presenze_${app.month}.xlsx`);
+      toast('Foglio mensile scaricato. Lo scarico è registrato nello storico della struttura.', 'ok');
+    } catch (err) { toast(errorMessage(err), 'bad'); }
+  };
   const allowedPrivate = app.can('esportazioni.riservate');
   const centerName = app.center()?.name || 'struttura scelta in alto';
+  const modelCard = app.cid ? card('Foglio mensile come il modello Excel', { id: 'foglio-mensile', subtitle: `${centerName} · ${fmt.month(app.month)}` },
+    h('p', { class: 'muted', text: 'Il vecchio modello mensile, generato dai dati del portale: griglia, contatori, spazio ufficio del personale, indicatori, pazienti, fogli per il consulente paghe e per i collaboratori. Nessuna formula né macro.' }),
+    h('p', { class: 'muted', text: 'Le parti economiche compaiono solo per chi può consultare gli accordi; indicatori e pazienti solo per chi consulta il carico; l’IBAN solo per chi gestisce le paghe.' }),
+    h('div', { class: 'form-actions' }, button('Scarica il foglio mensile', { kind: 'primary', ic: 'download', onClick: monthlyModel }))) : null;
   return h('div', { class: 'stack' },
     h('div', { class: 'page-head' }, h('div', null, h('div', { class: 'eyebrow', text: 'Esportazioni' }),
       h('h1', { text: 'Prospetti Excel e file CSV' }),
       h('p', { text: 'I file sono una copia del registro al momento dello scarico: le modifiche fatte nel file non tornano nel portale. Ogni scarico è registrato.' }))),
+    modelCard,
     card('Periodo e strutture', { subtitle: 'Valgono per i prospetti su più mesi. Il registro mensile usa struttura e mese scelti in alto.' },
       h('div', { class: 'form-grid' }, field('Dal mese', from), field('Al mese', to), field('Strutture', center), field('Registro (solo griglia mensile)', layer))),
     h('div', { class: 'grid grid-3' }, KINDS.filter(k => !k.private || allowedPrivate).map(k => card(k.title, {

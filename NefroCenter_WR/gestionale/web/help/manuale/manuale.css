@@ -37,6 +37,8 @@ a { color: var(--blue); }
 .menu li { margin-bottom: 3px; }
 .steps, .notes { margin: 0 0 8px; padding-left: 22px; }
 .steps li, .notes li { margin-bottom: 4px; }
+.block { break-inside: avoid; page-break-inside: avoid; }
+.scroll { overflow-x: auto; }
 .callout { border-left: 4px solid var(--blue); background: var(--soft); padding: 8px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; break-inside: avoid; page-break-inside: avoid; }
 .procedure, .faq { break-inside: avoid; page-break-inside: avoid; }
 .who { font-size: 10pt; color: var(--muted); }
@@ -90,4 +92,4 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; }
 .sw-c-R{--c:#8a97a8}
 .colophon { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 9pt; color: var(--faint); }
 @media screen and (max-width: 700px) { .sheet { padding: 16px; } .toc ol { columns: 1; } .fig-row { flex-wrap: wrap; } h1 { font-size: 24pt; } }
-@media print { body { background: #fff; } .sheet { max-width: none; padding: 0; } .fig img { box-shadow: none; } .page + .page { border-top: 0; padding-top: 0; margin-top: 0; } }
+@media print { body { background: #fff; } .sheet { max-width: none; padding: 0; } .fig img { box-shadow: none; } .page + .page { border-top: 0; padding-top: 0; margin-top: 0; } .scroll { overflow: visible; } }
