@@ -127,7 +127,7 @@ function enrollStep(root, done, setup) {
       return;
     }
     const result = await submit(form, () => post('session/enroll', { password: password.value, code: code.value }));
-    if (result) recoveryCodes(root, result.recovery_codes, () => done(result));
+    if (result) done(result);  // i codici di recupero li mostra app.js, una sola volta
   });
   clear(root, page(false, h('h2', { text: 'Configura il secondo fattore' }), form));
   password.focus();

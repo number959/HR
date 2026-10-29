@@ -428,7 +428,8 @@ dialog::backdrop { background: rgba(10, 18, 40, .45); backdrop-filter: blur(2px)
 .auth-switch button { border: 0; background: none; color: var(--brand); font: 600 .88rem var(--font); cursor: pointer; padding: 4px; }
 .qr { display: grid; place-items: center; padding: 12px; background: #fff; border-radius: 12px; border: 1px solid var(--line); }
 .qr img { width: 210px; height: 210px; image-rendering: pixelated; }
-.codes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-family: var(--mono); font-size: .92rem; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 10px; padding: 14px; }
+.codes span { white-space: nowrap; }
+.codes { display: grid; grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr)); gap: 8px; font-family: var(--mono); font-size: .92rem; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 10px; padding: 14px; }
 .demo-roles { display: grid; gap: 10px; margin-top: 18px; }
 .demo-role { display: flex; gap: 12px; align-items: center; text-align: left; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font: inherit; color: var(--text); }
 .demo-role:hover { border-color: var(--brand); background: var(--brand-soft); }
