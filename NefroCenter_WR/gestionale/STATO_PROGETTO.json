@@ -1,0 +1,48 @@
+{
+  "progetto": "NefroCenter WR · Work Resources",
+  "versione": "1.0.0",
+  "schema_archivio": 1,
+  "data": "2026-10-29",
+  "lingua": "it",
+  "installazione_aziendale": "non eseguita",
+  "demo_pubblica": "non pubblicata (si costruisce con demo/costruisci_demo.py)",
+  "documenti": {
+    "leggimi": "../LEGGIMI.md",
+    "passaggio": "../PASSAGGIO_PROGETTO.md",
+    "installazione": "INSTALLAZIONE.md",
+    "migrazione": "MIGRAZIONE_DALLA_0.11.md",
+    "novita": "NOVITA_WR_1.0.md",
+    "verifica": "VERIFICA.md",
+    "studio_modello_excel": "docs/STUDIO_MODELLO_EXCEL.md",
+    "posta": "docs/POSTA.md",
+    "paghe": "docs/PAGHE.md"
+  },
+  "avvio": ["manage.py serve", "manage.py init", "strumenti/anteprima.py"],
+  "tecnologie": {
+    "motore": "Python 3.12/3.13 standard library + cryptography + tzdata; waitress, xlsxwriter, segno inclusi",
+    "archivio": "SQLite WAL sul disco locale del server",
+    "interfaccia": "HTML, CSS, JavaScript (moduli ES, senza compilazione)",
+    "demo": "stesso motore eseguito nel browser con Pyodide 0.26.4"
+  },
+  "verifica": {
+    "prove_automatiche": 150,
+    "prove_superate": true,
+    "giro_interfaccia_profili": 5,
+    "giro_interfaccia_pagine": {"admin": 26, "hr": 22, "manager": 20, "operator": 12, "viewer": 12},
+    "larghezze_browser": [1440, 390],
+    "demo_browser": true,
+    "migrazione_archivio_sintetico": true,
+    "importazione_file_reale": true,
+    "revisione_indipendente_importazione": {"rilievi_confermati": 44, "corretti": 44},
+    "python": "3.13.17",
+    "node": "22.22.0",
+    "playwright": "1.63.0"
+  },
+  "guide": {
+    "manuale": "web/help/manuale/Manuale_NefroCenter_WR.pdf (+ .html)",
+    "videoguide": 8,
+    "generatori": ["../strumenti/guide/manuale.cjs", "../strumenti/guide/video.cjs"]
+  },
+  "servizi_da_configurare": ["seconda copia dei backup su NAS", "servizio di posta aziendale", "tracciato del consulente paghe", "promemoria automatici", "tariffe e ritenute dei collaboratori"],
+  "non_verificato": ["server aziendale e HTTPS", "rete e carico reali", "NAS", "SMTP", "consulente paghe", "archivio aziendale reale"]
+}
