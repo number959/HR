@@ -129,7 +129,9 @@ async function detail(ctx, pid) {
       }
       for (const f of fieldsMeta.filter(f => f.section === state.tab)) {
         const type = { date: 'date', email: 'email', tel: 'tel' }[f.type] || 'text';
-        const el = f.type === 'textarea' ? textarea(f.key, values[f.key], { max: f.max_length, rows: 4 }) : input(f.key, values[f.key], { type, max: f.max_length });
+        const el = f.type === 'textarea' ? textarea(f.key, values[f.key], { max: f.max_length, rows: 4 })
+          : f.type === 'choice' ? select(f.key, [['', 'Da indicare'], ...f.options], values[f.key])
+            : input(f.key, values[f.key], { type, max: f.max_length });
         form.append(field(f.label, bindInput(el, values, f.key), { name: f.key, wide: f.type === 'textarea' }));
       }
       return form;

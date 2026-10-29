@@ -9,7 +9,7 @@ DB_NAME = 'wr.sqlite3'
 # Ordine di registrazione delle rotte: prima le più specifiche quando condividono un prefisso.
 MODULES = ('auth', 'users', 'portal', 'centers', 'structures', 'people', 'attendance', 'approvals', 'agreements',
            'workforce', 'hr', 'reviews', 'staffing', 'departures', 'payroll', 'analytics', 'exports', 'overview', 'backups',
-           'mail', 'reminders', 'excel_import')
+           'mail', 'reminders', 'excel_import', 'collaborators', 'model_export')
 
 
 def load_modules():

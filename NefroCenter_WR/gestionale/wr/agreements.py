@@ -18,8 +18,10 @@ from . import validate as v
 
 MODELS = ('turns', 'hours', 'fixed')
 NUMBERS = ('theoretical_units', 'hours_per_day', 'weekday_rate', 'holiday_rate', 'fixed_deduction', 'fixed_amount',
-           'adjustment', 'ccnl_rate', 'ccnl_count')
+           'adjustment', 'ccnl_rate', 'ccnl_count', 'theoretical_adjustment')
 FIELDS = set(NUMBERS) | {'model', 'basis', 'theoretical_mode', 'counted_absences', 'include_external', 'confirmed'}
+# Campi aggiunti dopo i primi accordi salvati: se mancano valgono questi predefiniti.
+OPTIONAL = {'theoretical_adjustment': 0}
 STATUS_LABELS = {'calcolato': 'Calcolato', 'da_confermare': 'Accordo da confermare', 'da_verificare': 'Da verificare',
                  'orari_mancanti': 'Orari mancanti', 'nessun_dato': 'Nessun dato', 'gestione_manuale': 'Gestione manuale'}
 
@@ -28,20 +30,20 @@ def proposal(cfg, person):
     base = {**cfg, **((person or {}).get('pay_override') or {})}
     return dict(model='turns', basis=base['pay_mode'], theoretical_mode='calendar', theoretical_units=0, hours_per_day=6,
                 weekday_rate=base['weekday_rate'], holiday_rate=base['holiday_rate'], fixed_deduction=base['fixed_deduction'],
-                fixed_amount=0, adjustment=0, ccnl_rate=0, ccnl_count=0,
+                fixed_amount=0, adjustment=0, ccnl_rate=0, ccnl_count=0, theoretical_adjustment=0,
                 counted_absences=[c['id'] for c in cfg['codes'] if c['kind'] == 'absence' and c['id'] != 'RC'],
                 include_external=True, confirmed=False)
 
 
 def validate(raw, cfg):
-    if not isinstance(raw, dict) or not FIELDS <= set(raw):
+    if not isinstance(raw, dict) or not (FIELDS - set(OPTIONAL)) <= set(raw):
         raise Invalid('Accordo incompleto: ricaricare la pagina.', field='agreement')
-    out = {k: copy.deepcopy(raw[k]) for k in FIELDS}
+    out = {k: copy.deepcopy(raw.get(k, OPTIONAL.get(k))) for k in FIELDS}
     out['model'] = v.choice(out['model'], 'Modello di calcolo', MODELS, field='model')
     out['basis'] = v.choice(out['basis'], 'Base di calcolo', ('surplus', 'all'), field='basis')
     out['theoretical_mode'] = v.choice(out['theoretical_mode'], 'Teorico', ('calendar', 'manual'), field='theoretical_mode')
     for key in NUMBERS:
-        lo = -1_000_000 if key == 'adjustment' else 0
+        lo = -1_000_000 if key in ('adjustment', 'theoretical_adjustment') else 0
         out[key] = v.number(out[key], key.replace('_', ' ').capitalize(), lo, 1_000_000, field=key)
     if not 0 < out['hours_per_day'] <= 24:
         raise Invalid('Ore teoriche giornaliere: da 0 escluso a 24.', field='hours_per_day')
@@ -75,7 +77,8 @@ def calculate(person, entries, month, cfg, agreement):
     if a['theoretical_mode'] == 'manual':
         theoretical = Decimal(str(a['theoretical_units']))
     else:
-        theoretical = Decimal(calendar_days) * (Decimal(str(a['hours_per_day'])) if a['model'] == 'hours' else 1)
+        # Correzione in giorni/turni: la «franchigia» del vecchio modello (per esempio +2 = non si pagano i primi 2 turni oltre).
+        theoretical = (Decimal(calendar_days) + Decimal(str(a['theoretical_adjustment']))) * (Decimal(str(a['hours_per_day'])) if a['model'] == 'hours' else 1)
     missing = sum(rules.duration(e) is None for e in work)
     work_minutes = sum(rules.duration(e) or 0 for e in work)
     if a['model'] == 'hours':

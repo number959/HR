@@ -35,6 +35,9 @@ PARAMETERS = {
     'nurse_reference': ('Pazienti di riferimento per infermiere', 'number', 0.01, 1000),
     'doctor_reference': ('Pazienti di riferimento per medico', 'number', 0.01, 1000),
     'isolation_weight': ('Peso di un paziente in isolamento', 'number', 0.01, 1000),
+    'dialysis_stations': ('Posti dialisi accreditati', 'number', 0, 10000),
+    'isolation_stations': ('Posti contumaciali (isolamento)', 'number', 0, 10000),
+    'efficiency_threshold': ('Soglia di efficienza considerata adeguata (1 = pari al riferimento)', 'number', 0.01, 5),
     'weekday_rate': ('Tariffa feriale proposta (€ per unità)', 'number', 0, 100000),
     'holiday_rate': ('Tariffa festiva proposta (€ per unità)', 'number', 0, 100000),
     'fixed_deduction': ('Detrazione fissa proposta (€)', 'number', 0, 100000),
@@ -57,7 +60,8 @@ def defaults():
                 operator_planned=True, operator_edit_times=False, operator_choose_site=False,
                 operator_mark_holiday=False, operator_delete=True, operator_export=True,
                 nurse_roles=['INF'], doctor_roles=['MED', 'DS'], nurse_reference=5, doctor_reference=20,
-                isolation_weight=5, weekday_rate=50, holiday_rate=70, fixed_deduction=100, ccnl_rate=70,
+                isolation_weight=5, dialysis_stations=0, isolation_stations=0, efficiency_threshold=0.92,
+                weekday_rate=50, holiday_rate=70, fixed_deduction=100, ccnl_rate=70,
                 pay_mode='surplus', csv_separator=';', note='')
 
 

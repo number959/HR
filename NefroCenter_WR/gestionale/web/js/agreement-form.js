@@ -7,6 +7,7 @@ const NUMBER_FIELDS = [
   ['weekday_rate', 'Tariffa feriale (€ per unità)'], ['holiday_rate', 'Tariffa festiva (€ per unità)'],
   ['fixed_amount', 'Quota fissa (€)'], ['fixed_deduction', 'Detrazione fissa (€)'], ['adjustment', 'Conguaglio (€, anche negativo)'],
   ['ccnl_count', 'Festivi già riconosciuti dal CCNL (numero)'], ['ccnl_rate', 'Valore di un festivo CCNL (€)'],
+  ['theoretical_adjustment', 'Correzione del teorico dal calendario (giorni, es. 2 = i primi 2 turni oltre non si pagano)'],
 ];
 
 // Restituisce { node, value() }; disabled rende il modulo di sola lettura.
@@ -17,7 +18,7 @@ export function agreementForm(agreement, absenceCodes, { disabled = false } = {}
   const mode = select('theoretical_mode', [['calendar', 'Dal calendario della struttura'], ['manual', 'Indicato a mano']], a.theoretical_mode, { disabled });
   const units = input('theoretical_units', a.theoretical_units, { type: 'number', min: '0', step: 'any', disabled });
   const hours = input('hours_per_day', a.hours_per_day, { type: 'number', min: '0', step: 'any', disabled });
-  const numbers = Object.fromEntries(NUMBER_FIELDS.map(([key]) => [key, input(key, a[key], { type: 'number', step: 'any', disabled })]));
+  const numbers = Object.fromEntries(NUMBER_FIELDS.map(([key]) => [key, input(key, a[key] ?? 0, { type: 'number', step: 'any', disabled })]));
   const external = checkbox('include_external', a.include_external, 'Conteggia anche i turni fuori sede');
   const confirmed = checkbox('confirmed', a.confirmed, 'Accordo e calendario confermati con la persona');
   for (const box of [external, confirmed]) box.querySelector('input').disabled = disabled;

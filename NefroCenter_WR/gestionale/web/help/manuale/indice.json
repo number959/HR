@@ -1,0 +1,604 @@
+{
+ "titolo": "Manuale d’uso",
+ "prodotto": "NefroCenter WR · Work Resources",
+ "versione": "1.0.0",
+ "generato": "2026-10-29T19:47:33.209Z",
+ "data_dati_fittizi": "2026-10-25",
+ "pagine_pdf": 65,
+ "file": {
+  "html": {
+   "nome": "Manuale_NefroCenter_WR.html",
+   "byte": 12220707
+  },
+  "css": {
+   "nome": "manuale.css",
+   "byte": 6269
+  },
+  "pdf": {
+   "nome": "Manuale_NefroCenter_WR.pdf",
+   "byte": 9368092
+  }
+ },
+ "capitoli": [
+  {
+   "numero": 1,
+   "id": "portale",
+   "titolo": "Come è fatto il portale",
+   "pagine": []
+  },
+  {
+   "numero": 2,
+   "id": "accesso",
+   "titolo": "Accesso e sicurezza",
+   "pagine": [
+    "Il mio account"
+   ]
+  },
+  {
+   "numero": 3,
+   "id": "panoramica",
+   "titolo": "Panoramica",
+   "pagine": [
+    "Riepilogo",
+    "Da completare"
+   ]
+  },
+  {
+   "numero": 4,
+   "id": "presenze",
+   "titolo": "Presenze",
+   "pagine": [
+    "Registro presenze",
+    "Controlli e chiusura",
+    "Approvazioni",
+    "Copertura turni"
+   ]
+  },
+  {
+   "numero": 5,
+   "id": "persone",
+   "titolo": "Persone",
+   "pagine": [
+    "Persone e fascicoli",
+    "Documenti",
+    "Personale di gruppo",
+    "Uscite e dotazioni",
+    "Rubrica strutture"
+   ]
+  },
+  {
+   "numero": 6,
+   "id": "amministrazione",
+   "titolo": "Amministrazione",
+   "pagine": [
+    "Accordi e calcoli",
+    "Paghe",
+    "Comunicazioni",
+    "Promemoria"
+   ]
+  },
+  {
+   "numero": 7,
+   "id": "analisi",
+   "titolo": "Analisi",
+   "pagine": [
+    "Statistiche",
+    "Esportazioni"
+   ]
+  },
+  {
+   "numero": 8,
+   "id": "sistema",
+   "titolo": "Sistema",
+   "pagine": [
+    "Parametri struttura",
+    "Strutture",
+    "Accessi e ruoli",
+    "Backup",
+    "Importa Excel"
+   ]
+  },
+  {
+   "numero": 9,
+   "id": "aiuto",
+   "titolo": "Aiuto",
+   "pagine": [
+    "Guida",
+    "Ruoli e permessi"
+   ]
+  },
+  {
+   "numero": 10,
+   "id": "procedure",
+   "titolo": "Procedure passo per passo",
+   "pagine": [
+    "Primo accesso",
+    "Registrare le presenze del giorno",
+    "Preparare i turni del mese",
+    "Chiudere il mese",
+    "Approvare un mese",
+    "Inserire una nuova persona",
+    "Verificare un documento",
+    "Gestire un’uscita o un trasferimento",
+    "Proporre una sostituzione fra strutture",
+    "Preparare i dati per le paghe",
+    "Inviare una comunicazione",
+    "Importare il modello Excel di un mese",
+    "Backup e ripristino",
+    "Se perdi o cambi il telefono"
+   ]
+  },
+  {
+   "numero": 11,
+   "id": "ruoli",
+   "titolo": "Ruoli e permessi",
+   "pagine": []
+  },
+  {
+   "numero": 12,
+   "id": "fasce",
+   "titolo": "Fasce e causali",
+   "pagine": []
+  },
+  {
+   "numero": 13,
+   "id": "faq",
+   "titolo": "Domande frequenti",
+   "pagine": [
+    "Perché non vedo alcune pagine?",
+    "Ho salvato un turno ma compare un avviso sul riposo.",
+    "Non riesco a modificare un giorno.",
+    "Cosa significa «Da consuntivare»?",
+    "Il portale chiede di nuovo password e codice.",
+    "Le email partono davvero?"
+   ]
+  },
+  {
+   "numero": 14,
+   "id": "demo",
+   "titolo": "Demo pubblica e portale aziendale",
+   "pagine": []
+  }
+ ],
+ "immagini": [
+  {
+   "id": "accesso",
+   "figura": 6,
+   "didascalia": "La pagina di accesso: nome utente e password. Il collegamento «Usa il codice di attivazione» serve al primo accesso o dopo un cambio di telefono.",
+   "formato": "jpeg",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 67356
+  },
+  {
+   "id": "primo-accesso",
+   "figura": 7,
+   "didascalia": "Primo accesso: nome utente e codice di attivazione ricevuto di persona dall’amministratore.",
+   "formato": "jpeg",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 72182
+  },
+  {
+   "id": "attivazione-app",
+   "figura": 8,
+   "didascalia": "Configurazione del secondo fattore: codice QR per l’app Authenticator, chiave manuale, nuova password personale e codice a 6 cifre.",
+   "formato": "jpeg",
+   "larghezza": 1366,
+   "altezza": 958,
+   "byte": 110138
+  },
+  {
+   "id": "codici-recupero",
+   "figura": 9,
+   "didascalia": "I codici di recupero: compaiono una sola volta. Vanno scaricati o stampati e conservati lontano dal telefono.",
+   "formato": "jpeg",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 88222
+  },
+  {
+   "id": "pag-home",
+   "figura": 13,
+   "didascalia": "«Riepilogo»: la pagina con il profilo Amministratore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1341,
+   "byte": 240922
+  },
+  {
+   "id": "guida-contestuale",
+   "figura": 1,
+   "didascalia": "La guida contestuale: il pulsante «?» in alto a destra apre il pannello con cosa si fa nella pagina, i passi e le note per il tuo profilo.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 190818
+  },
+  {
+   "id": "tema-scuro",
+   "figura": 2,
+   "didascalia": "Il tema scuro: si attiva con il pulsante con la luna (o il sole) in alto a destra; la scelta viene ricordata dal browser.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 196823
+  },
+  {
+   "id": "pag-todo",
+   "figura": 14,
+   "didascalia": "«Da completare»: la pagina con il profilo Amministratore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1926,
+   "byte": 320701
+  },
+  {
+   "id": "pag-settings",
+   "figura": 39,
+   "didascalia": "«Parametri struttura»: la pagina con il profilo Amministratore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1764,
+   "byte": 235003
+  },
+  {
+   "id": "parametri-fasce",
+   "figura": 37,
+   "didascalia": "Parametri struttura, linguetta «Fasce orarie»: le righe del registro con codice, descrizione, orari, pausa e colore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 883,
+   "byte": 152741
+  },
+  {
+   "id": "parametri-causali",
+   "figura": 38,
+   "didascalia": "Parametri struttura, linguetta «Causali»: turni, assenze e riposi selezionabili nel registro, con le fasce autorizzate.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1607,
+   "byte": 236702
+  },
+  {
+   "id": "pag-centers",
+   "figura": 40,
+   "didascalia": "«Strutture»: la pagina con il profilo Amministratore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 130524
+  },
+  {
+   "id": "pag-users",
+   "figura": 43,
+   "didascalia": "«Accessi e ruoli»: la pagina con il profilo Amministratore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1044,
+   "byte": 205569
+  },
+  {
+   "id": "pag-backups",
+   "figura": 44,
+   "didascalia": "«Backup»: la pagina con il profilo Amministratore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1274,
+   "byte": 204882
+  },
+  {
+   "id": "pag-import",
+   "figura": 46,
+   "didascalia": "«Importa Excel»: la pagina con il profilo Amministratore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 140488
+  },
+  {
+   "id": "importa-anteprima",
+   "figura": 45,
+   "didascalia": "Anteprima dell’importazione di un file Excel di prova: numeri, avvisi, celle non importate, persone riconosciute e scelta della destinazione. Nulla è stato ancora scritto.",
+   "formato": "jpeg",
+   "larghezza": 1366,
+   "altezza": 2200,
+   "byte": 329175
+  },
+  {
+   "id": "pag-guide",
+   "figura": 47,
+   "didascalia": "«Guida»: la pagina con il profilo Amministratore.",
+   "formato": "jpeg",
+   "larghezza": 1366,
+   "altezza": 2200,
+   "byte": 316629
+  },
+  {
+   "id": "pag-roles",
+   "figura": 48,
+   "didascalia": "«Ruoli e permessi»: la pagina con il profilo Amministratore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1546,
+   "byte": 301179
+  },
+  {
+   "id": "pag-security",
+   "figura": 12,
+   "didascalia": "«Il mio account»: la pagina con il profilo Amministratore.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1212,
+   "byte": 194430
+  },
+  {
+   "id": "pag-attendance",
+   "figura": 17,
+   "didascalia": "«Registro presenze»: la pagina con il profilo Responsabile di struttura.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1588,
+   "byte": 242243
+  },
+  {
+   "id": "presenze-registrazione",
+   "figura": 15,
+   "didascalia": "Il dialogo di registrazione: si apre con un clic su una casella del registro. Causale, orari proposti dalla fascia, sede di lavoro, festivo e nota.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 210316
+  },
+  {
+   "id": "presenze-pianificato",
+   "figura": 16,
+   "didascalia": "Il registro in vista «Pianificato»: i turni previsti restano tratteggiati finché non si registra il consuntivo.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1588,
+   "byte": 232859
+  },
+  {
+   "id": "pag-month",
+   "figura": 18,
+   "didascalia": "«Controlli e chiusura»: la pagina con il profilo Responsabile di struttura.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 2200,
+   "byte": 323754
+  },
+  {
+   "id": "pag-approvals",
+   "figura": 19,
+   "didascalia": "«Approvazioni»: la pagina con il profilo Responsabile di struttura.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1125,
+   "byte": 176890
+  },
+  {
+   "id": "pag-coverage",
+   "figura": 20,
+   "didascalia": "«Copertura turni»: la pagina con il profilo Responsabile di struttura.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 884,
+   "byte": 169424
+  },
+  {
+   "id": "pag-people",
+   "figura": 24,
+   "didascalia": "«Persone e fascicoli»: la pagina con il profilo HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 948,
+   "byte": 191061
+  },
+  {
+   "id": "persone-fascicolo",
+   "figura": 21,
+   "didascalia": "La scheda di un fascicolo: le linguette raccolgono anagrafica, recapiti, contratto, amministrazione, qualifiche, inserimento, documenti, scadenze e storico.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 153259
+  },
+  {
+   "id": "persone-fascicolo-documenti",
+   "figura": 22,
+   "didascalia": "Linguetta «Documenti» del fascicolo: allegati con categoria, scadenza e stato della verifica di HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 145103
+  },
+  {
+   "id": "persone-fascicolo-inserimento",
+   "figura": 23,
+   "didascalia": "Linguetta «Inserimento»: le attività previste dal modello della struttura, con scadenze, referenti e stato.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1279,
+   "byte": 252576
+  },
+  {
+   "id": "pag-documents",
+   "figura": 25,
+   "didascalia": "«Documenti»: la pagina con il profilo HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 181969
+  },
+  {
+   "id": "pag-workforce",
+   "figura": 26,
+   "didascalia": "«Personale di gruppo»: la pagina con il profilo HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1061,
+   "byte": 202248
+  },
+  {
+   "id": "pag-departures",
+   "figura": 27,
+   "didascalia": "«Uscite e dotazioni»: la pagina con il profilo HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 138562
+  },
+  {
+   "id": "pag-structures",
+   "figura": 28,
+   "didascalia": "«Rubrica strutture»: la pagina con il profilo HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1483,
+   "byte": 197907
+  },
+  {
+   "id": "pag-agreements",
+   "figura": 29,
+   "didascalia": "«Accordi e calcoli»: la pagina con il profilo HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1063,
+   "byte": 192404
+  },
+  {
+   "id": "pag-payroll",
+   "figura": 30,
+   "didascalia": "«Paghe»: la pagina con il profilo HR centrale.",
+   "formato": "jpeg",
+   "larghezza": 1366,
+   "altezza": 2200,
+   "byte": 319625
+  },
+  {
+   "id": "pag-mail",
+   "figura": 32,
+   "didascalia": "«Comunicazioni»: la pagina con il profilo HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1084,
+   "byte": 162329
+  },
+  {
+   "id": "comunicazioni-anteprima",
+   "figura": 31,
+   "didascalia": "Anteprima di una comunicazione: destinatari validi ed esclusi, avvisi e i primi messaggi personalizzati. La bozza si crea solo dopo il controllo.",
+   "formato": "png",
+   "larghezza": 1046,
+   "altezza": 1148,
+   "byte": 117868
+  },
+  {
+   "id": "pag-reminders",
+   "figura": 33,
+   "didascalia": "«Promemoria»: la pagina con il profilo HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1121,
+   "byte": 171606
+  },
+  {
+   "id": "pag-stats",
+   "figura": 35,
+   "didascalia": "«Statistiche»: la pagina con il profilo Direzione · consultazione.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 1343,
+   "byte": 182090
+  },
+  {
+   "id": "statistiche-grafico",
+   "figura": 34,
+   "didascalia": "Il grafico dei turni effettivi per mese nella pagina Statistiche: passando sulle colonne si legge il valore di ogni mese.",
+   "formato": "png",
+   "larghezza": 1046,
+   "altezza": 357,
+   "byte": 19222
+  },
+  {
+   "id": "pag-exports",
+   "figura": 36,
+   "didascalia": "«Esportazioni»: la pagina con il profilo Direzione · consultazione.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 892,
+   "byte": 174329
+  },
+  {
+   "id": "codice-app",
+   "figura": 10,
+   "didascalia": "Accesso normale: dopo la password il portale chiede il codice a 6 cifre dell’app Authenticator (o un codice di recupero).",
+   "formato": "jpeg",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 65193
+  },
+  {
+   "id": "telefono-riepilogo",
+   "figura": 3,
+   "didascalia": "Il riepilogo sul telefono: i numeri del mese e le attività da completare in una sola colonna.",
+   "formato": "png",
+   "larghezza": 780,
+   "altezza": 1688,
+   "byte": 140336
+  },
+  {
+   "id": "telefono-giorno",
+   "figura": 4,
+   "didascalia": "Il registro sul telefono in vista «Giorno»: le persone del giorno scelto con un pulsante per ogni fascia.",
+   "formato": "png",
+   "larghezza": 780,
+   "altezza": 1688,
+   "byte": 170018
+  },
+  {
+   "id": "telefono-menu",
+   "figura": 5,
+   "didascalia": "Il menu sul telefono: si apre con il pulsante ☰ in alto a sinistra e mostra le stesse aree del computer.",
+   "formato": "png",
+   "larghezza": 780,
+   "altezza": 1688,
+   "byte": 184920
+  },
+  {
+   "id": "accessi-nuovo-account",
+   "figura": 41,
+   "didascalia": "Il dialogo «Nuovo account»: nome, nome utente, ruolo e strutture assegnate (account fittizio di esempio).",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 202827
+  },
+  {
+   "id": "conferma-sicurezza",
+   "figura": 11,
+   "didascalia": "La «Conferma di sicurezza»: prima di un’operazione sensibile il portale chiede di nuovo password e codice dell’app. La conferma vale 5 minuti.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 192535
+  },
+  {
+   "id": "accessi-codice",
+   "figura": 42,
+   "didascalia": "Il codice di attivazione appena generato: si comunica di persona o per telefono, vale 7 giorni e una sola volta (account fittizio).",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 235568
+  }
+ ],
+ "controlli": {
+  "tutte_le_pagine": true,
+  "stringhe_vietate": 0,
+  "problemi": 1,
+  "pagine_pdf_minime": true,
+  "html_sotto_16MB": true
+ }
+}

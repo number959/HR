@@ -9,7 +9,7 @@ const KINDS = [['work', 'Turno di lavoro'], ['absence', 'Assenza'], ['rest', 'Ri
 const GROUPS = [
   ['Regole del registro', ['min_rest_hours', 'require_times_on_close']],
   ['Cosa può fare il compilatore', ['operator_planned', 'operator_edit_times', 'operator_choose_site', 'operator_mark_holiday', 'operator_delete', 'operator_export']],
-  ['Carico per fascia', ['nurse_reference', 'doctor_reference', 'isolation_weight']],
+  ['Carico per fascia', ['nurse_reference', 'doctor_reference', 'isolation_weight', 'efficiency_threshold', 'dialysis_stations', 'isolation_stations']],
   ['Accordi del mese (valori proposti)', ['weekday_rate', 'holiday_rate', 'fixed_deduction', 'ccnl_rate', 'pay_mode']],
   ['File', ['csv_separator']],
 ];

@@ -24,7 +24,8 @@ def config(con, center_id, version=None):
     found = con.execute('SELECT data FROM center_configs WHERE center_id=? AND version=?', (center_id, version)).fetchone()
     if not found:
         raise NotFound('Versione dei parametri non trovata.')
-    return loads(found[0])
+    # I parametri aggiunti nelle versioni successive del programma valgono con il valore predefinito.
+    return {**rules.defaults(), **loads(found[0])}
 
 
 def scoped(con, user, center_id, cap=None, *, current_config=None):

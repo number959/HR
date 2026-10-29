@@ -51,6 +51,10 @@ export const PROCEDURES = [
     'Scegli una persona disponibile di un’altra struttura e proponi la sostituzione.',
     'Il responsabile della struttura che riceve la persona accetta o rifiuta.',
     'Una sostituzione accettata diventa un turno pianificato nella struttura di destinazione.'] },
+  { title: 'Compensi dei collaboratori a prestazione', cap: 'accordi.vedi', steps: [
+    'Nel fascicolo del collaboratore indica il tipo di rapporto (fattura, associazione, volontario…), chi fattura, ritenuta e cassa in percentuale, IBAN.',
+    'A fine mese conferma il suo accordo in «Accordi e calcoli» con le tariffe reali (base «Tutti i turni» per chi è pagato a prestazione).',
+    'Apri «Collaboratori e compensi»: lordo, ritenuta, cassa e netto sono calcolati; scarica il prospetto Excel per l’amministrazione.'] },
   { title: 'Preparare i dati per le paghe', cap: 'paghe.gestisci', steps: [
     'In «Paghe» controlla l’anteprima del mese: persone, voci e importi calcolati.',
     'Il tracciato definitivo per il consulente va configurato insieme a lui: finché non c’è, si scarica solo il prospetto di controllo.',

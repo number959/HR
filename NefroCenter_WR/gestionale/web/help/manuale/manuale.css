@@ -1,0 +1,92 @@
+/* Manuale d'uso NefroCenter WR: stile generato da strumenti/guide/manuale.cjs (anche incorporato nell'HTML). */
+:root { --blue: #1f3a8a; --ink: #17213a; --muted: #4a5873; --faint: #6f7c95; --line: #dfe4ee; --soft: #e9edf8; --bg: #f4f6fb; --ok: #1f7a4d; --warn: #9a5b00; --accent: #c30e1a; }
+@page { size: A4 portrait; margin: 16mm; }
+* { box-sizing: border-box; }
+html { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-size: 11pt; line-height: 1.5; }
+.sheet { max-width: 920px; margin: 0 auto; padding: 32px 40px 48px; background: #fff; }
+h1, h2, h3, h4 { color: var(--blue); line-height: 1.25; margin: 0; letter-spacing: -.01em; }
+h1 { font-size: 30pt; font-weight: 800; }
+h2 { font-size: 19pt; font-weight: 750; margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--soft); }
+h3 { font-size: 13.5pt; font-weight: 700; margin: 22px 0 6px; break-after: avoid; page-break-after: avoid; }
+h4 { font-size: 10.5pt; font-weight: 700; margin: 12px 0 4px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); break-after: avoid; page-break-after: avoid; }
+p { margin: 0 0 8px; }
+.num { display: inline-block; min-width: 1.6em; color: var(--accent); font-weight: 800; }
+.small { font-size: 9.5pt; color: var(--muted); }
+.lead { font-size: 11.5pt; color: var(--muted); }
+.meta { font-size: 9pt; color: var(--faint); margin-bottom: 6px; }
+.intro { font-weight: 500; }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92em; }
+a { color: var(--blue); }
+/* Copertina e indice */
+.cover { min-height: 230mm; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 10px; break-after: page; page-break-after: always; }
+.cover .emblem { width: 96px; height: 96px; border-radius: 50%; background: #fff; box-shadow: 0 2px 10px rgba(16,27,61,.12); }
+.cover .eyebrow { font-size: 10.5pt; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 10px 0 0; }
+.cover .version { font-size: 12pt; color: var(--muted); }
+.cover .note { max-width: 60ch; background: var(--soft); border-radius: 10px; padding: 8px 14px; color: var(--blue); font-weight: 600; font-size: 10pt; }
+.toc { break-after: page; page-break-after: always; }
+.toc ol { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 28px; }
+.toc > ol > li { break-inside: avoid; margin-bottom: 7px; font-weight: 600; }
+.toc a { text-decoration: none; color: var(--ink); }
+.toc ul { list-style: none; padding-left: 1.6em; margin: 2px 0 0; font-weight: 400; font-size: 9.5pt; color: var(--muted); }
+/* Capitoli */
+.chapter { break-before: page; page-break-before: always; }
+.chapter > h2 { margin-bottom: 12px; }
+.page + .page { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 10px; }
+.menu li { margin-bottom: 3px; }
+.steps, .notes { margin: 0 0 8px; padding-left: 22px; }
+.steps li, .notes li { margin-bottom: 4px; }
+.callout { border-left: 4px solid var(--blue); background: var(--soft); padding: 8px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; break-inside: avoid; page-break-inside: avoid; }
+.procedure, .faq { break-inside: avoid; page-break-inside: avoid; }
+.who { font-size: 10pt; color: var(--muted); }
+/* Figure */
+.fig { margin: 12px 0 16px; break-inside: avoid; page-break-inside: avoid; }
+.fig img { display: block; max-width: 100%; max-height: 215mm; width: auto; height: auto; border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 1px 3px rgba(16,27,61,.08); }
+.fig figcaption { font-size: 9pt; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+.fig figcaption strong { color: var(--blue); }
+.fig-row { display: flex; gap: 14px; align-items: flex-start; break-inside: avoid; page-break-inside: avoid; }
+.fig-row .fig { flex: 1 1 0; min-width: 0; }
+.fig-row .fig img { max-height: 135mm; margin: 0 auto; }
+/* Tabelle */
+table { border-collapse: collapse; width: 100%; font-size: 9.5pt; margin: 6px 0 12px; }
+th, td { border-bottom: 1px solid var(--line); padding: 5px 8px; text-align: left; vertical-align: top; }
+thead th { background: var(--soft); color: var(--blue); font-weight: 700; }
+tbody th { font-weight: 650; }
+tr { break-inside: avoid; page-break-inside: avoid; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.roles-text th { width: 28%; color: var(--blue); }
+.matrix th, .matrix td { font-size: 8.8pt; padding: 4px 6px; }
+.matrix thead th { text-align: center; }
+.matrix thead th:first-child { text-align: left; }
+.matrix tr.area th { background: #f8f9fc; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-size: 8pt; padding-top: 9px; }
+.matrix td.mark { text-align: center; font-weight: 800; width: 12%; }
+.matrix td.yes { color: var(--ok); }
+.matrix td.maybe { color: var(--warn); }
+.matrix td.no { color: #b8c0d0; }
+.legend { font-size: 9pt; color: var(--muted); }
+.code { --c: #2f5fb3; display: inline-grid; place-items: center; min-width: 30px; height: 22px; padding: 0 6px; border-radius: 6px; font-weight: 750; font-size: 9pt; background: color-mix(in srgb, var(--c) 18%, transparent); color: color-mix(in srgb, var(--c) 82%, var(--ink)); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); }
+.sw-s-m{--c:#c99a2e}
+.sw-s-p{--c:#d4793f}
+.sw-s-s{--c:#4f7fbf}
+.sw-s-n{--c:#7a62b0}
+.sw-c-m{--c:#c99a2e}
+.sw-c-p{--c:#d4793f}
+.sw-c-s{--c:#4f7fbf}
+.sw-c-n{--c:#7a62b0}
+.sw-c-FE{--c:#3f8f7a}
+.sw-c-PS{--c:#3f8f7a}
+.sw-c-ROL{--c:#3f8f7a}
+.sw-c-FG{--c:#3f8f7a}
+.sw-c-RC{--c:#3f8f7a}
+.sw-c-MA{--c:#3f8f7a}
+.sw-c-MT{--c:#3f8f7a}
+.sw-c-AL{--c:#3f8f7a}
+.sw-c-IN{--c:#3f8f7a}
+.sw-c-PH{--c:#3f8f7a}
+.sw-c-AG{--c:#3f8f7a}
+.sw-c-PL{--c:#3f8f7a}
+.sw-c-AS{--c:#3f8f7a}
+.sw-c-R{--c:#8a97a8}
+.colophon { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 9pt; color: var(--faint); }
+@media screen and (max-width: 700px) { .sheet { padding: 16px; } .toc ol { columns: 1; } .fig-row { flex-wrap: wrap; } h1 { font-size: 24pt; } }
+@media print { body { background: #fff; } .sheet { max-width: none; padding: 0; } .fig img { box-shadow: none; } }

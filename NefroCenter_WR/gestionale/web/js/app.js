@@ -18,6 +18,7 @@ export const PAGES = [
   { id: 'departures', path: 'uscite', label: 'Uscite e dotazioni', icon: 'door', group: 'Persone', cap: 'uscite.gestisci', module: 'departures' },
   { id: 'structures', path: 'rubrica', label: 'Rubrica strutture', icon: 'building', group: 'Persone', cap: 'strutture.gestisci', module: 'structures' },
   { id: 'agreements', path: 'accordi', label: 'Accordi e calcoli', icon: 'calculator', group: 'Amministrazione', cap: 'accordi.vedi', module: 'agreements', context: ['center', 'month'] },
+  { id: 'collaborators', path: 'collaboratori', label: 'Collaboratori e compensi', icon: 'users', group: 'Amministrazione', cap: 'accordi.vedi', module: 'collaborators', context: ['center', 'month'] },
   { id: 'payroll', path: 'paghe', label: 'Paghe', icon: 'wallet', group: 'Amministrazione', cap: 'paghe.gestisci', module: 'payroll', context: ['center', 'month'] },
   { id: 'mail', path: 'comunicazioni', label: 'Comunicazioni', icon: 'mail', group: 'Amministrazione', cap: 'comunicazioni.usa', module: 'mail' },
   { id: 'reminders', path: 'promemoria', label: 'Promemoria', icon: 'bell', group: 'Amministrazione', cap: 'promemoria.vedi', module: 'reminders' },

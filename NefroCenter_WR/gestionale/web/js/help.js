@@ -89,6 +89,15 @@ export const HELP = {
       'Solo gli accordi confermati producono un importo.', 'La simulazione riproduce il calcolo del vecchio modello Excel.'],
     notes: ['Il risultato è una base di verifica per l’ufficio paghe, non un cedolino.', 'Salvare un accordo richiede una nuova verifica del mese.'],
   },
+  collaborators: {
+    intro: 'Il prospetto mensile dei collaboratori a prestazione: turni feriali e festivi, compenso lordo dall’accordo del mese, ritenuta d’acconto, contributo cassa, netto da pagare e coordinate bancarie. È il vecchio foglio «Collaboratori» del modello Excel, calcolato dal portale.',
+    steps: ['Nel fascicolo di ogni collaboratore indica il tipo di rapporto (scheda Contratto) e, nella scheda Amministrazione, chi fattura, le percentuali di ritenuta e cassa, IBAN e intestatario.',
+      'Conferma l’accordo del mese in «Accordi e calcoli»: senza accordo confermato il compenso non viene calcolato.',
+      'Controlla il prospetto e scarica l’Excel per l’amministrazione (conferma di sicurezza).'],
+    roles: { hr: 'Vedi tutte le strutture e scarichi il prospetto.', manager: 'Vedi il prospetto delle tue strutture; lo scarico è dell’area HR.', admin: 'Come HR centrale.' },
+    notes: ['Netto = lordo + contributo cassa − ritenuta d’acconto. Il portale non emette fatture né cedolini.',
+      'Un collaboratore che risulta nel registro ma manca qui ha il tipo di rapporto «Dipendente» nel fascicolo.'],
+  },
   payroll: {
     intro: 'Prepara il tracciato per il consulente del lavoro: modello versionato, controlli bloccanti, anteprima e file CSV o Excel.',
     steps: ['Configura colonne, causali paghe e matricole.', 'Quando il consulente ha verificato le specifiche, conferma il modello.',

@@ -692,6 +692,27 @@ def _month_note(model):
     return text[:2000]
 
 
+def _profile_relationship(con, actor, model, ids, only_new):
+    """Fascicolo dei collaboratori riconosciuti nel file: tipo di rapporto e chi emette la fattura."""
+    from . import hr
+    for p in model['people']:
+        if p['group'] != 'consulente' or p['id'] not in ids or (only_new is not None and ids[p['id']] not in only_new):
+            continue
+        current = hr.profile(con, ids[p['id']])
+        fields = dict(current['fields'])
+        if fields.get('relationship'):
+            continue
+        billing = p.get('billing', '')
+        fields['relationship'] = 'associazione' if billing and billing.casefold().startswith(('ass', 'coop')) else 'professionista'
+        if billing and not fields.get('billing_entity'):
+            fields['billing_entity'] = billing[:150]
+        con.execute('''INSERT INTO profiles(person_id,stage,fields,custom,version,updated_at,updated_by) VALUES(?,?,?,?,?,?,?)
+                       ON CONFLICT(person_id) DO UPDATE SET fields=excluded.fields, version=excluded.version,
+                       updated_at=excluded.updated_at, updated_by=excluded.updated_by''',
+                    (ids[p['id']], current['stage'], dumps(fields), dumps(current['custom']), current['version'] + 1, stamp(),
+                     actor.username))
+
+
 def _create_center(con, actor, model):
     cfg = rules.defaults()
     cfg['holidays'] = sorted(set(model['holidays']))
@@ -723,6 +744,7 @@ def _create_center(con, actor, model):
     con.execute('INSERT INTO months(center_id,month,rules_version,verified,closed,note,version,updated_at,updated_by) '
                 'VALUES(?,?,1,0,0,?,1,?,?)', (cid, model['month'], _month_note(model), stamp(), actor.username))
     _insert_entries(con, actor, cid, model, ids, cfg, 1)
+    _profile_relationship(con, actor, model, ids, None)
     return cid, len(ids), 0
 
 
@@ -739,7 +761,7 @@ def _add_to_center(con, actor, model, cid):
     existing = {}
     for person in months.people(con, cid):
         existing.setdefault(fold(person['name']), person)  # a parità di nome vale la prima (elenco alfabetico)
-    ids, created = {}, 0
+    ids, created, new_ids = {}, 0, set()
     for p in model['people']:
         match = existing.get(fold(p['name']))
         if match:
@@ -748,11 +770,13 @@ def _add_to_center(con, actor, model, cid):
         role = p['role'] if p['role'] in cfg['roles'] else 'ALTRO' if 'ALTRO' in cfg['roles'] else cfg['roles'][0]
         ids[p['id']] = people.insert(con, actor, cid, dict(name=p['name'][:150], role=role, registration='', active=True,
                                                            contract=p['contract'][:150], note=person_note(p, cfg['roles'])))
+        new_ids.add(ids[p['id']])
         created += 1
     state = months.ensure(con, cid, model['month'], actor)
     note = '\n'.join(x for x in (state['note'], _month_note(model)) if x)[:2000]
     months.update(con, cid, model['month'], actor, note=note)
     _insert_entries(con, actor, cid, model, ids, cfg, state['rules_version'])
+    _profile_relationship(con, actor, model, ids, new_ids)
     return cid, len(ids), created
 
 

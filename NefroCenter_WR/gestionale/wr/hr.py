@@ -47,6 +47,7 @@ FIELDS = [
     ('emergency_phone', 'Telefono di emergenza (facoltativo)', 'recapiti', 60, 'tel'),
     ('employer', 'Società datrice di lavoro', 'contratto', 200, 'text'),
     ('department', 'Reparto o servizio', 'contratto', 150, 'text'), ('manager', 'Responsabile diretto', 'contratto', 150, 'text'),
+    ('relationship', 'Tipo di rapporto', 'contratto', 40, 'choice'),
     ('contract_type', 'Tipologia di contratto', 'contratto', 100, 'text'), ('ccnl', 'CCNL applicato', 'contratto', 150, 'text'),
     ('level', 'Livello di inquadramento', 'contratto', 80, 'text'), ('qualification', 'Mansione o qualifica', 'contratto', 150, 'text'),
     ('contract_number', 'Riferimento del contratto', 'contratto', 80, 'text'),
@@ -63,6 +64,10 @@ FIELDS = [
     ('payment_method', 'Modalità di pagamento', 'amministrazione', 80, 'text'),
     ('vat_number', 'Partita IVA, se pertinente', 'amministrazione', 30, 'text'),
     ('payroll_contact', 'Referente paghe', 'amministrazione', 200, 'text'),
+    ('billing_entity', 'Chi emette la fattura (professionista, studio o associazione)', 'amministrazione', 150, 'text'),
+    ('withholding_rate', 'Ritenuta d’acconto sul compenso (%)', 'amministrazione', 10, 'decimal'),
+    ('fund_name', 'Cassa previdenziale in fattura (per esempio ENPAPI)', 'amministrazione', 80, 'text'),
+    ('fund_rate', 'Contributo cassa in fattura (%)', 'amministrazione', 10, 'decimal'),
     ('professional_register', 'Ordine o albo professionale', 'qualifiche', 200, 'text'),
     ('register_number', 'Numero di iscrizione', 'qualifiche', 100, 'text'),
     ('registration_expiry', 'Scadenza dell’abilitazione, se prevista', 'qualifiche', 10, 'date'),
@@ -72,6 +77,12 @@ FIELDS = [
 ]
 KEYS = [f[0] for f in FIELDS]
 TYPES = {f[0]: f[4] for f in FIELDS}
+# Tipo di rapporto: distingue chi è in busta paga da chi viene pagato a prestazione (prospetto collaboratori).
+RELATIONSHIPS = [('dipendente', 'Dipendente della struttura'), ('professionista', 'Collaboratore con fattura (libero professionista)'),
+                 ('associazione', 'Tramite associazione o cooperativa'), ('volontario', 'Volontario'),
+                 ('altra_struttura', 'Dipendente di un’altra struttura del gruppo'), ('altro', 'Altro rapporto')]
+CHOICES = {'relationship': RELATIONSHIPS}
+EMPLOYEE = 'dipendente'
 DEADLINE_FIELDS = [('identity_expiry', 'Documento di identità', 'anagrafica'), ('end_date', 'Fine del contratto', 'contratto'),
                    ('probation_end', 'Fine del periodo di prova', 'contratto'),
                    ('registration_expiry', 'Iscrizione o abilitazione', 'qualifiche'),
@@ -100,7 +111,16 @@ CODE = re.compile(r'[A-Za-z0-9_-]{1,40}')
 
 
 def field_definitions():
-    return [dict(key=k, label=l, section=s, max_length=n, type=t) for k, l, s, n, t in FIELDS]
+    return [dict(key=k, label=l, section=s, max_length=n, type=t, options=CHOICES.get(k, [])) for k, l, s, n, t in FIELDS]
+
+
+def relationship_of(fields):
+    """Tipo di rapporto del fascicolo; un fascicolo senza indicazione è un dipendente."""
+    return fields.get('relationship') or EMPLOYEE
+
+
+def relationship_label(code):
+    return dict(RELATIONSHIPS).get(code or EMPLOYEE, code)
 
 
 # --- Modello di inserimento ------------------------------------------------------------------
@@ -232,6 +252,8 @@ def validate_fields(raw):
             value = v.day(value, label, required=False, field=key)
         elif kind == 'email' and value and not v.is_email(value):
             raise Invalid(f'{label}: indirizzo email non valido.', field=key)
+        elif kind == 'choice' and value:
+            value = v.choice(value, label, [c for c, _ in CHOICES[key]], field=key)
         out[key] = value
     today_iso = today().isoformat()
     if out['birth_date'] and out['birth_date'] >= today_iso:
@@ -244,6 +266,8 @@ def validate_fields(raw):
         raise Invalid('La scadenza del documento precede la data di rilascio.', field='identity_expiry')
     _decimal(out['weekly_hours'], 'Ore settimanali', 168, 'weekly_hours')
     _decimal(out['part_time_percent'], 'Percentuale di part-time', 100, 'part_time_percent')
+    _decimal(out['withholding_rate'], 'Ritenuta d’acconto', 100, 'withholding_rate')
+    _decimal(out['fund_rate'], 'Contributo cassa', 100, 'fund_rate')
     out['tax_code'] = out['tax_code'].upper().replace(' ', '')
     if out['tax_code'] and not (re.fullmatch(r'[A-Z0-9]{16}', out['tax_code']) or re.fullmatch(r'\d{11}', out['tax_code'])):
         raise Invalid('Formato del codice fiscale non valido (la verifica anagrafica resta manuale).', field='tax_code')
