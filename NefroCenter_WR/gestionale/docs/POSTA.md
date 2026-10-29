@@ -23,7 +23,7 @@ Il salvataggio dei parametri non invia nulla. Dopo la configurazione fare una pr
 3. La **conferma** (password e codice dell'app) spedisce un lotto preciso. Ogni email ha un solo destinatario, nessuna copia conoscenza, testo semplice. I documenti HR non vengono allegati.
 4. Ogni destinatario ha uno stato: *Da inviare*, *In invio*, *Accettato dal server di posta*, *Non riuscito*, *Esito incerto*, *Invio simulato (demo)*. L'accettazione da parte del server non è conferma di consegna o lettura.
 5. **Non riuscito**: dopo aver corretto la causa si usa «Ritenta i non riusciti». **Esito incerto**: l'invio potrebbe essere stato accettato prima di un'interruzione; non viene ritentato da solo.
-6. Se il processo si interrompe, dopo 15 minuti senza aggiornamenti il pulsante **Verifica invio interrotto** classifica come incerti i destinatari rimasti «in invio», senza spedire nulla.
+6. Se il processo si interrompe, dopo 15 minuti senza aggiornamenti il pulsante **Verifica invii interrotti** classifica come incerti i destinatari rimasti «in invio», senza spedire nulla.
 
 ## Promemoria automatici
 
