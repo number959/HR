@@ -176,6 +176,15 @@ def _profiles(db, hr_user, ids, persons, today):
             fields['registration_expiry'] = (on + timedelta(days=12)).isoformat()
         if name == 'Luca Moretti':
             fields.update(contract_type='Tempo determinato', end_date=(on + timedelta(days=21)).isoformat())
+        # Due collaboratori a prestazione: compaiono nel prospetto «Collaboratori e compensi» (IBAN fittizio ma formalmente valido).
+        if name == 'Elena Costa':
+            fields.update(relationship='professionista', contract_type='Prestazione / consulenza', billing_entity='Studio dimostrativo',
+                          withholding_rate='20', fund_name='', fund_rate='', iban='IT60X0542811101000000123456',
+                          account_holder=name, payment_method='Bonifico', vat_number='00000000000')
+        if name == 'Paolo Greco':
+            fields.update(relationship='associazione', contract_type='Prestazione / consulenza', billing_entity='Associazione dimostrativa',
+                          withholding_rate='', fund_name='ENPAPI', fund_rate='4', iban='IT60X0542811101000000123456',
+                          account_holder='Associazione dimostrativa', payment_method='Bonifico')
         with db.read() as con:
             person = people.get(con, cid, pid)
         saved = hr.save(db, hr_user, cid, dict(name=name, role=person['role'], registration=person['registration'], active=True,

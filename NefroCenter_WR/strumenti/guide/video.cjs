@@ -60,7 +60,18 @@ function wrapLines(text, max = MAX_LINE) {
     else { lines.push(line); line = word; }
   }
   if (line) lines.push(line);
-  return lines;
+  if (lines.length !== 2) return lines;
+  // Due righe: taglio più vicino alla metà (evita una seconda riga di una sola parola).
+  const words = text.split(/\s+/).filter(Boolean);
+  let best = null;
+  for (let i = 1; i < words.length; i++) {
+    const a = words.slice(0, i).join(' ');
+    const b = words.slice(i).join(' ');
+    if (a.length > max || b.length > max) continue;
+    const diff = Math.abs(a.length - b.length);
+    if (!best || diff < best.diff) best = { lines: [a, b], diff };
+  }
+  return best ? best.lines : lines;
 }
 
 // Spezza il testo di un passo in gruppi di massimo 2 righe: prima ai confini di frase, poi a «:» «;» e virgole;

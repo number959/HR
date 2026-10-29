@@ -22,24 +22,138 @@ CENTER_CAPS = ('presenze.compila', 'presenze.pianifica', 'presenze.orari', 'pres
                'mese.chiudi', 'mese.regole', 'accordi.vedi', 'accordi.modifica', 'approvazioni.vedi')
 
 
+def efficiency_level(efficiency, cfg):
+    """Lettura dell'efficienza rispetto al riferimento: 'nessuno' senza personale in turno, 'sotto' se il
+    personale in turno è più del riferimento (efficienza sotto la soglia), 'adeguato' tra soglia e 1,
+    'oltre' se il carico supera il riferimento."""
+    if efficiency is None:
+        return 'nessuno'
+    if efficiency < cfg['efficiency_threshold']:
+        return 'sotto'
+    if efficiency <= 1:
+        return 'adeguato'
+    return 'oltre'
+
+
+def _efficiency(ratio, reference):
+    return None if ratio is None or not reference else ratio / reference
+
+
+def _in_site(entries):
+    """Turni a consuntivo svolti nella struttura (le celle senza sfondo colorato del vecchio modello)."""
+    return [e for e in entries if e['kind'] == 'work' and e['layer'] == 'actual' and not e['site']]
+
+
 def workload_rows(con, center_id, month, cfg, persons, entries):
     roles = {p['id']: p['role'] for p in persons}
+    in_site = _in_site(entries)
     out = []
     for r in con.execute('SELECT * FROM workload WHERE center_id=? AND day LIKE ? ORDER BY day, slot', (center_id, month + '-%')):
-        here = [e for e in entries if e['day'] == r['day'] and e['slot'] == r['slot'] and e['kind'] == 'work'
-                and e['layer'] == 'actual' and not e['site']]
+        here = [e for e in in_site if e['day'] == r['day'] and e['slot'] == r['slot']]
         nurses = len({e['person_id'] for e in here if roles.get(e['person_id']) in cfg['nurse_roles']})
         doctors = len({e['person_id'] for e in here if roles.get(e['person_id']) in cfg['doctor_roles']})
         weighted = r['ordinary'] + r['isolated'] * cfg['isolation_weight']
         nurse_ratio = weighted / nurses if nurses else None
         doctor_ratio = (r['ordinary'] + r['isolated']) / doctors if doctors else None
+        nurse_efficiency = _efficiency(nurse_ratio, cfg['nurse_reference'])
+        doctor_efficiency = _efficiency(doctor_ratio, cfg['doctor_reference'])
         out.append(dict(day=r['day'], slot=r['slot'], ordinary=r['ordinary'], isolated=r['isolated'], nurses=nurses,
                         doctors=doctors, nurse_ratio=nurse_ratio, doctor_ratio=doctor_ratio,
+                        nurse_efficiency=nurse_efficiency, doctor_efficiency=doctor_efficiency,
+                        nurse_level=efficiency_level(nurse_efficiency, cfg),
+                        doctor_level=efficiency_level(doctor_efficiency, cfg),
                         nurse_over=nurse_ratio is not None and nurse_ratio > cfg['nurse_reference'],
                         doctor_over=doctor_ratio is not None and doctor_ratio > cfg['doctor_reference'],
                         uncovered=(r['ordinary'] + r['isolated']) > 0 and (not nurses or not doctors),
                         updated_by=r['updated_by'], updated_at=r['updated_at']))
     return out
+
+
+def workload_summary(cfg, rows, entries, persons):
+    """Sintesi mensile del carico per fascia e complessiva (il blocco di indicatori del vecchio modello).
+
+    rows: righe di workload_rows (giorni con pazienti registrati). I turni si contano su tutte le
+    registrazioni di lavoro a consuntivo svolte nella struttura, anche nei giorni senza pazienti
+    («Totale turni da lavorare»); i pazienti sommano ordinari e isolati («Totale dialisi da effettuare»).
+    Il rapporto mensile di una fascia si calcola dai totali e richiede almeno un giorno con pazienti e
+    almeno un turno; la «media parametro» è la media dei rapporti delle fasce che li hanno."""
+    roles = {p['id']: p['role'] for p in persons}
+    in_site = _in_site(entries)
+    slots = []
+    for slot in cfg['slots']:
+        if not slot['active']:
+            continue
+        mine = [r for r in rows if r['slot'] == slot['id']]
+        shifts = [e for e in in_site if e['slot'] == slot['id']]
+        nurse_shifts = sum(roles.get(e['person_id']) in cfg['nurse_roles'] for e in shifts)
+        doctor_shifts = sum(roles.get(e['person_id']) in cfg['doctor_roles'] for e in shifts)
+        ordinary = sum(r['ordinary'] for r in mine)
+        isolated = sum(r['isolated'] for r in mine)
+        has_data = bool(mine)
+        nurse_ratio = (ordinary + isolated * cfg['isolation_weight']) / nurse_shifts if has_data and nurse_shifts else None
+        doctor_ratio = (ordinary + isolated) / doctor_shifts if has_data and doctor_shifts else None
+        nurse_efficiency = _efficiency(nurse_ratio, cfg['nurse_reference'])
+        doctor_efficiency = _efficiency(doctor_ratio, cfg['doctor_reference'])
+        slots.append(dict(slot=slot['id'], label=slot['label'], days=len(mine), nurse_shifts=nurse_shifts,
+                          doctor_shifts=doctor_shifts, ordinary=ordinary, isolated=isolated, patients=ordinary + isolated,
+                          nurse_ratio=nurse_ratio, doctor_ratio=doctor_ratio, nurse_efficiency=nurse_efficiency,
+                          doctor_efficiency=doctor_efficiency, nurse_level=efficiency_level(nurse_efficiency, cfg),
+                          doctor_level=efficiency_level(doctor_efficiency, cfg)))
+
+    def average(values):
+        values = [x for x in values if x is not None]
+        return sum(values) / len(values) if values else None
+
+    nurse_parameter = average(s['nurse_ratio'] for s in slots)
+    doctor_parameter = average(s['doctor_ratio'] for s in slots)
+    nurse_efficiency = _efficiency(nurse_parameter, cfg['nurse_reference'])
+    doctor_efficiency = _efficiency(doctor_parameter, cfg['doctor_reference'])
+    return dict(slots=slots, nurse_shifts=sum(s['nurse_shifts'] for s in slots), doctor_shifts=sum(s['doctor_shifts'] for s in slots),
+                ordinary=sum(s['ordinary'] for s in slots), isolated=sum(s['isolated'] for s in slots),
+                patients=sum(s['patients'] for s in slots), days=len({r['day'] for r in rows}),
+                nurse_parameter=nurse_parameter, doctor_parameter=doctor_parameter,
+                nurse_efficiency=nurse_efficiency, doctor_efficiency=doctor_efficiency,
+                nurse_level=efficiency_level(nurse_efficiency, cfg), doctor_level=efficiency_level(doctor_efficiency, cfg),
+                threshold=cfg['efficiency_threshold'], nurse_reference=cfg['nurse_reference'],
+                doctor_reference=cfg['doctor_reference'], isolation_weight=cfg['isolation_weight'],
+                dialysis_stations=cfg['dialysis_stations'], isolation_stations=cfg['isolation_stations'])
+
+
+COUNTER_GROUPS = (('infermieri', 'Infermieri'), ('medici', 'Medici'), ('altro', 'Altro personale'))
+COUNTER_KEYS = ('shifts', 'external', 'festive', 'absences', 'total')
+
+
+def counters(cfg, summary):
+    """Conteggi del mese per persona e per gruppo (i contatori a destra della griglia del vecchio modello).
+
+    Per ogni persona: turni, fuori sede, festivi, una voce per ogni causale di assenza o riposo dei
+    parametri (0 se non usata) e totale registrazioni a consuntivo. I gruppi seguono i ruoli
+    infermieristici e medici dei parametri; le persone non attive senza registrazioni restano fuori."""
+    used = {c for row in summary for c in row['causes']}
+    codes = [dict(id=c['id'], label=c['label']) for c in cfg['codes']
+             if c['kind'] != 'work' and (c['active'] or c['id'] in used)]
+    code_ids = [c['id'] for c in codes]
+    people_rows = []
+    for row in summary:
+        total = sum(row['causes'].values())
+        if not row['active'] and not total:
+            continue
+        group = ('infermieri' if row['role'] in cfg['nurse_roles'] else 'medici' if row['role'] in cfg['doctor_roles'] else 'altro')
+        people_rows.append(dict(person_id=row['person_id'], name=row['name'], role=row['role'],
+                                registration=row['registration'], active=row['active'], group=group,
+                                shifts=row['shifts'], external=row['external'], festive=row['festive'],
+                                absences=row['absences'], codes={c: row['causes'].get(c, 0) for c in code_ids}, total=total))
+
+    def totals(label, group_id, members):
+        out = dict(id=group_id, label=label, people=len(members))
+        out.update({k: sum(m[k] for m in members) for k in COUNTER_KEYS})
+        out['codes'] = {c: sum(m['codes'][c] for m in members) for c in code_ids}
+        return out
+
+    groups = [totals(label, gid, [m for m in people_rows if m['group'] == gid]) for gid, label in COUNTER_GROUPS]
+    groups = [g for g in groups if g['people']]
+    groups.append(totals('Tutto il personale', 'tutti', people_rows))
+    return dict(codes=codes, people=people_rows, groups=groups)
 
 
 def alerts_for(state, summary, entries, approval):
@@ -75,6 +189,7 @@ def snapshot(db, user, center_id, month):
         known = [r[0] for r in con.execute('SELECT month FROM months WHERE center_id=? ORDER BY month DESC LIMIT 36',
                                            (center_id,))]
         days = months.days_info(month, cfg)
+        workload = workload_rows(con, center_id, month, cfg, persons, entries) if caps['presenze.carico'] else []
         result = dict(
             center=dict(id=center['id'], name=center['name'], code=center['code'], config_version=center['config_version']),
             month=month, state={k: state[k] for k in ('rules_version', 'verified', 'closed', 'note', 'version',
@@ -82,7 +197,9 @@ def snapshot(db, user, center_id, month):
             rules_outdated=state['rules_version'] != center['config_version'],
             config=cfg, days=days, working_days=sum(d['working'] for d in days),
             people=[people.public(p, user) for p in persons], entries=entries, summary=summary,
-            workload=workload_rows(con, center_id, month, cfg, persons, entries) if caps['presenze.carico'] else [],
+            workload=workload,
+            workload_summary=workload_summary(cfg, workload, entries, persons) if caps['presenze.carico'] else None,
+            counters=counters(cfg, summary),
             approval=approval, alerts=alerts_for(state, summary, entries, approval), caps=caps, editable=editable,
             known_months=known, history=audit.recent(con, center_id, 40))
     return result
