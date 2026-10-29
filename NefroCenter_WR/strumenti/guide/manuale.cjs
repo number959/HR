@@ -81,6 +81,7 @@ const GROUPS = ['Panoramica', 'Presenze', 'Persone', 'Amministrazione', 'Analisi
 const problems = [];
 const shots = [];
 const shotIndex = {};
+let figureCounter = 0;  // numerazione delle figure nell'ordine del documento, azzerata a ogni composizione
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/«([^»]+)»/g, '«$1»');
@@ -598,23 +599,35 @@ function list(tag, items, cls = '') {
   return `<${tag}${cls ? ` class="${cls}"` : ''}>${items.map(i => `<li>${esc(i)}</li>`).join('')}</${tag}>`;
 }
 
-function buildHtml(data) {
+function buildHtml(data, pageOf = null) {
+  figureCounter = 0;
+  for (const s of Object.values(shotIndex)) s.figure = null;
   const { catalog, me, centers, firstCenter, config, demoTable, roleLabel, byId, started } = data;
   const { HELP, PROCEDURES, FAQ, PAGES, roles } = catalog;
   const capOf = Object.fromEntries(roles.capabilities.map(c => [c.id, c]));
   const chapters = [];
-  const chapter = (id, title, pages) => { chapters.push({ number: chapters.length + 1, id, title, pages }); return chapters[chapters.length - 1]; };
+  const chapter = (id, title, pages) => {
+    const number = chapters.length + 1;
+    chapters.push({ number, id, title, pages, key: norm(`${number} ${title}`), sections: [] });
+    return chapters[chapters.length - 1];
+  };
   const emblem = fs.readFileSync(path.join(comune.WEB, 'img', 'emblema.png')).toString('base64');
   const generated = itDate(started);
   const fictitiousMonth = catalog.today.slice(0, 7);
   const monthName = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'][Number(fictitiousMonth.slice(5)) - 1];
-  const whoCan = cap => {
-    if (!cap) return 'Tutti i profili.';
-    const row = capOf[cap];
-    if (!row) return cap;
-    const names = row.roles.map(r => roleLabel[r]);
-    const cond = row.conditional.filter(r => !row.roles.includes(r)).map(r => `${roleLabel[r]} (se abilitato nei parametri della struttura)`);
-    return `${[...names, ...cond].join(', ')} — permesso «${row.description}».`;
+  // Il permesso che fa comparire una procedura nella guida può essere di sola consultazione: per queste procedure
+  // «chi può farlo» si ricava dai permessi che servono davvero a eseguirla.
+  const WHO_OVERRIDES = { 'Approvare un mese': ['approvazioni.verifica', 'approvazioni.approva'], 'Chiudere il mese': ['mese.verifica', 'mese.chiudi'],
+    'Compensi dei collaboratori a prestazione': ['accordi.modifica', 'paghe.gestisci'] };
+  const whoCan = (cap, title) => {
+    const caps = WHO_OVERRIDES[title] || (cap ? [cap] : []);
+    if (!caps.length) return 'Tutti i profili.';
+    const rows = caps.map(c => capOf[c]).filter(Boolean);
+    if (!rows.length) return caps.join(', ');
+    const allowed = roles.roles.map(r => r.id).filter(id => rows.some(row => row.roles.includes(id)));
+    const cond = roles.roles.map(r => r.id).filter(id => !allowed.includes(id) && rows.some(row => row.conditional.includes(id)));
+    return `${[...allowed.map(r => roleLabel[r]), ...cond.map(r => `${roleLabel[r]} (se abilitato nei parametri della struttura)`)].join(', ')}`
+      + ` — ${rows.length === 1 ? 'permesso' : 'permessi'} «${rows.map(row => row.description).join('», «')}».`;
   };
 
   const sections = [];
@@ -634,7 +647,7 @@ function buildHtml(data) {
 <p>Il pulsante «?» apre un pannello laterale con la spiegazione della pagina in cui ti trovi: cosa serve, come si fa, cosa vale per il tuo profilo e le cose da sapere. Lo stesso testo è raccolto, pagina per pagina, nei capitoli di questo manuale e nella pagina «Guida» del portale.</p>
 ${figure('guida-contestuale')}
 <h3>${c.number}.4 Tema chiaro e scuro</h3>
-<p>Il portale segue il tema del sistema; con il pulsante in alto a destra puoi scegliere il tema chiaro o scuro, e la scelta resta memorizzata nel browser. Tutte le schermate di questo manuale usano il tema chiaro.</p>
+<p>Il portale segue il tema del sistema; con il pulsante in alto a destra puoi scegliere il tema chiaro o scuro, e la scelta resta memorizzata nel browser. Le schermate di questo manuale usano il tema chiaro; qui sotto, per confronto, il riepilogo nel tema scuro.</p>
 ${figure('tema-scuro')}
 <h3>${c.number}.5 Uso dal telefono</h3>
 <p>Dal telefono il portale si adatta a una sola colonna: il menu si apre con il pulsante ☰ in alto a sinistra e il registro passa automaticamente alla vista <strong>Giorno</strong>, che elenca le persone del giorno scelto con un pulsante per ogni fascia. Le altre pagine funzionano come sul computer.</p>
@@ -693,7 +706,7 @@ ${figure('pag-security')}
   c = chapter('procedure', 'Procedure passo per passo', PROCEDURES.map(p => p.title));
   sections.push(`<section class="chapter" id="cap-${c.id}"><h2><span class="num">${c.number}</span> ${esc(c.title)}</h2>
 <p class="lead">Le stesse procedure della pagina «Guida» del portale. Per ciascuna è indicato chi può eseguirla.</p>
-${PROCEDURES.map((p, i) => `<section class="procedure"><h3>${c.number}.${i + 1} ${esc(p.title)}</h3><p class="who"><strong>Chi può farlo:</strong> ${esc(whoCan(p.cap))}</p>${list('ol', p.steps, 'steps')}</section>`).join('')}
+${PROCEDURES.map((p, i) => `<section class="procedure"><h3>${c.number}.${i + 1} ${esc(p.title)}</h3><p class="who"><strong>Chi può farlo:</strong> ${esc(whoCan(p.cap, p.title))}</p>${list('ol', p.steps, 'steps')}</section>`).join('')}
 </section>`);
 
   // 11. Ruoli e permessi
@@ -743,8 +756,16 @@ ${FAQ.map(([q, a]) => `<section class="faq"><h3>${esc(q)}</h3><p>${esc(a)}</p></
 <p>Nella demo i cinque profili si scelgono con un clic, senza password; nel portale aziendale ogni persona entra con il proprio account, la password e l’app Authenticator, come descritto nel capitolo «Accesso e sicurezza».</p>
 </section>`);
 
-  // Copertina e indice
-  const toc = `<nav class="toc" id="indice" aria-label="Indice"><h2>Indice</h2><ol>${chapters.map(ch => `<li><a href="#cap-${ch.id}"><span class="num">${ch.number}</span> ${esc(ch.title)}</a>${ch.pages?.length ? `<ul>${ch.pages.map(p => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}</li>`).join('')}</ol></nav>`;
+  // Sottosezioni (titoli h3) di ogni capitolo: per l'indice e per i numeri di pagina letti dai segnalibri del PDF.
+  const plain = html => norm(html.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, '\''));
+  sections.forEach((html, i) => {
+    chapters[i].sections = [...html.matchAll(/<h3>(.*?)<\/h3>/g)].map(m => ({ text: plain(m[1]), key: plain(m[1]), anchor: '' }));
+  });
+  const tocEntries = chapters.flatMap(ch => [{ key: ch.key }, ...ch.sections.map(s => ({ key: s.key }))]);
+  // Copertina e indice (con i numeri di pagina quando il PDF è già stato letto una prima volta)
+  const pg = key => pageOf && pageOf.get(key) ? `<span class="pg">${pageOf.get(key)}</span>` : '';
+  const toc = `<nav class="toc" id="indice" aria-label="Indice"><h2>Indice</h2><ol>${chapters.map(ch => `<li><a href="#cap-${ch.id}"><span class="num">${ch.number}</span> ${esc(ch.title)}</a>${pg(ch.key)}${ch.sections.length ? `<ul>${ch.sections.map(s => `<li>${esc(s.text)}${pg(s.key)}</li>`).join('')}</ul>` : ''}</li>`).join('')}</ol></nav>`;
   const cover = `<header class="cover"><img class="emblem" src="data:image/png;base64,${emblem}" alt="" width="96" height="96">
 <p class="eyebrow">${esc(me.product)} · ${esc(me.subtitle)}</p><h1>Manuale d’uso</h1>
 <p class="version">Versione ${esc(catalog.version)} · generato il ${generated}</p>
@@ -773,7 +794,7 @@ ${sections.join('\n')}
 </body>
 </html>
 `;
-  return { html, css, chapters };
+  return { html, css, chapters, tocEntries, pageOf };
 }
 
 function pageSection(p, chapterNo, idx, help, roleLabel, capOf) {
@@ -829,6 +850,8 @@ a { color: var(--blue); }
 .toc > ol > li { break-inside: avoid; margin-bottom: 7px; font-weight: 600; }
 .toc a { text-decoration: none; color: var(--ink); }
 .toc ul { list-style: none; padding-left: 1.6em; margin: 2px 0 0; font-weight: 400; font-size: 9.5pt; color: var(--muted); }
+.toc .pg { float: right; color: var(--muted); font-weight: 400; font-variant-numeric: tabular-nums; padding-left: 8px; }
+.toc ol { columns: 1; }
 /* Capitoli */
 .chapter { break-before: page; page-break-before: always; }
 .chapter > h2 { margin-bottom: 12px; }
