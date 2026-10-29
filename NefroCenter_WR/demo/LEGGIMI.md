@@ -24,7 +24,8 @@ python costruisci_demo.py --includi-pyodide  # versione autonoma (circa 18 MB): 
 ```
 
 Il risultato è la cartella `dist/` (si può ricreare in ogni momento). Contiene l'interfaccia del portale,
-il motore (`motore.zip`), l'archivio fittizio (`dati/wr.sqlite3`) e `versione.json`.
+il motore (`motore.zip`), l'archivio fittizio (`dati/wr.sqlite3`) e `versione.json`. Manuale illustrato e videoguide
+(`gestionale/web/help`) restano fuori per tenere la demo leggera: la guida in linea del portale c'è comunque.
 
 ## Provarla sul proprio computer
 
