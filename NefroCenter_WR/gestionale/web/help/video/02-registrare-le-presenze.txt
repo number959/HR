@@ -1,0 +1,26 @@
+Registrare le presenze
+Il registro del mese: struttura e mese, registrazione di un turno o di un’assenza, correzione di una casella, vista Giorno, consuntivo e pianificato.
+
+Apri «Registro presenze» dal menu. In alto scegli struttura e mese: qui Capodichino, ottobre 2026.
+
+Ogni riga è una persona con le sue fasce: m mattina, p pomeriggio, s serale, n notte. Ogni colonna è un giorno del mese.
+
+Clicca una casella vuota: scegliamo Paolo Greco, giovedì 22 ottobre, fascia Mattina.
+
+Nella finestra scegli la causale: un turno (m, p, s, n) oppure un’assenza, per esempio FE ferie o MA malattia.
+
+Gli orari sono quelli proposti dalla fascia. Il compilatore non li cambia: se serve, li corregge il responsabile.
+
+Premi «Salva»: la casella mostra il turno registrato.
+
+Per correggere, clicca una casella già compilata: si riapre la registrazione.
+
+Cambia la causale, per esempio in «PS · Permesso», e salva di nuovo. Ogni modifica resta nello storico del mese.
+
+La vista «Giorno» elenca le persone di un giorno con un pulsante per ogni fascia: è comoda sul telefono.
+
+Torniamo alla vista «Mese».
+
+«Consuntivo» mostra i turni svolti davvero. «Pianificato» mostra i turni previsti, con il bordo tratteggiato.
+
+Nel consuntivo una fascia pianificata ma non ancora confermata resta tratteggiata: cliccala per registrarla.

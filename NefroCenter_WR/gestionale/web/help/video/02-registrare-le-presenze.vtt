@@ -1,0 +1,92 @@
+WEBVTT
+
+1
+00:00:00.566 --> 00:00:07.060
+Apri «Registro presenze» dal menu. In alto
+scegli struttura e mese:
+
+2
+00:00:07.140 --> 00:00:10.004
+qui Capodichino, ottobre 2026.
+
+3
+00:00:10.084 --> 00:00:16.635
+Ogni riga è una persona con le sue fasce: m
+mattina, p pomeriggio, s serale, n notte.
+
+4
+00:00:16.715 --> 00:00:19.288
+Ogni colonna è un giorno del mese.
+
+5
+00:00:19.368 --> 00:00:26.891 line:8%
+Clicca una casella vuota: scegliamo Paolo
+Greco, giovedì 22 ottobre, fascia Mattina.
+
+6
+00:00:26.971 --> 00:00:29.488 line:8%
+Nella finestra scegli la causale:
+
+7
+00:00:29.568 --> 00:00:35.469 line:8%
+un turno (m, p, s, n) oppure un’assenza, per
+esempio FE ferie o MA malattia.
+
+8
+00:00:35.549 --> 00:00:41.264 line:8%
+Gli orari sono quelli proposti dalla fascia.
+Il compilatore non li cambia:
+
+9
+00:00:41.344 --> 00:00:44.240 line:8%
+se serve, li corregge il responsabile.
+
+10
+00:00:44.320 --> 00:00:50.651 line:8%
+Premi «Salva»: la casella mostra il turno
+registrato.
+
+11
+00:00:50.731 --> 00:00:57.696 line:8%
+Per correggere, clicca una casella già
+compilata: si riapre la registrazione.
+
+12
+00:00:57.776 --> 00:01:04.446 line:8%
+Cambia la causale, per esempio in «PS ·
+Permesso», e salva di nuovo.
+
+13
+00:01:04.526 --> 00:01:08.714 line:8%
+Ogni modifica resta nello storico del mese.
+
+14
+00:01:08.794 --> 00:01:17.159
+La vista «Giorno» elenca le persone di un
+giorno con un pulsante per ogni fascia:
+
+15
+00:01:17.239 --> 00:01:19.453
+è comoda sul telefono.
+
+16
+00:01:19.533 --> 00:01:23.307
+Torniamo alla vista «Mese».
+
+17
+00:01:23.387 --> 00:01:27.229
+«Consuntivo» mostra i turni svolti davvero.
+
+18
+00:01:27.309 --> 00:01:33.158
+«Pianificato» mostra i turni previsti, con
+il bordo tratteggiato.
+
+19
+00:01:33.238 --> 00:01:40.501
+Nel consuntivo una fascia pianificata ma non
+ancora confermata resta tratteggiata:
+
+20
+00:01:40.581 --> 00:01:42.740
+cliccala per registrarla.

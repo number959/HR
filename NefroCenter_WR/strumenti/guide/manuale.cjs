@@ -573,7 +573,7 @@ ${PROCEDURES.map((p, i) => `<section class="procedure"><h3>${c.number}.${i + 1} 
 <p class="lead">Cosa può fare ogni profilo. I controlli sono applicati dal server: l’interfaccia mostra soltanto le funzioni consentite. La stessa tabella è nella pagina «Ruoli e permessi» del portale.</p>
 <table class="plain"><thead><tr><th>Profilo</th><th>Cosa fa</th><th>Strutture</th></tr></thead><tbody>${roleRows}</tbody></table>
 <p class="legend">✓ consentito · ◐ consentito se abilitato nei parametri della struttura · — non consentito</p>
-<table class="matrix"><thead><tr><th>Permesso</th>${roles.roles.map(r => `<th>${esc(r.label)}</th>`).join('')}</tr></thead><tbody>${matrixRows}</tbody></table>
+<div class="scroll"><table class="matrix"><thead><tr><th>Permesso</th>${roles.roles.map(r => `<th>${esc(r.label)}</th>`).join('')}</tr></thead><tbody>${matrixRows}</tbody></table></div>
 </section>`);
 
   // 12. Fasce e causali
@@ -653,8 +653,8 @@ function pageSection(p, chapterNo, idx, help, roleLabel, capOf) {
 ${figure(`pag-${p.id}`, `Schermata della pagina ${p.label} (profilo ${roleUsed})`)}
 ${help.steps?.length ? `<p class="h4">Come si fa</p>${list('ol', help.steps, 'steps')}` : ''}
 ${extras}
-${help.notes?.length ? `<p class="h4">Da sapere</p>${list('ul', help.notes, 'notes')}` : ''}
-${rolesRows ? `<p class="h4">Per il tuo profilo</p><table class="roles-text">${rolesRows}</table>` : ''}
+${help.notes?.length ? `<div class="block"><p class="h4">Da sapere</p>${list('ul', help.notes, 'notes')}</div>` : ''}
+${rolesRows ? `<div class="block"><p class="h4">Per il tuo profilo</p><table class="roles-text">${rolesRows}</table></div>` : ''}
 </section>`;
 }
 
@@ -698,6 +698,8 @@ a { color: var(--blue); }
 .menu li { margin-bottom: 3px; }
 .steps, .notes { margin: 0 0 8px; padding-left: 22px; }
 .steps li, .notes li { margin-bottom: 4px; }
+.block { break-inside: avoid; page-break-inside: avoid; }
+.scroll { overflow-x: auto; }
 .callout { border-left: 4px solid var(--blue); background: var(--soft); padding: 8px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; break-inside: avoid; page-break-inside: avoid; }
 .procedure, .faq { break-inside: avoid; page-break-inside: avoid; }
 .who { font-size: 10pt; color: var(--muted); }
@@ -730,7 +732,7 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; }
 ${swatches}
 .colophon { margin-top: 36px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 9pt; color: var(--faint); }
 @media screen and (max-width: 700px) { .sheet { padding: 16px; } .toc ol { columns: 1; } .fig-row { flex-wrap: wrap; } h1 { font-size: 24pt; } }
-@media print { body { background: #fff; } .sheet { max-width: none; padding: 0; } .fig img { box-shadow: none; } .page + .page { border-top: 0; padding-top: 0; margin-top: 0; } }
+@media print { body { background: #fff; } .sheet { max-width: none; padding: 0; } .fig img { box-shadow: none; } .page + .page { border-top: 0; padding-top: 0; margin-top: 0; } .scroll { overflow: visible; } }
 `;
 }
 

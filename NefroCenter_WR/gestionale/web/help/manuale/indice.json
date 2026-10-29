@@ -2,21 +2,23 @@
  "titolo": "Manuale d’uso",
  "prodotto": "NefroCenter WR · Work Resources",
  "versione": "1.0.0",
- "generato": "2026-10-29T19:47:33.209Z",
+ "data": "2026-10-29",
+ "generato": "2026-10-29T19:55:34.851Z",
  "data_dati_fittizi": "2026-10-25",
- "pagine_pdf": 65,
+ "pagine": 66,
+ "pagine_pdf": 66,
  "file": {
   "html": {
    "nome": "Manuale_NefroCenter_WR.html",
-   "byte": 12220707
+   "byte": 12618301
   },
   "css": {
    "nome": "manuale.css",
-   "byte": 6269
+   "byte": 6418
   },
   "pdf": {
    "nome": "Manuale_NefroCenter_WR.pdf",
-   "byte": 9368092
+   "byte": 9636894
   }
  },
  "capitoli": [
@@ -72,6 +74,7 @@
    "titolo": "Amministrazione",
    "pagine": [
     "Accordi e calcoli",
+    "Collaboratori e compensi",
     "Paghe",
     "Comunicazioni",
     "Promemoria"
@@ -121,6 +124,7 @@
     "Verificare un documento",
     "Gestire un’uscita o un trasferimento",
     "Proporre una sostituzione fra strutture",
+    "Compensi dei collaboratori a prestazione",
     "Preparare i dati per le paghe",
     "Inviare una comunicazione",
     "Importare il modello Excel di un mese",
@@ -177,7 +181,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 72182
+   "byte": 72339
   },
   {
    "id": "attivazione-app",
@@ -186,7 +190,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 958,
-   "byte": 110138
+   "byte": 110173
   },
   {
    "id": "codici-recupero",
@@ -195,7 +199,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 88222
+   "byte": 88209
   },
   {
    "id": "pag-home",
@@ -204,7 +208,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1341,
-   "byte": 240922
+   "byte": 244131
   },
   {
    "id": "guida-contestuale",
@@ -213,7 +217,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 190818
+   "byte": 194337
   },
   {
    "id": "tema-scuro",
@@ -222,7 +226,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 196823
+   "byte": 200358
   },
   {
    "id": "pag-todo",
@@ -231,97 +235,97 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1926,
-   "byte": 320701
+   "byte": 324247
   },
   {
    "id": "pag-settings",
-   "figura": 39,
+   "figura": 40,
    "didascalia": "«Parametri struttura»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 1764,
-   "byte": 235003
+   "altezza": 1901,
+   "byte": 253844
   },
   {
    "id": "parametri-fasce",
-   "figura": 37,
+   "figura": 38,
    "didascalia": "Parametri struttura, linguetta «Fasce orarie»: le righe del registro con codice, descrizione, orari, pausa e colore.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 883,
-   "byte": 152741
+   "byte": 156443
   },
   {
    "id": "parametri-causali",
-   "figura": 38,
+   "figura": 39,
    "didascalia": "Parametri struttura, linguetta «Causali»: turni, assenze e riposi selezionabili nel registro, con le fasce autorizzate.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1607,
-   "byte": 236702
+   "byte": 240354
   },
   {
    "id": "pag-centers",
-   "figura": 40,
+   "figura": 41,
    "didascalia": "«Strutture»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 130524
+   "byte": 134029
   },
   {
    "id": "pag-users",
-   "figura": 43,
+   "figura": 44,
    "didascalia": "«Accessi e ruoli»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1044,
-   "byte": 205569
+   "byte": 209096
   },
   {
    "id": "pag-backups",
-   "figura": 44,
+   "figura": 45,
    "didascalia": "«Backup»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1274,
-   "byte": 204882
+   "byte": 208489
   },
   {
    "id": "pag-import",
-   "figura": 46,
+   "figura": 47,
    "didascalia": "«Importa Excel»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 140488
+   "byte": 144011
   },
   {
    "id": "importa-anteprima",
-   "figura": 45,
+   "figura": 46,
    "didascalia": "Anteprima dell’importazione di un file Excel di prova: numeri, avvisi, celle non importate, persone riconosciute e scelta della destinazione. Nulla è stato ancora scritto.",
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 2200,
-   "byte": 329175
+   "byte": 335522
   },
   {
    "id": "pag-guide",
-   "figura": 47,
+   "figura": 48,
    "didascalia": "«Guida»: la pagina con il profilo Amministratore.",
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 2200,
-   "byte": 316629
+   "byte": 318193
   },
   {
    "id": "pag-roles",
-   "figura": 48,
+   "figura": 49,
    "didascalia": "«Ruoli e permessi»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1546,
-   "byte": 301179
+   "byte": 305212
   },
   {
    "id": "pag-security",
@@ -330,7 +334,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1212,
-   "byte": 194430
+   "byte": 198732
   },
   {
    "id": "pag-attendance",
@@ -339,7 +343,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1588,
-   "byte": 242243
+   "byte": 243840
   },
   {
    "id": "presenze-registrazione",
@@ -348,7 +352,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 210316
+   "byte": 212248
   },
   {
    "id": "presenze-pianificato",
@@ -357,7 +361,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1588,
-   "byte": 232859
+   "byte": 234636
   },
   {
    "id": "pag-month",
@@ -366,7 +370,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 2200,
-   "byte": 323754
+   "byte": 325781
   },
   {
    "id": "pag-approvals",
@@ -375,7 +379,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1125,
-   "byte": 176890
+   "byte": 178812
   },
   {
    "id": "pag-coverage",
@@ -384,7 +388,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 884,
-   "byte": 169424
+   "byte": 170895
   },
   {
    "id": "pag-people",
@@ -393,7 +397,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 948,
-   "byte": 191061
+   "byte": 194661
   },
   {
    "id": "persone-fascicolo",
@@ -402,7 +406,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 153259
+   "byte": 156727
   },
   {
    "id": "persone-fascicolo-documenti",
@@ -411,7 +415,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 145103
+   "byte": 148661
   },
   {
    "id": "persone-fascicolo-inserimento",
@@ -420,7 +424,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1279,
-   "byte": 252576
+   "byte": 255822
   },
   {
    "id": "pag-documents",
@@ -429,7 +433,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 181969
+   "byte": 185496
   },
   {
    "id": "pag-workforce",
@@ -438,7 +442,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1061,
-   "byte": 202248
+   "byte": 205947
   },
   {
    "id": "pag-departures",
@@ -447,7 +451,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 138562
+   "byte": 142066
   },
   {
    "id": "pag-structures",
@@ -456,7 +460,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1483,
-   "byte": 197907
+   "byte": 201940
   },
   {
    "id": "pag-agreements",
@@ -465,29 +469,38 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1063,
-   "byte": 192404
+   "byte": 195920
+  },
+  {
+   "id": "pag-collaborators",
+   "figura": 30,
+   "didascalia": "«Collaboratori e compensi»: la pagina con il profilo HR centrale.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 159787
   },
   {
    "id": "pag-payroll",
-   "figura": 30,
+   "figura": 31,
    "didascalia": "«Paghe»: la pagina con il profilo HR centrale.",
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 2200,
-   "byte": 319625
+   "byte": 321318
   },
   {
    "id": "pag-mail",
-   "figura": 32,
+   "figura": 33,
    "didascalia": "«Comunicazioni»: la pagina con il profilo HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1084,
-   "byte": 162329
+   "byte": 165943
   },
   {
    "id": "comunicazioni-anteprima",
-   "figura": 31,
+   "figura": 32,
    "didascalia": "Anteprima di una comunicazione: destinatari validi ed esclusi, avvisi e i primi messaggi personalizzati. La bozza si crea solo dopo il controllo.",
    "formato": "png",
    "larghezza": 1046,
@@ -496,25 +509,25 @@
   },
   {
    "id": "pag-reminders",
-   "figura": 33,
+   "figura": 34,
    "didascalia": "«Promemoria»: la pagina con il profilo HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1121,
-   "byte": 171606
+   "byte": 175057
   },
   {
    "id": "pag-stats",
-   "figura": 35,
+   "figura": 36,
    "didascalia": "«Statistiche»: la pagina con il profilo Direzione · consultazione.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1343,
-   "byte": 182090
+   "byte": 182127
   },
   {
    "id": "statistiche-grafico",
-   "figura": 34,
+   "figura": 35,
    "didascalia": "Il grafico dei turni effettivi per mese nella pagina Statistiche: passando sulle colonne si legge il valore di ogni mese.",
    "formato": "png",
    "larghezza": 1046,
@@ -523,7 +536,7 @@
   },
   {
    "id": "pag-exports",
-   "figura": 36,
+   "figura": 37,
    "didascalia": "«Esportazioni»: la pagina con il profilo Direzione · consultazione.",
    "formato": "png",
    "larghezza": 1366,
@@ -537,7 +550,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 65193
+   "byte": 65211
   },
   {
    "id": "telefono-riepilogo",
@@ -564,16 +577,16 @@
    "formato": "png",
    "larghezza": 780,
    "altezza": 1688,
-   "byte": 184920
+   "byte": 189200
   },
   {
    "id": "accessi-nuovo-account",
-   "figura": 41,
+   "figura": 42,
    "didascalia": "Il dialogo «Nuovo account»: nome, nome utente, ruolo e strutture assegnate (account fittizio di esempio).",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 202827
+   "byte": 205938
   },
   {
    "id": "conferma-sicurezza",
@@ -582,22 +595,22 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 192535
+   "byte": 195099
   },
   {
    "id": "accessi-codice",
-   "figura": 42,
+   "figura": 43,
    "didascalia": "Il codice di attivazione appena generato: si comunica di persona o per telefono, vale 7 giorni e una sola volta (account fittizio).",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 235568
+   "byte": 239219
   }
  ],
  "controlli": {
   "tutte_le_pagine": true,
   "stringhe_vietate": 0,
-  "problemi": 1,
+  "problemi": 0,
   "pagine_pdf_minime": true,
   "html_sotto_16MB": true
  }

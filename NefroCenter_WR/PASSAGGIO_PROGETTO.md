@@ -27,7 +27,7 @@ NefroCenter WR è il portale centrale del personale delle strutture NefroCenter:
 - Approvazione mensile, promemoria, invio email e seconda copia NAS **arrivano spenti** nel portale aziendale; nei dati dimostrativi alcune strutture hanno l'approvazione attiva per mostrare il percorso.
 - La seconda copia dei backup va su **NAS**: percorso e accesso li decide il tecnico; il portale rifiuta cartelle dentro i dati e collegamenti simbolici.
 - Servizio di posta e gestionale paghe **non sono noti**: non attribuire compatibilità a fornitori inventati. La password SMTP vive solo nell'ambiente del servizio (`WR_SMTP_PASSWORD`).
-- L'importazione del modello Excel deve funzionare con i file **compilati davvero** dagli uffici: le celle non riconosciute si elencano e si completano a mano, non bloccano il file. Il foglio «Collaboratori» si legge solo come promemoria; l'IBAN non viene mai copiato nel portale.
+- Il file Excel mensile **non si compila più**: il portale sostituisce ogni sua parte (studio completo in `gestionale/docs/STUDIO_MODELLO_EXCEL.md`). L'importazione del vecchio file serve per i mesi passati e la transizione; deve funzionare con i file compilati davvero dagli uffici (le celle non riconosciute si elencano, non bloccano). Il foglio «Collaboratori» importato è solo un promemoria; l'IBAN non viene mai copiato dal file.
 - Nessun dato aziendale nei sorgenti, nelle schermate, nei video, nella demo o nelle prove: solo dati fittizi (`wr/sample.py`, `tests/`). Il file Excel reale usato per provare l'importazione non fa parte del progetto.
 - Lingua: italiano semplice in interfaccia, documenti e messaggi del programma. Il codice ha nomi inglesi e commenti italiani.
 
@@ -58,7 +58,8 @@ Python 3.12/3.13 standard library + `cryptography` (Fernet per i segreti dell'ap
 | `wr/people.py`, `wr/hr.py`, `wr/reviews.py`, `wr/workforce.py`, `wr/departures.py`, `wr/structures.py` | persone, fascicoli e inserimento, documenti e verifiche, personale di gruppo, uscite e dotazioni, rubrica |
 | `wr/payroll.py`, `wr/analytics.py`, `wr/exports.py`, `wr/overview.py` | paghe, statistiche, esportazioni, riepilogo e «Da completare» |
 | `wr/mail.py`, `wr/reminders.py`, `wr/backups.py` | comunicazioni e server di posta, promemoria, backup e seconda copia |
-| `wr/excel_import.py`, `wr/migrate011.py`, `wr/sample.py` | importazione del modello Excel, migrazione dalla 0.11, dati fittizi |
+| `wr/collaborators.py`, `wr/model_export.py` | prospetto dei collaboratori a prestazione; foglio mensile nel formato del vecchio modello Excel |
+| `wr/excel_import.py`, `wr/migrate011.py`, `wr/sample.py` | importazione del modello Excel (storico e transizione), migrazione dalla 0.11, dati fittizi |
 | `web/index.html`, `web/js/app.js`, `web/js/pages/*.js`, `web/js/ui.js`, `web/js/help.js`, `web/css/wr.css` | interfaccia: avvio, menu e contesto, una pagina per modulo, helper, testi della guida, stile |
 | `web/help/` | manuale illustrato e videoguide generati (si rigenerano con `strumenti/guide/`) |
 | `tests/` | prove automatiche (`python3 -m unittest discover -s tests -p "test_*.py"`) |

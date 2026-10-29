@@ -33,6 +33,19 @@ Migliorie rispetto alla 0.11:
 - Segnalazioni «da verificare» su ogni registrazione importata con dati incerti, visibili nel registro e in Da completare.
 - Backup verificati con prova di ripristino programmata; nessuna destinazione preimpostata.
 
+## Il modello Excel mensile diventa il portale
+
+Studiato per intero il file che le strutture compilavano ogni mese (`docs/STUDIO_MODELLO_EXCEL.md`): griglia, contatori, spazio riservato all'ufficio del personale, indicatori di carico ed efficienza, macro, foglio per il consulente paghe, prospetto dei collaboratori. Ora il portale fa le stesse cose senza file:
+
+- **Fascicolo**: tipo di rapporto (dipendente, collaboratore con fattura, associazione, volontario, altra struttura), chi fattura, ritenuta d'acconto e cassa previdenziale in percentuale, IBAN e intestatario.
+- **Collaboratori e compensi** (nuova pagina): turni feriali e festivi, lordo dall'accordo confermato, ritenuta, contributo cassa, netto, coordinate bancarie, totali per gruppo, Excel riservato. È il vecchio foglio «Collaboratori», calcolato.
+- **Accordi**: correzione del teorico in giorni (la «franchigia −2» del modello), oltre a tariffe, detrazione fissa, festivi CCNL, quota fissa e conguaglio.
+- **Controlli e chiusura**: conteggi del mese per persona e per gruppo (turni, fuori sede, festivi, ogni causale) e indicatori di carico come nel modello (operatori in turno nella sede, pazienti ordinari e in isolamento, rapporto, efficienza rispetto al riferimento con soglia, totali e medie del mese).
+- **Parametri**: posti dialisi accreditati, posti contumaciali, soglia di efficienza.
+- **Esportazioni**: il **foglio mensile come il modello Excel**, generato dai dati del portale (registro con colori, contatori e spazio ufficio del personale; foglio per il consulente paghe; prospetto collaboratori): niente formule né macro da far girare.
+
+L'importazione del vecchio file serve solo per i mesi passati e per la transizione.
+
 ## Cosa resta da fare in azienda
 
 - Installare il portale sul server aziendale (`INSTALLAZIONE.md`) e provarlo sulla rete reale con una struttura pilota.

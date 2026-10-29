@@ -43,8 +43,9 @@ const MAX_LINE = 44;          // caratteri per riga di sottotitolo (massimo 2 ri
 const MIN_HOLD = 2500;        // tempo minimo di lettura di un passo (ms)
 const MS_PER_CHAR = 70;       // tempo di lettura per carattere (ms)
 const GAP = 0.08;             // distanza minima fra due cue (s)
-// Stile libass (PlayResY 288 → FontSize 17 ≈ 42 px su 720 righe): bianco su riquadro scuro semitrasparente, una riga per riquadro.
-const STYLE = 'FontName=Inter,FontSize=17,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BackColour=&HA0000000,'
+// Stile libass (PlayResY 288 → FontSize 17 ≈ 42 px su 720 righe): bianco su riquadro scuro semitrasparente, un riquadro
+// per riga (BorderStyle=4, riempito con BackColour; Outline dà il margine interno e il suo colore è trasparente).
+const STYLE = 'FontName=Inter,FontSize=17,PrimaryColour=&H00FFFFFF,OutlineColour=&HFF000000,BackColour=&H66000000,'
   + 'BorderStyle=4,Outline=6,Shadow=0,MarginV=26,MarginL=40,MarginR=40,Alignment=2,Bold=0';
 const ROLE_LABEL = { operator: 'Compilatore', manager: 'Responsabile di struttura', hr: 'HR centrale', viewer: 'Direzione · consultazione' };
 const { sleep } = comune;
@@ -62,22 +63,35 @@ function wrapLines(text, max = MAX_LINE) {
   return lines;
 }
 
-// Spezza il testo di un passo in gruppi di massimo 2 righe, preferendo i confini di frase.
+// Spezza il testo di un passo in gruppi di massimo 2 righe: prima ai confini di frase, poi a «:» «;» e virgole;
+// fra le suddivisioni valide sceglie quella con meno gruppi e di lunghezza più equilibrata.
 function chunks(text) {
-  if (wrapLines(text).length <= 2) return [wrapLines(text)];
-  const sentences = (text.match(/[^.!?;:]+[.!?;:]*[»)]*\s*/g) || [text]).map(s => s.trim()).filter(Boolean);
-  const out = [];
-  let current = '';
-  const flushLong = s => { const ls = wrapLines(s); for (let i = 0; i < ls.length; i += 2) out.push(ls.slice(i, i + 2)); };
-  for (const s of sentences) {
-    const trial = current ? `${current} ${s}` : s;
-    if (wrapLines(trial).length <= 2) { current = trial; continue; }
-    if (current) out.push(wrapLines(current));
-    if (wrapLines(s).length <= 2) current = s;
-    else { flushLong(s); current = ''; }
+  const fits = t => wrapLines(t).length <= 2;
+  if (fits(text)) return [wrapLines(text)];
+  let parts = [text];
+  for (const sep of [/[^.!?]+[.!?]*[»)]*\s*/g, /[^:;]+[:;]?\s*/g, /[^,]+,?\s*/g]) {
+    parts = parts.flatMap(p => (fits(p) ? [p] : (p.match(sep) || [p]).map(s => s.trim()).filter(Boolean)));
   }
-  if (current) out.push(wrapLines(current));
-  return out;
+  // Un pezzo ancora troppo lungo (senza punteggiatura) viene diviso a coppie di righe.
+  parts = parts.flatMap(p => (fits(p) ? [p] : wrapLines(p).reduce((acc, line, i) => {
+    if (i % 2 === 0) acc.push(line); else acc[acc.length - 1] += ' ' + line;
+    return acc;
+  }, [])));
+  const n = Math.min(parts.length, 14);
+  let best = null;
+  for (let mask = 0; mask < (1 << (n - 1)); mask++) {
+    const groups = [];
+    let current = parts[0];
+    for (let i = 1; i < n; i++) {
+      if (mask & (1 << (i - 1))) { groups.push(current); current = parts[i]; } else current += ' ' + parts[i];
+    }
+    groups.push(current);
+    if (!groups.every(fits)) continue;
+    const sizes = groups.map(g => g.length);
+    const score = [groups.length, Math.max(...sizes) - Math.min(...sizes)];
+    if (!best || score[0] < best.score[0] || (score[0] === best.score[0] && score[1] < best.score[1])) best = { groups, score };
+  }
+  return (best ? best.groups : parts).map(g => wrapLines(g));
 }
 
 // Dai passi (inizio, fine, testo) ai cue: tempo ripartito in proporzione ai caratteri, mai sovrapposti.
@@ -201,8 +215,16 @@ class Recorder {
     const loc = this.locator(target);
     try {
       await loc.waitFor({ state: 'visible', timeout: strict ? 15000 : 8000 });
-      await loc.scrollIntoViewIfNeeded().catch(() => {});
-      await sleep(120);
+      // Porta l'elemento nella zona libera da barra superiore e sottotitoli, solo se non lo è già.
+      await loc.evaluate(el => {
+        const r = el.getBoundingClientRect();
+        const top = 80;
+        const bottom = window.innerHeight - 140;
+        if (r.top >= top && r.bottom <= bottom) return;
+        if (r.height > bottom - top) { el.scrollIntoView({ block: 'start', inline: 'nearest' }); window.scrollBy(0, -top); return; }
+        el.scrollIntoView({ block: 'center', inline: 'nearest' });
+      }).catch(() => {});
+      await sleep(150);
       const box = await loc.boundingBox();
       if (!box) throw new Error('senza riquadro');
       await this.page.evaluate(b => window.__wrGuide.aim(b), box);

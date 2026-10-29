@@ -1,0 +1,41 @@
+{
+ "prodotto": "NefroCenter WR",
+ "versione": "1.0.0",
+ "generato_il": "2026-10-29T19:57:16.473Z",
+ "video": [
+  {
+   "file": "02-registrare-le-presenze.mp4",
+   "titolo": "Registrare le presenze",
+   "descrizione": "Il registro del mese: struttura e mese, registrazione di un turno o di un’assenza, correzione di una casella, vista Giorno, consuntivo e pianificato.",
+   "durata_secondi": 102.9,
+   "profili": [
+    "Compilatore"
+   ],
+   "copertina": "02-registrare-le-presenze.jpg",
+   "sottotitoli": "02-registrare-le-presenze.vtt",
+   "trascrizione": "02-registrare-le-presenze.txt",
+   "capitoli": [
+    {
+     "tempo": 0.6,
+     "titolo": "Il registro del mese"
+    },
+    {
+     "tempo": 19.4,
+     "titolo": "Registrare un turno"
+    },
+    {
+     "tempo": 50.7,
+     "titolo": "Correggere una casella"
+    },
+    {
+     "tempo": 68.8,
+     "titolo": "Vista Giorno"
+    },
+    {
+     "tempo": 83.4,
+     "titolo": "Consuntivo e pianificato"
+    }
+   ]
+  }
+ ]
+}
