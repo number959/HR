@@ -59,6 +59,11 @@ export const PROCEDURES = [
     'In «Comunicazioni» prepara un modello e una lista di destinatari.',
     'Crea una bozza e controlla l’anteprima di ogni messaggio.',
     'L’invio reale è possibile solo dopo che l’amministratore ha configurato il servizio di posta aziendale.'] },
+  { title: 'Importare il modello Excel di un mese', cap: 'import.excel', steps: [
+    'In «Importa Excel» scegli il file mensile e premi «Analizza il file»: il portale legge il foglio «Da Compilare» senza eseguire macro.',
+    'Controlla l’anteprima: persone, registrazioni, pazienti per fascia, avvisi e celle non riconosciute.',
+    'Scegli la destinazione: una struttura esistente con lo stesso nome (se il mese è vuoto) oppure una nuova struttura.',
+    'Dopo la conferma completa nel registro le celle non importate, gli orari e le sedi esterne; conferma gli accordi proposti.'] },
   { title: 'Backup e ripristino', cap: 'backup.gestisci', steps: [
     'Il backup giornaliero si crea da solo; puoi crearne uno in più dalla pagina «Backup».',
     'Ogni backup è verificato: in caso di problemi compare un avviso in «Da completare».',
@@ -70,7 +75,7 @@ export const PROCEDURES = [
     'Se non hai più codici, chiedi all’amministratore un nuovo codice di attivazione.'] },
 ];
 
-const FAQ = [
+export const FAQ = [
   ['Perché non vedo alcune pagine?', 'Il menu mostra solo le funzioni consentite al tuo profilo. La pagina «Ruoli e permessi» spiega cosa può fare ciascuno.'],
   ['Ho salvato un turno ma compare un avviso sul riposo.', 'Il turno è salvato: l’avviso ricorda che fra due turni c’è meno riposo del minimo indicato nei parametri della struttura.'],
   ['Non riesco a modificare un giorno.', 'Il mese potrebbe essere chiuso o inviato in approvazione. In «Controlli e chiusura» trovi lo stato; per correggere serve una riapertura motivata.'],
