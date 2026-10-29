@@ -199,20 +199,21 @@ class RealModelImport(PortalCase):
     def test_preview_reports_everything_without_blocking(self):
         data = self.upload(real_like_workbook())
         self.assertEqual((data['center'], data['month'], data['people'], data['entries']), ('Centro Agosto Prova', '2026-08', 7, 19))
-        self.assertEqual((data['external'], data['holiday_entries'], data['proposals'], data['skipped_total']), (1, 1, 4, 4))
+        self.assertEqual((data['external'], data['holiday_entries'], data['proposals'], data['skipped_total']), (1, 1, 4, 5))
         self.assertEqual(data['groups'], {'dipendente': 4, 'consulente': 3, '': 0})
         reasons = {s['cell']: s['reason'] for s in data['skipped']}
         self.assertIn('causale non riconosciuta', reasons['J11'])
         self.assertIn('formula', reasons['K11'])
         self.assertIn('Pomeriggio', reasons['H12'])
-        self.assertIn('doppione', reasons['J32'])
+        self.assertIn('doppione con codice diverso', reasons['J32'])
+        self.assertIn('doppione dello stesso turno', reasons['F32'])
         self.assertEqual(data['workload_days'], 5)
         self.assertEqual(data['parameters'], {'nurse_reference': 5.0, 'doctor_reference': 20.0, 'stations': 10, 'isolation_stations': 1})
         self.assertIn('2026-08-15', data['holidays'])
         self.assertFalse(any(h.startswith('2023') for h in data['holidays']))
         text = ' '.join(data['warnings'])
-        for expected in ('festività di altri anni (2023)', 'X3 contiene 26', 'risultano 25', 'compare due volte', '4 celle non importate',
-                         'Zoe Lago', 'non coincide con le tariffe'):
+        for expected in ('festività di altri anni (2023)', 'X3 contiene 26', 'risultano 25', 'compare due volte', '5 celle non importate',
+                         'Zoe Lago', 'non coincide con le tariffe', 'la proposta economica deriva dalle sole righe 31-33'):
             self.assertIn(expected, text)
         persons = {p['name']: p for p in data['persons']}
         self.assertEqual(persons['Nora Fiume']['contract'], 'Prestazione / consulenza')
@@ -222,11 +223,14 @@ class RealModelImport(PortalCase):
         self.assertIn('16 turni feriali', persons['Nora Fiume']['collaborator'])
         self.assertNotIn('IT00', str(data))  # i codici IBAN del foglio Collaboratori non escono mai dal file
         self.assertEqual(data['targets'], [])
+        self.assertIsNone(data['already_imported'])
+        self.assertEqual(data['blocking'], [])
+        self.assertTrue(any('senza orari' in n for n in data['notes']))
 
     def test_confirm_new_center_with_parameters_workload_and_proposals(self):
         data = self.upload(real_like_workbook())
         done = self.confirm(data['key'])
-        self.assertEqual((done['people'], done['new_people'], done['skipped']), (7, 0, 4))
+        self.assertEqual((done['people'], done['new_people'], done['skipped']), (7, 0, 5))
         cid = done['center_id']
         snap = self.admin.ok('GET', f'/api/attendance/{cid}/2026-08')
         self.assertEqual(len(snap['entries']), 19)
@@ -245,6 +249,7 @@ class RealModelImport(PortalCase):
         persons = {p['name']: p for p in self.admin.ok('GET', f'/api/centers/{cid}/people')['people']}
         self.assertEqual(len(persons), 7)
         self.assertIn('Altri ruoli nel file: MED', persons['Ciro Lauro']['note'])
+        self.assertIn('Contratto o fatturazione negli altri blocchi: Dialisi', persons['Ciro Lauro']['note'])
         self.assertIn('Fatturazione / ente indicato nel file: FATTURA', persons['Nora Fiume']['note'])
         self.assertIn('lordo 1.437,50', persons['Nora Fiume']['note'])
         self.assertNotIn('IT00', ' '.join(p['note'] for p in persons.values()))
@@ -256,6 +261,9 @@ class RealModelImport(PortalCase):
         self.assertEqual(rows['Nora Fiume']['agreement']['basis'], 'all')
         self.assertIn('lordo diverso dalle tariffe', rows['Nora Fiume']['source'])
         self.assertEqual(rows['Ciro Lauro']['agreement']['fixed_deduction'], 100)
+        self.assertIn('riga 31', rows['Ciro Lauro']['source'])
+        self.assertIn('X3 = 26', rows['Rosa Gialli']['source'])
+        self.assertEqual(cfg['dialysis_stations'], 10)
         self.assertFalse(rows['Elio Sarti']['saved'])
 
     def test_following_month_joins_the_existing_center(self):
@@ -274,6 +282,9 @@ class RealModelImport(PortalCase):
         # Lo stesso mese con un altro file: la struttura esistente non è più una destinazione possibile.
         again = self.upload(real_like_workbook(month_serial=46266, note='seconda versione'))
         self.assertEqual([(t['importable'], t['reason']) for t in again['targets']], [(False, 'il mese contiene già registrazioni')])
+        self.assertEqual(again['already_imported'], None)
+        repeat = self.upload(real_like_workbook(month_serial=46266, extra_person='Ivo Neri'))
+        self.assertEqual(repeat['already_imported']['center_id'], cid)
         self.portal.step_up(self.admin)
         response = self.admin.post('/api/import/confirm', {'key': again['key'], 'target': cid})
         self.assertStatus(response, 400, 'contiene già registrazioni')
@@ -284,6 +295,182 @@ class RealModelImport(PortalCase):
         self.assertStatus(self.admin.post('/api/import/confirm', {'key': data['key'], 'target': 'non-esiste'}), 404)
         self.portal.step_up(self.admin)
         self.assertStatus(self.admin.post('/api/import/confirm', {'key': data['key'], 'target': 5}), 400, 'destinazione')
+
+
+def tiny_xlsx(sheet_xml, strings=(), styles=None, extra_files=None, sheet_name='Da Compilare'):
+    """Cartella di lavoro minima scritta a mano: serve a provare parser e casi ostili senza librerie esterne."""
+    import zipfile
+    ns = 'xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"'
+    files = {
+        '[Content_Types].xml': '<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"/>',
+        'xl/workbook.xml': f'<?xml version="1.0" encoding="UTF-8"?><workbook {ns}><sheets><sheet name="{sheet_name}" sheetId="1" r:id="rId1"/></sheets></workbook>',
+        'xl/_rels/workbook.xml.rels': '<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+                                      '<Relationship Id="rId1" Type="x" Target="worksheets/sheet1.xml"/><Relationship Id="rId9" Type="x" TargetMode="External" Target="http://esempio.invalid/"/>'
+                                      '<Relationship Id="rId8" Type="x"/></Relationships>',
+        'xl/worksheets/sheet1.xml': f'<?xml version="1.0" encoding="UTF-8"?><worksheet {ns}><sheetData>{sheet_xml}</sheetData></worksheet>',
+        'xl/sharedStrings.xml': f'<?xml version="1.0" encoding="UTF-8"?><sst {ns}>' + ''.join(f'<si><t>{t}</t></si>' for t in strings) + '</sst>',
+        'xl/styles.xml': styles or f'<?xml version="1.0" encoding="UTF-8"?><styleSheet {ns}><fonts><font/></fonts><fills><fill><patternFill patternType="none"/></fill></fills><cellXfs><xf fontId="0" fillId="0"/></cellXfs></styleSheet>',
+    }
+    files.update(extra_files or {})
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, 'w', zipfile.ZIP_DEFLATED) as zf:
+        for name, content in files.items():
+            zf.writestr(name, content)
+    return stream.getvalue()
+
+
+def cell(addr, value=None, text=None, formula=None, shared=None):
+    attrs = f' r="{addr}"'
+    if text is not None:
+        return f'<c{attrs} t="inlineStr"><is><t>{text}</t></is></c>'
+    inner = ''
+    if formula is not None or shared is not None:
+        if shared is not None and formula is None:
+            inner += f'<f t="shared" si="{shared}"/>'
+        elif shared is not None:
+            inner += f'<f t="shared" si="{shared}" ref="A1">{formula}</f>'
+        else:
+            inner += f'<f>{formula}</f>'
+    if value is not None:
+        inner += f'<v>{value}</v>'
+    return f'<c{attrs}>{inner}</c>'
+
+
+def minimal_model(extra_cells='', person_rows=(10,), with_shared=False):
+    """Un modello con intestazione minima (C6 struttura, O6 mese) e un blocco persona per ogni riga indicata."""
+    rows = [cell('C6', text='Centro Minimo'), cell('O6', 46054)]
+    for r in person_rows:
+        rows += [cell(f'A{r}', text='INF'), cell(f'B{r}', text=f'Persona {r}'), cell(f'C{r}', text='m'), cell(f'C{r + 1}', text='p'),
+                 cell(f'C{r + 2}', text='s'), cell(f'D{r}', text='m'), cell(f'E{r + 1}', text='p')]
+        if with_shared:
+            end = r + 2
+            rows += [cell(f'AT{r}', 2, formula=f'93-COUNTBLANK(D{r}:AH{end})')]
+            if r == person_rows[0]:
+                rows += [cell(f'AV{end}', '', formula=f'AT{r}', shared=0), cell(f'AW{end}', '', formula=f'IF(AV{end}="","",AV{end}-AY{end})', shared=1),
+                         cell(f'AX{end}', '', formula=f'IF(AW{end}="","",AW{end}*50)', shared=2), cell(f'AZ{end}', '', formula=f'IF(AY{end}="","",AY{end}*70)', shared=3),
+                         cell(f'BA{end}', '', formula=f'IF(AX{end}="","",AX{end}+AZ{end})', shared=4)]
+            else:
+                rows += [cell(f'AV{end}', '', shared=0), cell(f'AW{end}', '', shared=1), cell(f'AX{end}', '', shared=2),
+                         cell(f'AZ{end}', '', shared=3), cell(f'BA{end}', '', shared=4)]
+    body = ''.join(f'<row r="{n}">{c}</row>' for n, c in enumerate(rows, start=1))  # l'ordine delle righe non conta per il lettore
+    return tiny_xlsx(body + extra_cells)
+
+
+class HostileAndOddFiles(PortalCase):
+    """File ostili o fuori standard: mai un errore 500, mai una perdita silenziosa."""
+
+    def read(self, data):
+        from wr import excel_import
+        return excel_import.read_model(data)
+
+    def rejected(self, data, text):
+        from wr.errors import Invalid
+        with self.assertRaises(Invalid) as ctx:
+            self.read(data)
+        self.assertIn(text, ctx.exception.message)
+
+    def test_minimal_model_and_shared_formulas(self):
+        model = self.read(minimal_model(person_rows=(10, 13), with_shared=True))
+        self.assertEqual((model['center'], model['month'], len(model['people']), len(model['entries'])), ('Centro Minimo', '2026-02', 2, 4))
+        self.assertEqual([p['proposal']['basis'] for p in model['people']], ['all', 'all'])
+        self.assertEqual(model['people'][1]['proposal']['weekday_rate'], 50)
+        from wr.excel_import import shift_formula
+        self.assertEqual(shift_formula('IF(AT10<=0,"",AT10-$X$3)', 'AV12', 'AV15'), 'IF(AT13<=0,"",AT13-$X$3)')
+        self.assertEqual(shift_formula('COUNTIF(D10:AH12,"FE")', 'AJ10', 'AJ13'), 'COUNTIF(D13:AH15,"FE")')
+
+    def test_blocks_without_name_or_with_broken_column_c_are_listed(self):
+        extra = ''.join([cell('C20', text='m'), cell('C21', text='p'), cell('C22', text='s'), cell('D20', text='m'), cell('F21', text='FE'), cell('B21', text='Nome Spostato'),
+                         cell('A30', text='MED'), cell('B30', text='Senza Terna'), cell('C30', text='m'), cell('C31', text='p'), cell('D30', text='m'), cell('G30', text='MA')])
+        model = self.read(minimal_model('<row r="60">' + extra + '</row>'))
+        reasons = {s['cell']: s['reason'] for s in model['skipped']}
+        self.assertEqual(reasons['D20'], 'blocco senza nominativo')
+        self.assertEqual(reasons['F21'], 'blocco senza nominativo')
+        self.assertIn('colonna C incompleta', reasons['D30'])
+        self.assertIn('colonna C incompleta', reasons['G30'])
+        text = ' '.join(model['warnings'])
+        self.assertIn('Blocco alle righe 20-22 senza nominativo', text)
+        self.assertIn('Nome Spostato', text)
+        self.assertIn('Blocco non riconosciuto alla riga 30', text)
+        self.assertEqual(len(model['people']), 1)
+
+    def test_hostile_files_are_refused_cleanly(self):
+        self.rejected(b'PK\x03\x04 non uno zip valido', 'cartella di lavoro')
+        doctype = tiny_xlsx('', extra_files={'xl/sharedStrings.xml': '<?xml version="1.0"?><!DOCTYPE x [<!ENTITY a "aaaa">]><sst><si><t>&a;</t></si></sst>'})
+        self.rejected(doctype, 'entità')
+        utf16 = tiny_xlsx('', extra_files={'xl/workbook.xml': '<?xml version="1.0" encoding="UTF-16"?><workbook/>'.encode('utf-16')})
+        self.rejected(utf16, 'Codifica')
+        broken = tiny_xlsx('', extra_files={'xl/workbook.xml': '<workbook><sheets><sheet'})
+        self.rejected(broken, 'Struttura')
+        no_o6 = tiny_xlsx(cell('C6', text='Centro'))
+        self.rejected(no_o6, 'O6')
+        far_future = tiny_xlsx(cell('C6', text='Centro') + cell('O6', 2958465))  # anno 9999
+        self.rejected(far_future, 'anno tra il 2000 e il 2100')
+        wrong_sheet = tiny_xlsx(cell('C6', text='Centro') + cell('O6', 46054), sheet_name='Altro')
+        self.rejected(wrong_sheet, 'Da Compilare')
+
+    def test_odd_cells_do_not_crash(self):
+        odd = '<row r="1">' + ''.join([
+            '<c><v>1</v></c>', '<c r="ZZZZ1"><v>1</v></c>', '<c r="A7" s="abc" t="s"><v>9999</v></c>',
+            cell('AJ4', 'nan'), cell('AM4', '1e400'), cell('AD4', 'inf'),
+            cell('A40', text='Pazienti turno mattina'), cell('D40', '1e400'), cell('E40', '12'), cell('F40', 'nan'),
+            cell('B180', text='Festività'), cell('B181', 46071), cell('B182', '1e400'), cell('B183', 'xyz'), cell('B184', 46072),
+            cell('X3', 26, formula='NETWORKDAYS.INTL(O6,O6+27,11,B1:B1048576)')]) + '</row>'
+        model = self.read(minimal_model(odd))
+        self.assertEqual(model['parameters'], {})
+        self.assertEqual(model['workload'], [dict(day='2026-02-02', slot='m', ordinary=12, isolated=0)])
+        self.assertIn('2026-02-18', model['holidays'])
+        self.assertNotIn('2026-02-19', model['holidays'], 'un testo interrompe l’elenco delle festività')
+        self.assertTrue(any('non leggibili o fuori misura' in w for w in model['warnings']))
+
+
+class TargetChecks(PortalCase):
+    """Importazione in una struttura esistente: ogni impedimento è noto già in anteprima, prima del backup."""
+
+    def upload(self, data):
+        self.portal.step_up(self.admin)
+        response = self.admin.request('POST', '/api/import/preview', raw=data, content_type='application/octet-stream')
+        self.assertEqual(response.status, 200, response.body)
+        return response.data
+
+    def confirm(self, key, target=None):
+        self.portal.step_up(self.admin)
+        return self.admin.post('/api/import/confirm', {'key': key, 'target': target})
+
+    def test_same_name_required_and_inactive_homonym_blocks(self):
+        other = self.portal.center('Altra Struttura', 'ALTRA')
+        data = self.upload(real_like_workbook())
+        self.assertStatus(self.confirm(data['key'], other), 400, 'stesso nome')
+        same = self.portal.center('Centro Agosto Prova', 'STESSO')
+        current = self.admin.ok('GET', f'/api/centers/{same}/config')
+        cfg = dict(current['config'], sites=['Sede esterna da specificare'])
+        self.portal.step_up(self.admin)
+        self.admin.ok('PUT', f'/api/centers/{same}/config', {'config': cfg, 'version': current['version'], 'note': 'Sede esterna'})
+        pid = self.admin.ok('POST', f'/api/centers/{same}/people', {'name': 'Rosa Gialli', 'role': 'INF', 'registration': 'R1'})['id']
+        person = self.admin.ok('GET', f'/api/centers/{same}/people')['people'][0]
+        self.admin.ok('PUT', f'/api/centers/{same}/people/{pid}', {'active': False, 'version': person['version']})
+        data = self.upload(real_like_workbook())
+        self.assertEqual([(t['importable'], t['reason'].startswith('persone disattivate con lo stesso nome')) for t in data['targets']], [(False, True)])
+        self.assertStatus(self.confirm(data['key'], same), 400, 'disattivate')
+        backups_before = self.admin.ok('GET', '/api/backups')['count']
+        self.assertStatus(self.confirm(data['key'], same), 400, 'disattivate')
+        self.assertEqual(self.admin.ok('GET', '/api/backups')['count'], backups_before, 'nessun backup per una conferma rifiutata')
+
+    def test_missing_codes_and_existing_workload_are_reasons(self):
+        same = self.portal.center('Centro Agosto Prova', 'STESSO')
+        current = self.admin.ok('GET', f'/api/centers/{same}/config')
+        cfg = current['config']
+        cfg['codes'] = [c for c in cfg['codes'] if c['id'] != 'FE']
+        self.portal.step_up(self.admin)
+        self.admin.ok('PUT', f'/api/centers/{same}/config', {'config': cfg, 'version': current['version'], 'note': 'Senza ferie'})
+        data = self.upload(real_like_workbook())
+        self.assertEqual(data['targets'][0]['reason'], 'mancano le causali FE nei parametri')
+        cfg = self.admin.ok('GET', f'/api/centers/{same}/config')['config']
+        cfg['codes'].append(dict(id='FE', label='Ferie', kind='absence', credit_minutes=0, color='#3f8f7a', active=True, allowed_slots=[]))
+        self.portal.step_up(self.admin)
+        self.admin.ok('PUT', f'/api/centers/{same}/config', {'config': cfg, 'version': 2, 'note': 'Con ferie'})
+        self.admin.ok('PUT', f'/api/attendance/{same}/2026-08/workload', {'day': '2026-08-03', 'slot': 'm', 'ordinary': 5, 'isolated': 0})
+        data = self.upload(real_like_workbook())
+        self.assertEqual(data['targets'][0]['reason'], 'il mese contiene già pazienti per fascia')
 
 
 if __name__ == '__main__':
