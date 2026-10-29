@@ -430,8 +430,9 @@ class Grid:
         self.ws.set_column(self.SLOT, self.SLOT, 5)
         self.ws.set_column(self.DAY0, self.C0 - 1, 3.6)
         self.ws.set_column(self.C0, self.O0 - 1, 6.5)
-        total_col = self.C0 + 1 + len(self.codes)   # «Totale (modello)» e «Registrazioni»: più larghe per le parole
-        self.ws.set_column(total_col, total_col + 1, 9.5)
+        total_col = self.C0 + 1 + len(self.codes)   # «Totale (modello)» e «Registrazioni»: più larghe per non spezzare le parole
+        self.ws.set_column(total_col, total_col, 9.5)
+        self.ws.set_column(total_col + 1, total_col + 1, 11.5)
         if self.money:
             self.ws.set_column(self.O0, self.last - 1, 9)
             self.ws.set_column(self.last, self.last, 34)

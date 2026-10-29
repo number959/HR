@@ -51,6 +51,15 @@ export async function render(ctx) {
   const groupCsv = async () => {
     try { await download(`overview/${app.month}/export.csv`, 'riepilogo.csv'); toast('Riepilogo scaricato.', 'ok'); } catch (err) { toast(errorMessage(err), 'bad'); }
   };
+  const groupXlsx = async () => {
+    try { await download(`overview/${app.month}/export.xlsx`, 'riepilogo.xlsx'); toast('Riepilogo di gruppo scaricato in Excel.', 'ok'); } catch (err) { toast(errorMessage(err), 'bad'); }
+  };
+  const collaboratorsXlsx = async () => {
+    try {
+      await download(`collaborators/${app.cid}/${app.month}/export.xlsx`, 'collaboratori.xlsx');
+      toast('Prospetto collaboratori scaricato. Contiene coordinate bancarie: conservarlo con cura.', 'ok');
+    } catch (err) { toast(errorMessage(err), 'bad'); }
+  };
   // Foglio mensile come il vecchio modello Excel: struttura e mese scelti in alto, nessuna formula né macro.
   const monthlyModel = async () => {
     try {
@@ -81,5 +90,10 @@ export async function render(ctx) {
       h('div', { class: 'row' },
         canExport ? button('Riepilogo del mese della struttura', { ic: 'download', onClick: () => csvMonth(false) }) : null,
         canExport ? button('Dettaglio di tutte le registrazioni del mese', { ic: 'download', onClick: () => csvMonth(true) }) : null,
-        app.can('gruppo.riepilogo') ? button('Riepilogo di gruppo (tutte le strutture)', { ic: 'download', onClick: groupCsv }) : null)));
+        app.can('gruppo.riepilogo') ? button('Riepilogo di gruppo (tutte le strutture)', { ic: 'download', onClick: groupCsv }) : null)),
+    app.can('gruppo.riepilogo') || (app.cid && app.can('paghe.gestisci')) ? card('Altri prospetti Excel', { subtitle: 'Gli stessi dati delle pagine del portale, in Excel nativo.' },
+      h('div', { class: 'row' },
+        app.can('gruppo.riepilogo') ? button('Riepilogo di gruppo del mese (Excel)', { ic: 'download', onClick: groupXlsx }) : null,
+        app.cid && app.can('paghe.gestisci') ? button('Prospetto collaboratori e compensi (Excel, riservato)', { ic: 'download', onClick: collaboratorsXlsx }) : null),
+      h('p', { class: 'small muted', text: 'Il tracciato per il consulente paghe (CSV o Excel) si scarica dalla pagina Paghe; il registro di una struttura anche dal pulsante «Esporta» del registro.' })) : null);
 }
