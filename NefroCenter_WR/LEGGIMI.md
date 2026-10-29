@@ -6,7 +6,7 @@ Il portale del personale delle strutture NefroCenter: presenze e turni, persone 
 
 | Cartella | Contenuto |
 |---|---|
-| `gestionale/` | l'applicazione: `manage.py` (console), `wr/` (motore Python), `web/` (interfaccia), `vendor/` (librerie incluse), `tests/` (126 prove automatiche), `deploy/` (esempi di servizio), `strumenti/anteprima.py` (portale di prova con dati fittizi) |
+| `gestionale/` | l'applicazione: `manage.py` (console), `wr/` (motore Python), `web/` (interfaccia), `vendor/` (librerie incluse), `tests/` (154 prove automatiche), `deploy/` (esempi di servizio), `strumenti/anteprima.py` (portale di prova con dati fittizi) |
 | `gestionale/web/help/` | manuale illustrato e videoguide generati dalle schermate del portale (dati fittizi) |
 | `demo/` | demo pubblica: lo stesso motore eseguito nel browser (Pyodide) con dati fittizi; `costruisci_demo.py` crea `dist/` |
 | `strumenti/` | prove dell'interfaccia (Playwright), generatori di manuale e videoguide, archivio 0.11 di prova, `consegna.py` per ZIP e TXT |

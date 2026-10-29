@@ -4,7 +4,7 @@ Controlli eseguiti tra il 25 e il 29 ottobre 2026 in un contenitore Linux (Pytho
 
 ## Motore (prove automatiche)
 
-`python3 -m unittest discover -s tests -p "test_*.py"`: **150 prove**, tutte superate (circa 30 secondi). Coprono archivio e schema, accessi (password, app Authenticator, codici di recupero, conferma di sicurezza), registro e regole, controlli del mese e chiusura, approvazioni, accordi e calcoli (compresa la correzione del teorico), fascicoli e documenti, personale di gruppo, copertura e sostituzioni, uscite, paghe, statistiche ed esportazioni, comunicazioni, backup e seconda copia, migrazione dalla 0.11 (13 prove), importazione Excel (13 prove, con file sintetici che riproducono il modello reale e file ostili), prospetto collaboratori (3 prove), indicatori di carico e conteggi (prove dedicate), foglio mensile Excel (4 prove).
+`python3 -m unittest discover -s tests -p "test_*.py"`: **154 prove**, tutte superate (circa 35 secondi). Coprono archivio e schema, accessi (password, app Authenticator, codici di recupero, conferma di sicurezza), registro e regole, controlli del mese e chiusura, approvazioni, accordi e calcoli (compresa la correzione del teorico), fascicoli e documenti, personale di gruppo, copertura e sostituzioni, uscite, paghe, statistiche ed esportazioni, comunicazioni, backup e seconda copia, migrazione dalla 0.11 (13 prove), importazione Excel (13 prove, con file sintetici che riproducono il modello reale e file ostili), prospetto collaboratori (3 prove), indicatori di carico e conteggi (prove dedicate), foglio mensile Excel (prove dedicate), riepilogo di gruppo in Excel.
 
 ## Interfaccia (browser)
 

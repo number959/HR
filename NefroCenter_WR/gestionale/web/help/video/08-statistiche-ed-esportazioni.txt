@@ -13,6 +13,8 @@ Le altre linguette dividono i dati per struttura, ruolo, causale di assenza e pe
 
 «Esportazioni» elenca i prospetti Excel e i file CSV scaricabili: una copia dei dati al momento dello scarico.
 
-Periodo e strutture valgono per i prospetti su più mesi; il registro mensile usa struttura e mese scelti in alto.
+Il foglio mensile come il vecchio modello Excel viene generato dai dati del portale, senza formule né macro.
+
+Periodo e strutture valgono per i prospetti su più mesi; ogni scheda scarica un file Excel.
 
 Scarichiamo il riepilogo CSV di tutte le strutture: il file arriva nella cartella dei download del browser.

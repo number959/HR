@@ -1,13 +1,13 @@
 {
  "prodotto": "NefroCenter WR",
  "versione": "1.0.0",
- "generato_il": "2026-10-29T20:16:30.369Z",
+ "generato_il": "2026-10-29T21:09:13.521Z",
  "video": [
   {
    "file": "01-accesso-e-panoramica.mp4",
    "titolo": "Accesso e panoramica del portale",
    "descrizione": "Primo accesso con codice di attivazione e app Authenticator, codici di recupero, accesso normale, riepilogo, menu, barra superiore e guida contestuale.",
-   "durata_secondi": 113.3,
+   "durata_secondi": 113.2,
    "profili": [
     "Compilatore"
    ],
@@ -16,23 +16,23 @@
    "trascrizione": "01-accesso-e-panoramica.txt",
    "capitoli": [
     {
-     "tempo": 0.2,
+     "tempo": 0.1,
      "titolo": "Primo accesso"
     },
     {
-     "tempo": 23.9,
+     "tempo": 23.8,
      "titolo": "App Authenticator"
     },
     {
-     "tempo": 42.8,
+     "tempo": 42.7,
      "titolo": "Codici di recupero"
     },
     {
-     "tempo": 53.3,
+     "tempo": 53.2,
      "titolo": "Riepilogo e menu"
     },
     {
-     "tempo": 71.4,
+     "tempo": 71.3,
      "titolo": "Barra superiore e guida"
     },
     {
@@ -45,7 +45,7 @@
    "file": "02-registrare-le-presenze.mp4",
    "titolo": "Registrare le presenze",
    "descrizione": "Il registro del mese: struttura e mese, registrazione di un turno o di un’assenza, correzione di una casella, vista Giorno, consuntivo e pianificato.",
-   "durata_secondi": 103.2,
+   "durata_secondi": 103,
    "profili": [
     "Compilatore"
    ],
@@ -62,15 +62,15 @@
      "titolo": "Registrare un turno"
     },
     {
-     "tempo": 50.8,
+     "tempo": 50.7,
      "titolo": "Correggere una casella"
     },
     {
-     "tempo": 68.9,
+     "tempo": 68.8,
      "titolo": "Vista Giorno"
     },
     {
-     "tempo": 83.6,
+     "tempo": 83.4,
      "titolo": "Consuntivo e pianificato"
     }
    ]
@@ -79,7 +79,7 @@
    "file": "03-controlli-e-chiusura.mp4",
    "titolo": "Controlli e chiusura del mese",
    "descrizione": "I controlli del mese, i pazienti per fascia, la conferma di calendario e parametri, lo storico e dove si chiude (o riapre) il mese.",
-   "durata_secondi": 98.9,
+   "durata_secondi": 118.1,
    "profili": [
     "Responsabile di struttura"
    ],
@@ -92,15 +92,19 @@
      "titolo": "Controlli del mese"
     },
     {
-     "tempo": 17.3,
+     "tempo": 17.2,
      "titolo": "Pazienti per fascia"
     },
     {
-     "tempo": 39.2,
+     "tempo": 43.9,
+     "titolo": "Conteggi del mese"
+    },
+    {
+     "tempo": 54.8,
      "titolo": "Conferma e chiusura"
     },
     {
-     "tempo": 61.3,
+     "tempo": 80.7,
      "titolo": "Riaprire e chiudere un mese"
     }
    ]
@@ -119,23 +123,23 @@
    "trascrizione": "04-approvazione-mensile.txt",
    "capitoli": [
     {
-     "tempo": 0.6,
+     "tempo": 0.5,
      "titolo": "Il percorso di approvazione"
     },
     {
-     "tempo": 26.2,
+     "tempo": 26.1,
      "titolo": "Invio del mese"
     },
     {
-     "tempo": 37.7,
+     "tempo": 37.6,
      "titolo": "Registro bloccato"
     },
     {
-     "tempo": 47,
+     "tempo": 46.8,
      "titolo": "Verifica del responsabile"
     },
     {
-     "tempo": 61.1,
+     "tempo": 60.9,
      "titolo": "Approvazione di HR"
     }
    ]
@@ -144,7 +148,7 @@
    "file": "05-fascicolo-e-documenti.mp4",
    "titolo": "Fascicolo del personale e documenti",
    "descrizione": "Ricerca di una persona, le linguette del fascicolo, l’allegato di un documento e la verifica di HR centrale dalla pagina Documenti.",
-   "durata_secondi": 125.6,
+   "durata_secondi": 125.4,
    "profili": [
     "HR centrale"
    ],
@@ -161,7 +165,7 @@
      "titolo": "Il fascicolo"
     },
     {
-     "tempo": 55.6,
+     "tempo": 55.7,
      "titolo": "Documenti del fascicolo"
     },
     {
@@ -238,7 +242,7 @@
    "file": "08-statistiche-ed-esportazioni.mp4",
    "titolo": "Statistiche ed esportazioni",
    "descrizione": "Scelta del periodo, grafico con il valore al passaggio del puntatore, tabelle; l’elenco dei file scaricabili e lo scarico di un CSV.",
-   "durata_secondi": 73.7,
+   "durata_secondi": 82,
    "profili": [
     "Direzione · consultazione"
    ],
@@ -247,11 +251,11 @@
    "trascrizione": "08-statistiche-ed-esportazioni.txt",
    "capitoli": [
     {
-     "tempo": 0.5,
+     "tempo": 0.6,
      "titolo": "Statistiche"
     },
     {
-     "tempo": 43.1,
+     "tempo": 43.4,
      "titolo": "Esportazioni"
     }
    ]

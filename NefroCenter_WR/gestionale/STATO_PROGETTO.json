@@ -25,7 +25,7 @@
     "demo": "stesso motore eseguito nel browser con Pyodide 0.26.4"
   },
   "verifica": {
-    "prove_automatiche": 150,
+    "prove_automatiche": 154,
     "prove_superate": true,
     "giro_interfaccia_profili": 5,
     "giro_interfaccia_pagine": {"admin": 26, "hr": 22, "manager": 20, "operator": 12, "viewer": 12},
