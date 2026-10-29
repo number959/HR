@@ -4,13 +4,18 @@ Il file riproduce il modello «Presenze Personale» che gli uffici compilavano a
 dati del portale: griglia persone × giorni con una riga per fascia, contatori per causale, spazio riservato
 all'ufficio del personale (dagli accordi del mese), indicatori per fascia (persone in turno nella sede, pazienti,
 rapporto, efficienza), foglio per il consulente paghe e prospetto dei collaboratori. Contiene solo valori già
-calcolati dal portale: nessuna formula, nessuna macro. Le parti economiche compaiono solo per chi può consultare
-gli accordi; indicatori e pazienti solo per chi può consultare il carico; l'IBAN solo per chi gestisce le paghe.
+calcolati dal portale: nessuna formula, nessuna macro. Contatori e indicatori sono gli stessi numeri della pagina
+«Controlli e chiusura» (attendance.counters, workload_rows e workload_summary): il foglio li scrive, non li ricalcola.
+Lo scarico segue il permesso «presenze.esporta», quindi per compilatore e direzione il parametro della struttura
+«Compilatore e consultazione possono scaricare il CSV», come il CSV e l'Excel del registro. Le parti economiche
+compaiono solo per chi può consultare gli accordi; indicatori e pazienti solo per chi può consultare il carico;
+l'IBAN solo per chi gestisce le paghe.
 """
 import io
 from decimal import Decimal
 
-from . import agreements, approvals, audit, centers, collaborators, exports, hr, months, rules, users
+from . import agreements, approvals, attendance, audit, centers, collaborators, exports, hr, months, rules, users
+from .errors import Forbidden
 from .permissions import has
 from .util import month_days, month_label, stamp
 from . import validate as v
@@ -27,6 +32,12 @@ LIGHT = '#DCE6F2'
 MODEL_LABELS = {'turns': 'a turni', 'hours': 'a ore', 'fixed': 'quota fissa'}
 BASIS_LABELS = {'surplus': 'eccedenza sui giorni lavorativi', 'all': 'tutti i turni'}
 KIND_LABELS = {'work': 'turno', 'absence': 'assenza', 'rest': 'riposo'}
+# Contatori a destra della griglia, dopo una colonna per ogni causale: (intestazione, nota sotto l'intestazione).
+COUNTER_TAIL = [('Totale (modello)', 'senza RC e riposi'), ('Registrazioni', 'tutte, a consuntivo'),
+                ('Fuori sede', 'turni in altra sede'), ('Festivi', 'turni festivi')]
+COUNTERS_NOTE = ('Contatori: «Totale (modello)» conta le registrazioni a consuntivo senza recuperi turno (RC) e riposi, '
+                 'come il vecchio file e la pagina «Controlli e chiusura»; «Registrazioni» le conta tutte.')
+EXPORT_DENIED = 'Esportazione del registro non consentita a questo profilo dai parametri della struttura.'
 OFFICE_HEADERS = [('Giorni extra', 'turni − teorico'), ('Feriali', 'extra − festivi'), ('Netto feriale', '× tariffa feriale'),
                   ('Festivi', 'turni festivi'), ('Netto festivo', '× tariffa festiva'), ('Totale', 'importo dell’accordo'),
                   ('Festivi CCNL', 'già riconosciuti'), ('Accordo', 'stato e modello')]
@@ -42,7 +53,8 @@ def collect(con, user, center, month):
     state = months.get(con, center['id'], month)
     cfg, current = months.configuration(con, center['id'], state)
     everyone = months.people(con, center['id'])
-    entries = [e for e in months.entries(con, center['id'], month) if e['layer'] == 'actual']
+    all_entries = months.entries(con, center['id'], month)
+    entries = [e for e in all_entries if e['layer'] == 'actual']
     with_entries = {e['person_id'] for e in entries}
     persons = [p for p in everyone if p['active'] or p['id'] in with_entries]
     slots = [s for s in cfg['slots'] if s['active']]
@@ -57,12 +69,16 @@ def collect(con, user, center, month):
     if money:
         pay = {r['person_id']: r for r in agreements.month_rows(con, center['id'], month)[2]}
         collab = collaborators.rows_for(con, center['id'], month, user)[2]
-    workload = {}
+    # Contatori per persona e indicatori per fascia: gli stessi numeri della pagina «Controlli e chiusura».
+    counts = attendance.counters(cfg, rules.summarize(everyone, all_entries))
+    workload, workload_summary = [], None
     if load:
-        workload = {(r['day'], r['slot']): dict(ordinary=r['ordinary'], isolated=r['isolated']) for r in con.execute(
-            'SELECT day, slot, ordinary, isolated FROM workload WHERE center_id=? AND day LIKE ?', (center['id'], month + '-%'))}
+        workload = attendance.workload_rows(con, center['id'], month, cfg, everyone, all_entries)
+        workload_summary = attendance.workload_summary(cfg, workload, all_entries, everyone)
     return dict(center=center, month=month, state=state, cfg=cfg, days=months.days_info(month, cfg), persons=persons,
-                entries=entries, slots=slots, relationships=relationships, pay=pay, collaborators=collab, workload=workload,
+                entries=entries, slots=slots, relationships=relationships, pay=pay, collaborators=collab,
+                counter_codes=counts['codes'], counters={r['person_id']: r for r in counts['people']},
+                workload=workload, workload_summary=workload_summary,
                 approval=approvals.metadata(con, user, center['id'], month), money=money, bank=bank, load=load,
                 working_days=rules.working_days(month_days(month), cfg), generated=stamp())
 
@@ -87,14 +103,13 @@ def sections(data):
     return out
 
 
-def counters(mine, codes):
-    """Contatori di una persona: turni, una voce per causale di assenza o riposo, totale, fuori sede, festivi."""
-    work = [e for e in mine if e['kind'] == 'work']
-    by_code = {}
-    for e in mine:
-        by_code[e['code']] = by_code.get(e['code'], 0) + 1
-    return [len(work)] + [by_code.get(c['id'], 0) for c in codes] + [len(mine), sum(bool(e['site']) for e in work),
-                                                                      sum(bool(e['holiday']) for e in work)]
+def counters(row, codes):
+    """Contatori di una persona dalla riga di attendance.counters: turni, una voce per causale di assenza o riposo,
+    totale come nel vecchio modello (senza RC e riposi), registrazioni, fuori sede, festivi. Senza riga: tutti zero."""
+    if not row:
+        return [0] * (len(codes) + 1 + len(COUNTER_TAIL))
+    return ([row['shifts']] + [row['codes'].get(c['id'], 0) for c in codes]
+            + [row['total'], row['registrations'], row['external'], row['festive']])
 
 
 def office_values(row):
@@ -162,8 +177,9 @@ class Grid:
         self.indicators = indicators and data['load']
         self.days = data['days']
         self.slots = data['slots']
-        self.codes = [c for c in data['cfg']['codes'] if c['kind'] != 'work']
-        self.counter_names = ['Turni'] + [c['id'] for c in self.codes] + ['Totale registrazioni', 'Fuori sede', 'Festivi']
+        self.codes = data['counter_codes']
+        self.counter_names = ['Turni'] + [c['id'] for c in self.codes] + [name for name, _ in COUNTER_TAIL]
+        self.counter_hints = [''] * (1 + len(self.codes)) + [hint for _, hint in COUNTER_TAIL]
         self.C0 = self.DAY0 + len(self.days)
         self.O0 = self.C0 + len(self.counter_names)
         self.last = self.O0 + (len(OFFICE_HEADERS) if self.money else 0) - 1
@@ -218,9 +234,9 @@ class Grid:
                 props['font_color'] = RED
             self.cell(top + 1, self.DAY0 + i, int(day['day'][-2:]), F.get(**props))
             self.cell(top + 2, self.DAY0 + i, day['short'], F.get(**dict(props, bold=False, font_size=8)))
-        for i, name in enumerate(self.counter_names):
+        for i, (name, hint) in enumerate(zip(self.counter_names, self.counter_hints)):
             self.cell(top + 1, self.C0 + i, name, head)
-            self.cell(top + 2, self.C0 + i, '', sub)
+            self.cell(top + 2, self.C0 + i, hint, sub)
         if self.money:
             for i, (name, hint) in enumerate(OFFICE_HEADERS):
                 self.cell(top + 1, self.O0 + i, name, head)
@@ -251,7 +267,7 @@ class Grid:
             for j, day in enumerate(self.days):
                 e = cells.get((slot['id'], day['day']))
                 self.cell(r0 + i, self.DAY0 + j, e['code'] if e else None, self.day_format(e, day))
-        values = counters(mine, self.codes)
+        values = counters(d['counters'].get(p['id']), self.codes)
         for i, value in enumerate(values):
             self.cell(r0, self.C0 + i, value, F.get(align='center', num_format='0'), r1)
         office = office_values(d['pay'].get(p['id'])) if self.money else []
@@ -310,10 +326,17 @@ class Grid:
 
     # -- indicatori per fascia -------------------------------------------------------------------
 
-    def indicator_block(self, r, title, roles, reference, weight, plural, singular):
+    def indicator_block(self, r, title, group, plural, singular):
+        """Blocco di indicatori di un gruppo ('nurse' o 'doctor'): i numeri vengono da attendance.workload_rows (righe
+        giornaliere) e attendance.workload_summary (colonna «Totale mese» e righe finali), gli stessi della pagina
+        «Controlli e chiusura». Nei giorni senza pazienti registrati il foglio mostra solo le persone in turno."""
         F, d, cfg = self.F, self.d, self.d['cfg']
         threshold = cfg['efficiency_threshold']
+        roles = set(cfg[f'{group}_roles'])
         role_of = {p['id']: p['role'] for p in d['persons']}
+        rows = {(w['day'], w['slot']): w for w in d['workload']}
+        summary = d['workload_summary']
+        by_slot = {x['slot']: x for x in summary['slots']}
         head = F.get(bold=True, bg_color=NAVY, font_color='#FFFFFF', align='center')
         label_fmt = F.get(align='left')
         self.across(r, self.ROLE, self.SLOT, title, head)
@@ -331,12 +354,11 @@ class Grid:
             self.cell(r, self.C0, total, fmt_of(total, None, total=True))
             r += 1
 
-        def plain(value, day, total=False):
-            return self.F.get(align='center', num_format='General', bold=total,
-                              **({'bg_color': GREY} if day and (day['holiday'] or day['weekday'] == 6) else {}))
-
         def off_day(day):
             return bool(day) and (day['holiday'] or day['weekday'] == 6)
+
+        def plain(value, day, total=False):
+            return self.F.get(align='center', num_format='General', bold=total, **({'bg_color': GREY} if off_day(day) else {}))
 
         def ratio_fmt(value, day, total=False):
             # Nelle colonne strette dei giorni un decimale basta; la colonna del totale ne mostra due.
@@ -353,53 +375,46 @@ class Grid:
                 props['bg_color'] = GREY
             return self.F.get(**props)
 
-        month_ratios, total_staff, total_patients = [], 0, 0
+        def rounded(value):
+            return None if value is None else round(value, 2)
+
+        def in_site(day, slot):
+            # Persone del gruppo in turno nella sede (celle senza sfondo giallo) in un giorno senza pazienti registrati:
+            # la stessa regola di attendance.workload_rows, che però produce righe solo per i giorni con pazienti.
+            return len({e['person_id'] for e in d['entries'] if e['slot'] == slot and e['day'] == day
+                        and e['kind'] == 'work' and not e['site'] and role_of.get(e['person_id']) in roles})
+
         for slot in self.slots:
             staff, ordinary, isolated, ratios, efficiencies = [], [], [], [], []
             for day in self.days:
-                here = {e['person_id'] for e in d['entries'] if e['slot'] == slot['id'] and e['day'] == day['day']
-                        and e['kind'] == 'work' and not e['site'] and role_of.get(e['person_id']) in roles}
-                load = d['workload'].get((day['day'], slot['id']))
-                staff.append(len(here))
-                ordinary.append(load['ordinary'] if load else None)
-                isolated.append(load['isolated'] if load else None)
-                ratio = None
-                if load and here:
-                    ratio = round((load['ordinary'] + load['isolated'] * weight) / len(here), 2)
-                ratios.append(ratio)
-                efficiencies.append(round(ratio / reference, 2) if ratio is not None else None)
-            sum_staff = sum(staff)
-            sum_ordinary, sum_isolated = _sum(ordinary), _sum(isolated)
-            has_load = sum_ordinary is not None or sum_isolated is not None
-            month_ratio = None
-            if has_load and sum_staff:
-                month_ratio = round(((sum_ordinary or 0) + (sum_isolated or 0) * weight) / sum_staff, 2)
-                month_ratios.append(month_ratio)
-            total_staff += sum_staff
-            total_patients += (sum_ordinary or 0) + (sum_isolated or 0)
+                w = rows.get((day['day'], slot['id']))
+                staff.append(w[f'{group}s'] if w else in_site(day['day'], slot['id']))
+                ordinary.append(w['ordinary'] if w else None)
+                isolated.append(w['isolated'] if w else None)
+                ratios.append(rounded(w[f'{group}_ratio']) if w else None)
+                efficiencies.append(rounded(w[f'{group}_efficiency']) if w else None)
+            month = by_slot.get(slot['id'])
+            with_data = bool(month and month['days'])
             label = slot.get('label', slot['id'])
-            write_row(f'{plural} in turno {label}', staff, sum_staff, plain)
-            write_row(f'Pazienti {label}', ordinary, sum_ordinary, plain)
-            write_row(f'Pazienti {label} in isolamento', isolated, sum_isolated, plain)
-            write_row(f'Rapporto pazienti/{singular} {label}', ratios, month_ratio, ratio_fmt)
-            write_row(f'Efficienza {label}', efficiencies, round(month_ratio / reference, 2) if month_ratio is not None else None,
-                      efficiency_fmt)
+            write_row(f'{plural} in turno {label}', staff, month[f'{group}_shifts'] if month else sum(staff), plain)
+            write_row(f'Pazienti {label}', ordinary, month['ordinary'] if with_data else None, plain)
+            write_row(f'Pazienti {label} in isolamento', isolated, month['isolated'] if with_data else None, plain)
+            write_row(f'Rapporto pazienti/{singular} {label}', ratios, rounded(month[f'{group}_ratio']) if month else None, ratio_fmt)
+            write_row(f'Efficienza {label}', efficiencies, rounded(month[f'{group}_efficiency']) if month else None, efficiency_fmt)
         strong = F.get(align='left', bold=True, bg_color=LIGHT)
-        average = round(sum(month_ratios) / len(month_ratios), 2) if month_ratios else None
-        for label, value, fmt in (('Totale turni da lavorare', total_staff, plain(None, None, True)),
-                                  ('Totale dialisi da effettuare', total_patients if d['workload'] else None, plain(None, None, True)),
+        average = rounded(summary[f'{group}_parameter'])
+        for label, value, fmt in (('Totale turni da lavorare', summary[f'{group}_shifts'], plain(None, None, True)),
+                                  ('Totale dialisi da effettuare', summary['patients'] if summary['days'] else None, plain(None, None, True)),
                                   ('Media parametro', average, ratio_fmt(None, None, True)),
-                                  ('Efficienza media', round(average / reference, 2) if average is not None else None, None)):
+                                  ('Efficienza media', rounded(summary[f'{group}_efficiency']), None)):
             self.across(r, self.ROLE, self.SLOT, label, strong)
             self.cell(r, self.C0, value, fmt or efficiency_fmt(value, None, True))
             r += 1
         return r + 1
 
     def indicators_block(self, r):
-        cfg = self.d['cfg']
-        r = self.indicator_block(r, 'Indicatori · infermieri', set(cfg['nurse_roles']), cfg['nurse_reference'],
-                                 cfg['isolation_weight'], 'Infermieri', 'infermiere')
-        r = self.indicator_block(r, 'Indicatori · medici', set(cfg['doctor_roles']), cfg['doctor_reference'], 1, 'Medici', 'medico')
+        r = self.indicator_block(r, 'Indicatori · infermieri', 'nurse', 'Infermieri', 'infermiere')
+        r = self.indicator_block(r, 'Indicatori · medici', 'doctor', 'Medici', 'medico')
         return r
 
     # -- foglio completo -----------------------------------------------------------------------
@@ -415,8 +430,8 @@ class Grid:
         self.ws.set_column(self.SLOT, self.SLOT, 5)
         self.ws.set_column(self.DAY0, self.C0 - 1, 3.6)
         self.ws.set_column(self.C0, self.O0 - 1, 6.5)
-        total_col = self.C0 + 1 + len(self.codes)   # «Totale registrazioni»: più larga per non spezzare la parola
-        self.ws.set_column(total_col, total_col, 9.5)
+        total_col = self.C0 + 1 + len(self.codes)   # «Totale (modello)» e «Registrazioni»: più larghe per le parole
+        self.ws.set_column(total_col, total_col + 1, 9.5)
         if self.money:
             self.ws.set_column(self.O0, self.last - 1, 9)
             self.ws.set_column(self.last, self.last, 34)
@@ -475,11 +490,13 @@ def _parameters_and_legend(ws, F, data, last):
     ws.merge_range(top + 4, c0, top + 4, last, 'Gli importi dello spazio riservato all’ufficio del personale esistono solo per gli accordi '
                    'confermati nel portale: una cella vuota non è uno zero.' if data['money'] else
                    'Le parti economiche non sono incluse per questo profilo.', text)
-    ws.merge_range(top + 5, c0, top + 6, last, 'Indicatori: persone in turno nella sede (celle senza sfondo giallo), pazienti per fascia '
+    ws.merge_range(top + 5, c0, top + 5, last, COUNTERS_NOTE, text)
+    ws.merge_range(top + 6, c0, top + 8, last, 'Indicatori: persone in turno nella sede (celle senza sfondo giallo), pazienti per fascia '
                    'registrati nel portale, rapporto pazienti/infermiere = (pazienti + isolamento × peso) / infermieri; per i medici '
-                   'senza peso. Efficienza = rapporto / pazienti di riferimento: verde se almeno pari alla soglia, arancione sotto.'
+                   'senza peso. Efficienza = rapporto / pazienti di riferimento: verde se almeno pari alla soglia, arancione sotto. '
+                   'Il «Totale mese» di rapporto ed efficienza usa solo i giorni con pazienti registrati, come la pagina «Controlli e chiusura».'
                    if data['load'] else 'Indicatori e pazienti per fascia non sono inclusi per questo profilo.', text)
-    return top + len(params) + 1
+    return max(top + len(params), top + 9) + 1
 
 
 def registry_sheet(wb, F, data):
@@ -577,6 +594,8 @@ def info_sheet(wb, F, data):
             ('Versione dei parametri', str(state['rules_version'])),
             ('Legenda dei colori', COLOR_NOTE + ' Colonne grigie = domeniche e festività del calendario. Efficienza: verde se almeno '
              f'pari alla soglia ({data["cfg"]["efficiency_threshold"]}), arancione sotto.'),
+            ('Contatori e indicatori', COUNTERS_NOTE + ' Indicatori, rapporti ed efficienza sono quelli della pagina «Controlli e chiusura»: '
+             'il rapporto mensile di una fascia usa solo i giorni con pazienti registrati.'),
             ('Fogli inclusi', ', '.join(s.get_name() for s in wb.worksheets())),
             ('Importi', 'Gli importi esistono solo per gli accordi confermati nel portale: una cella vuota non è uno zero. '
                         'Sono una base di verifica per l’ufficio paghe, non un cedolino.'),
@@ -614,6 +633,10 @@ def export(db, user, center_id, month):
     v.month(month)
     with db.read() as con:
         user, center = centers.scoped(con, user, center_id, 'presenze.vedi')
+        # Stesso controllo del CSV e dell'Excel del registro: per compilatore e direzione decide il parametro
+        # della struttura «Compilatore e consultazione possono scaricare il CSV».
+        if not has(user, 'presenze.esporta', centers.config(con, center_id)):
+            raise Forbidden(EXPORT_DENIED)
         data = collect(con, user, center, month)
     content = workbook(data)
     with db.write() as con:

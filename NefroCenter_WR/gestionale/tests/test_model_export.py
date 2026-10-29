@@ -87,12 +87,16 @@ class Sheet:
     def values(self):
         return [v for v, _ in self.cells.values() if v is not None]
 
+    def find_rows(self, text, col=None):
+        """Tutte le righe che contengono il testo (in una colonna precisa o in qualsiasi colonna), in ordine."""
+        return [r for (r, c), (v, _) in sorted(self.cells.items()) if v == text and (col is None or c == col)]
+
     def find_row(self, text, col=None):
         """Prima riga che contiene il testo (in una colonna precisa o in qualsiasi colonna)."""
-        for (r, c), (v, _) in sorted(self.cells.items()):
-            if v == text and (col is None or c == col):
-                return r
-        raise AssertionError(f'Testo non trovato nel foglio: {text!r}')
+        rows = self.find_rows(text, col)
+        if not rows:
+            raise AssertionError(f'Testo non trovato nel foglio: {text!r}')
+        return rows[0]
 
     def columns(self, row):
         """{testo: colonna} per una riga di intestazione."""
@@ -172,7 +176,9 @@ class ModelExport(AttendanceCase):
         self.assertEqual(sheet.value(name_row, cols['FE']), 1)
         self.assertEqual(sheet.value(name_row, cols['MA']), 1)
         self.assertEqual(sheet.value(name_row, cols['PS']), 0)
-        self.assertEqual(sheet.value(name_row, cols['Totale registrazioni']), 7)
+        self.assertEqual(sheet.value(name_row, cols['Totale (modello)']), 7)
+        self.assertEqual(sheet.value(name_row, cols['Registrazioni']), 7)
+        self.assertNotIn('Totale registrazioni', cols)
         self.assertEqual(sheet.value(name_row, cols['Fuori sede']), 1)
         self.assertEqual(sheet.value(name_row, cols['Festivi']), 1)
         # Spazio ufficio del personale: il Totale è l'importo dell'accordo confermato (6 feriali × 50 + 1 festivo × 70 − 100).
@@ -206,15 +212,17 @@ class ModelExport(AttendanceCase):
         self.assertEqual(sheet.value(doctor_ratio, 3 + 4), 9)           # (8 + 1) / 1, senza peso
         self.assertEqual(sheet.value(doctor_ratio + 1, 3 + 4), 0.45)    # 9 / 20 → sotto la soglia (arancione)
         self.assertTrue(book.fill_of(sheet.style(doctor_ratio + 1, 3 + 4)).upper().endswith('FCE5CD'))
-        # Totale mese della fascia: rapporto dai totali (8 + 1 × 5) / 4 turni in sede = 3.25, efficienza 3.25 / 5 = 0.65.
-        self.assertEqual(sheet.value(ratio_row, cols['Turni']), 3.25)
-        self.assertEqual(sheet.value(efficiency_row, cols['Turni']), 0.65)
-        self.assertTrue(book.fill_of(sheet.style(efficiency_row, cols['Turni'])).upper().endswith('FCE5CD'))
+        # Totale mese della fascia come nella pagina «Controlli e chiusura»: pazienti dei giorni con dati / infermieri in
+        # sede in quei giorni = (8 + 1 × 5) / 1 = 13, efficienza 13 / 5 = 2.6 (verde); i 4 turni del mese restano in
+        # «Infermieri in turno» e «Totale turni da lavorare».
+        self.assertEqual(sheet.value(ratio_row, cols['Turni']), 13)
+        self.assertEqual(sheet.value(efficiency_row, cols['Turni']), 2.6)
+        self.assertTrue(book.fill_of(sheet.style(efficiency_row, cols['Turni'])).upper().endswith('D9EAD3'))
         summary = sheet.find_row('Totale turni da lavorare', col=0)
         self.assertEqual(sheet.value(summary, cols['Turni']), 4)
         self.assertEqual(sheet.value(summary + 1, cols['Turni']), 9)    # dialisi: 8 + 1
-        self.assertEqual(sheet.value(summary + 2, cols['Turni']), 3.25) # media dei rapporti mensili delle fasce con dati
-        self.assertEqual(sheet.value(summary + 3, cols['Turni']), 0.65)
+        self.assertEqual(sheet.value(summary + 2, cols['Turni']), 13)   # media dei rapporti mensili delle fasce con dati
+        self.assertEqual(sheet.value(summary + 3, cols['Turni']), 2.6)
         # Parametri in testa e legenda.
         self.assertIn('Giorni lavorativi del mese', values)
         self.assertEqual(sheet.value(sheet.find_row('Giorni lavorativi del mese', col=0), 2), 27)
@@ -264,8 +272,10 @@ class ModelExport(AttendanceCase):
         self.assertIn('Anna Bianchi', values)
         self.assertIn('Luca Verdi', values)
         self.assertIn('Turni', values)
-        for forbidden in ('Netto feriale', 'Totale', 'Festivi CCNL', 'Spazio riservato ufficio del personale', 'Pazienti Mattina'):
+        for forbidden in ('Netto feriale', 'Totale', 'Festivi CCNL', 'Spazio riservato ufficio del personale', 'Pazienti Mattina',
+                          'Totale turni da lavorare', 'Media parametro'):
             self.assertNotIn(forbidden, values)
+        self.assertIn('Totale (modello)', values)
         name_row = sheet.find_row('Anna Bianchi', col=1)
         self.assertTrue(book.fill_of(sheet.style(name_row, 3 + 7)).upper().endswith('FFFF00'))
         history = self.snap(self.operator)['history']
@@ -287,6 +297,102 @@ class ModelExport(AttendanceCase):
         self.assertEqual(empty.names, ['Registro', 'Per consulente', 'Collaboratori', 'Informazioni'])
         sheet = Sheet(empty, 'Registro')
         self.assertIn('Anna Bianchi', sheet.values(), 'le persone attive compaiono anche in un mese vuoto')
+
+    def test_export_follows_the_center_export_flag_like_the_csv(self):
+        """Con «Compilatore e consultazione possono scaricare il CSV» spento, compilatore e direzione non scaricano né il
+        CSV né il foglio mensile (stesso messaggio); responsabile e HR sì. I rifiuti non lasciano righe nello storico."""
+        viewer = self.portal.user('direzione', 'viewer', [self.cid])
+        self.assertEqual(self.save_config(lambda c: c.update(operator_export=False)).status, 200)
+        for client in (self.operator, viewer):
+            self.assertFalse(self.snap(client)['caps']['presenze.esporta'])
+            self.assertStatus(client.get(f'/api/attendance/{self.cid}/{MONTH}/export.csv'), 403, 'non consentita')
+            self.assertStatus(client.get(f'/api/exports/modello/{self.cid}/{MONTH}'), 403, 'non consentita')
+        self.download(self.manager)
+        self.download(self.hr)
+        actors = sorted(h['actor'] for h in self.snap(self.manager)['history'] if h['action'] == 'Esportazione Excel: foglio mensile')
+        self.assertEqual(actors, ['hrcentrale', 'responsabile'])
+        # Riattivato il parametro, compilatore e direzione scaricano di nuovo (senza le parti economiche).
+        self.assertEqual(self.save_config(lambda c: c.update(operator_export=True)).status, 200)
+        self.assertTrue(self.snap(self.operator)['caps']['presenze.esporta'])
+        self.assertEqual(Book(self.download(self.operator).body).names, ['Registro', 'Informazioni'])
+        self.assertEqual(Book(self.download(viewer).body).names, ['Registro', 'Informazioni'])
+
+    def test_indicators_are_the_portal_numbers_on_a_partially_filled_month(self):
+        """Pazienti registrati in un solo giorno (5 ottobre) ma 4 turni in sede nel mese: il foglio scrive gli stessi
+        numeri della pagina «Controlli e chiusura» (snapshot: workload e workload_summary), non un rapporto ricalcolato
+        su tutti i turni del mese."""
+        snap = self.snap(self.manager)
+        summary = snap['workload_summary']
+        slot = next(x for x in summary['slots'] if x['slot'] == 'm')
+        self.assertEqual((slot['nurse_shifts'], slot['nurse_rated_shifts'], slot['nurse_ratio']), (4, 1, 13.0))
+        day = next(w for w in snap['workload'] if w['day'] == '2026-10-05' and w['slot'] == 'm')
+        book = Book(self.download(self.manager).body)
+        sheet = Sheet(book, 'Registro')
+        total = sheet.columns(sheet.find_row('Turni'))['Turni']   # colonna «Totale mese» del blocco indicatori
+        totals = sheet.find_rows('Totale turni da lavorare', col=0)
+        self.assertEqual(len(totals), 2, 'un blocco per gli infermieri e uno per i medici')
+        for group, ratio_label, final in (('nurse', 'Rapporto pazienti/infermiere Mattina', totals[0]),
+                                          ('doctor', 'Rapporto pazienti/medico Mattina', totals[1])):
+            ratio_row = sheet.find_row(ratio_label, col=0)
+            # Colonna «Totale mese»: persone in turno, pazienti, rapporto ed efficienza della fascia come nel portale.
+            self.assertEqual(sheet.value(ratio_row - 3, total), slot[f'{group}_shifts'])
+            self.assertEqual(sheet.value(ratio_row - 2, total), slot['ordinary'])
+            self.assertEqual(sheet.value(ratio_row - 1, total), slot['isolated'])
+            self.assertEqual(sheet.value(ratio_row, total), round(slot[f'{group}_ratio'], 2))
+            self.assertEqual(sheet.value(ratio_row + 1, total), round(slot[f'{group}_efficiency'], 2))
+            # Giorno con pazienti: le cifre della riga giornaliera del portale; giorno senza: solo le persone in turno.
+            self.assertEqual(sheet.value(ratio_row - 3, 3 + 4), day[f'{group}s'])
+            self.assertEqual(sheet.value(ratio_row, 3 + 4), round(day[f'{group}_ratio'], 2))
+            self.assertEqual(sheet.value(ratio_row + 1, 3 + 4), round(day[f'{group}_efficiency'], 2))
+            self.assertEqual(sheet.value(ratio_row - 3, 3 + 5), 1)          # 6 ottobre: in turno, senza pazienti
+            self.assertIsNone(sheet.value(ratio_row, 3 + 5))
+            # Righe finali del blocco.
+            self.assertEqual(sheet.value(final, total), summary[f'{group}_shifts'])
+            self.assertEqual(sheet.value(final + 1, total), summary['patients'])
+            self.assertEqual(sheet.value(final + 2, total), round(summary[f'{group}_parameter'], 2))
+            self.assertEqual(sheet.value(final + 3, total), round(summary[f'{group}_efficiency'], 2))
+        # Valori attesi in chiaro: infermieri 13 e 2,6 (verde), medici 9 e 0,45 (arancione), 4 turni e 9 dialisi.
+        nurse = sheet.find_row('Rapporto pazienti/infermiere Mattina', col=0)
+        self.assertEqual((sheet.value(nurse, total), sheet.value(nurse + 1, total)), (13, 2.6))
+        self.assertTrue(book.fill_of(sheet.style(nurse + 1, total)).upper().endswith('D9EAD3'))
+        doctor = sheet.find_row('Rapporto pazienti/medico Mattina', col=0)
+        self.assertEqual((sheet.value(doctor, total), sheet.value(doctor + 1, total)), (9, 0.45))
+        self.assertTrue(book.fill_of(sheet.style(doctor + 1, total)).upper().endswith('FCE5CD'))
+        self.assertEqual([sheet.value(totals[0] + i, total) for i in range(4)], [4, 9, 13, 2.6])
+        self.assertEqual([sheet.value(totals[1] + i, total) for i in range(4)], [3, 9, 9, 0.45])
+        # Fascia senza pazienti registrati nel mese: niente rapporto, celle dei pazienti vuote.
+        afternoon = sheet.find_row('Rapporto pazienti/infermiere Pomeriggio', col=0)
+        self.assertIsNone(sheet.value(afternoon, total))
+        self.assertIsNone(sheet.value(afternoon - 2, total))
+
+    def test_counters_follow_the_model_total_without_rc_and_rest(self):
+        """Recuperi turno (RC) e riposi (R) restano fuori dal «Totale (modello)» come nel vecchio file e nella pagina
+        «Controlli e chiusura»; «Registrazioni» li conta. Totali di sezione e di gruppo seguono la stessa regola."""
+        self.assertEqual(self.entry(self.manager, day='2026-10-14', code='RC').status, 200)
+        self.assertEqual(self.entry(self.manager, day='2026-10-15', code='R').status, 200)
+        counters = self.snap(self.manager)['counters']
+        anna = next(p for p in counters['people'] if p['person_id'] == self.anna)
+        self.assertEqual((anna['shifts'], anna['total'], anna['registrations']), (5, 7, 9))
+        sheet = Sheet(Book(self.download(self.manager).body), 'Registro')
+        cols = sheet.columns(sheet.find_row('Turni'))
+        self.assertNotIn('Totale registrazioni', cols)
+        row = sheet.find_row('Anna Bianchi', col=1)
+        self.assertEqual(sheet.value(row, cols['Turni']), anna['shifts'])
+        self.assertEqual(sheet.value(row, cols['Totale (modello)']), anna['total'])
+        self.assertEqual(sheet.value(row, cols['Registrazioni']), anna['registrations'])
+        self.assertEqual((sheet.value(row, cols['RC']), sheet.value(row, cols['R'])), (1, 1))
+        self.assertEqual([c['id'] for c in counters['codes']], [c for c in cols if c in {x['id'] for x in counters['codes']}])
+        for code in counters['codes']:
+            self.assertEqual(sheet.value(row, cols[code['id']]), anna['codes'][code['id']])
+        everyone = next(g for g in counters['groups'] if g['id'] == 'tutti')
+        total = sheet.find_row('Totali personale', col=0)
+        self.assertEqual(sheet.value(total, cols['Totale (modello)']), everyone['total'])
+        self.assertEqual(sheet.value(total, cols['Registrazioni']), everyone['registrations'])
+        nurses = next(g for g in counters['groups'] if g['id'] == 'infermieri')
+        nurse_total = sheet.find_row('Totali infermieri', col=0)
+        self.assertEqual(sheet.value(nurse_total, cols['Totale (modello)']), nurses['total'])
+        self.assertEqual(sheet.value(nurse_total, cols['Turni']), nurses['shifts'])
+        self.assertTrue(any(isinstance(v, str) and v.startswith('Contatori: «Totale (modello)»') for v in sheet.values()))
 
 
 if __name__ == '__main__':

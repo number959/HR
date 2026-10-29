@@ -1,5 +1,5 @@
 // Esportazioni: prospetti Excel nativi e file CSV, con le stesse regole di accesso del portale.
-import { download } from '../api.js';
+import { download, get } from '../api.js';
 import { alertBox, button, card, errorMessage, field, fmt, h, input, select, shiftMonth, toast } from '../ui.js';
 
 const KINDS = [
@@ -11,8 +11,24 @@ const KINDS = [
   { id: 'accordi', title: 'Accordi individuali', text: 'Accordi e importi calcolati del periodo: contiene dati economici.', private: true },
 ];
 
+// Scarico del registro della struttura (foglio mensile, registro Excel, CSV): per compilatore e direzione decide il
+// parametro della struttura «Compilatore e consultazione possono scaricare il CSV», quindi si chiede al server lo stesso
+// permesso che applicano le rotte invece di presumerlo.
+async function exportAllowed(app) {
+  if (!app.cid) return false;
+  if (app.can('presenze.esporta')) return true;
+  try {
+    const snap = await get(`attendance/${app.cid}/${app.month}`);
+    return Boolean(snap.caps?.['presenze.esporta']);
+  } catch { return false; }
+}
+
+const DENIED_NOTE = 'Lo scarico del registro di questa struttura non è abilitato per il tuo profilo: lo decide il responsabile nei parametri '
+  + 'della struttura con «Compilatore e consultazione possono scaricare il CSV». Registro e controlli restano consultabili nel portale.';
+
 export async function render(ctx) {
   const { app } = ctx;
+  const canExport = await exportAllowed(app);
   const from = input('from', shiftMonth(app.month, -2), { type: 'month' });
   const to = input('to', app.month, { type: 'month' });
   const center = select('cid', [['all', 'Tutte le strutture autorizzate'], ...app.me.centers.filter(c => c.active).map(c => [c.id, c.name])], app.cid || 'all');
@@ -46,8 +62,10 @@ export async function render(ctx) {
   const centerName = app.center()?.name || 'struttura scelta in alto';
   const modelCard = app.cid ? card('Foglio mensile come il modello Excel', { id: 'foglio-mensile', subtitle: `${centerName} · ${fmt.month(app.month)}` },
     h('p', { class: 'muted', text: 'Il vecchio modello mensile, generato dai dati del portale: griglia, contatori, spazio ufficio del personale, indicatori, pazienti, fogli per il consulente paghe e per i collaboratori. Nessuna formula né macro.' }),
-    h('p', { class: 'muted', text: 'Le parti economiche compaiono solo per chi può consultare gli accordi; indicatori e pazienti solo per chi consulta il carico; l’IBAN solo per chi gestisce le paghe.' }),
-    h('div', { class: 'form-actions' }, button('Scarica il foglio mensile', { kind: 'primary', ic: 'download', onClick: monthlyModel }))) : null;
+    h('p', { class: 'muted', text: 'Contatori e indicatori sono gli stessi della pagina «Controlli e chiusura». Le parti economiche compaiono solo per chi può consultare gli accordi; indicatori e pazienti solo per chi consulta il carico; l’IBAN solo per chi gestisce le paghe.' }),
+    canExport
+      ? h('div', { class: 'form-actions' }, button('Scarica il foglio mensile', { kind: 'primary', ic: 'download', onClick: monthlyModel }))
+      : alertBox(DENIED_NOTE, 'info')) : null;
   return h('div', { class: 'stack' },
     h('div', { class: 'page-head' }, h('div', null, h('div', { class: 'eyebrow', text: 'Esportazioni' }),
       h('h1', { text: 'Prospetti Excel e file CSV' }),
@@ -55,13 +73,13 @@ export async function render(ctx) {
     modelCard,
     card('Periodo e strutture', { subtitle: 'Valgono per i prospetti su più mesi. Il registro mensile usa struttura e mese scelti in alto.' },
       h('div', { class: 'form-grid' }, field('Dal mese', from), field('Al mese', to), field('Strutture', center), field('Registro (solo griglia mensile)', layer))),
-    h('div', { class: 'grid grid-3' }, KINDS.filter(k => !k.private || allowedPrivate).map(k => card(k.title, {
+    h('div', { class: 'grid grid-3' }, KINDS.filter(k => (!k.private || allowedPrivate) && (!k.single || canExport)).map(k => card(k.title, {
       subtitle: k.single ? `${centerName} · mese scelto in alto` : null,
     }, h('p', { class: 'muted', text: k.text }), k.private ? alertBox('Richiede la conferma di sicurezza e va conservato con cura.', 'warn') : null,
     h('div', { class: 'form-actions' }, button('Scarica Excel', { kind: 'primary', ic: 'download', onClick: () => run(k) }))))),
     card('File CSV', { subtitle: 'Per fogli di calcolo e altri programmi. Il separatore segue i parametri della struttura.' },
       h('div', { class: 'row' },
-        app.cid ? button('Riepilogo del mese della struttura', { ic: 'download', onClick: () => csvMonth(false) }) : null,
-        app.cid ? button('Dettaglio di tutte le registrazioni del mese', { ic: 'download', onClick: () => csvMonth(true) }) : null,
+        canExport ? button('Riepilogo del mese della struttura', { ic: 'download', onClick: () => csvMonth(false) }) : null,
+        canExport ? button('Dettaglio di tutte le registrazioni del mese', { ic: 'download', onClick: () => csvMonth(true) }) : null,
         app.can('gruppo.riepilogo') ? button('Riepilogo di gruppo (tutte le strutture)', { ic: 'download', onClick: groupCsv }) : null)));
 }

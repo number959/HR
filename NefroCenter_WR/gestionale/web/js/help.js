@@ -125,6 +125,8 @@ export const HELP = {
     steps: ['Per il foglio mensile scegli struttura e mese in alto e premi «Scarica il foglio mensile»: contiene griglia, contatori, spazio ufficio del personale, indicatori e pazienti, il foglio per il consulente paghe e quello dei collaboratori.',
       'Per gli altri prospetti scegli il tipo e il periodo.', 'Scarica: i prospetti con dati personali chiedono una conferma di sicurezza.'],
     notes: ['Il foglio mensile riporta solo valori già calcolati dal portale: nessuna formula né macro. Sfondo giallo = turno fuori sede, carattere rosso = turno festivo.',
+      'Contatori e indicatori del foglio sono gli stessi della pagina «Controlli e chiusura»: «Totale (modello)» esclude recuperi turno (RC) e riposi, «Registrazioni» le conta tutte; il rapporto mensile di una fascia usa solo i giorni con pazienti registrati.',
+      'Il foglio mensile, il registro Excel e i CSV della struttura seguono lo stesso permesso: per compilatore e direzione serve il parametro della struttura «Compilatore e consultazione possono scaricare il CSV»; senza, la pagina spiega il motivo e non mostra i pulsanti.',
       'Le parti economiche del foglio mensile compaiono solo per chi può consultare gli accordi; l’IBAN solo per chi gestisce le paghe. Gli importi esistono solo per gli accordi confermati.',
       'Le modifiche fatte nei file non tornano nel portale: il registro si corregge nel portale.'],
   },
