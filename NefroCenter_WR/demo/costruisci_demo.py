@@ -50,7 +50,8 @@ def clean():
 
 
 def interface():
-    shutil.copytree(GESTIONALE / 'web', DIST, dirs_exist_ok=True)
+    # La cartella help/ (manuale e videoguide) resta fuori dalla demo per tenerla leggera: la guida in linea c'è comunque.
+    shutil.copytree(GESTIONALE / 'web', DIST, dirs_exist_ok=True, ignore=shutil.ignore_patterns('help'))
     shutil.copy(HERE / 'sorgenti' / 'demo-main.js', DIST / 'js' / 'demo-main.js')
     page = (GESTIONALE / 'web' / 'index.html').read_text(encoding='utf-8')
     replacements = {

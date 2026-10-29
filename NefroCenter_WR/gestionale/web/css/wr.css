@@ -488,3 +488,8 @@ dialog::backdrop { background: rgba(10, 18, 40, .45); backdrop-filter: blur(2px)
   .card { box-shadow: none; }
   .register-wrap { max-height: none; overflow: visible; }
 }
+
+/* Guida: manuale e videoguide */
+.video-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+.video-item video { width: 100%; height: auto; border-radius: 10px; background: #000; display: block; }
+.video-item h3 { margin: 0 0 4px; font-size: 1.02rem; }

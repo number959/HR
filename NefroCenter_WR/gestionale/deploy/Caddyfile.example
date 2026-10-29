@@ -1,0 +1,6 @@
+# Blocco da aggiungere al Caddyfile esistente. Sostituire il nome con il dominio vero:
+# DNS, certificato e firewall vanno configurati sul server. Il portale ascolta solo su 127.0.0.1:8080.
+wr.esempio.it {
+    encode gzip
+    reverse_proxy 127.0.0.1:8080
+}

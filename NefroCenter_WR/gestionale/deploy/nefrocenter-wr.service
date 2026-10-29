@@ -1,0 +1,22 @@
+[Unit]
+Description=NefroCenter WR · Work Resources
+After=network.target
+
+[Service]
+Type=simple
+User=nefrocenter-wr
+Group=nefrocenter-wr
+WorkingDirectory=/opt/nefrocenter-wr/gestionale
+EnvironmentFile=/etc/nefrocenter-wr/wr.env
+ExecStart=/opt/nefrocenter-wr/.venv/bin/python /opt/nefrocenter-wr/gestionale/manage.py serve
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/nefrocenter-wr
+
+[Install]
+WantedBy=multi-user.target

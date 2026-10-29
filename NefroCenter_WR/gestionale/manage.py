@@ -235,7 +235,7 @@ def main(argv=None):
     p.add_argument('--source', type=Path, help='Archivio della versione 0.11 da cui migrare (non viene modificato)')
     p.add_argument('--legacy-key', type=Path, help='Chiave del server della versione 0.11, per conservare le app Authenticator')
     p.add_argument('--origin', default=os.environ.get('WR_ORIGIN', ''))
-    p.add_argument('--port', type=int, default=8080)
+    p.add_argument('--port', type=int, default=int(os.environ.get('WR_PORT', '8080')))
     p.add_argument('--dev-http', action='store_true')
     a = p.parse_args(argv)
     try:

@@ -1,7 +1,7 @@
 // Guida completa: procedure passo per passo, guida delle pagine, domande frequenti. Ricerca nel testo.
 import { HELP } from '../help.js';
 import { PAGES } from '../app.js';
-import { card, clear, empty, h, input, tabs } from '../ui.js';
+import { card, clear, empty, fmt, h, input, tabs } from '../ui.js';
 
 // Procedure: cap indica il permesso che serve per eseguirle (assente = per tutti).
 export const PROCEDURES = [
@@ -84,10 +84,50 @@ export const FAQ = [
   ['Le email partono davvero?', 'Solo dopo la configurazione del servizio di posta aziendale da parte dell’amministratore. Prima si possono preparare bozze e anteprime.'],
 ];
 
+// Manuale illustrato e videoguide generati in web/help (assenti nella demo pubblica): si leggono dai loro indici.
+async function materials() {
+  const read = async path => {
+    try {
+      const response = await fetch(path, { cache: 'no-cache' });
+      return response.ok ? await response.json() : null;
+    } catch { return null; }
+  };
+  const [manual, video] = await Promise.all([read('help/manuale/indice.json'), read('help/video/indice.json')]);
+  return { manual, videos: video?.video || [] };
+}
+
+function materialsBlocks(found) {
+  const blocks = [];
+  if (found.manual) {
+    const m = found.manual;
+    blocks.push(card('Manuale d’uso illustrato', { subtitle: [m.versione ? `Versione ${m.versione}` : '', m.pagine ? `${m.pagine} pagine` : '', m.data ? `aggiornato il ${fmt.date(m.data)}` : ''].filter(Boolean).join(' · ') },
+      h('p', { text: 'Tutte le pagine del portale con schermate (dati fittizi), procedure passo per passo, ruoli e permessi, domande frequenti.' }),
+      h('div', { class: 'row' },
+        h('a', { class: 'btn primary', href: 'help/manuale/Manuale_NefroCenter_WR.pdf', target: '_blank', rel: 'noopener', text: 'Apri il PDF' }),
+        h('a', { class: 'btn', href: 'help/manuale/Manuale_NefroCenter_WR.html', target: '_blank', rel: 'noopener', text: 'Versione per il browser' }))));
+  }
+  if (found.videos.length) {
+    blocks.push(card('Videoguide', { subtitle: 'Senza audio, con sottotitoli in italiano. Ogni video dura uno o due minuti.' },
+      h('div', { class: 'video-list' }, found.videos.map(v => {
+        const player = h('video', { controls: true, preload: 'none', poster: 'help/video/' + v.copertina, width: 640, height: 360 },
+          h('source', { src: 'help/video/' + v.file, type: 'video/mp4' }),
+          v.sottotitoli ? h('track', { kind: 'subtitles', src: 'help/video/' + v.sottotitoli, srclang: 'it', label: 'Italiano', default: true }) : null);
+        return h('div', { class: 'video-item' }, h('h3', { text: v.titolo }), h('p', { class: 'small muted', text: v.descrizione }), player,
+          h('p', { class: 'small' }, v.durata_secondi ? `${Math.round(v.durata_secondi)} secondi · ` : '',
+            v.trascrizione ? h('a', { href: 'help/video/' + v.trascrizione, target: '_blank', rel: 'noopener', text: 'trascrizione' }) : null));
+      }))));
+  }
+  if (!blocks.length) {
+    blocks.push(empty('Manuale e videoguide non disponibili', 'Nella demo pubblica non sono inclusi; nel portale aziendale si trovano nella cartella web/help.'));
+  }
+  return blocks;
+}
+
 export async function render(ctx) {
   const { app } = ctx;
   let tab = ctx.query.tab || 'procedure';
   let term = '';
+  let found = null;
   const body = h('div');
   const search = input('q', '', { placeholder: 'Cerca nella guida' });
   search.setAttribute('aria-label', 'Cerca nella guida');
@@ -95,10 +135,17 @@ export async function render(ctx) {
   const matches = (...texts) => !term || texts.flat().join(' ').toLowerCase().includes(term);
   const bar = h('div');
   const draw = () => {
-    clear(bar, tabs([{ id: 'procedure', label: 'Procedure' }, { id: 'pagine', label: 'Pagine del portale' }, { id: 'faq', label: 'Domande frequenti' }],
-      tab, id => { tab = id; draw(); }));
+    clear(bar, tabs([{ id: 'procedure', label: 'Procedure' }, { id: 'pagine', label: 'Pagine del portale' }, { id: 'faq', label: 'Domande frequenti' },
+      { id: 'materiali', label: 'Manuale e video' }], tab, id => { tab = id; draw(); }));
     let blocks = [];
-    if (tab === 'procedure') {
+    if (tab === 'materiali') {
+      if (!found) {
+        clear(body, h('p', { class: 'muted', text: 'Caricamento…' }));
+        materials().then(result => { found = result; if (tab === 'materiali') draw(); });
+        return;
+      }
+      blocks = materialsBlocks(found);
+    } else if (tab === 'procedure') {
       blocks = PROCEDURES.filter(p => (!p.cap || app.can(p.cap)) && matches(p.title, p.steps))
         .map(p => card(p.title, {}, h('ol', { class: 'steps-list' }, p.steps.map(s => h('li', { text: s })))));
     } else if (tab === 'pagine') {
