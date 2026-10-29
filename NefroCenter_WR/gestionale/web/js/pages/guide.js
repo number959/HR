@@ -51,6 +51,12 @@ export const PROCEDURES = [
     'Scegli una persona disponibile di un’altra struttura e proponi la sostituzione.',
     'Il responsabile della struttura che riceve la persona accetta o rifiuta.',
     'Una sostituzione accettata diventa un turno pianificato nella struttura di destinazione.'] },
+  { title: 'Dal vecchio foglio Excel al portale', steps: [
+    'I codici si scelgono da un elenco: niente minuscole/maiuscole da ricordare, niente completamento automatico da spegnere.',
+    'Il turno fuori sede non si colora di giallo: si indica la sede nella registrazione. Il festivo non si colora di rosso: si spunta «festivo» (le festività nazionali sono già nel calendario).',
+    'I pazienti per fascia (ordinari e in isolamento) si registrano in «Controlli e chiusura»; rapporto ed efficienza si calcolano da soli.',
+    'Lo spazio riservato all’ufficio del personale è la pagina «Accordi e calcoli»; il foglio «Collaboratori» è la pagina «Collaboratori e compensi».',
+    'Il foglio per il consulente paghe si scarica da «Esportazioni» («Foglio mensile come il modello Excel»): nessuna formula o macro da far girare.'] },
   { title: 'Compensi dei collaboratori a prestazione', cap: 'accordi.vedi', steps: [
     'Nel fascicolo del collaboratore indica il tipo di rapporto (fattura, associazione, volontario…), chi fattura, ritenuta e cassa in percentuale, IBAN.',
     'A fine mese conferma il suo accordo in «Accordi e calcoli» con le tariffe reali (base «Tutti i turni» per chi è pagato a prestazione).',

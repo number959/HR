@@ -35,7 +35,7 @@ export const HELP = {
       'Un mese chiuso o inviato in approvazione non si modifica: serve la riapertura motivata.'],
   },
   month: {
-    intro: 'Qui si controlla il mese prima della chiusura: calendario e parametri, controlli bloccanti, pazienti per fascia e storico delle modifiche.',
+    intro: 'Qui si controlla il mese prima della chiusura: calendario e parametri, controlli bloccanti, conteggi per persona e per gruppo, pazienti e carico per fascia (operatori in turno, rapporto pazienti per operatore, efficienza rispetto al riferimento) e storico delle modifiche.',
     steps: ['Risolvi i controlli elencati (fasce pianificate senza consuntivo, orari obbligatori, registrazioni importate da verificare).',
       'Premi «Conferma calendario e parametri».', 'Chiudi il mese; se serve una correzione, riaprilo indicando il motivo.'],
     notes: ['Se per la struttura è attivo il percorso di approvazione, chiusura e riapertura passano dalla pagina Approvazioni.',

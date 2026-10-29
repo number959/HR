@@ -1,0 +1,32 @@
+Accesso e panoramica del portale
+Primo accesso con codice di attivazione e app Authenticator, codici di recupero, accesso normale, riepilogo, menu, barra superiore e guida contestuale.
+
+Questa è la pagina di accesso di NefroCenter WR. Si entra con nome utente, password e il codice dell’app Authenticator.
+
+Al primo accesso premi «Usa il codice di attivazione»: il codice lo consegna l’amministratore e vale 7 giorni.
+
+Scrivi il nome utente e il codice di attivazione, poi premi Continua.
+
+Inquadra il codice QR con l’app Authenticator del telefono, oppure inserisci a mano la chiave scritta sotto.
+
+Scegli una password personale di almeno 12 caratteri e scrivi il codice a 6 cifre che appare nell’app. Poi premi «Attiva l’account».
+
+Conserva i codici di recupero: servono se perdi il telefono e non verranno mostrati di nuovo. Questi sono codici di prova, fittizi.
+
+Sei nel Riepilogo: i numeri del mese e le attività da completare della tua struttura.
+
+Il menu a sinistra è diviso per aree. Vedi soltanto le pagine permesse al tuo profilo.
+
+Apriamo il «Registro presenze».
+
+In alto scegli la struttura e il mese di riferimento: valgono per tutte le pagine.
+
+Il pulsante con il punto interrogativo apre la guida della pagina in cui ti trovi.
+
+Chiudi la guida con la X. Per uscire dal portale premi «Esci», in alto a destra.
+
+Dai successivi accessi: nome utente e password, poi «Continua».
+
+Poi il codice a 6 cifre dell’app Authenticator e «Accedi».
+
+Sei di nuovo nel portale: buon lavoro.
