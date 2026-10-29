@@ -1,13 +1,51 @@
 {
  "prodotto": "NefroCenter WR",
  "versione": "1.0.0",
- "generato_il": "2026-10-29T19:57:16.473Z",
+ "generato_il": "2026-10-29T20:16:30.369Z",
  "video": [
+  {
+   "file": "01-accesso-e-panoramica.mp4",
+   "titolo": "Accesso e panoramica del portale",
+   "descrizione": "Primo accesso con codice di attivazione e app Authenticator, codici di recupero, accesso normale, riepilogo, menu, barra superiore e guida contestuale.",
+   "durata_secondi": 113.3,
+   "profili": [
+    "Compilatore"
+   ],
+   "copertina": "01-accesso-e-panoramica.jpg",
+   "sottotitoli": "01-accesso-e-panoramica.vtt",
+   "trascrizione": "01-accesso-e-panoramica.txt",
+   "capitoli": [
+    {
+     "tempo": 0.2,
+     "titolo": "Primo accesso"
+    },
+    {
+     "tempo": 23.9,
+     "titolo": "App Authenticator"
+    },
+    {
+     "tempo": 42.8,
+     "titolo": "Codici di recupero"
+    },
+    {
+     "tempo": 53.3,
+     "titolo": "Riepilogo e menu"
+    },
+    {
+     "tempo": 71.4,
+     "titolo": "Barra superiore e guida"
+    },
+    {
+     "tempo": 86.3,
+     "titolo": "Uscita e accesso normale"
+    }
+   ]
+  },
   {
    "file": "02-registrare-le-presenze.mp4",
    "titolo": "Registrare le presenze",
    "descrizione": "Il registro del mese: struttura e mese, registrazione di un turno o di un’assenza, correzione di una casella, vista Giorno, consuntivo e pianificato.",
-   "durata_secondi": 102.9,
+   "durata_secondi": 103.2,
    "profili": [
     "Compilatore"
    ],
@@ -16,24 +54,205 @@
    "trascrizione": "02-registrare-le-presenze.txt",
    "capitoli": [
     {
-     "tempo": 0.6,
+     "tempo": 0.5,
      "titolo": "Il registro del mese"
     },
     {
-     "tempo": 19.4,
+     "tempo": 19.3,
      "titolo": "Registrare un turno"
     },
     {
-     "tempo": 50.7,
+     "tempo": 50.8,
      "titolo": "Correggere una casella"
     },
     {
-     "tempo": 68.8,
+     "tempo": 68.9,
      "titolo": "Vista Giorno"
     },
     {
-     "tempo": 83.4,
+     "tempo": 83.6,
      "titolo": "Consuntivo e pianificato"
+    }
+   ]
+  },
+  {
+   "file": "03-controlli-e-chiusura.mp4",
+   "titolo": "Controlli e chiusura del mese",
+   "descrizione": "I controlli del mese, i pazienti per fascia, la conferma di calendario e parametri, lo storico e dove si chiude (o riapre) il mese.",
+   "durata_secondi": 98.9,
+   "profili": [
+    "Responsabile di struttura"
+   ],
+   "copertina": "03-controlli-e-chiusura.jpg",
+   "sottotitoli": "03-controlli-e-chiusura.vtt",
+   "trascrizione": "03-controlli-e-chiusura.txt",
+   "capitoli": [
+    {
+     "tempo": 0.5,
+     "titolo": "Controlli del mese"
+    },
+    {
+     "tempo": 17.3,
+     "titolo": "Pazienti per fascia"
+    },
+    {
+     "tempo": 39.2,
+     "titolo": "Conferma e chiusura"
+    },
+    {
+     "tempo": 61.3,
+     "titolo": "Riaprire e chiudere un mese"
+    }
+   ]
+  },
+  {
+   "file": "04-approvazione-mensile.mp4",
+   "titolo": "Approvazione mensile",
+   "descrizione": "Il percorso struttura → responsabile → HR: invio del mese, registro bloccato, verifica del responsabile, «Tocca a te», restituzione o approvazione da parte di HR.",
+   "durata_secondi": 110.4,
+   "profili": [
+    "Responsabile di struttura",
+    "HR centrale"
+   ],
+   "copertina": "04-approvazione-mensile.jpg",
+   "sottotitoli": "04-approvazione-mensile.vtt",
+   "trascrizione": "04-approvazione-mensile.txt",
+   "capitoli": [
+    {
+     "tempo": 0.6,
+     "titolo": "Il percorso di approvazione"
+    },
+    {
+     "tempo": 26.2,
+     "titolo": "Invio del mese"
+    },
+    {
+     "tempo": 37.7,
+     "titolo": "Registro bloccato"
+    },
+    {
+     "tempo": 47,
+     "titolo": "Verifica del responsabile"
+    },
+    {
+     "tempo": 61.1,
+     "titolo": "Approvazione di HR"
+    }
+   ]
+  },
+  {
+   "file": "05-fascicolo-e-documenti.mp4",
+   "titolo": "Fascicolo del personale e documenti",
+   "descrizione": "Ricerca di una persona, le linguette del fascicolo, l’allegato di un documento e la verifica di HR centrale dalla pagina Documenti.",
+   "durata_secondi": 125.6,
+   "profili": [
+    "HR centrale"
+   ],
+   "copertina": "05-fascicolo-e-documenti.jpg",
+   "sottotitoli": "05-fascicolo-e-documenti.vtt",
+   "trascrizione": "05-fascicolo-e-documenti.txt",
+   "capitoli": [
+    {
+     "tempo": 0.5,
+     "titolo": "Elenco e ricerca"
+    },
+    {
+     "tempo": 15.5,
+     "titolo": "Il fascicolo"
+    },
+    {
+     "tempo": 55.6,
+     "titolo": "Documenti del fascicolo"
+    },
+    {
+     "tempo": 74.9,
+     "titolo": "Verifica dei documenti"
+    }
+   ]
+  },
+  {
+   "file": "06-copertura-e-sostituzioni.mp4",
+   "titolo": "Copertura turni e sostituzioni",
+   "descrizione": "Il prospetto delle fasce sotto il fabbisogno, i fabbisogni minimi, la proposta di una sostituzione da un’altra struttura e la sua accettazione.",
+   "durata_secondi": 101.4,
+   "profili": [
+    "Responsabile di struttura"
+   ],
+   "copertina": "06-copertura-e-sostituzioni.jpg",
+   "sottotitoli": "06-copertura-e-sostituzioni.vtt",
+   "trascrizione": "06-copertura-e-sostituzioni.txt",
+   "capitoli": [
+    {
+     "tempo": 0.6,
+     "titolo": "Prospetto"
+    },
+    {
+     "tempo": 19.1,
+     "titolo": "Fabbisogni"
+    },
+    {
+     "tempo": 28.8,
+     "titolo": "Proporre una sostituzione"
+    },
+    {
+     "tempo": 71.7,
+     "titolo": "Accettazione"
+    },
+    {
+     "tempo": 89.3,
+     "titolo": "Turno pianificato"
+    }
+   ]
+  },
+  {
+   "file": "07-comunicazioni.mp4",
+   "titolo": "Comunicazioni al personale",
+   "descrizione": "Modelli, liste di destinatari, composizione, anteprima dei messaggi e bozza; l’invio reale richiede la posta aziendale configurata.",
+   "durata_secondi": 87.4,
+   "profili": [
+    "HR centrale"
+   ],
+   "copertina": "07-comunicazioni.jpg",
+   "sottotitoli": "07-comunicazioni.vtt",
+   "trascrizione": "07-comunicazioni.txt",
+   "capitoli": [
+    {
+     "tempo": 0.6,
+     "titolo": "Panoramica"
+    },
+    {
+     "tempo": 19.7,
+     "titolo": "Modelli e liste"
+    },
+    {
+     "tempo": 37.8,
+     "titolo": "Anteprima e bozza"
+    },
+    {
+     "tempo": 62.2,
+     "titolo": "Invio"
+    }
+   ]
+  },
+  {
+   "file": "08-statistiche-ed-esportazioni.mp4",
+   "titolo": "Statistiche ed esportazioni",
+   "descrizione": "Scelta del periodo, grafico con il valore al passaggio del puntatore, tabelle; l’elenco dei file scaricabili e lo scarico di un CSV.",
+   "durata_secondi": 73.7,
+   "profili": [
+    "Direzione · consultazione"
+   ],
+   "copertina": "08-statistiche-ed-esportazioni.jpg",
+   "sottotitoli": "08-statistiche-ed-esportazioni.vtt",
+   "trascrizione": "08-statistiche-ed-esportazioni.txt",
+   "capitoli": [
+    {
+     "tempo": 0.5,
+     "titolo": "Statistiche"
+    },
+    {
+     "tempo": 43.1,
+     "titolo": "Esportazioni"
     }
    ]
   }

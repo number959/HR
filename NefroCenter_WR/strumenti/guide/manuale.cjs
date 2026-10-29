@@ -22,7 +22,11 @@
 //     --keep     non cancellare le schermate di lavoro alla fine
 //
 // Requisiti: Node.js 20+, Playwright 1.63 con Chromium già installato, Python 3 con le dipendenze del gestionale
-// (waitress; xlsxwriter per il file Excel di prova dell'importazione), pdfinfo (facoltativo, per contare le pagine).
+// (waitress; xlsxwriter per il file Excel di prova dell'importazione). Facoltativi, da poppler-utils: pdfinfo (conteggio
+// delle pagine), pdftohtml (numeri di pagina nell'indice, letti dai segnalibri del PDF; in alternativa Python con pypdf),
+// pdftotext e pdfimages (controllo delle pagine quasi vuote). Senza di essi il manuale viene comunque prodotto.
+// Le pagine più alte di SLICE_MAX px vengono fotografate in più parti, tagliate fra un blocco e l'altro, così nel PDF
+// restano leggibili a tutta larghezza. Le figure sono numerate nell'ordine in cui compaiono nel documento.
 // Non tocca mai file aziendali: il file Excel importato è generato al momento con dati inventati.
 'use strict';
 const fs = require('fs');
@@ -41,6 +45,7 @@ const CSS_NAME = 'manuale.css';
 const VIEWPORT = { width: 1366, height: 860 };
 const PHONE = { width: 390, height: 844 };
 const MAX_HEIGHT = 2200;          // le pagine lunghe si tagliano a questa altezza
+const SLICE_MAX = 1200;           // oltre questa altezza la schermata si divide in parti (a 178 mm di larghezza: ≤ 156 mm)
 const JPEG_AFTER = 320 * 1024;    // oltre questa dimensione la schermata viene rifatta in JPEG (qualità 85)
 const MAX_HTML = 16 * 1024 * 1024;
 
@@ -64,13 +69,18 @@ const EXTRAS = {
   users: ['accessi-nuovo-account', 'accessi-codice'],
   import: ['importa-anteprima'],
 };
+// Procedure in cui il permesso indicato in guide.js (quello che le fa comparire nella guida) è più ampio di chi può
+// davvero eseguirle: qui i permessi delle azioni vere, nell'ordine dei passi.
+const PROCEDURE_CAPS = {
+  'Approvare un mese': ['approvazioni.verifica', 'approvazioni.approva'],
+  'Compensi dei collaboratori a prestazione': ['accordi.vedi', 'accordi.modifica', 'paghe.gestisci'],
+};
 const KIND_LABEL = { work: 'Turno di lavoro', absence: 'Assenza', rest: 'Riposo' };
 const GROUPS = ['Panoramica', 'Presenze', 'Persone', 'Amministrazione', 'Analisi', 'Sistema', 'Aiuto'];
 
 const problems = [];
 const shots = [];
 const shotIndex = {};
-let figureCounter = 0;
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/«([^»]+)»/g, '«$1»');
@@ -100,33 +110,79 @@ async function settle(page, extra = 400) {
   await page.waitForTimeout(extra);
 }
 
+// Bordi superiori dei blocchi del contenuto (schede, righe, voci, paragrafi): sono i punti in cui una pagina lunga
+// si può tagliare senza spezzare una riga o una casella.
+async function cutCandidates(page) {
+  return page.evaluate(() => {
+    const sel = '#content .card, #content .card > *, #content .card-body > *, #content .kpis, #content tr, #content li, '
+      + '#content p, #content h2, #content h3, #content .tabs, #content .segmented';
+    const ys = new Set();
+    for (const el of document.querySelectorAll(sel)) {
+      const r = el.getBoundingClientRect();
+      if (r.height > 0 && r.width > 0) ys.add(Math.round(r.top + window.scrollY));
+    }
+    return [...ys].sort((a, b) => a - b);
+  });
+}
+
+// Divide l'altezza in parti bilanciate di al massimo SLICE_MAX px; ogni taglio cade, se possibile, dove inizia un blocco.
+function sliceBounds(height, candidates) {
+  const n = Math.ceil(height / SLICE_MAX);
+  const part = height / n;
+  const bounds = [0];
+  for (let i = 1; i < n; i++) {
+    const target = Math.round(part * i);
+    const previous = bounds[bounds.length - 1];
+    const near = candidates.filter(y => y >= target - part * 0.25 && y <= target + part * 0.15 && y > previous + 300);
+    bounds.push(near.length ? near.reduce((best, y) => (Math.abs(y - target) < Math.abs(best - target) ? y : best)) : target);
+  }
+  bounds.push(height);
+  return bounds;
+}
+
+// Fotografa la pagina (o un elemento, o la sola finestra). Le pagine a tutta altezza più alte di SLICE_MAX vengono
+// divise in parti: la prima ha l'id richiesto, le altre `id-parteN`; shotIndex[id].slices le elenca tutte.
 async function shot(page, id, caption, opts = {}) {
   if (shotIndex[id]) throw new Error(`Schermata duplicata: ${id}`);
   await settle(page, opts.extra);
-  const take = async type => {
-    const base = type === 'jpeg' ? { type, quality: 85 } : { type };
-    if (opts.locator) return opts.locator.screenshot(base);
-    if (opts.full === false) return page.screenshot(base);
+  const vp = page.viewportSize();
+  let bounds = null;
+  if (!opts.locator && opts.full !== false) {
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(150);
     const height = await page.evaluate(() => Math.max(document.documentElement.scrollHeight, document.body.scrollHeight));
-    const vp = page.viewportSize();
-    return page.screenshot({ ...base, fullPage: true, clip: { x: 0, y: 0, width: vp.width, height: Math.min(height, MAX_HEIGHT) } });
-  };
-  let type = 'png';
-  let buffer = await take('png');
-  if (buffer.length > JPEG_AFTER) {
-    type = 'jpeg';
-    buffer = await take('jpeg');
+    bounds = sliceBounds(Math.min(height, MAX_HEIGHT), await cutCandidates(page));
   }
-  const file = path.join(SCRATCH, `${String(shots.length + 1).padStart(2, '0')}-${id}.${type === 'png' ? 'png' : 'jpg'}`);
-  fs.writeFileSync(file, buffer);
-  const entry = { id, caption, file, type, bytes: buffer.length, phone: Boolean(opts.phone), ...imageSize(buffer, type),
-    data: buffer.toString('base64') };
-  shots.push(entry);
-  shotIndex[id] = entry;
-  process.stdout.write(`  schermata ${entry.id} (${entry.width}×${entry.height}, ${fmtBytes(entry.bytes)}, ${type})\n`);
-  return entry;
+  const take = async (type, clip) => {
+    const base = type === 'jpeg' ? { type, quality: 85 } : { type };
+    if (opts.locator) return opts.locator.screenshot(base);
+    if (!clip) return page.screenshot(base);
+    return page.screenshot({ ...base, fullPage: true, clip });
+  };
+  const parts = bounds ? bounds.length - 1 : 1;
+  const slices = [];
+  for (let i = 0; i < parts; i++) {
+    const clip = bounds ? { x: 0, y: bounds[i], width: vp.width, height: bounds[i + 1] - bounds[i] } : null;
+    let type = 'png';
+    let buffer = await take('png', clip);
+    if (buffer.length > JPEG_AFTER) {
+      type = 'jpeg';
+      buffer = await take('jpeg', clip);
+    }
+    const partId = i === 0 ? id : `${id}-parte${i + 1}`;
+    const partCaption = parts === 1 ? caption
+      : i === 0 ? `${caption} Parte 1 di ${parts}.` : `${caption} Parte ${i + 1} di ${parts}: seguito della pagina, scorrendo verso il basso.`;
+    const file = path.join(SCRATCH, `${String(shots.length + 1).padStart(2, '0')}-${partId}.${type === 'png' ? 'png' : 'jpg'}`);
+    fs.writeFileSync(file, buffer);
+    const entry = { id: partId, caption: partCaption, file, type, bytes: buffer.length, phone: Boolean(opts.phone), part: i + 1, parts,
+      ...imageSize(buffer, type), data: buffer.toString('base64') };
+    shots.push(entry);
+    shotIndex[partId] = entry;
+    slices.push(entry);
+    process.stdout.write(`  schermata ${partId} (${entry.width}×${entry.height}, ${fmtBytes(entry.bytes)}, ${type})\n`);
+  }
+  shotIndex[id].slices = slices;
+  return shotIndex[id];
 }
 
 async function openPage(page, base, p) {
@@ -367,28 +423,34 @@ async function run() {
     // ----- Tabella demo/aziendale dal LEGGIMI della demo -----
     demoTable = readDemoTable(path.join(comune.ROOT, 'demo', 'LEGGIMI.md'));
 
-    // ----- Composizione -----
+    // ----- Composizione e PDF -----
+    // Due passaggi: il primo PDF serve a leggere, dai segnalibri, la pagina di ogni titolo; il secondo scrive quei numeri
+    // nell'indice. L'indice occupa le stesse righe in entrambi (i numeri hanno larghezza fissa), quindi la paginazione non
+    // cambia; per sicurezza si confrontano i segnalibri del nuovo PDF con i numeri usati (al massimo tre passaggi).
     console.log('Composizione del manuale');
-    const { html, css, chapters } = buildHtml({ catalog, me, centers, firstCenter, config, demoTable, roleLabel, byId, started });
+    const data = { catalog, me, centers, firstCenter, config, demoTable, roleLabel, byId, started };
     const htmlPath = path.join(OUT, HTML_NAME);
-    fs.writeFileSync(htmlPath, html);
-    fs.writeFileSync(path.join(OUT, CSS_NAME), css);
-
-    // ----- PDF -----
-    console.log('PDF');
-    ({ context, page } = await newSession(browser));
-    await page.goto('file://' + htmlPath, { waitUntil: 'load', timeout: 120000 });
-    await page.evaluate(() => document.fonts.ready);
-    await page.waitForTimeout(500);
     const pdfPath = path.join(OUT, PDF_NAME);
-    await page.pdf({
-      path: pdfPath, format: 'A4', printBackground: true, preferCSSPageSize: true, outline: true, tagged: true,
-      displayHeaderFooter: true, headerTemplate: '<span></span>',
-      footerTemplate: '<div style="width:100%;font-size:8.5px;color:#6f7c95;text-align:center;font-family:Inter,system-ui,sans-serif;">'
-        + 'NefroCenter WR · Manuale d’uso · pagina <span class="pageNumber"></span> di <span class="totalPages"></span></div>',
-      margin: { top: '16mm', right: '16mm', bottom: '16mm', left: '16mm' },
-    });
-    await context.close();
+    let built = buildHtml(data, null);
+    let tocStable = false;
+    for (let pass = 1; ; pass++) {
+      fs.writeFileSync(htmlPath, built.html);
+      fs.writeFileSync(path.join(OUT, CSS_NAME), built.css);
+      console.log(`PDF (passaggio ${pass})`);
+      await renderPdf(browser, htmlPath, pdfPath);
+      const found = readOutline(pdfPath);
+      if (!found) {
+        console.log('  segnalibri non leggibili (servono pdftohtml o pypdf): indice senza numeri di pagina');
+        break;
+      }
+      tocStable = Boolean(built.pageOf) && built.tocEntries.every(e => built.pageOf.get(e.key) === found.get(e.key));
+      if (tocStable || pass >= 3) {
+        if (!tocStable) console.log('  attenzione: i numeri di pagina dell’indice non si sono stabilizzati in tre passaggi');
+        break;
+      }
+      built = buildHtml(data, found);
+    }
+    const { html, css, chapters, tocEntries, pageOf } = built;
 
     // ----- Controlli -----
     const pdfBytes = fs.readFileSync(pdfPath);
@@ -401,13 +463,21 @@ async function run() {
     const missingShots = catalog.PAGES.filter(p => !shotIndex[`pag-${p.id}`]).map(p => p.id);
     const missingText = catalog.PAGES.filter(p => !catalog.HELP[p.id]?.intro).map(p => p.id);
     const sizeOk = htmlBytes < MAX_HTML;
-    const ok = !forbidden.length && !missingShots.length && !missingText.length && !real.length && pdfPages >= 40 && sizeOk;
+    // Figure numerate 1, 2, 3… nell'ordine del documento; indice con una pagina per ogni voce, in ordine crescente.
+    const figureNumbers = [...stripped.matchAll(/<strong>Figura (\d+)<\/strong>/g)].map(m => Number(m[1]));
+    const figuresInOrder = figureNumbers.length === shots.length && figureNumbers.every((n, i) => n === i + 1);
+    const tocPages = tocEntries.map(e => pageOf?.get(e.key));
+    const tocComplete = tocStable && tocPages.every((n, i) => Number.isInteger(n) && (i === 0 || n >= tocPages[i - 1]));
+    const nearEmpty = nearEmptyPages(pdfPath);
+    const ok = !forbidden.length && !missingShots.length && !missingText.length && !real.length && pdfPages >= 40 && sizeOk
+      && figuresInOrder && tocComplete && (nearEmpty === null || !nearEmpty.length);
     const summary = {
       ok,
       html: { path: htmlPath, bytes: htmlBytes, under16MB: sizeOk },
       css: { path: path.join(OUT, CSS_NAME), bytes: Buffer.byteLength(css) },
       pdf: { path: pdfPath, bytes: pdfBytes.length, pages: pdfPages, atLeast40: pdfPages >= 40 },
-      images: shots.length, jpeg: shots.filter(s => s.type === 'jpeg').length,
+      images: shots.length, jpeg: shots.filter(s => s.type === 'jpeg').length, sliced: shots.filter(s => s.parts > 1 && s.part === 1).length,
+      figuresInOrder, tocEntries: tocEntries.length, tocComplete, nearEmptyPages: nearEmpty,
       pagesCovered: `${catalog.PAGES.length - missingShots.length}/${catalog.PAGES.length}`, missingShots, missingText,
       forbiddenStrings: forbidden, problems: real, expectedStepUp: expected.length, chapters: chapters.length, version: catalog.version,
     };
@@ -416,10 +486,13 @@ async function run() {
       data: started.toISOString().slice(0, 10), generato: started.toISOString(), data_dati_fittizi: catalog.today,
       pagine: pdfPages, pagine_pdf: pdfPages,
       file: { html: { nome: HTML_NAME, byte: htmlBytes }, css: { nome: CSS_NAME, byte: Buffer.byteLength(css) }, pdf: { nome: PDF_NAME, byte: pdfBytes.length } },
-      capitoli: chapters.map(c => ({ numero: c.number, id: c.id, titolo: c.title, pagine: c.pages || [] })),
-      immagini: shots.map(s => ({ id: s.id, figura: s.figure || null, didascalia: s.caption, formato: s.type, larghezza: s.width, altezza: s.height, byte: s.bytes })),
+      capitoli: chapters.map(c => ({ numero: c.number, id: c.id, titolo: c.title, pagina_pdf: pageOf?.get(c.key) ?? null, pagine: c.pages || [],
+        sezioni: c.sections.map(x => ({ titolo: x.text, id: x.anchor, pagina_pdf: pageOf?.get(x.key) ?? null })) })),
+      immagini: shots.map(s => ({ id: s.id, figura: s.figure || null, didascalia: s.caption, formato: s.type, larghezza: s.width, altezza: s.height, byte: s.bytes,
+        parte: s.parts > 1 ? s.part : null, parti: s.parts > 1 ? s.parts : null })),
       controlli: { tutte_le_pagine: !missingShots.length && !missingText.length, stringhe_vietate: forbidden.length, problemi: real.length,
-        pagine_pdf_minime: pdfPages >= 40, html_sotto_16MB: sizeOk },
+        pagine_pdf_minime: pdfPages >= 40, html_sotto_16MB: sizeOk, figure_in_ordine: figuresInOrder, indice_con_pagine: tocComplete,
+        pagine_quasi_vuote: nearEmpty === null ? null : nearEmpty.map(p => p.pagina) },
     }, null, 1));
     console.log(JSON.stringify(summary, null, 1));
     if (!ok) process.exitCode = 1;
@@ -437,6 +510,70 @@ function countPdfPages(pdfPath, bytes) {
     if (m) return Number(m[1]);
   } catch { /* pdfinfo assente: si conta nel file */ }
   return (bytes.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length;
+}
+
+// Stampa il PDF della pagina HTML: A4 verticale, sfondi, segnalibri dai titoli, PDF taggato, numero di pagina nel piè di pagina.
+async function renderPdf(browser, htmlPath, pdfPath) {
+  const { context, page } = await newSession(browser);
+  try {
+    await page.goto('file://' + htmlPath, { waitUntil: 'load', timeout: 120000 });
+    await page.evaluate(() => document.fonts.ready);
+    await page.waitForTimeout(500);
+    await page.pdf({
+      path: pdfPath, format: 'A4', printBackground: true, preferCSSPageSize: true, outline: true, tagged: true,
+      displayHeaderFooter: true, headerTemplate: '<span></span>',
+      footerTemplate: '<div style="width:100%;font-size:8.5px;color:#6f7c95;text-align:center;font-family:Inter,system-ui,sans-serif;">'
+        + 'NefroCenter WR · Manuale d’uso · pagina <span class="pageNumber"></span> di <span class="totalPages"></span></div>',
+      margin: { top: '16mm', right: '16mm', bottom: '16mm', left: '16mm' },
+    });
+  } finally {
+    await context.close();
+  }
+}
+
+const norm = s => String(s).normalize('NFC').replace(/\s+/g, ' ').trim();
+const unentity = s => s.replace(/&(amp|lt|gt|quot|apos|#39|#x27);/g,
+  m => ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&apos;': "'", '&#39;': "'", '&#x27;': "'" }[m]));
+
+// Segnalibri del PDF (testo del titolo → numero di pagina): Chromium li genera dai titoli h1-h3.
+// Con pdftohtml (poppler-utils) oppure, in alternativa, con Python e pypdf; null se nessuno dei due è disponibile.
+function readOutline(pdfPath) {
+  const found = new Map();
+  const add = (title, page) => { const key = norm(title); if (!found.has(key)) found.set(key, page); };
+  const quiet = { encoding: 'utf-8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 16 * 1024 * 1024 };
+  try {
+    const xml = execFileSync('pdftohtml', ['-xml', '-i', '-f', '1', '-l', '1', '-stdout', pdfPath], quiet);
+    for (const m of xml.matchAll(/<item page="(\d+)">([^<]*)<\/item>/g)) add(unentity(m[2]), Number(m[1]));
+  } catch { /* pdftohtml assente */ }
+  if (!found.size) {
+    const script = ['import sys', 'from pypdf import PdfReader', 'r = PdfReader(sys.argv[1])', 'def walk(items):',
+      '    for it in items:', '        if isinstance(it, list): walk(it)',
+      '        else: print(r.get_destination_page_number(it) + 1, it.title.replace("\\n", " "), sep="\\t")', 'walk(r.outline)'].join('\n');
+    try {
+      for (const line of execFileSync(PYTHON, ['-I', '-c', script, pdfPath], quiet).split('\n')) {
+        const m = /^(\d+)\t(.*)$/.exec(line);
+        if (m) add(m[2], Number(m[1]));
+      }
+    } catch { /* pypdf assente */ }
+  }
+  return found.size ? found : null;
+}
+
+// Pagine del PDF senza immagini e con poco testo oltre il piè di pagina: sono quelle che sembrano incompiute.
+// Richiede pdftotext e pdfimages (poppler-utils); null se non verificabile.
+function nearEmptyPages(pdfPath) {
+  const quiet = { encoding: 'utf-8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 * 1024 * 1024 };
+  try {
+    const pages = execFileSync('pdftotext', ['-layout', pdfPath, '-'], quiet).split('\f');
+    const list = execFileSync('pdfimages', ['-list', pdfPath], quiet);
+    const withImages = new Set([...list.matchAll(/^\s*(\d+)\s+\d+\s+image/gm)].map(m => Number(m[1])));
+    const out = [];
+    pages.forEach((t, i) => {
+      const chars = t.replace(/NefroCenter WR · Manuale d.uso · pagina \d+ di \d+/, '').replace(/\s+/g, ' ').trim().length;
+      if (chars > 0 && chars < 600 && !withImages.has(i + 1)) out.push({ pagina: i + 1, caratteri: chars });
+    });
+    return out;
+  } catch { return null; }
 }
 
 function readDemoTable(file) {
@@ -645,12 +782,14 @@ function pageSection(p, chapterNo, idx, help, roleLabel, capOf) {
   const meta = [`Menu «${p.group}»`, `indirizzo #/${p.path || ''}`,
     p.cap ? `permesso: ${capOf[p.cap]?.description.toLowerCase() || p.cap}` : 'per tutti i profili',
     ctx.length ? `in alto si scelgono ${[ctx.includes('center') ? 'la struttura' : '', ctx.includes('month') ? 'il mese' : ''].filter(Boolean).join(' e ')}` : ''].filter(Boolean);
+  // La schermata principale va numerata prima delle figure aggiuntive: nel documento compare per prima.
+  const main = figure(`pag-${p.id}`, `Schermata della pagina ${p.label} (profilo ${roleUsed})`);
   const extras = (EXTRAS[p.id] || []).map(id => figure(id)).join('');
   const rolesRows = help.roles ? Object.entries(help.roles).map(([r, t]) => `<tr><th scope="row">${esc(roleLabel[r] || r)}</th><td>${esc(t)}</td></tr>`).join('') : '';
   return `<section class="page" id="pag-${p.id}"><h3>${chapterNo}.${idx} ${esc(p.label)}</h3>
 <p class="meta">${meta.map(esc).join(' · ')}.</p>
 <p class="intro">${esc(help.intro)}</p>
-${figure(`pag-${p.id}`, `Schermata della pagina ${p.label} (profilo ${roleUsed})`)}
+${main}
 ${help.steps?.length ? `<p class="h4">Come si fa</p>${list('ol', help.steps, 'steps')}` : ''}
 ${extras}
 ${help.notes?.length ? `<div class="block"><p class="h4">Da sapere</p>${list('ul', help.notes, 'notes')}</div>` : ''}
@@ -672,7 +811,7 @@ h2 { font-size: 19pt; font-weight: 750; margin: 0 0 10px; padding-bottom: 8px; b
 h3 { font-size: 13.5pt; font-weight: 700; margin: 22px 0 6px; break-after: avoid; page-break-after: avoid; }
 h4, .h4 { font-size: 10.5pt; font-weight: 700; margin: 12px 0 4px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); break-after: avoid; page-break-after: avoid; }
 p { margin: 0 0 8px; }
-.num { display: inline-block; min-width: 1.6em; color: var(--accent); font-weight: 800; }
+h1 .num, h2 .num, h3 .num, .toc .num { display: inline-block; min-width: 1.6em; color: var(--accent); font-weight: 800; }
 .small { font-size: 9.5pt; color: var(--muted); }
 .lead { font-size: 11.5pt; color: var(--muted); }
 .meta { font-size: 9pt; color: var(--faint); margin-bottom: 6px; }
@@ -693,7 +832,8 @@ a { color: var(--blue); }
 /* Capitoli */
 .chapter { break-before: page; page-break-before: always; }
 .chapter > h2 { margin-bottom: 12px; }
-.page + .page { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 10px; break-before: page; page-break-before: always; }
+.page + .page { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 10px; }
+.page > h3 { break-before: auto; }
 .page > h3 { margin-top: 10px; }
 .menu li { margin-bottom: 3px; }
 .steps, .notes { margin: 0 0 8px; padding-left: 22px; }

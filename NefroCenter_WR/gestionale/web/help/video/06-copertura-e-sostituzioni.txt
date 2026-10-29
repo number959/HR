@@ -1,0 +1,20 @@
+Copertura turni e sostituzioni
+Il prospetto delle fasce sotto il fabbisogno, i fabbisogni minimi, la proposta di una sostituzione da un’altra struttura e la sua accettazione.
+
+«Copertura turni» confronta i turni pianificati con il fabbisogno minimo per giorno, fascia e qualifica.
+
+Nel prospetto ogni casella indica pianificati/minimo: rosso scoperto, verde coperto, blu oltre il fabbisogno.
+
+Nella scheda «Fabbisogni» il responsabile definisce i minimi settimanali e le eccezioni per singole date.
+
+«Sostituzioni»: una persona di un’altra struttura può coprire un turno. Diventa turno pianificato solo se il responsabile accetta.
+
+Premi «Proponi»: Anna Rossi lavora anche a Pozzuoli e le sue schede sono collegate in «Personale di gruppo».
+
+Indica giorno, fascia, causale e motivazione. Scegliamo mercoledì 28 ottobre 2026, fascia Mattina.
+
+Premi «Invia la proposta»: compare nell’elenco come «In attesa».
+
+Decide il responsabile della struttura che riceve la persona. Il responsabile demo segue anche Capodichino e può accettare.
+
+La sostituzione accettata è ora un turno pianificato di Capodichino: eccolo, tratteggiato, nel registro «Pianificato».

@@ -1,0 +1,18 @@
+Statistiche ed esportazioni
+Scelta del periodo, grafico con il valore al passaggio del puntatore, tabelle; l’elenco dei file scaricabili e lo scarico di un CSV.
+
+«Statistiche» mostra l’andamento delle presenze delle strutture autorizzate, fino a 24 mesi.
+
+Scegli il periodo con «Dal mese» e «Al mese»; poi, se vuoi, struttura, ruolo e persona.
+
+Passa il puntatore sopra una colonna del grafico per leggere il valore del mese.
+
+Sotto, la tabella con il dettaglio per mese: turni, ore con orari, assenze, festivi e fuori sede.
+
+Le altre linguette dividono i dati per struttura, ruolo, causale di assenza e persona, più la qualità dei dati.
+
+«Esportazioni» elenca i prospetti Excel e i file CSV scaricabili: una copia dei dati al momento dello scarico.
+
+Periodo e strutture valgono per i prospetti su più mesi; il registro mensile usa struttura e mese scelti in alto.
+
+Scarichiamo il riepilogo CSV di tutte le strutture: il file arriva nella cartella dei download del browser.

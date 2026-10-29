@@ -1,0 +1,32 @@
+Fascicolo del personale e documenti
+Ricerca di una persona, le linguette del fascicolo, l’allegato di un documento e la verifica di HR centrale dalla pagina Documenti.
+
+«Persone e fascicoli» elenca le persone della struttura scelta in alto: ruolo, ingresso, stato, inserimento e documenti.
+
+Cerca per nome, matricola o reparto.
+
+Apri il fascicolo con un clic sulla riga.
+
+Il fascicolo è diviso in linguette: anagrafica, recapiti, contratto, amministrazione, qualifiche, inserimento, documenti, scadenze.
+
+Recapiti: indirizzo, telefono, email personale e aziendale.
+
+Contratto: tipo, CCNL, livello, ore settimanali e date di ingresso e fine.
+
+Qualifiche: titoli, iscrizione all’albo e relative scadenze.
+
+Inserimento: le attività previste dal modello della struttura, con referente, scadenza e stato.
+
+Documenti: allega un PDF o un’immagine indicando la categoria e, se prevista, la scadenza.
+
+Premi «Allega»: il documento resta «Ricevuto» finché HR centrale non lo verifica.
+
+La pagina «Documenti» raccoglie gli allegati di tutte le strutture, con scadenze e stato della verifica.
+
+Filtra «Da verificare» per vedere solo i documenti ricevuti e non ancora controllati.
+
+Apri il documento: l’anteprima mostra il file e, sotto, lo storico della verifica.
+
+Puoi approvarlo con «Verificato» oppure premere «Chiedi correzione» spiegando nella nota che cosa manca: la struttura potrà ripresentarlo.
+
+Qui lo approviamo: lo stato passa a «Verificato da HR» ed esce dall’elenco dei documenti da verificare.

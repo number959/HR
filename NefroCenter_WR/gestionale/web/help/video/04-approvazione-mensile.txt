@@ -1,0 +1,24 @@
+Approvazione mensile
+Il percorso struttura → responsabile → HR: invio del mese, registro bloccato, verifica del responsabile, «Tocca a te», restituzione o approvazione da parte di HR.
+
+«Approvazioni» mostra, per il mese scelto in alto, lo stato di ogni struttura lungo il percorso: struttura, responsabile, HR centrale.
+
+Settembre di Capodichino è già approvato. Per la dimostrazione lo riapriamo indicando una motivazione.
+
+Il compilatore o il responsabile invia il mese al responsabile: da quel momento il registro è bloccato.
+
+Nel registro le caselle non si modificano più finché il mese non viene approvato o restituito.
+
+Il responsabile controlla i punti aperti, spunta la conferma del calendario e inoltra il mese a HR centrale.
+
+Ora tocca a HR centrale. Il responsabile esce dal portale.
+
+HR centrale accede con le proprie credenziali e il codice dell’app.
+
+Nell’elenco la struttura è segnata «Tocca a te»: il passaggio aspetta HR.
+
+HR può restituire il mese con una motivazione: la struttura corregge e lo invia di nuovo. Qui annulliamo.
+
+Oppure approva: il mese viene chiuso e i dati restano bloccati.
+
+Lo storico conserva ogni passaggio con data, autore e nota.

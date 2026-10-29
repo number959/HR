@@ -428,7 +428,7 @@ dialog::backdrop { background: rgba(10, 18, 40, .45); backdrop-filter: blur(2px)
 .auth-switch button { border: 0; background: none; color: var(--brand); font: 600 .88rem var(--font); cursor: pointer; padding: 4px; }
 .qr { display: grid; place-items: center; padding: 12px; background: #fff; border-radius: 12px; border: 1px solid var(--line); }
 .qr img { width: 210px; height: 210px; image-rendering: pixelated; }
-.codes span { white-space: nowrap; }
+.codes span { overflow-wrap: anywhere; }
 .codes { display: grid; grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr)); gap: 8px; font-family: var(--mono); font-size: .92rem; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 10px; padding: 14px; }
 .demo-roles { display: grid; gap: 10px; margin-top: 18px; }
 .demo-role { display: flex; gap: 12px; align-items: center; text-align: left; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font: inherit; color: var(--text); }
@@ -493,3 +493,27 @@ dialog::backdrop { background: rgba(10, 18, 40, .45); backdrop-filter: blur(2px)
 .video-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
 .video-item video { width: 100%; height: auto; border-radius: 10px; background: #000; display: block; }
 .video-item h3 { margin: 0 0 4px; font-size: 1.02rem; }
+
+/* Controlli e chiusura: sintesi del carico per fascia e conteggi del mese */
+.workload-summary { display: grid; gap: 14px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.workload-summary h3 { font-size: .92rem; color: var(--text-2); }
+.workload-summary .result-grid { margin-top: 4px; }
+.stat-label { font-size: .78rem; color: var(--text-2); font-weight: 600; }
+.eff { display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.table tr.total-row td { background: var(--surface-2); font-weight: 700; border-top: 2px solid var(--line-strong); }
+.table tr.total-row.grand td { background: var(--brand-soft); color: var(--brand); }
+.table tbody tr.total-row:hover td { background: var(--surface-3); }
+.table.counters th:first-child, .table.counters td:first-child { position: sticky; left: 0; z-index: 1; background: var(--surface); min-width: 170px; }
+.table.counters th:first-child { z-index: 2; background: var(--surface-2); }
+.table.counters tbody tr:hover td:first-child { background: var(--surface-2); }
+.table.counters tr.total-row td:first-child { background: var(--surface-2); }
+.table.counters tr.total-row.grand td:first-child { background: var(--brand-soft); }
+.table.counters.compact td:first-child { white-space: normal; }
+.table.counters.compact td:first-child strong { font-size: .86rem; }
+@media (max-width: 560px) {
+  .table.counters th:first-child, .table.counters td:first-child { min-width: 130px; }
+}
+.table .eff { display: inline-grid; justify-items: end; gap: 2px; line-height: 1.2; }
+.table .eff .badge { font-size: .7rem; padding: 1px 8px; }
+.table.fit th { white-space: normal; line-height: 1.2; vertical-align: bottom; }
+.table.fit td .small { white-space: normal; line-height: 1.2; }

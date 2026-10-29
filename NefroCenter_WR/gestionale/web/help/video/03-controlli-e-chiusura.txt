@@ -1,0 +1,24 @@
+Controlli e chiusura del mese
+I controlli del mese, i pazienti per fascia, la conferma di calendario e parametri, lo storico e dove si chiude (o riapre) il mese.
+
+«Controlli e chiusura» riassume il mese della struttura: turni a consuntivo, orari mancanti, fasce da consuntivare, assenze.
+
+Qui sono elencati i controlli da risolvere prima della chiusura.
+
+Nella scheda «Pazienti e carico per fascia» registri i pazienti del giorno, per confrontare il carico con i riferimenti della struttura.
+
+La tabella mostra, giorno per giorno, pazienti per infermiere e per medico e l’efficienza rispetto al riferimento. È un confronto organizzativo, non clinico.
+
+«Conteggi del mese»: turni, fuori sede, festivi e causali per persona, con i totali di infermieri, medici e altro personale.
+
+Quando festivi, fasce e parametri sono corretti, premi «Conferma calendario e parametri».
+
+Nella scheda «Controlli e chiusura», le ultime modifiche restano nello storico con data e autore.
+
+Capodichino usa il percorso di approvazione: il mese si chiude dalla pagina «Approvazioni», non da qui.
+
+Pozzuoli non usa l’approvazione. Scegliamo Pozzuoli e il mese di settembre, già chiuso.
+
+Per correggere un mese chiuso il responsabile lo riapre indicando la motivazione, che resta nello storico.
+
+Fatta la correzione, «Chiudi il mese» lo chiude di nuovo: prima tutti i controlli devono essere risolti.

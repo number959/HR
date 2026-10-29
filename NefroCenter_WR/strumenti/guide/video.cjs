@@ -74,21 +74,49 @@ function wrapLines(text, max = MAX_LINE) {
   return best ? best.lines : lines;
 }
 
-// Spezza il testo di un passo in gruppi di massimo 2 righe: prima ai confini di frase, poi a «:» «;» e virgole;
-// fra le suddivisioni valide sceglie quella con meno gruppi e di lunghezza più equilibrata.
+// Divide una frase lunga in k gruppi di parole, ciascuno entro 2 righe, rendendo minima la lunghezza del gruppo più lungo.
+function splitBalanced(text) {
+  const words = text.split(/\s+/).filter(Boolean);
+  const fits = t => wrapLines(t).length <= 2;
+  const memo = new Map();
+  const best = (from, k) => {
+    const key = `${from}|${k}`;
+    if (memo.has(key)) return memo.get(key);
+    const rest = words.slice(from).join(' ');
+    let result = { max: Infinity, groups: [] };
+    if (k === 1) result = fits(rest) ? { max: rest.length, groups: [rest] } : result;
+    else {
+      for (let i = from + 1; i <= words.length - (k - 1); i++) {
+        const head = words.slice(from, i).join(' ');
+        if (!fits(head)) break;
+        const tail = best(i, k - 1);
+        const max = Math.max(head.length, tail.max);
+        if (max < result.max) result = { max, groups: [head, ...tail.groups] };
+      }
+    }
+    memo.set(key, result);
+    return result;
+  };
+  for (let k = Math.ceil(wrapLines(text).length / 2); k <= words.length; k++) {
+    const found = best(0, k);
+    if (found.max < Infinity) return found.groups;
+  }
+  return [text];
+}
+
+// Spezza il testo di un passo in gruppi di massimo 2 righe. Il testo viene diviso ai confini di frase, poi a «:» «;»
+// e alle virgole; fra le ricomposizioni valide si sceglie quella con meno gruppi, poi la più equilibrata (con una
+// preferenza per i tagli a fine frase). Se resta un gruppo molto corto, si prova la divisione per parole.
 function chunks(text) {
   const fits = t => wrapLines(t).length <= 2;
   if (fits(text)) return [wrapLines(text)];
-  let parts = [text];
-  for (const sep of [/[^.!?]+[.!?]*[»)]*\s*/g, /[^:;]+[:;]?\s*/g, /[^,]+,?\s*/g]) {
-    parts = parts.flatMap(p => (fits(p) ? [p] : (p.match(sep) || [p]).map(s => s.trim()).filter(Boolean)));
-  }
-  // Un pezzo ancora troppo lungo (senza punteggiatura) viene diviso a coppie di righe.
-  parts = parts.flatMap(p => (fits(p) ? [p] : wrapLines(p).reduce((acc, line, i) => {
-    if (i % 2 === 0) acc.push(line); else acc[acc.length - 1] += ' ' + line;
-    return acc;
-  }, [])));
+  const split = (list, sep) => list.flatMap(p => (p.match(sep) || [p]).map(s => s.trim()).filter(Boolean));
+  let parts = split(split([text], /[^.!?]+[.!?]*[»)]*\s*/g), /[^:;]+[:;]?\s*/g);
+  const finer = split(parts, /[^,]+,?\s*/g);
+  if (finer.length <= 14) parts = finer;
+  parts = parts.flatMap(p => (fits(p) ? [p] : splitBalanced(p)));
   const n = Math.min(parts.length, 14);
+  const endsSentence = s => /[.!?][»)]*$/.test(s);
   let best = null;
   for (let mask = 0; mask < (1 << (n - 1)); mask++) {
     const groups = [];
@@ -96,13 +124,21 @@ function chunks(text) {
     for (let i = 1; i < n; i++) {
       if (mask & (1 << (i - 1))) { groups.push(current); current = parts[i]; } else current += ' ' + parts[i];
     }
+    for (let i = n; i < parts.length; i++) current += ' ' + parts[i];
     groups.push(current);
     if (!groups.every(fits)) continue;
     const sizes = groups.map(g => g.length);
-    const score = [groups.length, Math.max(...sizes) - Math.min(...sizes)];
+    const penalty = groups.slice(0, -1).filter(g => !endsSentence(g)).length * 60;
+    const score = [groups.length, Math.max(...sizes) - Math.min(...sizes) + penalty];
     if (!best || score[0] < best.score[0] || (score[0] === best.score[0] && score[1] < best.score[1])) best = { groups, score };
   }
-  return (best ? best.groups : parts).map(g => wrapLines(g));
+  let groups = best ? best.groups : parts;
+  const shortest = list => Math.min(...list.map(g => g.length));
+  if (groups.length > 1 && shortest(groups) < 25) {
+    const alt = splitBalanced(text);
+    if (alt.length === groups.length && alt.every(fits) && shortest(alt) > shortest(groups)) groups = alt;
+  }
+  return groups.map(g => wrapLines(g));
 }
 
 // Dai passi (inizio, fine, testo) ai cue: tempo ripartito in proporzione ai caratteri, mai sovrapposti.
@@ -113,16 +149,19 @@ function buildCues(steps, duration) {
     const total = groups.reduce((n, g) => n + g.join(' ').length, 0);
     const limit = Math.min(i + 1 < steps.length ? steps[i + 1].start : step.end + 1.5, duration - 0.1);
     const span = Math.max(1, limit - step.start);
-    let offset = 0;
+    // Durate in proporzione ai caratteri, con un minimo per cue; se il minimo non ci sta, si riscala tutto nella finestra.
+    let durations = groups.map(lines => Math.max(1.2, (lines.join(' ').length / total) * span));
+    const sum = durations.reduce((a, b) => a + b, 0);
+    if (sum > span) durations = durations.map(d => (d * span) / sum);
+    let at = step.start;
     groups.forEach((lines, k) => {
-      const share = lines.join(' ').length / total;
-      const start = step.start + offset * span;
-      offset += share;
-      const end = Math.max(start + 0.8, (k === groups.length - 1 ? limit : step.start + offset * span) - GAP);
-      cues.push({ start: round3(start), end: round3(Math.min(end, duration - 0.05)), lines, top: step.top });
+      const start = at;
+      at += durations[k];
+      const end = Math.min(at - GAP, duration - 0.05);
+      cues.push({ start: round3(start), end: round3(end), lines, top: step.top });
     });
   });
-  return cues.filter(c => c.end > c.start);
+  return cues.filter(c => c.end > c.start + 0.2);
 }
 
 const round3 = n => Math.round(n * 1000) / 1000;
@@ -213,6 +252,7 @@ class Recorder {
     const dialogOpen = () => this.page.evaluate(() => Boolean(document.querySelector('dialog[open]'))).catch(() => false);
     let top = await dialogOpen();
     if (action) await action();
+    await this.resync();
     const actionEnd = this.now();
     top = opts.pos ? opts.pos === 'top' : (top || await dialogOpen());
     await sleep(Math.max(MIN_HOLD, MS_PER_CHAR * text.length));
@@ -226,19 +266,23 @@ class Recorder {
     const loc = this.locator(target);
     try {
       await loc.waitFor({ state: 'visible', timeout: strict ? 15000 : 8000 });
-      // Porta l'elemento nella zona libera da barra superiore e sottotitoli, solo se non lo è già.
+      // Porta l'elemento nella zona libera da barra superiore e sottotitoli (e dentro lo schermo in orizzontale), se serve.
       await loc.evaluate(el => {
         const r = el.getBoundingClientRect();
         const top = 80;
         const bottom = window.innerHeight - 140;
-        if (r.top >= top && r.bottom <= bottom) return;
-        if (r.height > bottom - top) { el.scrollIntoView({ block: 'start', inline: 'nearest' }); window.scrollBy(0, -top); return; }
-        el.scrollIntoView({ block: 'center', inline: 'nearest' });
+        const vertical = r.top >= top && r.bottom <= bottom;
+        const horizontal = r.left >= 0 && r.right <= window.innerWidth;
+        if (vertical && horizontal) return;
+        const block = vertical ? 'nearest' : (r.height > bottom - top ? 'start' : 'center');
+        el.scrollIntoView({ block, inline: horizontal ? 'nearest' : 'center' });
+        if (!vertical && block === 'start') window.scrollBy(0, -top);
       }).catch(() => {});
       await sleep(150);
       const box = await loc.boundingBox();
       if (!box) throw new Error('senza riquadro');
       await this.page.evaluate(b => window.__wrGuide.aim(b), box);
+      this.last = loc;
       await sleep(700);
       return { loc, box };
     } catch (err) {
@@ -249,7 +293,20 @@ class Recorder {
   }
 
   async show(target) { await this.aim(target); }
-  async clear() { await this.page.evaluate(() => window.__wrGuide.clear()).catch(() => {}); }
+  async clear() { this.last = null; await this.page.evaluate(() => window.__wrGuide.clear()).catch(() => {}); }
+
+  // Riallinea anello e puntatore all'ultimo elemento evidenziato (la pagina può essere scorsa o ridisegnata);
+  // se l'elemento non c'è più (per esempio una finestra chiusa), toglie l'anello.
+  async resync() {
+    const loc = this.last;
+    if (!loc) return;
+    try {
+      if (!(await loc.isVisible())) return this.clear();
+      const box = await loc.boundingBox();
+      if (box) await this.page.evaluate(b => window.__wrGuide.aim(b), box);
+    } catch { await this.clear(); }
+    return undefined;
+  }
 
   async click(target, { after = 350 } = {}) {
     const { loc, box } = await this.aim(target, { strict: true });
@@ -488,22 +545,30 @@ const GUIDES = [
         await rec.show('.kpis');
       }, { chapter: 'Controlli del mese' });
       await rec.step('Qui sono elencati i controlli da risolvere prima della chiusura.', () => rec.show('.card:has(h2:text("Controlli prima della chiusura"))'));
-      await rec.step('«Pazienti e carico per fascia»: registra i pazienti del giorno per confrontare il carico con i riferimenti della struttura.', async () => {
+      await rec.step('Nella scheda «Pazienti e carico per fascia» registri i pazienti del giorno, per confrontare il carico con i riferimenti della struttura.', async () => {
+        await rec.click('.tab:has-text("Pazienti e carico per fascia")');
         await rec.fill(`${workload} input[name="ordinary"]`, '18');
         await rec.fill(`${workload} input[name="isolated"]`, '1');
         await rec.click(`${workload} button[type="submit"]`);
         await rec.toast();
         await rec.ready();
       }, { chapter: 'Pazienti per fascia' });
-      await rec.step('La tabella mostra, giorno per giorno, i pazienti per infermiere e per medico. È un confronto organizzativo, non clinico.',
-        () => rec.show(`${workload} .table-wrap`));
+      await rec.step('La tabella mostra, giorno per giorno, pazienti per infermiere e per medico e l’efficienza rispetto al riferimento. È un confronto organizzativo, non clinico.',
+        () => rec.show(rec.page.locator(`${workload} .table-wrap`).last()));
+      await rec.step('«Conteggi del mese»: turni, fuori sede, festivi e causali per persona, con i totali di infermieri, medici e altro personale.', async () => {
+        await rec.click('.tab:has-text("Conteggi del mese")');
+        await rec.show('.card:has(h2:text("Conteggi del mese")) .table-wrap');
+      }, { chapter: 'Conteggi del mese' });
       await rec.step('Quando festivi, fasce e parametri sono corretti, premi «Conferma calendario e parametri».', async () => {
         await rec.click('button:has-text("Conferma calendario e parametri")');
         await rec.toast();
         await rec.ready();
         await rec.show('.page-head .row');
       }, { chapter: 'Conferma e chiusura', cover: true });
-      await rec.step('Le ultime modifiche restano nello storico, con data e autore.', () => rec.show('.card:has(h2:text("Ultime modifiche"))'));
+      await rec.step('Nella scheda «Controlli e chiusura», le ultime modifiche restano nello storico con data e autore.', async () => {
+        await rec.click('.tab:has-text("Controlli e chiusura")');
+        await rec.show('.card:has(h2:text("Ultime modifiche"))');
+      });
       await rec.step('Capodichino usa il percorso di approvazione: il mese si chiude dalla pagina «Approvazioni», non da qui.',
         () => rec.show('button:has-text("Vai alle approvazioni")'));
       await rec.step('Pozzuoli non usa l’approvazione. Scegliamo Pozzuoli e il mese di settembre, già chiuso.', async () => {
@@ -806,10 +871,14 @@ const GUIDES = [
       });
       await rec.step('«Esportazioni» elenca i prospetti Excel e i file CSV scaricabili: una copia dei dati al momento dello scarico.', async () => {
         await rec.nav('Esportazioni');
-        await rec.show('.grid-3');
+        await rec.show('.page-head');
       }, { chapter: 'Esportazioni' });
-      await rec.step('Periodo e strutture valgono per i prospetti su più mesi; il registro mensile usa struttura e mese scelti in alto.',
-        () => rec.show('.card:has(h2:text("Periodo e strutture"))'));
+      await rec.step('Il foglio mensile come il vecchio modello Excel viene generato dai dati del portale, senza formule né macro.',
+        () => rec.show('#foglio-mensile'));
+      await rec.step('Periodo e strutture valgono per i prospetti su più mesi; ogni scheda scarica un file Excel.', async () => {
+        await rec.show('.card:has(h2:text("Periodo e strutture"))');
+        await rec.show('.grid-3');
+      });
       await rec.step('Scarichiamo il riepilogo CSV di tutte le strutture: il file arriva nella cartella dei download del browser.', async () => {
         const waiting = rec.page.waitForEvent('download', { timeout: 15000 }).catch(() => null);
         await rec.click('button:has-text("Riepilogo di gruppo")');

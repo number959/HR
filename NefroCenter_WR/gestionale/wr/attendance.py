@@ -23,16 +23,20 @@ CENTER_CAPS = ('presenze.compila', 'presenze.pianifica', 'presenze.orari', 'pres
 
 
 def efficiency_level(efficiency, cfg):
-    """Lettura dell'efficienza rispetto al riferimento: 'nessuno' senza personale in turno, 'sotto' se il
-    personale in turno è più del riferimento (efficienza sotto la soglia), 'adeguato' tra soglia e 1,
-    'oltre' se il carico supera il riferimento."""
+    """Lettura dell'efficienza come nel vecchio modello (e nel foglio esportato): 'adeguato' se almeno pari alla
+    soglia, 'sotto' altrimenti; 'nessuno' quando il rapporto manca perché nessuno era in turno. Un valore
+    sopra 1 (carico oltre il riferimento) resta 'adeguato': il modello non prevede una terza lettura."""
     if efficiency is None:
         return 'nessuno'
-    if efficiency < cfg['efficiency_threshold']:
-        return 'sotto'
-    if efficiency <= 1:
-        return 'adeguato'
-    return 'oltre'
+    return 'sotto' if efficiency < cfg['efficiency_threshold'] else 'adeguato'
+
+
+def summary_level(efficiency, shifts, cfg):
+    """Lettura mensile: distingue il rapporto mancante per assenza di personale ('nessuno') da quello mancante
+    perché i pazienti non sono stati registrati nei giorni con turni ('senza_dati')."""
+    if efficiency is None and shifts:
+        return 'senza_dati'
+    return efficiency_level(efficiency, cfg)
 
 
 def _efficiency(ratio, reference):
@@ -75,8 +79,10 @@ def workload_summary(cfg, rows, entries, persons):
     rows: righe di workload_rows (giorni con pazienti registrati). I turni si contano su tutte le
     registrazioni di lavoro a consuntivo svolte nella struttura, anche nei giorni senza pazienti
     («Totale turni da lavorare»); i pazienti sommano ordinari e isolati («Totale dialisi da effettuare»).
-    Il rapporto mensile di una fascia si calcola dai totali e richiede almeno un giorno con pazienti e
-    almeno un turno; la «media parametro» è la media dei rapporti delle fasce che li hanno."""
+    Il rapporto mensile di una fascia si calcola sugli stessi giorni al numeratore e al denominatore, come
+    nel vecchio modello: pazienti dei giorni con dati / operatori in turno nella sede in quei giorni
+    (nurse_rated_shifts, doctor_rated_shifts). Così un mese compilato solo in parte dà una sintesi coerente
+    con le righe giornaliere. La «media parametro» è la media dei rapporti delle fasce che li hanno."""
     roles = {p['id']: p['role'] for p in persons}
     in_site = _in_site(entries)
     slots = []
@@ -87,18 +93,20 @@ def workload_summary(cfg, rows, entries, persons):
         shifts = [e for e in in_site if e['slot'] == slot['id']]
         nurse_shifts = sum(roles.get(e['person_id']) in cfg['nurse_roles'] for e in shifts)
         doctor_shifts = sum(roles.get(e['person_id']) in cfg['doctor_roles'] for e in shifts)
+        nurse_rated = sum(r['nurses'] for r in mine)
+        doctor_rated = sum(r['doctors'] for r in mine)
         ordinary = sum(r['ordinary'] for r in mine)
         isolated = sum(r['isolated'] for r in mine)
-        has_data = bool(mine)
-        nurse_ratio = (ordinary + isolated * cfg['isolation_weight']) / nurse_shifts if has_data and nurse_shifts else None
-        doctor_ratio = (ordinary + isolated) / doctor_shifts if has_data and doctor_shifts else None
+        nurse_ratio = (ordinary + isolated * cfg['isolation_weight']) / nurse_rated if nurse_rated else None
+        doctor_ratio = (ordinary + isolated) / doctor_rated if doctor_rated else None
         nurse_efficiency = _efficiency(nurse_ratio, cfg['nurse_reference'])
         doctor_efficiency = _efficiency(doctor_ratio, cfg['doctor_reference'])
         slots.append(dict(slot=slot['id'], label=slot['label'], days=len(mine), nurse_shifts=nurse_shifts,
-                          doctor_shifts=doctor_shifts, ordinary=ordinary, isolated=isolated, patients=ordinary + isolated,
+                          doctor_shifts=doctor_shifts, nurse_rated_shifts=nurse_rated, doctor_rated_shifts=doctor_rated,
+                          ordinary=ordinary, isolated=isolated, patients=ordinary + isolated,
                           nurse_ratio=nurse_ratio, doctor_ratio=doctor_ratio, nurse_efficiency=nurse_efficiency,
-                          doctor_efficiency=doctor_efficiency, nurse_level=efficiency_level(nurse_efficiency, cfg),
-                          doctor_level=efficiency_level(doctor_efficiency, cfg)))
+                          doctor_efficiency=doctor_efficiency, nurse_level=summary_level(nurse_efficiency, nurse_shifts, cfg),
+                          doctor_level=summary_level(doctor_efficiency, doctor_shifts, cfg)))
 
     def average(values):
         values = [x for x in values if x is not None]
@@ -108,41 +116,53 @@ def workload_summary(cfg, rows, entries, persons):
     doctor_parameter = average(s['doctor_ratio'] for s in slots)
     nurse_efficiency = _efficiency(nurse_parameter, cfg['nurse_reference'])
     doctor_efficiency = _efficiency(doctor_parameter, cfg['doctor_reference'])
-    return dict(slots=slots, nurse_shifts=sum(s['nurse_shifts'] for s in slots), doctor_shifts=sum(s['doctor_shifts'] for s in slots),
+    nurse_shifts = sum(s['nurse_shifts'] for s in slots)
+    doctor_shifts = sum(s['doctor_shifts'] for s in slots)
+    return dict(slots=slots, nurse_shifts=nurse_shifts, doctor_shifts=doctor_shifts,
+                nurse_rated_shifts=sum(s['nurse_rated_shifts'] for s in slots),
+                doctor_rated_shifts=sum(s['doctor_rated_shifts'] for s in slots),
                 ordinary=sum(s['ordinary'] for s in slots), isolated=sum(s['isolated'] for s in slots),
                 patients=sum(s['patients'] for s in slots), days=len({r['day'] for r in rows}),
                 nurse_parameter=nurse_parameter, doctor_parameter=doctor_parameter,
                 nurse_efficiency=nurse_efficiency, doctor_efficiency=doctor_efficiency,
-                nurse_level=efficiency_level(nurse_efficiency, cfg), doctor_level=efficiency_level(doctor_efficiency, cfg),
+                nurse_level=summary_level(nurse_efficiency, nurse_shifts, cfg),
+                doctor_level=summary_level(doctor_efficiency, doctor_shifts, cfg),
                 threshold=cfg['efficiency_threshold'], nurse_reference=cfg['nurse_reference'],
                 doctor_reference=cfg['doctor_reference'], isolation_weight=cfg['isolation_weight'],
                 dialysis_stations=cfg['dialysis_stations'], isolation_stations=cfg['isolation_stations'])
 
 
 COUNTER_GROUPS = (('infermieri', 'Infermieri'), ('medici', 'Medici'), ('altro', 'Altro personale'))
-COUNTER_KEYS = ('shifts', 'external', 'festive', 'absences', 'total')
+COUNTER_KEYS = ('shifts', 'external', 'festive', 'absences', 'total', 'registrations')
+# Il «totale registrazioni» del vecchio modello esclude i recuperi turno (formula «− RC»); i riposi, che il
+# modello non aveva, restano fuori allo stesso modo. È la stessa base della proposta di accordo (agreements.proposal).
+NOT_IN_TOTAL = ('RC',)
 
 
 def counters(cfg, summary):
     """Conteggi del mese per persona e per gruppo (i contatori a destra della griglia del vecchio modello).
 
     Per ogni persona: turni, fuori sede, festivi, una voce per ogni causale di assenza o riposo dei
-    parametri (0 se non usata) e totale registrazioni a consuntivo. I gruppi seguono i ruoli
+    parametri (0 se non usata), totale come nel modello (registrazioni a consuntivo senza recuperi turno
+    e riposi) e registrazioni (tutte le registrazioni a consuntivo). I gruppi seguono i ruoli
     infermieristici e medici dei parametri; le persone non attive senza registrazioni restano fuori."""
     used = {c for row in summary for c in row['causes']}
     codes = [dict(id=c['id'], label=c['label']) for c in cfg['codes']
              if c['kind'] != 'work' and (c['active'] or c['id'] in used)]
     code_ids = [c['id'] for c in codes]
+    excluded = set(NOT_IN_TOTAL) | {c['id'] for c in cfg['codes'] if c['kind'] == 'rest'}
     people_rows = []
     for row in summary:
-        total = sum(row['causes'].values())
-        if not row['active'] and not total:
+        registrations = sum(row['causes'].values())
+        total = sum(n for code, n in row['causes'].items() if code not in excluded)
+        if not row['active'] and not registrations:
             continue
         group = ('infermieri' if row['role'] in cfg['nurse_roles'] else 'medici' if row['role'] in cfg['doctor_roles'] else 'altro')
         people_rows.append(dict(person_id=row['person_id'], name=row['name'], role=row['role'],
                                 registration=row['registration'], active=row['active'], group=group,
                                 shifts=row['shifts'], external=row['external'], festive=row['festive'],
-                                absences=row['absences'], codes={c: row['causes'].get(c, 0) for c in code_ids}, total=total))
+                                absences=row['absences'], codes={c: row['causes'].get(c, 0) for c in code_ids},
+                                total=total, registrations=registrations))
 
     def totals(label, group_id, members):
         out = dict(id=group_id, label=label, people=len(members))

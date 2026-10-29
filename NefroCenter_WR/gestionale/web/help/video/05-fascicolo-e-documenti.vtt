@@ -1,0 +1,110 @@
+WEBVTT
+
+1
+00:00:00.549 --> 00:00:07.085
+«Persone e fascicoli» elenca le
+persone della struttura scelta in alto:
+
+2
+00:00:07.165 --> 00:00:11.558
+ruolo, ingresso, stato,
+inserimento e documenti.
+
+3
+00:00:11.638 --> 00:00:15.443
+Cerca per nome, matricola o reparto.
+
+4
+00:00:15.523 --> 00:00:20.086
+Apri il fascicolo con un clic sulla riga.
+
+5
+00:00:20.166 --> 00:00:25.348
+Il fascicolo è diviso in linguette:
+anagrafica, recapiti, contratto,
+
+6
+00:00:25.428 --> 00:00:30.146
+amministrazione, qualifiche,
+inserimento, documenti, scadenze.
+
+7
+00:00:30.226 --> 00:00:35.622
+Recapiti: indirizzo, telefono,
+email personale e aziendale.
+
+8
+00:00:35.702 --> 00:00:42.132
+Contratto: tipo, CCNL, livello, ore
+settimanali e date di ingresso e fine.
+
+9
+00:00:42.212 --> 00:00:47.639
+Qualifiche: titoli, iscrizione
+all’albo e relative scadenze.
+
+10
+00:00:47.719 --> 00:00:52.887
+Inserimento: le attività previste
+dal modello della struttura,
+
+11
+00:00:52.967 --> 00:00:55.595
+con referente, scadenza e stato.
+
+12
+00:00:55.675 --> 00:01:03.473
+Documenti: allega un PDF o
+un’immagine indicando la categoria e,
+
+13
+00:01:03.553 --> 00:01:06.550
+se prevista, la scadenza.
+
+14
+00:01:06.630 --> 00:01:11.209
+Premi «Allega»: il
+documento resta «Ricevuto»
+
+15
+00:01:11.289 --> 00:01:14.833
+finché HR centrale non lo verifica.
+
+16
+00:01:14.913 --> 00:01:21.303
+La pagina «Documenti» raccoglie
+gli allegati di tutte le strutture,
+
+17
+00:01:21.383 --> 00:01:24.780
+con scadenze e stato della verifica.
+
+18
+00:01:24.860 --> 00:01:33.641
+Filtra «Da verificare» per vedere solo i
+documenti ricevuti e non ancora controllati.
+
+19
+00:01:33.721 --> 00:01:41.638 line:8%
+Apri il documento: l’anteprima mostra il
+file e, sotto, lo storico della verifica.
+
+20
+00:01:41.718 --> 00:01:45.871 line:8%
+Puoi approvarlo con «Verificato»
+oppure premere «Chiedi
+
+21
+00:01:45.951 --> 00:01:52.182 line:8%
+correzione» spiegando nella nota che cosa
+manca: la struttura potrà ripresentarlo.
+
+22
+00:01:52.262 --> 00:01:57.978 line:8%
+Qui lo approviamo: lo stato
+passa a «Verificato da
+
+23
+00:01:58.058 --> 00:02:04.006 line:8%
+HR» ed esce dall’elenco dei
+documenti da verificare.

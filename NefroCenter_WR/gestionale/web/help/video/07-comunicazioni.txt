@@ -1,0 +1,20 @@
+Comunicazioni al personale
+Modelli, liste di destinatari, composizione, anteprima dei messaggi e bozza; l’invio reale richiede la posta aziendale configurata.
+
+«Comunicazioni» prepara le email al personale e alle strutture: modelli, liste di destinatari, anteprima e bozze.
+
+Nel portale di prova la posta aziendale non è configurata: si prepara tutto, ma nessun messaggio può partire.
+
+«Modelli»: oggetto e testo con variabili, come il nome della persona, sostituite per ogni destinatario.
+
+«Liste»: i destinatari scelti per struttura, ruolo e stato, con gli indirizzi da escludere.
+
+«Nuova comunicazione»: scegli modello e lista. Oggetto e testo si possono adattare solo per questo invio.
+
+«Anteprima dei messaggi» mostra quanti destinatari sono validi e come appare ogni messaggio personalizzato.
+
+«Crea la bozza» salva la comunicazione: nessun messaggio viene inviato.
+
+L’invio reale richiede la configurazione della posta aziendale da parte dell’amministratore. Fino ad allora la bozza resta qui.
+
+Da «Bozze e invii» ritrovi tutte le comunicazioni preparate e il loro stato.

@@ -94,7 +94,7 @@ export const HELP = {
     steps: ['Nel fascicolo di ogni collaboratore indica il tipo di rapporto (scheda Contratto) e, nella scheda Amministrazione, chi fattura, le percentuali di ritenuta e cassa, IBAN e intestatario.',
       'Conferma l’accordo del mese in «Accordi e calcoli»: senza accordo confermato il compenso non viene calcolato.',
       'Controlla il prospetto e scarica l’Excel per l’amministrazione (conferma di sicurezza).'],
-    roles: { hr: 'Vedi tutte le strutture e scarichi il prospetto.', manager: 'Vedi il prospetto delle tue strutture; lo scarico è dell’area HR.', admin: 'Come HR centrale.' },
+    roles: { hr: 'Vedi tutte le strutture e scarichi il prospetto.', manager: 'Vedi e scarichi il prospetto delle tue strutture.', admin: 'Come HR centrale.' },
     notes: ['Netto = lordo + contributo cassa − ritenuta d’acconto. Il portale non emette fatture né cedolini.',
       'Un collaboratore che risulta nel registro ma manca qui ha il tipo di rapporto «Dipendente» nel fascicolo.'],
   },
@@ -121,8 +121,12 @@ export const HELP = {
     notes: ['Le ore contano solo i turni con orari registrati; la completezza mostra quanto mancano.'],
   },
   exports: {
-    intro: 'Prospetti Excel nativi, senza macro: registro mensile, presenze totali, statistiche e, per l’area HR, fascicoli, inserimento e accordi.',
-    steps: ['Scegli il prospetto e il periodo.', 'Scarica: i prospetti con dati personali chiedono una conferma di sicurezza.'],
+    intro: 'Prospetti Excel nativi, senza macro: il foglio mensile come il vecchio modello Excel, il registro mensile, le presenze totali, le statistiche e, per l’area HR, fascicoli, inserimento e accordi.',
+    steps: ['Per il foglio mensile scegli struttura e mese in alto e premi «Scarica il foglio mensile»: contiene griglia, contatori, spazio ufficio del personale, indicatori e pazienti, il foglio per il consulente paghe e quello dei collaboratori.',
+      'Per gli altri prospetti scegli il tipo e il periodo.', 'Scarica: i prospetti con dati personali chiedono una conferma di sicurezza.'],
+    notes: ['Il foglio mensile riporta solo valori già calcolati dal portale: nessuna formula né macro. Sfondo giallo = turno fuori sede, carattere rosso = turno festivo.',
+      'Le parti economiche del foglio mensile compaiono solo per chi può consultare gli accordi; l’IBAN solo per chi gestisce le paghe. Gli importi esistono solo per gli accordi confermati.',
+      'Le modifiche fatte nei file non tornano nel portale: il registro si corregge nel portale.'],
   },
   settings: {
     intro: 'I parametri della struttura: fasce e orari, causali, calendario, ruoli, permessi del compilatore, parametri economici e carico.',
