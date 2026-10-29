@@ -37,7 +37,7 @@ export async function render(ctx) {
     alertBox('Il prospetto riguarda chi non è dipendente della struttura (tipo di rapporto nel fascicolo, scheda Contratto). Lordo dall’accordo del mese confermato; ritenuta e cassa con le percentuali del fascicolo (scheda Amministrazione); netto = lordo + cassa − ritenuta. È una base per i pagamenti, non una fattura né un cedolino.', 'info'),
     h('div', { class: 'kpis' },
       kpi('Collaboratori', fmt.number(data.totals.people), `${fmt.number(data.totals.calculated)} con compenso calcolato`),
-      kpi('Turni', fmt.number(data.totals.shifts), `${fmt.number(data.totals.ordinary_units)} feriali · ${fmt.number(data.totals.festive_units)} festivi`),
+      kpi('Turni', fmt.number(data.totals.shifts), `unità pagate: ${fmt.number(data.totals.ordinary_units)} feriali · ${fmt.number(data.totals.festive_units)} festive (assenze conteggiate comprese)`),
       kpi('Lordo', money(data.totals.gross), 'dagli accordi confermati'),
       kpi('Ritenute', money(data.totals.withholding), 'ritenuta d’acconto'),
       kpi('Netto da pagare', money(data.totals.net), 'lordo + cassa − ritenuta')),
