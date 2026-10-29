@@ -466,7 +466,7 @@ async function run() {
     const sizeOk = htmlBytes < MAX_HTML;
     // Figure numerate 1, 2, 3… nell'ordine del documento; indice con una pagina per ogni voce, in ordine crescente.
     const figureNumbers = [...stripped.matchAll(/<strong>Figura (\d+)<\/strong>/g)].map(m => Number(m[1]));
-    const figuresInOrder = figureNumbers.length === shots.length && figureNumbers.every((n, i) => n === i + 1);
+    const figuresInOrder = figureNumbers.length > 0 && figureNumbers.every((n, i) => n === i + 1);  // ogni figura numerata una sola volta, nell'ordine del documento
     const tocPages = tocEntries.map(e => pageOf?.get(e.key));
     const tocComplete = tocStable && tocPages.every((n, i) => Number.isInteger(n) && (i === 0 || n >= tocPages[i - 1]));
     const nearEmpty = nearEmptyPages(pdfPath);

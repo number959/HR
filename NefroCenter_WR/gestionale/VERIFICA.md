@@ -30,7 +30,7 @@ Provata con un archivio 0.11 sintetico generato dal codice della 0.11 (`strument
 
 ## Guide
 
-- Manuale d'uso illustrato (HTML autonomo + PDF A4 con segnalibri e numeri di pagina) generato da `strumenti/guide/manuale.cjs` dalle schermate del portale di prova in modalità aziendale; controllato da un revisore indipendente e rigenerato dopo le correzioni (ordine delle figure, impaginazione, indice).
+- Manuale d'uso illustrato (HTML autonomo da 10 MB + PDF A4 di 58 pagine con 49 figure, segnalibri e indice con numeri di pagina) generato da `strumenti/guide/manuale.cjs` dalle schermate del portale di prova in modalità aziendale; controllato da un revisore indipendente e rigenerato dopo le correzioni (ordine delle figure, impaginazione, indice, «chi può farlo»). Controlli automatici del generatore: tutte le 26 pagine del portale coperte, nessuna stringa «undefined», nessun errore di console, nessun riferimento esterno nell'HTML.
 - 8 videoguide (H.264 1280×720, 30 fps, senza audio, sottotitoli impressi + VTT + trascrizione + copertina), da 74 a 125 secondi, generate da `strumenti/guide/video.cjs`; sincronia dei sottotitoli controllata su fotogrammi estratti.
 
 ## Pacchetti
