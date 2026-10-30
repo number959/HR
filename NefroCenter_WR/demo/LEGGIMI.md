@@ -19,28 +19,46 @@ Così la demo mostra esattamente le regole, i controlli e le pagine del portale 
 Dalla cartella `demo`:
 
 ```bash
-python costruisci_demo.py                    # versione leggera (2,6 MB): Pyodide dalla rete pubblica jsDelivr
-python costruisci_demo.py --includi-pyodide  # versione autonoma (circa 18 MB): funziona anche senza quella rete
+python costruisci_demo.py                    # versione leggera (2,8 MB): Pyodide dalla rete pubblica jsDelivr
+python costruisci_demo.py --includi-pyodide  # versione autonoma (17,8 MB): funziona anche senza Internet
+python costruisci_demo.py --includi-pyodide --solo-file-web --cartella ALTRA_CARTELLA
+                                             # variante per servizi che pubblicano solo tipi di file web (vedi sotto)
 ```
 
 Il risultato è la cartella `dist/` (si può ricreare in ogni momento). Contiene l'interfaccia del portale,
-il motore (`motore.zip`), l'archivio fittizio (`dati/wr.sqlite3`) e `versione.json`. Manuale illustrato e videoguide
-(`gestionale/web/help`) restano fuori per tenere la demo leggera: la guida in linea del portale c'è comunque.
+il motore (`motore.zip`), l'archivio fittizio (`dati/wr.sqlite3`), `versione.json` e, con `--includi-pyodide`,
+la cartella `pyodide/`. Manuale illustrato e videoguide (`gestionale/web/help`) restano fuori per tenere la demo
+leggera: la guida in linea del portale c'è comunque.
 
 ## Provarla sul proprio computer
 
 ```bash
-python avvia_demo.py          # poi aprire http://localhost:8000
-python avvia_demo.py --lan    # anche dagli altri computer della stessa rete
+python avvia_demo.py                  # apre il browser su http://127.0.0.1:8000/
+python avvia_demo.py --lan            # anche dagli altri computer della stessa rete (stampa l'indirizzo)
+python avvia_demo.py --senza-browser  # senza aprire il browser da solo; --port 8001 per un'altra porta
 ```
 
-Non basta aprire `index.html` con un doppio clic: la demo va servita via HTTP.
+Non basta aprire `index.html` con un doppio clic: la demo va servita via HTTP, e ci pensa `avvia_demo.py`.
+
+**Pacchetto pronto all'uso.** `strumenti/consegna.py` produce `NefroCenter_WR_Demo_1.0.0.zip`: la cartella `dist/`
+(con Pyodide, se costruita così) più `avvia_demo.py` e i lanciatori della cartella `lancio/`: `Avvia_demo.bat`
+(Windows, doppio clic), `avvia_demo.command` (macOS, doppio clic; la prima volta tasto destro → Apri),
+`avvia_demo.sh` (Linux) e `LEGGIMI_DEMO.txt`. Serve solo Python 3 installato.
 
 ## Pubblicarla
 
-La demo **non è pubblicata**. La demo della versione precedente (0.11) è ancora all'indirizzo indicato nella
-documentazione della 0.11. Decidere se la demo WR la sostituisce o la affianca spetta all'azienda; poi basta
-copiare la cartella `dist/` su un servizio di siti statici con HTTPS.
+La demo **non è pubblicata su un indirizzo dell'azienda**. La demo della versione precedente (0.11) è ancora
+all'indirizzo indicato nella documentazione della 0.11. Decidere se la demo WR la sostituisce o la affianca spetta
+all'azienda; poi basta copiare la cartella `dist/` su un servizio di siti statici con HTTPS. La demo funziona anche
+servita da una sottocartella (per esempio `https://sito/demo-wr/`).
+
+Il 30 ottobre 2026 una copia della demo è stata caricata come **pagina privata di prova** su claude.ai, visibile
+solo al titolare del progetto finché non la condivide: è un'anteprima per valutare la demo, non la pubblicazione
+ufficiale. Quel servizio pubblica soltanto tipi di file web, perciò la copia è costruita con `--solo-file-web`:
+archivi e database diventano file di testo base64 (`versione.json` li elenca in `file_base64`) che `demo-main.js`
+decodifica nel browser prima di consegnarli a Pyodide. Lo stesso caricatore, dentro un visualizzatore che blocca gli
+scaricamenti diretti, consegna CSV ed Excel attraverso il servizio di salvataggio del visualizzatore
+(`setDownloader` in `api.js`); nel portale aziendale e nella demo servita da un sito statico non cambia nulla.
 
 ## Verifica automatica
 

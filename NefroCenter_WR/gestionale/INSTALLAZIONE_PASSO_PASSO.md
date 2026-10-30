@@ -238,23 +238,30 @@ Dalla cartella `demo`:
 
 ```bash
 python3 costruisci_demo.py                    # versione leggera (circa 3 MB): Pyodide viene scaricato dalla rete jsDelivr all'apertura
-python3 costruisci_demo.py --includi-pyodide  # versione autonoma (circa 18 MB): funziona anche senza quella rete
+python3 costruisci_demo.py --includi-pyodide  # versione autonoma (circa 18 MB): funziona anche senza Internet
 ```
 
-Il risultato è la cartella `demo/dist/`. Nel pacchetto di consegna la versione leggera è già costruita in `NefroCenter_WR_Demo_1.0.0.zip`.
+Il risultato è la cartella `demo/dist/`. Nel pacchetto di consegna la versione autonoma è già costruita in `NefroCenter_WR_Demo_1.0.0.zip`, insieme ai lanciatori per avviarla con un doppio clic.
 
 ### 3.2 Provarla sul proprio computer
 
+**Con il pacchetto `NefroCenter_WR_Demo_1.0.0.zip`** (serve solo Python 3): scompattarlo e fare doppio clic su `Avvia_demo.bat` (Windows) o `avvia_demo.command` (macOS: la prima volta tasto destro → Apri); su Linux `./avvia_demo.sh`. Si apre il browser su `http://127.0.0.1:8000/`; per fermare la demo chiudere la finestra del terminale. Le istruzioni sono anche in `LEGGIMI_DEMO.txt` dentro il pacchetto.
+
+**Dai sorgenti**, dalla cartella `demo`:
+
 ```bash
-python3 avvia_demo.py            # poi aprire http://localhost:8000
-python3 avvia_demo.py --lan      # anche dagli altri computer della stessa rete
+python3 avvia_demo.py                  # apre il browser su http://127.0.0.1:8000/
+python3 avvia_demo.py --lan            # anche dagli altri computer della stessa rete (stampa l'indirizzo da usare)
+python3 avvia_demo.py --senza-browser  # senza aprire il browser; --port 8001 se la porta 8000 è occupata
 ```
 
-Non basta fare doppio clic su `index.html`: la demo va servita via HTTP (il browser blocca i file locali).
+Non basta fare doppio clic su `index.html`: la demo va servita via HTTP (il browser blocca i file locali), e ci pensa `avvia_demo.py`.
 
 ### 3.3 Pubblicarla
 
-Copiare il contenuto di `demo/dist/` su un servizio di siti statici con HTTPS (per esempio lo stesso servizio che ospita la demo della 0.11, GitHub Pages, Netlify, un bucket con sito statico, una cartella del server web aziendale). Nessuna configurazione lato server: tutti i file sono statici. Il file `index.html` contiene l'intestazione `Content-Security-Policy` che consente solo i file della demo e la rete di distribuzione di Pyodide. La demo della 0.11 resta al suo indirizzo finché l'azienda non decide di sostituirla.
+Copiare il contenuto di `demo/dist/` su un servizio di siti statici con HTTPS (per esempio lo stesso servizio che ospita la demo della 0.11, GitHub Pages, Netlify, un bucket con sito statico, una cartella del server web aziendale), anche in una sottocartella. Nessuna configurazione lato server: tutti i file sono statici. Il file `index.html` contiene l'intestazione `Content-Security-Policy` che consente solo i file della demo e la rete di distribuzione di Pyodide. La demo della 0.11 resta al suo indirizzo finché l'azienda non decide di sostituirla.
+
+Se il servizio accetta soltanto tipi di file web (niente `.zip`, `.whl`, `.sqlite3`), costruire la demo con `python3 costruisci_demo.py --includi-pyodide --solo-file-web --cartella CARTELLA`: archivi e database diventano file di testo base64 che il browser decodifica da solo. È la variante usata per la copia privata di prova caricata su claude.ai il 30 ottobre 2026 (visibile solo al titolare finché non la condivide).
 
 ---
 
@@ -278,5 +285,5 @@ python3 -m unittest discover -s tests -p "test_*.py"
 node ../strumenti/giro_interfaccia.cjs CARTELLA http://127.0.0.1:8090
 
 # demo
-cd ../demo && python3 costruisci_demo.py && python3 avvia_demo.py
+cd ../demo && python3 costruisci_demo.py --includi-pyodide && python3 avvia_demo.py
 ```

@@ -5,8 +5,10 @@ let token = '';
 let transport = (url, init) => window.fetch(url, init);
 let stepUp = null;
 let sessionLost = null;
+let downloader = null;  // consegna alternativa dei file (demo dentro un visualizzatore che blocca gli scaricamenti diretti)
 
 export function setTransport(fn) { transport = fn; }
+export function setDownloader(fn) { downloader = fn; }
 export function setToken(value) { token = value || ''; }
 export function onStepUp(fn) { stepUp = fn; }
 export function onSessionLost(fn) { sessionLost = fn; }
@@ -73,10 +75,12 @@ export async function download(path, fallback = 'file') {
   const response = await api(path);
   if (!(response instanceof Response)) throw new ApiError(500, { message: 'Il servizio non ha restituito un file.' });
   const blob = await response.blob();
+  const name = filename(response.headers.get('Content-Disposition'), fallback);
+  if (downloader) { await downloader(blob, name); return; }
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = filename(response.headers.get('Content-Disposition'), fallback);
+  link.download = name;
   document.body.append(link);
   link.click();
   link.remove();

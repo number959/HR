@@ -5,12 +5,16 @@ Uso (dalla cartella demo):   python costruisci_demo.py [--includi-pyodide]
 - copia l'interfaccia del portale (gestionale/web) così com'è;
 - impacchetta il motore del portale (gestionale/wr con le librerie incluse) in motore.zip;
 - crea un archivio con soli dati fittizi (dati/wr.sqlite3);
-- con --includi-pyodide copia anche Pyodide in pyodide/ (la demo funziona senza la rete di distribuzione pubblica).
+- con --includi-pyodide copia anche Pyodide in pyodide/ (la demo funziona senza la rete di distribuzione pubblica);
+- con --solo-file-web archivi e database (zip, whl, sqlite3) diventano file di testo base64 che il browser decodifica:
+  serve per i servizi di pagine che pubblicano soltanto tipi di file web; negli altri casi non usarlo;
+- con --cartella si sceglie un'altra cartella di uscita (per esempio per costruire due varianti).
 
 La demo non contiene dati aziendali, chiavi o account reali e non invia email. Non viene pubblicata da questo script:
 la pubblicazione su un indirizzo Internet è una scelta separata.
 """
 import argparse
+import base64
 import hashlib
 import json
 import shutil
@@ -29,6 +33,7 @@ MARKER = '.demo-nefrocenter-wr'
 PYODIDE = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/'
 PYODIDE_CORE = ['pyodide.js', 'pyodide.asm.js', 'pyodide.asm.wasm', 'python_stdlib.zip', 'pyodide-lock.json']
 PYODIDE_PACKAGES = ['sqlite3', 'tzdata']
+TEXT_ENCODED = {'.zip', '.whl', '.sqlite3'}   # con --solo-file-web diventano <nome>.txt in base64
 CSP = ("default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; "
        "connect-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: blob:; style-src 'self'; frame-src 'self' blob:; "
        "worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'self'")
@@ -104,6 +109,17 @@ def data():
     return DIST / 'dati' / 'wr.sqlite3', sample.DEMO_TODAY
 
 
+def text_encode():
+    """Archivi e database come testo base64 (<nome>.txt); restituisce la mappa nome originale → file di testo."""
+    encoded = {}
+    for path in sorted(p for p in DIST.rglob('*') if p.is_file() and p.suffix in TEXT_ENCODED):
+        target = path.with_name(path.name + '.txt')
+        target.write_bytes(base64.encodebytes(path.read_bytes()))
+        path.unlink()
+        encoded[path.relative_to(DIST).as_posix()] = target.relative_to(DIST).as_posix()
+    return encoded
+
+
 def pyodide_copy():
     folder = DIST / 'pyodide'
     folder.mkdir()
@@ -124,9 +140,14 @@ def pyodide_copy():
 
 
 def main():
+    global DIST
     p = argparse.ArgumentParser(description='Costruisce la demo pubblica di NefroCenter WR (solo dati fittizi).')
     p.add_argument('--includi-pyodide', action='store_true', help='copia Pyodide nella demo (circa 15 MB)')
+    p.add_argument('--solo-file-web', action='store_true',
+                   help='archivi e database come testo base64, per servizi che pubblicano solo tipi di file web')
+    p.add_argument('--cartella', type=Path, default=DIST, help='cartella di uscita (predefinita: dist/)')
     a = p.parse_args()
+    DIST = a.cartella.resolve()
     clean()
     interface()
     motore = engine()
@@ -137,6 +158,8 @@ def main():
     info = dict(prodotto=PRODUCT, versione=VERSION, tipo='demo pubblica con dati fittizi', data_demo=today,
                 costruita_il=datetime.now(timezone.utc).isoformat(timespec='seconds'), pyodide=PYODIDE,
                 pyodide_locale=a.includi_pyodide, motore_sha256=sha256(motore), dati_sha256=sha256(archive))
+    if a.solo_file_web:
+        info['file_base64'] = text_encode()
     (DIST / 'versione.json').write_text(json.dumps(info, ensure_ascii=False, indent=2), encoding='utf-8')
     size = sum(f.stat().st_size for f in DIST.rglob('*') if f.is_file())
     print(f'Demo pronta in {DIST} ({size / 1024 / 1024:.1f} MB). Prova locale: python avvia_demo.py')

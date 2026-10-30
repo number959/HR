@@ -1,0 +1,22 @@
+NefroCenter WR · Work Resources — DEMO PUBBLICA (solo dati fittizi)
+
+Questa cartella è la demo del portale: lo stesso motore del portale aziendale, eseguito nel browser.
+Dati inventati (3 strutture, 12 persone, ottobre 2026), profili da scegliere senza password, email simulate.
+Nessun dato lascia il computer; le modifiche restano nella scheda del browser e spariscono alla chiusura.
+NON è il portale aziendale: per quello vedere gestionale/INSTALLAZIONE_PASSO_PASSO.md nel pacchetto completo.
+
+COME AVVIARLA (serve Python 3: https://www.python.org/downloads/)
+  Windows:  doppio clic su Avvia_demo.bat
+  macOS:    doppio clic su avvia_demo.command (la prima volta: tasto destro, «Apri»)
+  Linux:    ./avvia_demo.sh   oppure   python3 avvia_demo.py
+Si apre il browser su http://127.0.0.1:8000/ (se non si apre da solo, scrivere l'indirizzo nel browser).
+Per fermarla: Ctrl+C nella finestra del terminale, oppure chiuderla.
+Opzioni: --port 8001 (altra porta), --lan (anche dagli altri computer della rete), --senza-browser.
+
+Non basta aprire index.html con un doppio clic: la demo va servita via HTTP, e ci pensa avvia_demo.py.
+Se la cartella pyodide/ è presente, la demo funziona anche senza Internet; altrimenti la prima apertura
+scarica circa 15 MB dalla rete pubblica jsDelivr.
+
+PUBBLICARLA SU INTERNET
+Copiare l'intera cartella su un servizio di siti statici con HTTPS (Avvia_demo.bat, avvia_demo.* e questo
+LEGGIMI si possono togliere). Decidere se sostituisce o affianca la demo della versione 0.11 spetta all'azienda.

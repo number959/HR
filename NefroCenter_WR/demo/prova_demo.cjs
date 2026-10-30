@@ -2,7 +2,7 @@
 // Uso: python avvia_demo.py --port 8095  e poi  node prova_demo.cjs CARTELLA_SCHERMATE http://127.0.0.1:8095
 const { chromium } = require('playwright');
 const OUT = process.argv[2];
-const BASE = process.argv[3] || 'http://127.0.0.1:8095';
+const BASE = (process.argv[3] || 'http://127.0.0.1:8095').replace(/\/+$/, '');  // anche una sottocartella
 (async () => {
   const browser = await chromium.launch({ args: ['--lang=it-IT'].concat(process.env.QA_CHROMIUM_NO_SANDBOX ? ['--no-sandbox'] : []) });
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: 'it-IT', acceptDownloads: true });

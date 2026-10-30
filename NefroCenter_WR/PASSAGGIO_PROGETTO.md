@@ -18,7 +18,7 @@ Il repository Git di lavoro contiene anche la cartella `NefroCenter_Sorgenti/` c
 NefroCenter WR è il portale centrale del personale delle strutture NefroCenter: presenze e pianificazione, controlli e chiusura del mese, approvazione mensile, accordi e calcoli, persone e fascicoli, documenti con verifica HR, personale di gruppo, copertura turni e sostituzioni, uscite e dotazioni, rubrica strutture, comunicazioni, promemoria, paghe, statistiche ed esportazioni, backup, importazione del modello Excel, migrazione dalla 0.11.
 
 - Il **portale aziendale non è installato** su un server dell'azienda. Posta, NAS e tracciato paghe **non sono configurati**: il programma li tiene spenti finché il tecnico non inserisce parametri reali e verificati.
-- La **demo pubblica WR non è pubblicata**: si costruisce con `demo/costruisci_demo.py` e si prova in locale con `demo/avvia_demo.py`. La demo della 0.11 resta all'indirizzo indicato nella documentazione della 0.11; decidere se sostituirla o affiancarla spetta all'azienda. Non inventare una pubblicazione né creare siti duplicati.
+- La **demo pubblica WR non è pubblicata su un indirizzo dell'azienda**: si costruisce con `demo/costruisci_demo.py` e si prova in locale con `demo/avvia_demo.py` (o con i lanciatori del pacchetto `NefroCenter_WR_Demo_1.0.0.zip`). Il 30 ottobre 2026 una copia è stata caricata come pagina privata di prova su claude.ai, visibile solo al titolare finché non la condivide (variante `--solo-file-web`). La demo della 0.11 resta all'indirizzo indicato nella documentazione della 0.11; decidere se sostituirla o affiancarla spetta all'azienda. Non inventare una pubblicazione né creare siti duplicati.
 - La richiesta che ha guidato questa versione: «migliora il software, fallo tuo; il software diventa NefroCenter WR (Work Resources); rifacciamo tutto, usa un altro layout, usa il tuo codice», conservando tutte le funzioni della 0.11, con guide, manuale, videoguide, documentazione, un unico ZIP, il sorgente in TXT e questo documento di passaggio.
 
 ## 3. Decisioni da conservare
@@ -65,7 +65,7 @@ Python 3.12/3.13 standard library + `cryptography` (Fernet per i segreti dell'ap
 | `tests/` | prove automatiche (`python3 -m unittest discover -s tests -p "test_*.py"`) |
 | `strumenti/anteprima.py` | portale di prova con dati fittizi (`--aziendale` per accesso con password e Authenticator) |
 
-Nella cartella `demo/`: `costruisci_demo.py` (crea `dist/`), `sorgenti/ponte.py` e `sorgenti/demo-main.js` (il motore nel browser con Pyodide), `avvia_demo.py`, `prova_demo.cjs`. In `strumenti/`: `giro_interfaccia.cjs` e `schermate.cjs` (prove Playwright), `archivio_011_di_prova.py` (archivio 0.11 sintetico per la migrazione), `guide/` (manuale e videoguide), `consegna.py`.
+Nella cartella `demo/`: `costruisci_demo.py` (crea `dist/`; `--includi-pyodide`, `--solo-file-web`, `--cartella`), `sorgenti/ponte.py` e `sorgenti/demo-main.js` (il motore nel browser con Pyodide; decodifica dei file base64 e consegna dei file nei visualizzatori che bloccano gli scaricamenti), `avvia_demo.py` (serve `dist/` o la cartella del pacchetto, apre il browser), `lancio/` (lanciatori e LEGGIMI del pacchetto della demo), `prova_demo.cjs`. In `strumenti/`: `giro_interfaccia.cjs` e `schermate.cjs` (prove Playwright), `archivio_011_di_prova.py` (archivio 0.11 sintetico per la migrazione), `guide/` (manuale e videoguide), `consegna.py`.
 
 Convenzioni dell'interfaccia: nessuno stile o script in linea (CSP severa; i colori dinamici passano da `style.setProperty` su variabili CSS); i moduli di pagina esportano `render(ctx)` e ricevono `ctx = {app, params, query, go, refresh, setContext, reloadProfile}`; le pagine sono registrate in `PAGES` dentro `app.js`.
 
@@ -79,7 +79,7 @@ python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python strumenti/anteprima.py --port 8092 --aziendale      # come in azienda: password e Authenticator (dati fittizi)
 ```
 
-Prove dell'interfaccia con Node.js e Playwright (Chromium): `node strumenti/giro_interfaccia.cjs CARTELLA http://127.0.0.1:8090` apre tutte le pagine di ogni profilo e raccoglie errori; `node strumenti/schermate.cjs CARTELLA` fa le schermate. Nei contenitori senza sandbox serve `QA_CHROMIUM_NO_SANDBOX=1`. Demo: `cd demo && python3 costruisci_demo.py && python3 avvia_demo.py --port 8095`, poi `node prova_demo.cjs CARTELLA http://127.0.0.1:8095`.
+Prove dell'interfaccia con Node.js e Playwright (Chromium): `node strumenti/giro_interfaccia.cjs CARTELLA http://127.0.0.1:8090` apre tutte le pagine di ogni profilo e raccoglie errori; `node strumenti/schermate.cjs CARTELLA` fa le schermate. Nei contenitori senza sandbox serve `QA_CHROMIUM_NO_SANDBOX=1`. Demo: `cd demo && python3 costruisci_demo.py --includi-pyodide && python3 avvia_demo.py --port 8095 --senza-browser`, poi `node prova_demo.cjs CARTELLA http://127.0.0.1:8095` (accetta anche una sottocartella, per esempio `http://127.0.0.1:8096/dist/`).
 
 `manage.py init` crea una **nuova** installazione e rifiuta un archivio esistente. Non eseguirlo per ispezionare o aggiornare un archivio: usare `check`. `after-restore` non è in sola lettura. Per il portale aziendale seguire `gestionale/INSTALLAZIONE_PASSO_PASSO.md` (dettagliata) o `gestionale/INSTALLAZIONE.md` (riferimento).
 

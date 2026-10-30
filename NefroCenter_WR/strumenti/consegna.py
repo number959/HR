@@ -7,7 +7,8 @@ Produce:
 - Codice_Sorgente_NefroCenter_WR_<versione>.txt tutti i file in un solo testo UTF-8, che è anche uno script Python:
                                                  «python Codice_Sorgente_NefroCenter_WR_<versione>.txt --directory CARTELLA»
                                                  ricrea l'albero dei sorgenti verificando le impronte SHA-256
-- NefroCenter_WR_Demo_<versione>.zip            la demo già costruita (cartella demo/dist, se presente), pronta da pubblicare
+- NefroCenter_WR_Demo_<versione>.zip            la demo già costruita (demo/dist, se presente) con i lanciatori per avviarla
+                                                 con un doppio clic; la stessa cartella si può pubblicare su un sito statico
 - SHA256SUMS_<versione>.txt                     impronte di ogni file consegnato
 - VERIFICA_PACCHETTO_<versione>.txt             esito dei controlli eseguiti sui pacchetti (ricostruzione dal TXT, ZIP)
 
@@ -236,9 +237,16 @@ def main():
         for path in sorted(dist.rglob('*')):
             if path.is_file() and path.name != '.demo-nefrocenter-wr':
                 demo_files.append((path.relative_to(dist).as_posix(), path.read_bytes()))
+        # Avvio con un doppio clic: avvia_demo.py serve la cartella in cui si trova; lanciatori per Windows, macOS e Linux.
+        launchers = [ROOT / 'demo' / 'avvia_demo.py'] + sorted(p for p in (ROOT / 'demo' / 'lancio').iterdir()
+                                                               if p.is_file() and not p.name.startswith('.'))
+        demo_files += [(p.name, p.read_bytes()) for p in launchers]
         with zipfile.ZipFile(demo_zip, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
             for rel, data in demo_files:
-                zf.writestr(f'NefroCenter_WR_Demo_{version}/{rel}', data)
+                info = zipfile.ZipInfo(f'NefroCenter_WR_Demo_{version}/{rel}', date_time=(2026, 1, 1, 0, 0, 0))
+                info.compress_type = zipfile.ZIP_DEFLATED
+                info.external_attr = (0o755 if rel.endswith(('.sh', '.command')) else 0o644) << 16
+                zf.writestr(info, data)
         with zipfile.ZipFile(demo_zip) as zf:
             results.append(f'PASS: ZIP della demo integro, {len(zf.infolist())} file, {demo_zip.stat().st_size} byte.'
                            if zf.testzip() is None else 'FAIL: ZIP della demo danneggiato.')

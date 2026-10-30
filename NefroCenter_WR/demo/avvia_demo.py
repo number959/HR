@@ -1,15 +1,20 @@
-"""Serve la demo pubblica (cartella dist/) sul proprio computer, solo per prove.
+"""Serve la demo pubblica sul proprio computer, solo per prove, e apre il browser.
 
-Uso:  python avvia_demo.py [--port 8000] [--lan]
-Senza --lan la demo è raggiungibile solo da questo computer (http://localhost:8000).
-Con --lan anche dagli altri computer della stessa rete. Serve soltanto file statici con dati fittizi.
+Uso:  python avvia_demo.py [--port 8000] [--lan] [--senza-browser]
+Serve la cartella dist/ accanto a questo file (cartella del progetto) oppure, nel pacchetto della demo già costruita,
+la cartella in cui si trova. Senza --lan la demo è raggiungibile solo da questo computer; con --lan anche dagli altri
+computer della stessa rete. Serve soltanto file statici con dati fittizi: nessun dato lascia il computer.
 """
 import argparse
 import functools
 import http.server
+import json
+import socket
+import threading
+import webbrowser
 from pathlib import Path
 
-DIST = Path(__file__).resolve().parent / 'dist'
+HERE = Path(__file__).resolve().parent
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -26,20 +31,57 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         pass
 
 
+def demo_folder():
+    """dist/ accanto allo script (progetto) oppure la cartella dello script stesso (pacchetto della demo)."""
+    for folder in (HERE / 'dist', HERE):
+        info = folder / 'versione.json'
+        if (folder / 'index.html').exists() and info.exists():
+            try:
+                if 'demo' in json.loads(info.read_text(encoding='utf-8')).get('tipo', ''):
+                    return folder
+            except (ValueError, OSError):
+                pass
+    return None
+
+
+def lan_address():
+    """Indirizzo di questo computer nella rete locale (senza inviare nulla), per chi usa --lan."""
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect(('10.255.255.255', 1))
+            return s.getsockname()[0]
+    except OSError:
+        return None
+
+
 def main():
     p = argparse.ArgumentParser(description='Demo di NefroCenter WR (dati fittizi)')
     p.add_argument('--port', type=int, default=8000)
     p.add_argument('--lan', action='store_true', help='raggiungibile anche dagli altri computer della rete')
+    p.add_argument('--senza-browser', action='store_true', help='non aprire il browser da solo')
     a = p.parse_args()
-    if not (DIST / 'index.html').exists():
+    folder = demo_folder()
+    if folder is None:
         raise SystemExit('Demo non ancora costruita: eseguire prima «python costruisci_demo.py».')
     host = '0.0.0.0' if a.lan else '127.0.0.1'
-    server = http.server.ThreadingHTTPServer((host, a.port), functools.partial(Handler, directory=str(DIST)))
-    print(f'Demo con dati fittizi: http://localhost:{a.port}' + ('  (anche dalla rete locale)' if a.lan else ''), flush=True)
+    try:
+        server = http.server.ThreadingHTTPServer((host, a.port), functools.partial(Handler, directory=str(folder)))
+    except OSError as e:
+        raise SystemExit(f'Porta {a.port} non disponibile ({e.strerror}): chiudere l’altra demo oppure usare --port {a.port + 1}.')
+    url = f'http://127.0.0.1:{a.port}/'
+    print(f'Demo di NefroCenter WR con dati fittizi: {url}', flush=True)
+    if a.lan:
+        ip = lan_address()
+        print(f'Dagli altri computer della rete: http://{ip}:{a.port}/' if ip else 'Raggiungibile anche dalla rete locale.', flush=True)
+    print('Per fermarla: Ctrl+C (o chiudere questa finestra).', flush=True)
+    if not a.senza_browser:
+        threading.Timer(0.8, webbrowser.open, (url,)).start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         pass
+    finally:
+        server.server_close()
 
 
 if __name__ == '__main__':

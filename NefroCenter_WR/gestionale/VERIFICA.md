@@ -1,6 +1,6 @@
 # Verifica — NefroCenter WR · Work Resources 1.0.0
 
-Controlli eseguiti tra il 25 e il 29 ottobre 2026 in un contenitore Linux (Python 3.13, Node 22, Playwright 1.63 con Chromium), sempre con dati fittizi. Il collaudo sul server aziendale e sulla rete reale **non** è stato eseguito.
+Controlli eseguiti tra il 25 e il 30 ottobre 2026 in un contenitore Linux (Python 3.13, Node 22, Playwright 1.63 con Chromium), sempre con dati fittizi. Il collaudo sul server aziendale e sulla rete reale **non** è stato eseguito.
 
 ## Motore (prove automatiche)
 
@@ -14,7 +14,7 @@ Controlli eseguiti tra il 25 e il 29 ottobre 2026 in un contenitore Linux (Pytho
 
 ## Demo pubblica
 
-Costruita con `demo/costruisci_demo.py` (2,6 MB senza Pyodide incluso) e provata in Chromium con `demo/prova_demo.cjs`: avvio del motore nel browser in 2,7 s (Pyodide locale) e 4,6–5,3 s (dalla rete di distribuzione), 18 pagine del Responsabile aperte, una registrazione salvata, un CSV scaricato, nessun errore con la Content Security Policy severa. La demo **non è pubblicata**.
+Ricostruita il 30 ottobre 2026 con `demo/costruisci_demo.py --includi-pyodide` (17,8 MB, 54 file, funziona anche senza Internet) e provata in Chromium con `demo/prova_demo.cjs` in tre condizioni: servita da `avvia_demo.py` alla radice, servita da una sottocartella con un server statico generico (`python3 -m http.server`), e nella variante `--solo-file-web` (archivi e database come testo base64 decodificati dal browser). In tutti i casi: avvio del motore nel browser in 2,9–3,3 s, 19 pagine del Responsabile aperte senza errori di console, di pagina o HTTP, una registrazione salvata, un CSV scaricato. Nelle prove precedenti la versione leggera (Pyodide dalla rete di distribuzione jsDelivr) si avviava in 4,6–5,3 s. I lanciatori del pacchetto (`Avvia_demo.bat`, `avvia_demo.command`, `avvia_demo.sh`) sono stati controllati nella sintassi, non eseguiti su Windows e macOS. La demo **non è pubblicata su un indirizzo dell'azienda**; una copia privata di prova è stata caricata su claude.ai (variante `--solo-file-web`, visibile solo al titolare finché non la condivide): la sua resa dentro quel servizio non è verificabile dal contenitore di lavoro, che non ha l'accesso del titolare.
 
 ## Migrazione dalla 0.11
 
