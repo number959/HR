@@ -1,5 +1,6 @@
 import sqlite3
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -35,8 +36,21 @@ class Archive(unittest.TestCase):
         result = db.maintenance()
         self.assertFalse(result['busy'])
         self.assertEqual(result['pages'], result['moved'])
-        wal = self.path.with_name(self.path.name + '-wal')
-        self.assertTrue(not wal.exists() or wal.stat().st_size == 0)
+
+    def test_maintenance_never_blocks_writers_during_a_long_read(self):
+        db = Database(self.path)
+        db.migrate()
+        with db.write() as con:
+            con.execute("INSERT INTO meta(key,value) VALUES('prima','x')")
+        with db.read() as reader:  # lettura lunga ancora aperta (per esempio statistiche)
+            reader.execute('SELECT count(*) FROM meta').fetchone()
+            with db.write() as con:
+                con.execute("INSERT INTO meta(key,value) VALUES('seconda','y')")
+            started = time.monotonic()
+            db.maintenance()
+            with db.write() as con:  # il compilatore salva subito, senza attendere la fine della lettura
+                con.execute("INSERT INTO meta(key,value) VALUES('terza','z')")
+            self.assertLess(time.monotonic() - started, 1)
 
     def test_legacy_archive_is_never_modified(self):
         con = sqlite3.connect(self.path)

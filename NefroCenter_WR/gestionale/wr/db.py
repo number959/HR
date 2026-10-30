@@ -118,10 +118,14 @@ class Database:
     def maintenance(self):
         """Manutenzione leggera, da eseguire periodicamente (ogni ora dal servizio): riporta il file -wal
         nell'archivio principale e lascia a SQLite l'aggiornamento delle statistiche per il pianificatore.
-        Restituisce quante pagine del WAL erano in attesa. Non blocca le letture in corso."""
+        Restituisce quante pagine del WAL erano in attesa.
+
+        Checkpoint PASSIVE: non aspetta e non blocca nessuno. I tipi FULL/RESTART/TRUNCATE fermano i nuovi
+        salvataggi finché non finiscono le letture in corso (con una statistica lunga, fino al timeout).
+        Il file -wal si accorcia comunque da solo (journal_size_limit) quando il registro ricomincia."""
         con = self.connect()
         try:
-            busy, pages, moved = con.execute('PRAGMA wal_checkpoint(TRUNCATE)').fetchone()
+            busy, pages, moved = con.execute('PRAGMA wal_checkpoint(PASSIVE)').fetchone()
             con.execute('PRAGMA optimize')
             return dict(busy=bool(busy), pages=pages, moved=moved)
         finally:

@@ -17,7 +17,8 @@
   "studio_modello_excel": "docs/STUDIO_MODELLO_EXCEL.md",
   "posta": "docs/POSTA.md",
   "paghe": "docs/PAGHE.md",
-  "dimensionamento": "docs/DIMENSIONAMENTO_ARCHIVIO.md"
+  "dimensionamento": "docs/DIMENSIONAMENTO_ARCHIVIO.md",
+  "piano_velocita": "docs/PIANO_VELOCITA.md"
  },
  "avvio": [
   "manage.py serve (--processes N per più processi di lavoro)",
@@ -31,7 +32,7 @@
   "demo": "stesso motore eseguito nel browser con Pyodide 0.26.4"
  },
  "verifica": {
-  "prove_automatiche": 159,
+  "prove_automatiche": 160,
   "prove_superate": true,
   "giro_interfaccia_profili": 5,
   "giro_interfaccia_pagine": {
@@ -105,6 +106,35 @@
     "strumenti/carico_http.py"
    ],
    "documento": "docs/DIMENSIONAMENTO_ARCHIVIO.md"
+  },
+  "velocita_browser": {
+   "data": "2026-10-30",
+   "registro_rete_locale": {
+    "apertura_s": 0.81,
+    "salvataggio_casella_s": 0.4,
+    "cambio_mese_s": 0.4
+   },
+   "registro_sede_simulata": {
+    "apertura_s": 2.08,
+    "salvataggio_casella_s": "1.2-1.5",
+    "cambio_mese_s": 1.2
+   },
+   "pagine_lente_s": {
+    "riepilogo_hr": "1.8-10",
+    "statistiche_apertura": 17.5,
+    "documenti": 3.3,
+    "da_completare": 2.2,
+    "copertura": 1.0
+   },
+   "prototipi": {
+    "statistiche_12_mesi_ms": 35,
+    "statistiche_1_mese_ms": 3,
+    "costo_per_salvataggio_ms": 0.07
+   },
+   "audit_browser": {
+    "rilievi_confermati": 18,
+    "rilievi_verificati": 20
+   }
   }
  },
  "guide": {
@@ -132,6 +162,7 @@
   "archivio aziendale reale"
  ],
  "decisioni_aperte": [
-  "Sede degli allegati prima di caricare i documenti di 3000 persone: file su disco con impronta SHA-256 (consigliato) o secondo file SQLite; conservazione dei backup locali; archiviazione degli anni chiusi (docs/DIMENSIONAMENTO_ARCHIVIO.md §6)"
+  "Sede degli allegati prima di caricare i documenti di 3000 persone: file su disco con impronta SHA-256 (consigliato) o secondo file SQLite; conservazione dei backup locali; archiviazione degli anni chiusi (docs/DIMENSIONAMENTO_ARCHIVIO.md §6)",
+  "Piano «ultra veloce» (docs/PIANO_VELOCITA.md): approvare ordine delle consegne e avvio; circa 35 giorni/persona in 6 consegne indipendenti"
  ]
 }
