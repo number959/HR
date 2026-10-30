@@ -40,10 +40,9 @@
       "operator": 12,
       "viewer": 12
     },
-    "larghezze_browser": [
-      1440,
-      390
-    ],
+    "larghezze_browser": [320, 390, 412, 844, 768, 810, 834, 1080, 1194, 1280, 1440, 1920, 2560],
+    "dispositivi_emulati": ["Galaxy S9+", "iPhone SE", "iPhone 13 (anche orizzontale)", "Pixel 7 (anche orizzontale)", "iPad Mini", "iPad (gen 7) (anche orizzontale)", "iPad Pro 11 (anche orizzontale)"],
+    "registro_prova_dedicata": "strumenti/prova_registro.cjs (scelta rapida, compilazione rapida, navigazione, telefono)",
     "demo_browser": "radice, sottocartella e variante solo-file-web (30/10/2026)",
     "migrazione_archivio_sintetico": true,
     "importazione_file_reale": true,

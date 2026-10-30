@@ -284,12 +284,19 @@ export async function confirmBox(title, text, opts = {}) {
   ]);
 }
 
-export function toast(text, tone = '') {
+// opts.action = { label, onClick }: un pulsante dentro l'avviso (per esempio «Annulla»); l'avviso resta più a lungo.
+export function toast(text, tone = '', opts = {}) {
   const box = document.getElementById('toasts');
   if (!box) return;
   const item = h('div', { class: `toast ${tone}` }, icon(tone === 'bad' ? 'alert' : tone === 'ok' ? 'check' : 'info'), h('div', { text }));
+  if (opts.action) {
+    item.append(button(opts.action.label, { small: true, onClick: async e => {
+      e.currentTarget.disabled = true;
+      try { await opts.action.onClick(); } finally { item.remove(); }
+    } }));
+  }
   box.append(item);
-  setTimeout(() => item.remove(), tone === 'bad' ? 9000 : 5000);
+  setTimeout(() => item.remove(), opts.action ? 9000 : tone === 'bad' ? 9000 : 5000);
 }
 
 export function errorMessage(err) {

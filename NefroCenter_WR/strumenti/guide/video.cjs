@@ -491,32 +491,56 @@ const GUIDES = [
       }, { chapter: 'Il registro del mese' });
       await rec.step('Ogni riga è una persona con le sue fasce: m mattina, p pomeriggio, s serale, n notte. Ogni colonna è un giorno del mese.',
         () => rec.show('table.register tbody th.name-cell'));
-      await rec.step('Clicca una casella vuota: scegliamo Paolo Greco, giovedì 22 ottobre, fascia Mattina.', async () => {
+      await rec.step('Sotto il titolo: frecce per cambiare mese, «Oggi» e la riga «Stai vedendo» che riassume registro, vista e filtri.',
+        () => rec.show('.month-nav'));
+      await rec.step('Tocca una casella vuota: scegliamo Paolo Greco, giovedì 22 ottobre, fascia Mattina.', async () => {
         await rec.click(empty);
-        await rec.dialog();
+        await rec.page.waitForSelector('.quick-pick', { timeout: 15000 });
       }, { chapter: 'Registrare un turno' });
-      await rec.step('Nella finestra scegli la causale: un turno (m, p, s, n) oppure un’assenza, per esempio FE ferie o MA malattia.',
-        () => rec.show('dialog[open] select[name="code"]'));
-      await rec.step('Gli orari sono quelli proposti dalla fascia. Il compilatore non li cambia: se serve, li corregge il responsabile.',
-        () => rec.show('dialog[open] fieldset'));
-      await rec.step('Premi «Salva»: la casella mostra il turno registrato.', async () => {
-        await rec.click('dialog[open] .dialog-foot .btn.primary');
-        await rec.dialogClosed();
+      await rec.step('Si apre il riquadro con le causali ammesse nella fascia: un turno (m, p, s, n) oppure un’assenza, per esempio FE ferie o MA malattia.',
+        () => rec.show('.quick-pick .quick-codes'));
+      await rec.step('Tocca «m · Mattina»: la casella è registrata subito, con gli orari della fascia. L’avviso in basso ha «Annulla» per tornare indietro.', async () => {
+        await rec.click('.quick-pick .quick-code[data-code="m"]');
         await rec.toast();
         await rec.ready();
         await rec.show(filled);
       }, { cover: true });
-      await rec.step('Per correggere, clicca una casella già compilata: si riapre la registrazione.', async () => {
+      await rec.step('Per correggere, tocca la casella e scegli un’altra causale, per esempio «PS · Permesso». Ogni modifica resta nello storico del mese.', async () => {
         await rec.click(filled);
-        await rec.dialog();
-      }, { chapter: 'Correggere una casella' });
-      await rec.step('Cambia la causale, per esempio in «PS · Permesso», e salva di nuovo. Ogni modifica resta nello storico del mese.', async () => {
-        await rec.select('dialog[open] select[name="code"]', 'PS');
-        await rec.click('dialog[open] .dialog-foot .btn.primary');
-        await rec.dialogClosed();
+        await rec.page.waitForSelector('.quick-pick', { timeout: 15000 });
+        await rec.click('.quick-pick .quick-code[data-code="PS"]');
         await rec.toast();
         await rec.ready();
+      }, { chapter: 'Correggere una casella' });
+      await rec.step('Orari, sede, festivo e nota sono in «Dettagli e orari…», la finestra completa. Gli orari seguono la fascia: li cambia solo il responsabile.', async () => {
+        await rec.click('button.cell[aria-label^="Paolo Greco, giovedì 22 ottobre 2026, Mattina: Permesso"]');
+        await rec.page.waitForSelector('.quick-pick', { timeout: 15000 });
+        await rec.click('.quick-pick .quick-foot .btn:has-text("Dettagli")');
+        await rec.dialog();
+        await rec.show('dialog[open] form');
+        await rec.click('dialog[open] .dialog-foot .btn:has-text("Annulla")');
+        await rec.dialogClosed();
       });
+      await rec.step('«Compilazione rapida»: scegli una causale nella tavolozza e tocca le caselle da compilare, una dopo l’altra. Le caselle colorate sono i giorni passati senza registrazione.', async () => {
+        await rec.click('.page-actions .btn:has-text("Compilazione rapida")');
+        await rec.ready();
+        await rec.click('.quick-bar .quick-code[data-code="m"]');
+        await rec.ready();
+        for (let i = 0; i < 2; i += 1) {
+          await rec.click('button.cell.todo >> nth=0');
+          await rec.toast();
+          await rec.ready();
+        }
+        await rec.click('.quick-bar .btn:has-text("Esci")');
+        await rec.ready();
+      }, { chapter: 'Compilazione rapida' });
+      await rec.step('«Solo da completare» mostra solo chi ha giorni passati senza registrazione; accanto al nome c’è il conteggio.', async () => {
+        await rec.click('.btn.toggle:has-text("Solo da completare")');
+        await rec.ready();
+        await rec.show('table.register tbody th.name-cell');
+        await rec.click('.btn.toggle');
+        await rec.ready();
+      }, { chapter: 'Navigare nel registro' });
       await rec.step('La vista «Giorno» elenca le persone di un giorno con un pulsante per ogni fascia: è comoda sul telefono.', async () => {
         await rec.click('.segmented button:has-text("Giorno")');
         await rec.select('select[aria-label="Giorno"]', '2026-10-22');

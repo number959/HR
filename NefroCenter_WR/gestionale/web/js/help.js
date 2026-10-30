@@ -19,11 +19,15 @@ export const HELP = {
     notes: ['Le voci rosse sono urgenti (scadute o bloccanti).', 'L’elenco non modifica nulla: è solo una vista.'],
   },
   attendance: {
-    intro: 'Il registro mostra una riga per ogni persona e fascia (mattina, pomeriggio, sera, notte) e una colonna per ogni giorno del mese.',
-    steps: ['Scegli struttura e mese in alto.', 'Clicca una casella per registrare un turno o un’assenza; clicca una casella già compilata per correggerla.',
+    intro: 'Il registro mostra una riga per ogni persona e fascia (mattina, pomeriggio, sera, notte) e una colonna per ogni giorno del mese. La riga «Stai vedendo» sotto il titolo riassume registro, vista e filtri; la colonna di oggi è evidenziata.',
+    steps: ['Scegli struttura e mese in alto, oppure usa le frecce e «Oggi» sotto il titolo.',
+      'Tocca una casella: si apre il riquadro con le causali ammesse nella fascia; toccane una e la registrazione è salvata subito. L’avviso in basso ha «Annulla».',
+      '«Dettagli e orari…» apre la finestra completa per orari, sede, festivo e nota; una casella già compilata si corregge allo stesso modo.',
+      '«Compilazione rapida»: scegli una causale nella tavolozza e tocca le caselle da compilare una dopo l’altra; la gomma svuota; Esc esce. Da tastiera digita il codice della causale.',
+      'Le caselle con la tinta chiara sono giorni passati senza registrazione; «Solo da completare» mostra solo quelle persone, con il conteggio accanto al nome.',
       'Usa «Pianificato» per preparare i turni e «Consuntivo» per quelli effettivamente svolti.',
       'Sul telefono usa la vista «Giorno»: elenca le persone del giorno scelto con un pulsante per ogni fascia.',
-      'Un pallino arancione segnala un turno senza orari; la linea gialla un turno fuori sede; la sottolineatura rossa un festivo.'],
+      'Un pallino arancione segnala un turno senza orari; la linea gialla un turno fuori sede; la sottolineatura rossa un festivo. La legenda è sopra la griglia.'],
     roles: {
       operator: 'Puoi registrare e correggere le presenze nei mesi aperti. Orari, sede, festivo, pianificazione ed eliminazione dipendono dai parametri della struttura.',
       manager: 'Puoi anche pianificare, modificare orari e sedi, aggiungere persone al registro e gestire i pazienti per fascia.',

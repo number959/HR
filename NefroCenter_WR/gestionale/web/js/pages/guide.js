@@ -13,9 +13,10 @@ export const PROCEDURES = [
     'Inquadra il codice QR con un’app Authenticator sul telefono e inserisci il codice di 6 cifre.',
     'Scarica o stampa i codici di recupero e conservali lontano dal telefono.'] },
   { title: 'Registrare le presenze del giorno', cap: 'presenze.compila', steps: [
-    'Apri «Registro presenze»: struttura e mese si scelgono in alto.',
-    'Clicca la casella della persona, del giorno e della fascia.',
-    'Scegli la causale (turno o assenza); controlla gli orari proposti dalla fascia e salva.',
+    'Apri «Registro presenze»: struttura e mese si scelgono in alto; «Oggi» porta al giorno corrente.',
+    'Tocca la casella della persona, del giorno e della fascia: compare il riquadro con le causali ammesse.',
+    'Tocca la causale (turno o assenza): la registrazione è salvata subito con gli orari della fascia; «Annulla» nell’avviso la ripristina.',
+    'Per orari, sede, festivo o nota usa «Dettagli e orari…»; per molte caselle di seguito usa «Compilazione rapida» (tavolozza in alto).',
     'Sul telefono usa la vista «Giorno»: un pulsante per ogni fascia di ogni persona.'] },
   { title: 'Preparare i turni del mese', cap: 'presenze.pianifica', steps: [
     'Nel registro passa a «Pianificato».',
