@@ -17,7 +17,7 @@ NefroCenter WR è la riscrittura completa di «Persone e Presenze Web 0.11»: st
 - Menu per aree (Panoramica, Presenze, Persone, Amministrazione, Analisi, Sistema, Aiuto) che mostra solo ciò che il profilo può fare; barra superiore con struttura e mese sempre a portata di mano.
 - Riepilogo con numeri del mese e **Da completare**: elenco automatico di orari mancanti, pianificati da consuntivare, fascicoli e documenti, scadenze, approvazioni, sostituzioni, backup, importazioni da verificare. Le voci spariscono da sole quando il dato è sistemato.
 - Registro presenze con vista **Mese** e vista **Giorno** (pensata per il telefono), livelli Consuntivo e Pianificato, ricerca e filtro per ruolo, avvisi leggibili (turni senza orari, riposo insufficiente, importazioni da verificare).
-- Guida contestuale «?» in ogni pagina, Guida completa con procedure, pagine, domande frequenti, manuale e videoguide; pagina **Ruoli e permessi** con la stessa tabella usata dal server.
+- Guida contestuale «?» in ogni pagina (con la videoguida e il capitolo del manuale di quella pagina), Guida completa con procedure, pagine, domande frequenti, manuale leggibile dentro il portale (o scaricabile in PDF) e videoguide con capitoli e trascrizione; pagina **Ruoli e permessi** con la stessa tabella usata dal server.
 - Tema chiaro e scuro, tastiera e lettori di schermo, nessun testo tagliato anche su telefono (390 px).
 - Grafici delle statistiche semplici e leggibili (una serie, un asse, valore al passaggio del mouse o con la tastiera).
 

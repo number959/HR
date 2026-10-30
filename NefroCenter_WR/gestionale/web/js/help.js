@@ -156,7 +156,9 @@ export const HELP = {
       'Le formule economiche riconosciute diventano proposte da confermare negli accordi; gli importi del foglio «Collaboratori» restano solo come promemoria.',
       'Lo stesso file non può essere importato due volte.'],
   },
-  guide: { intro: 'La guida completa raccoglie tutte le procedure, organizzate per argomento e per ruolo.' },
+  guide: { intro: 'La guida completa raccoglie tutte le procedure, organizzate per argomento e per ruolo. Nella scheda «Manuale e video» trovi il manuale illustrato da leggere nel portale (o da scaricare in PDF) e le videoguide con capitoli e trascrizione.',
+    steps: ['Cerca una parola nella casella in alto: filtra procedure, pagine e domande.', 'Apri «Manuale e video»: premi un riquadro per guardare una videoguida qui, con i capitoli; «Leggi nel portale» apre il manuale capitolo per capitolo.',
+      'In ogni pagina il pulsante «?» mostra la guida di quella pagina, la sua videoguida e il capitolo del manuale.'] },
   roles: { intro: 'Cosa può fare ogni profilo. I controlli sono applicati dal server: l’interfaccia mostra solo le funzioni consentite.' },
   security: { intro: 'Il tuo account: password, app Authenticator, codici di recupero e sessioni aperte.' },
 };

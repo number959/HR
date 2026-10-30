@@ -1,7 +1,8 @@
 // Guida completa: procedure passo per passo, guida delle pagine, domande frequenti. Ricerca nel testo.
+import { downloadFile } from '../api.js';
 import { HELP } from '../help.js';
 import { PAGES } from '../app.js';
-import { card, clear, empty, fmt, h, input, tabs } from '../ui.js';
+import { button, card, clear, dialog, empty, errorMessage, fmt, h, input, tabs, toast } from '../ui.js';
 
 // Procedure: cap indica il permesso che serve per eseguirle (assente = per tutti).
 export const PROCEDURES = [
@@ -94,16 +95,103 @@ export const FAQ = [
   ['Le email partono davvero?', 'Solo dopo la configurazione del servizio di posta aziendale da parte dell’amministratore. Prima si possono preparare bozze e anteprime.'],
 ];
 
-// Manuale illustrato e videoguide generati in web/help (assenti nella demo pubblica): si leggono dai loro indici.
-async function materials() {
-  const read = async path => {
-    try {
-      const response = await fetch(path, { cache: 'no-cache' });
-      return response.ok ? await response.json() : null;
-    } catch { return null; }
-  };
-  const [manual, video] = await Promise.all([read('help/manuale/indice.json'), read('help/video/indice.json')]);
-  return { manual, videos: video?.video || [] };
+// ---------- Manuale illustrato e videoguide (cartella web/help, letta dai suoi indici) ----------
+const MANUAL_DIR = 'help/manuale/';
+const VIDEO_DIR = 'help/video/';
+const MANUAL_PDF = 'Manuale_NefroCenter_WR.pdf';
+const MANUAL_HTML = 'Manuale_NefroCenter_WR.html';
+
+// Videoguide collegate alle pagine (numero del video → id delle pagine): il pannello «?» le propone nel contesto giusto.
+export const VIDEO_PAGES = {
+  '01': ['home', 'todo', 'security', 'guide', 'roles'],
+  '02': ['attendance'],
+  '03': ['month', 'settings'],
+  '04': ['approvals'],
+  '05': ['people', 'documents'],
+  '06': ['coverage', 'workforce'],
+  '07': ['mail', 'reminders'],
+  '08': ['stats', 'exports'],
+};
+
+let materialsCache = null;
+
+// Indici di manuale e videoguide; mancano nelle installazioni senza la cartella web/help (o senza una delle due parti).
+export function materials() {
+  if (!materialsCache) {
+    materialsCache = (async () => {
+      const read = async path => {
+        try {
+          const response = await fetch(path, { cache: 'no-cache' });
+          return response.ok ? await response.json() : null;
+        } catch { return null; }
+      };
+      const [manual, video] = await Promise.all([read(MANUAL_DIR + 'indice.json'), read(VIDEO_DIR + 'indice.json')]);
+      return { manual, videos: video?.video || [] };
+    })();
+  }
+  return materialsCache;
+}
+
+export function videosForPage(pageId, videos) {
+  return videos.filter(v => (VIDEO_PAGES[String(v.file || '').slice(0, 2)] || []).includes(pageId));
+}
+
+function duration(seconds) {
+  const s = Math.round(Number(seconds) || 0);
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+}
+
+// Lettore della videoguida dentro il portale: capitoli cliccabili, sottotitoli e trascrizione.
+export async function playVideo(v) {
+  const video = h('video', { controls: true, playsinline: 'true', preload: 'metadata', poster: VIDEO_DIR + v.copertina, 'aria-label': v.titolo },
+    h('source', { src: VIDEO_DIR + v.file, type: 'video/mp4' }),
+    // I sottotitoli sono già impressi nel video: la traccia resta disponibile dai comandi, ma non è attiva da sola.
+    v.sottotitoli ? h('track', { kind: 'subtitles', src: VIDEO_DIR + v.sottotitoli, srclang: 'it', label: 'Italiano' }) : null,
+    'Il browser non riproduce questo video: scarica il file dalla cartella help/video.');
+  const seek = time => { video.currentTime = time; video.play().catch(() => {}); };
+  const chapters = v.capitoli?.length
+    ? h('div', { class: 'chapters', role: 'group', 'aria-label': 'Capitoli del video' },
+      v.capitoli.map(c => h('button', { class: 'btn small', type: 'button', text: `${duration(c.tempo)} · ${c.titolo}`, on: { click: () => seek(c.tempo) } })))
+    : null;
+  let transcript = null;
+  if (v.trascrizione) {
+    const pre = h('pre', { text: 'Caricamento…' });
+    transcript = h('details', { class: 'transcript' }, h('summary', { text: 'Trascrizione (testo dei sottotitoli)' }), pre);
+    transcript.addEventListener('toggle', async () => {
+      if (!transcript.open || transcript.dataset.loaded) return;
+      transcript.dataset.loaded = '1';
+      try {
+        const response = await fetch(VIDEO_DIR + v.trascrizione, { cache: 'no-cache' });
+        pre.textContent = response.ok ? await response.text() : 'Trascrizione non disponibile.';
+      } catch { pre.textContent = 'Trascrizione non disponibile.'; }
+    });
+  }
+  const body = h('div', { class: 'player stack' }, h('p', { class: 'muted', text: v.descrizione }), video, chapters, transcript,
+    h('p', { class: 'small faint', text: `Durata ${duration(v.durata_secondi)} · senza audio, sottotitoli in italiano` }));
+  await dialog(v.titolo, body, [{ label: 'Chiudi', value: null }], { wide: true });
+  video.pause();
+}
+
+// Riquadro con copertina: premendolo si apre il lettore. Usato nella scheda «Manuale e video» e nel pannello «?».
+export function videoButton(v, compact = false) {
+  const label = `Guarda la videoguida «${v.titolo}» (${duration(v.durata_secondi)})`;
+  const thumb = h('span', { class: 'thumb' }, h('img', { src: VIDEO_DIR + v.copertina, alt: '', loading: 'lazy', width: '320', height: '180' }),
+    h('span', { class: 'play', 'aria-hidden': 'true', text: '▶' }));
+  if (compact) {
+    return h('button', { class: 'video-cta', type: 'button', 'aria-label': label, on: { click: () => playVideo(v) } }, thumb,
+      h('span', null, h('span', { class: 'video-title', text: v.titolo }), h('span', { class: 'small muted', text: duration(v.durata_secondi) })));
+  }
+  return h('button', { class: 'video-tile', type: 'button', 'aria-label': label, on: { click: () => playVideo(v) } }, thumb,
+    h('span', { class: 'video-title', text: v.titolo }),
+    h('span', { class: 'small muted', text: `${duration(v.durata_secondi)} · ${(v.profili || []).join(', ') || 'tutti i profili'}` }));
+}
+
+function pdfButton(kind = '') {
+  return button('Scarica il PDF', { kind, ic: 'download', onClick: async e => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
+    try { await downloadFile(MANUAL_DIR + MANUAL_PDF, MANUAL_PDF); } catch (err) { toast(errorMessage(err), 'bad'); } finally { btn.disabled = false; }
+  } });
 }
 
 function materialsBlocks(found) {
@@ -111,30 +199,83 @@ function materialsBlocks(found) {
   if (found.manual) {
     const m = found.manual;
     blocks.push(card('Manuale d’uso illustrato', { subtitle: [m.versione ? `Versione ${m.versione}` : '', m.pagine ? `${m.pagine} pagine` : '', m.data ? `aggiornato il ${fmt.date(m.data)}` : ''].filter(Boolean).join(' · ') },
-      h('p', { text: 'Tutte le pagine del portale con schermate (dati fittizi), procedure passo per passo, ruoli e permessi, domande frequenti.' }),
+      h('p', { text: 'Tutte le pagine del portale con schermate (dati fittizi), procedure passo per passo, ruoli e permessi, domande frequenti. Si legge qui nel portale, capitolo per capitolo; il PDF serve per stamparlo o conservarlo.' }),
       h('div', { class: 'row' },
-        h('a', { class: 'btn primary', href: 'help/manuale/Manuale_NefroCenter_WR.pdf', target: '_blank', rel: 'noopener', text: 'Apri il PDF' }),
-        h('a', { class: 'btn', href: 'help/manuale/Manuale_NefroCenter_WR.html', target: '_blank', rel: 'noopener', text: 'Versione per il browser' }))));
+        h('a', { class: 'btn primary', href: '#/guida/manuale', text: 'Leggi nel portale' }),
+        pdfButton(),
+        h('a', { class: 'btn ghost', href: MANUAL_DIR + MANUAL_HTML, target: '_blank', rel: 'noopener', text: 'Apri in una nuova scheda' })),
+      m.capitoli?.length ? h('ol', { class: 'toc-list' }, m.capitoli.map(c => h('li', null,
+        h('a', { href: `#/guida/manuale?a=cap-${c.id}`, text: c.titolo })))) : null));
   }
   if (found.videos.length) {
-    blocks.push(card('Videoguide', { subtitle: 'Senza audio, con sottotitoli in italiano. Ogni video dura uno o due minuti.' },
-      h('div', { class: 'video-list' }, found.videos.map(v => {
-        const player = h('video', { controls: true, preload: 'none', poster: 'help/video/' + v.copertina, width: 640, height: 360 },
-          h('source', { src: 'help/video/' + v.file, type: 'video/mp4' }),
-          v.sottotitoli ? h('track', { kind: 'subtitles', src: 'help/video/' + v.sottotitoli, srclang: 'it', label: 'Italiano', default: true }) : null);
-        return h('div', { class: 'video-item' }, h('h3', { text: v.titolo }), h('p', { class: 'small muted', text: v.descrizione }), player,
-          h('p', { class: 'small' }, v.durata_secondi ? `${Math.round(v.durata_secondi)} secondi · ` : '',
-            v.trascrizione ? h('a', { href: 'help/video/' + v.trascrizione, target: '_blank', rel: 'noopener', text: 'trascrizione' }) : null));
-      }))));
+    blocks.push(card('Videoguide', { subtitle: `${found.videos.length} video brevi senza audio, con sottotitoli in italiano. Premi un riquadro: il video si apre qui, con i capitoli e la trascrizione.` },
+      h('div', { class: 'video-grid' }, found.videos.map(v => videoButton(v)))));
   }
   if (!blocks.length) {
-    blocks.push(empty('Manuale e videoguide non disponibili', 'Nella demo pubblica non sono inclusi; nel portale aziendale si trovano nella cartella web/help.'));
+    blocks.push(empty('Manuale e videoguide non presenti in questa installazione',
+      'Si trovano nella cartella web/help del portale: se manca, il tecnico può copiarla dal pacchetto di installazione.'));
   }
   return blocks;
 }
 
+// Il manuale dentro il portale: il suo HTML viene letto e mostrato in un contenitore isolato (shadow DOM), così i suoi
+// stili non toccano il portale e i collegamenti interni scorrono alla sezione invece di cambiare pagina.
+async function manualReader(ctx) {
+  const found = await materials();
+  const head = (actions, text) => h('div', { class: 'page-head' }, h('div', null,
+    h('a', { class: 'eyebrow', href: '#/guida?tab=materiali', text: '‹ Guida e procedure' }), h('h1', { text: 'Manuale d’uso' }),
+    text ? h('p', { text }) : null), h('div', { class: 'page-actions' }, actions));
+  if (!found.manual) {
+    return h('div', { class: 'stack' }, head([]), empty('Manuale non presente in questa installazione',
+      'Il manuale si trova nella cartella web/help/manuale del portale: se manca, il tecnico può copiarla dal pacchetto di installazione.'));
+  }
+  const m = found.manual;
+  const host = h('div', { class: 'manual-inline' });
+  const shadow = host.attachShadow({ mode: 'open' });
+  const sheet = h('link', { rel: 'stylesheet', href: MANUAL_DIR + (m.file?.css?.nome || 'manuale.css') });
+  shadow.append(sheet, h('p', { text: 'Caricamento del manuale…' }));
+  const jump = id => {
+    const target = id && shadow.getElementById(id);
+    if (target) target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    else host.scrollIntoView({ block: 'start' });
+  };
+  const chapterSelect = h('select', { 'aria-label': 'Vai al capitolo', on: { change: e => { jump(e.target.value); e.target.value = ''; } } },
+    h('option', { value: '', text: 'Vai al capitolo…' }), (m.capitoli || []).map(c => h('option', { value: `cap-${c.id}`, text: `${c.numero}. ${c.titolo}` })));
+  shadow.addEventListener('click', e => {
+    const link = e.composedPath().find(n => n.tagName === 'A');
+    if (!link) return;
+    const href = link.getAttribute('href') || '';
+    if (href.startsWith('#')) { e.preventDefault(); jump(href.slice(1)); } else if (/^https?:/.test(href)) { link.target = '_blank'; link.rel = 'noopener'; }
+  });
+  (async () => {
+    try {
+      const [page, css] = await Promise.all([fetch(MANUAL_DIR + (m.file?.html?.nome || MANUAL_HTML), { cache: 'no-cache' }), fetch(sheet.href, { cache: 'no-cache' })]);
+      if (!page.ok) throw new Error('manuale non disponibile');
+      // Le variabili definite su :root nel foglio del manuale valgono solo per il documento: si riportano sul contenitore.
+      const vars = /:root\s*{([^}]*)}/.exec(css.ok ? await css.text() : '');
+      for (const decl of (vars ? vars[1] : '').split(';')) {
+        const [name, value] = decl.split(':').map(s => s.trim());
+        if (name?.startsWith('--') && value) host.style.setProperty(name, value);
+      }
+      // Gli stili incorporati nell'HTML sono gli stessi di manuale.css e la CSP li bloccherebbe: si tolgono prima
+      // dell'analisi, così non compare nemmeno l'avviso in console.
+      const text = (await page.text()).replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/gi, '');
+      const doc = new DOMParser().parseFromString(text, 'text/html');
+      shadow.replaceChildren(sheet, ...Array.from(doc.body.children));
+      if (ctx.query.a) requestAnimationFrame(() => jump(ctx.query.a));
+    } catch {
+      shadow.replaceChildren(sheet, h('p', { text: 'Il manuale non si è caricato. Prova a scaricare il PDF oppure ad aprirlo in una nuova scheda.' }));
+    }
+  })();
+  return h('div', { class: 'stack reader' },
+    head([chapterSelect, pdfButton('primary'), h('a', { class: 'btn ghost', href: MANUAL_DIR + (m.file?.html?.nome || MANUAL_HTML), target: '_blank', rel: 'noopener', text: 'Nuova scheda' })],
+      `${m.pagine || ''} pagine con schermate su dati fittizi, aggiornato il ${fmt.date(m.data)}. I collegamenti dell’indice scorrono alla sezione.`),
+    host);
+}
+
 export async function render(ctx) {
   const { app } = ctx;
+  if (ctx.params[0] === 'manuale') return manualReader(ctx);
   let tab = ctx.query.tab || 'procedure';
   let term = '';
   let found = null;

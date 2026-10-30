@@ -237,11 +237,12 @@ La demo fa girare **lo stesso motore** del portale dentro il browser (Pyodide): 
 Dalla cartella `demo`:
 
 ```bash
-python3 costruisci_demo.py                    # versione leggera (circa 3 MB): Pyodide viene scaricato dalla rete jsDelivr all'apertura
-python3 costruisci_demo.py --includi-pyodide  # versione autonoma (circa 18 MB): funziona anche senza Internet
+python3 costruisci_demo.py                    # Pyodide viene scaricato dalla rete jsDelivr all'apertura (circa 47 MB con manuale e videoguide)
+python3 costruisci_demo.py --includi-pyodide  # versione autonoma (circa 62 MB): funziona anche senza Internet
+python3 costruisci_demo.py --senza-guide      # senza manuale e videoguide: demo leggera (circa 3 MB)
 ```
 
-Il risultato è la cartella `demo/dist/`. Nel pacchetto di consegna la versione autonoma è già costruita in `NefroCenter_WR_Demo_1.0.0.zip`, insieme ai lanciatori per avviarla con un doppio clic.
+Il risultato è la cartella `demo/dist/`. Manuale illustrato e videoguide sono dentro la demo e si aprono dal portale (Guida → «Manuale e video», oppure il pulsante «?» di ogni pagina). Nel pacchetto di consegna la versione autonoma è già costruita in `NefroCenter_WR_Demo_1.0.0.zip`, insieme ai lanciatori per avviarla con un doppio clic.
 
 ### 3.2 Provarla sul proprio computer
 

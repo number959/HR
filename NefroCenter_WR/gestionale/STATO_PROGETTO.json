@@ -6,7 +6,7 @@
   "lingua": "it",
   "installazione_aziendale": "non eseguita",
   "demo_pubblica": "non pubblicata su un indirizzo aziendale; copia privata di prova su claude.ai (30/10/2026, visibile solo al titolare); si costruisce con demo/costruisci_demo.py",
-  "demo_pacchetto": "NefroCenter_WR_Demo_1.0.0.zip: cartella dist con Pyodide incluso, avvia_demo.py e lanciatori per Windows, macOS e Linux",
+  "demo_pacchetto": "NefroCenter_WR_Demo_1.0.0.zip: cartella dist con Pyodide incluso, manuale illustrato e videoguide, avvia_demo.py e lanciatori per Windows, macOS e Linux",
   "documenti": {
     "leggimi": "../LEGGIMI.md",
     "passaggio": "../PASSAGGIO_PROGETTO.md",
@@ -58,6 +58,7 @@
   "guide": {
     "manuale": "web/help/manuale/Manuale_NefroCenter_WR.pdf (+ .html)",
     "videoguide": 8,
+    "nel_portale": "scheda «Manuale e video» con lettore video (capitoli, trascrizione), manuale leggibile nel portale e PDF scaricabile; videoguida e capitolo del manuale nel pannello «?» di ogni pagina; compresi nella demo",
     "generatori": [
       "../strumenti/guide/manuale.cjs",
       "../strumenti/guide/video.cjs"

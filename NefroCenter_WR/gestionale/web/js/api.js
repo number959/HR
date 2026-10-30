@@ -75,7 +75,22 @@ export async function download(path, fallback = 'file') {
   const response = await api(path);
   if (!(response instanceof Response)) throw new ApiError(500, { message: 'Il servizio non ha restituito un file.' });
   const blob = await response.blob();
-  const name = filename(response.headers.get('Content-Disposition'), fallback);
+  await deliver(blob, filename(response.headers.get('Content-Disposition'), fallback));
+}
+
+// Scarica un file statico del portale (per esempio il manuale in PDF) con la stessa consegna dei file del servizio.
+export async function downloadFile(url, name) {
+  let response;
+  try {
+    response = await window.fetch(url, { cache: 'no-cache' });
+  } catch {
+    throw new ApiError(0, { message: 'File non raggiungibile. Controllare la connessione e riprovare.' });
+  }
+  if (!response.ok) throw new ApiError(response.status, { message: 'File non disponibile in questa installazione.' });
+  await deliver(await response.blob(), name);
+}
+
+async function deliver(blob, name) {
   if (downloader) { await downloader(blob, name); return; }
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');

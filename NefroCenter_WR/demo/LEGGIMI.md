@@ -19,16 +19,18 @@ Così la demo mostra esattamente le regole, i controlli e le pagine del portale 
 Dalla cartella `demo`:
 
 ```bash
-python costruisci_demo.py                    # versione leggera (2,8 MB): Pyodide dalla rete pubblica jsDelivr
-python costruisci_demo.py --includi-pyodide  # versione autonoma (17,8 MB): funziona anche senza Internet
+python costruisci_demo.py                    # Pyodide dalla rete pubblica jsDelivr (circa 47 MB, di cui 44 di manuale e video)
+python costruisci_demo.py --includi-pyodide  # versione autonoma (circa 62 MB): funziona anche senza Internet
+python costruisci_demo.py --senza-guide      # senza manuale e videoguide (demo leggera, circa 3 MB)
 python costruisci_demo.py --includi-pyodide --solo-file-web --cartella ALTRA_CARTELLA
                                              # variante per servizi che pubblicano solo tipi di file web (vedi sotto)
 ```
 
 Il risultato è la cartella `dist/` (si può ricreare in ogni momento). Contiene l'interfaccia del portale,
-il motore (`motore.zip`), l'archivio fittizio (`dati/wr.sqlite3`), `versione.json` e, con `--includi-pyodide`,
-la cartella `pyodide/`. Manuale illustrato e videoguide (`gestionale/web/help`) restano fuori per tenere la demo
-leggera: la guida in linea del portale c'è comunque.
+il motore (`motore.zip`), l'archivio fittizio (`dati/wr.sqlite3`), `versione.json`, con `--includi-pyodide`
+la cartella `pyodide/` e, salvo `--senza-guide`, la cartella `help/` con il manuale illustrato (HTML e PDF) e le
+otto videoguide: nella demo si leggono e si guardano dentro il portale (scheda «Manuale e video» della Guida e
+pulsante «?» di ogni pagina), esattamente come nel portale aziendale.
 
 ## Provarla sul proprio computer
 
@@ -56,7 +58,8 @@ Il 30 ottobre 2026 una copia della demo è stata caricata come **pagina privata 
 solo al titolare del progetto finché non la condivide: è un'anteprima per valutare la demo, non la pubblicazione
 ufficiale. Quel servizio pubblica soltanto tipi di file web, perciò la copia è costruita con `--solo-file-web`:
 archivi e database diventano file di testo base64 (`versione.json` li elenca in `file_base64`) che `demo-main.js`
-decodifica nel browser prima di consegnarli a Pyodide. Lo stesso caricatore, dentro un visualizzatore che blocca gli
+decodifica nel browser prima di consegnarli a Pyodide, e i sottotitoli `.vtt` delle videoguide diventano `.vtt.txt`
+(i video hanno comunque i sottotitoli impressi). Lo stesso caricatore, dentro un visualizzatore che blocca gli
 scaricamenti diretti, consegna CSV ed Excel attraverso il servizio di salvataggio del visualizzatore
 (`setDownloader` in `api.js`); nel portale aziendale e nella demo servita da un sito statico non cambia nulla.
 

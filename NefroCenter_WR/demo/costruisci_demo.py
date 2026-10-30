@@ -2,7 +2,7 @@
 
 Uso (dalla cartella demo):   python costruisci_demo.py [--includi-pyodide]
 
-- copia l'interfaccia del portale (gestionale/web) così com'è;
+- copia l'interfaccia del portale (gestionale/web) così com'è, manuale illustrato e videoguide compresi (--senza-guide li esclude);
 - impacchetta il motore del portale (gestionale/wr con le librerie incluse) in motore.zip;
 - crea un archivio con soli dati fittizi (dati/wr.sqlite3);
 - con --includi-pyodide copia anche Pyodide in pyodide/ (la demo funziona senza la rete di distribuzione pubblica);
@@ -54,9 +54,9 @@ def clean():
     (DIST / MARKER).write_text('Cartella generata da costruisci_demo.py: può essere ricreata in ogni momento.\n')
 
 
-def interface():
-    # La cartella help/ (manuale e videoguide) resta fuori dalla demo per tenerla leggera: la guida in linea c'è comunque.
-    shutil.copytree(GESTIONALE / 'web', DIST, dirs_exist_ok=True, ignore=shutil.ignore_patterns('help'))
+def interface(with_help=True):
+    # help/ (manuale illustrato e videoguide, circa 44 MB) entra nella demo come nel portale; --senza-guide la lascia fuori.
+    shutil.copytree(GESTIONALE / 'web', DIST, dirs_exist_ok=True, ignore=None if with_help else shutil.ignore_patterns('help'))
     shutil.copy(HERE / 'sorgenti' / 'demo-main.js', DIST / 'js' / 'demo-main.js')
     page = (GESTIONALE / 'web' / 'index.html').read_text(encoding='utf-8')
     replacements = {
@@ -109,6 +109,22 @@ def data():
     return DIST / 'dati' / 'wr.sqlite3', sample.DEMO_TODAY
 
 
+def web_only_subtitles():
+    """I sottotitoli .vtt diventano .vtt.txt (i servizi che pubblicano solo tipi di file web non servono .vtt) e l'indice
+    dei video viene aggiornato; i video hanno comunque i sottotitoli impressi."""
+    folder = DIST / 'help' / 'video'
+    index = folder / 'indice.json'
+    if not index.exists():
+        return
+    data = json.loads(index.read_text(encoding='utf-8'))
+    for video in data.get('video', []):
+        name = video.get('sottotitoli')
+        if name and (folder / name).exists():
+            (folder / name).rename(folder / (name + '.txt'))
+            video['sottotitoli'] = name + '.txt'
+    index.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding='utf-8')
+
+
 def text_encode():
     """Archivi e database come testo base64 (<nome>.txt); restituisce la mappa nome originale → file di testo."""
     encoded = {}
@@ -146,10 +162,11 @@ def main():
     p.add_argument('--solo-file-web', action='store_true',
                    help='archivi e database come testo base64, per servizi che pubblicano solo tipi di file web')
     p.add_argument('--cartella', type=Path, default=DIST, help='cartella di uscita (predefinita: dist/)')
+    p.add_argument('--senza-guide', action='store_true', help='senza manuale illustrato e videoguide (circa 44 MB in meno)')
     a = p.parse_args()
     DIST = a.cartella.resolve()
     clean()
-    interface()
+    interface(with_help=not a.senza_guide)
     motore = engine()
     archive, today = data()
     if a.includi_pyodide:
@@ -157,9 +174,11 @@ def main():
     from wr import PRODUCT, VERSION
     info = dict(prodotto=PRODUCT, versione=VERSION, tipo='demo pubblica con dati fittizi', data_demo=today,
                 costruita_il=datetime.now(timezone.utc).isoformat(timespec='seconds'), pyodide=PYODIDE,
-                pyodide_locale=a.includi_pyodide, motore_sha256=sha256(motore), dati_sha256=sha256(archive))
+                pyodide_locale=a.includi_pyodide, guide=(DIST / 'help' / 'video' / 'indice.json').exists(),
+                motore_sha256=sha256(motore), dati_sha256=sha256(archive))
     if a.solo_file_web:
         info['file_base64'] = text_encode()
+        web_only_subtitles()
     (DIST / 'versione.json').write_text(json.dumps(info, ensure_ascii=False, indent=2), encoding='utf-8')
     size = sum(f.stat().st_size for f in DIST.rglob('*') if f.is_file())
     print(f'Demo pronta in {DIST} ({size / 1024 / 1024:.1f} MB). Prova locale: python avvia_demo.py')

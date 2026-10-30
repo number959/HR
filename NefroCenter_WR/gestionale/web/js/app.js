@@ -273,6 +273,22 @@ function toggleHelp(open) {
     help.notes?.length ? [h('h3', { text: 'Da sapere' }), h('ul', null, help.notes.map(s => h('li', { text: s })))] : null,
     h('p', { class: 'small faint' }, 'Guida completa: ', h('a', { href: '#/guida', text: 'Guida e procedure' }))));
   panel.querySelector('button')?.focus();
+  helpMedia(panel, page);
+}
+
+// Videoguida e capitolo del manuale della pagina corrente (se manuale e video sono installati in web/help).
+async function helpMedia(panel, page) {
+  try {
+    const guide = await import('./pages/guide.js');
+    const found = await guide.materials();
+    const body = panel.querySelector('.panel-body');
+    if (!body || !panel.classList.contains('open') || (app.current || PAGES[0]).id !== page.id) return;
+    const videos = guide.videosForPage(page.id, found.videos);
+    const extra = [];
+    if (videos.length) extra.push(h('h3', { text: videos.length > 1 ? 'Videoguide' : 'Videoguida' }), ...videos.map(v => guide.videoButton(v, true)));
+    if (found.manual) extra.push(h('p', { class: 'small' }, h('a', { href: `#/guida/manuale?a=pag-${page.id}`, text: `Nel manuale: ${page.label}` })));
+    if (extra.length) body.insertBefore(h('div', { class: 'help-media' }, extra), body.lastElementChild);
+  } catch { /* manuale e video sono un aiuto in più: senza, la guida testuale basta */ }
 }
 
 // ---------- Sessione inattiva ----------
