@@ -537,11 +537,15 @@ function quickPick(ctx, snap, view, person, day, slot, entry, planned, reload, a
     box.style.setProperty('--y', `${Math.round(y)}px`);
     const outside = e => { if (!box.contains(e.target) && e.target !== anchor) close(false); };
     const onResize = () => close(false);
+    // Lo scorrimento del registro chiude il riquadro, ma non quello che il browser fa da solo subito dopo il tocco
+    // (per portare la casella in vista): nei primi istanti si ignora.
+    const openedAt = performance.now();
+    const onScroll = () => { if (performance.now() - openedAt > 500) close(false); };
     const scroller = anchor.closest('.register-wrap');
     setTimeout(() => document.addEventListener('pointerdown', outside, true), 0);
     window.addEventListener('resize', onResize);
-    scroller?.addEventListener('scroll', onResize);
-    cleanup.push(() => document.removeEventListener('pointerdown', outside, true), () => window.removeEventListener('resize', onResize), () => scroller?.removeEventListener('scroll', onResize));
+    scroller?.addEventListener('scroll', onScroll);
+    cleanup.push(() => document.removeEventListener('pointerdown', outside, true), () => window.removeEventListener('resize', onResize), () => scroller?.removeEventListener('scroll', onScroll));
   }
   openPick = close;
   (box.querySelector('.quick-code[aria-pressed="true"]') || box.querySelector('.quick-code') || details).focus();

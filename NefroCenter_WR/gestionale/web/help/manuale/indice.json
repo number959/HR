@@ -2,15 +2,15 @@
  "titolo": "Manuale d’uso",
  "prodotto": "NefroCenter WR · Work Resources",
  "versione": "1.0.0",
- "data": "2026-10-29",
- "generato": "2026-10-29T21:15:09.070Z",
+ "data": "2026-10-30",
+ "generato": "2026-10-30T06:16:55.328Z",
  "data_dati_fittizi": "2026-10-25",
- "pagine": 58,
- "pagine_pdf": 58,
+ "pagine": 59,
+ "pagine_pdf": 59,
  "file": {
   "html": {
    "nome": "Manuale_NefroCenter_WR.html",
-   "byte": 10356874
+   "byte": 11591113
   },
   "css": {
    "nome": "manuale.css",
@@ -18,7 +18,7 @@
   },
   "pdf": {
    "nome": "Manuale_NefroCenter_WR.pdf",
-   "byte": 7995380
+   "byte": 8858523
   }
  },
  "capitoli": [
@@ -149,17 +149,17 @@
     {
      "titolo": "4.2 Controlli e chiusura",
      "id": "",
-     "pagina_pdf": 19
+     "pagina_pdf": 20
     },
     {
      "titolo": "4.3 Approvazioni",
      "id": "",
-     "pagina_pdf": 20
+     "pagina_pdf": 21
     },
     {
      "titolo": "4.4 Copertura turni",
      "id": "",
-     "pagina_pdf": 21
+     "pagina_pdf": 22
     }
    ]
   },
@@ -167,7 +167,7 @@
    "numero": 5,
    "id": "persone",
    "titolo": "Persone",
-   "pagina_pdf": 23,
+   "pagina_pdf": 24,
    "pagine": [
     "Persone e fascicoli",
     "Documenti",
@@ -179,27 +179,27 @@
     {
      "titolo": "5.1 Persone e fascicoli",
      "id": "",
-     "pagina_pdf": 23
+     "pagina_pdf": 24
     },
     {
      "titolo": "5.2 Documenti",
      "id": "",
-     "pagina_pdf": 25
+     "pagina_pdf": 26
     },
     {
      "titolo": "5.3 Personale di gruppo",
      "id": "",
-     "pagina_pdf": 26
+     "pagina_pdf": 27
     },
     {
      "titolo": "5.4 Uscite e dotazioni",
      "id": "",
-     "pagina_pdf": 27
+     "pagina_pdf": 28
     },
     {
      "titolo": "5.5 Rubrica strutture",
      "id": "",
-     "pagina_pdf": 28
+     "pagina_pdf": 29
     }
    ]
   },
@@ -207,7 +207,7 @@
    "numero": 6,
    "id": "amministrazione",
    "titolo": "Amministrazione",
-   "pagina_pdf": 30,
+   "pagina_pdf": 31,
    "pagine": [
     "Accordi e calcoli",
     "Collaboratori e compensi",
@@ -219,27 +219,27 @@
     {
      "titolo": "6.1 Accordi e calcoli",
      "id": "",
-     "pagina_pdf": 30
+     "pagina_pdf": 31
     },
     {
      "titolo": "6.2 Collaboratori e compensi",
      "id": "",
-     "pagina_pdf": 31
+     "pagina_pdf": 32
     },
     {
      "titolo": "6.3 Paghe",
      "id": "",
-     "pagina_pdf": 32
+     "pagina_pdf": 33
     },
     {
      "titolo": "6.4 Comunicazioni",
      "id": "",
-     "pagina_pdf": 32
+     "pagina_pdf": 33
     },
     {
      "titolo": "6.5 Promemoria",
      "id": "",
-     "pagina_pdf": 34
+     "pagina_pdf": 35
     }
    ]
   },
@@ -247,7 +247,7 @@
    "numero": 7,
    "id": "analisi",
    "titolo": "Analisi",
-   "pagina_pdf": 36,
+   "pagina_pdf": 37,
    "pagine": [
     "Statistiche",
     "Esportazioni"
@@ -256,12 +256,12 @@
     {
      "titolo": "7.1 Statistiche",
      "id": "",
-     "pagina_pdf": 36
+     "pagina_pdf": 37
     },
     {
      "titolo": "7.2 Esportazioni",
      "id": "",
-     "pagina_pdf": 37
+     "pagina_pdf": 38
     }
    ]
   },
@@ -269,7 +269,7 @@
    "numero": 8,
    "id": "sistema",
    "titolo": "Sistema",
-   "pagina_pdf": 38,
+   "pagina_pdf": 39,
    "pagine": [
     "Parametri struttura",
     "Strutture",
@@ -281,27 +281,27 @@
     {
      "titolo": "8.1 Parametri struttura",
      "id": "",
-     "pagina_pdf": 38
+     "pagina_pdf": 39
     },
     {
      "titolo": "8.2 Strutture",
      "id": "",
-     "pagina_pdf": 40
+     "pagina_pdf": 41
     },
     {
      "titolo": "8.3 Accessi e ruoli",
      "id": "",
-     "pagina_pdf": 40
+     "pagina_pdf": 41
     },
     {
      "titolo": "8.4 Backup",
      "id": "",
-     "pagina_pdf": 43
+     "pagina_pdf": 44
     },
     {
      "titolo": "8.5 Importa Excel",
      "id": "",
-     "pagina_pdf": 43
+     "pagina_pdf": 44
     }
    ]
   },
@@ -309,7 +309,7 @@
    "numero": 9,
    "id": "aiuto",
    "titolo": "Aiuto",
-   "pagina_pdf": 46,
+   "pagina_pdf": 47,
    "pagine": [
     "Guida",
     "Ruoli e permessi"
@@ -318,12 +318,12 @@
     {
      "titolo": "9.1 Guida",
      "id": "",
-     "pagina_pdf": 46
+     "pagina_pdf": 47
     },
     {
      "titolo": "9.2 Ruoli e permessi",
      "id": "",
-     "pagina_pdf": 46
+     "pagina_pdf": 47
     }
    ]
   },
@@ -331,7 +331,7 @@
    "numero": 10,
    "id": "procedure",
    "titolo": "Procedure passo per passo",
-   "pagina_pdf": 48,
+   "pagina_pdf": 49,
    "pagine": [
     "Primo accesso",
     "Registrare le presenze del giorno",
@@ -354,82 +354,82 @@
     {
      "titolo": "10.1 Primo accesso",
      "id": "",
-     "pagina_pdf": 48
+     "pagina_pdf": 49
     },
     {
      "titolo": "10.2 Registrare le presenze del giorno",
      "id": "",
-     "pagina_pdf": 48
+     "pagina_pdf": 49
     },
     {
      "titolo": "10.3 Preparare i turni del mese",
      "id": "",
-     "pagina_pdf": 48
+     "pagina_pdf": 49
     },
     {
      "titolo": "10.4 Chiudere il mese",
      "id": "",
-     "pagina_pdf": 48
+     "pagina_pdf": 50
     },
     {
      "titolo": "10.5 Approvare un mese",
      "id": "",
-     "pagina_pdf": 49
+     "pagina_pdf": 50
     },
     {
      "titolo": "10.6 Inserire una nuova persona",
      "id": "",
-     "pagina_pdf": 49
+     "pagina_pdf": 50
     },
     {
      "titolo": "10.7 Verificare un documento",
      "id": "",
-     "pagina_pdf": 49
+     "pagina_pdf": 50
     },
     {
      "titolo": "10.8 Gestire un’uscita o un trasferimento",
      "id": "",
-     "pagina_pdf": 49
+     "pagina_pdf": 50
     },
     {
      "titolo": "10.9 Proporre una sostituzione fra strutture",
      "id": "",
-     "pagina_pdf": 49
+     "pagina_pdf": 51
     },
     {
      "titolo": "10.10 Dal vecchio foglio Excel al portale",
      "id": "",
-     "pagina_pdf": 50
+     "pagina_pdf": 51
     },
     {
      "titolo": "10.11 Compensi dei collaboratori a prestazione",
      "id": "",
-     "pagina_pdf": 50
+     "pagina_pdf": 51
     },
     {
      "titolo": "10.12 Preparare i dati per le paghe",
      "id": "",
-     "pagina_pdf": 50
+     "pagina_pdf": 51
     },
     {
      "titolo": "10.13 Inviare una comunicazione",
      "id": "",
-     "pagina_pdf": 50
+     "pagina_pdf": 52
     },
     {
      "titolo": "10.14 Importare il modello Excel di un mese",
      "id": "",
-     "pagina_pdf": 51
+     "pagina_pdf": 52
     },
     {
      "titolo": "10.15 Backup e ripristino",
      "id": "",
-     "pagina_pdf": 51
+     "pagina_pdf": 52
     },
     {
      "titolo": "10.16 Se perdi o cambi il telefono",
      "id": "",
-     "pagina_pdf": 51
+     "pagina_pdf": 52
     }
    ]
   },
@@ -437,7 +437,7 @@
    "numero": 11,
    "id": "ruoli",
    "titolo": "Ruoli e permessi",
-   "pagina_pdf": 52,
+   "pagina_pdf": 53,
    "pagine": [],
    "sezioni": []
   },
@@ -445,18 +445,18 @@
    "numero": 12,
    "id": "fasce",
    "titolo": "Fasce e causali",
-   "pagina_pdf": 55,
+   "pagina_pdf": 56,
    "pagine": [],
    "sezioni": [
     {
      "titolo": "12.1 Fasce orarie",
      "id": "",
-     "pagina_pdf": 55
+     "pagina_pdf": 56
     },
     {
      "titolo": "12.2 Causali",
      "id": "",
-     "pagina_pdf": 55
+     "pagina_pdf": 56
     }
    ]
   },
@@ -464,7 +464,7 @@
    "numero": 13,
    "id": "faq",
    "titolo": "Domande frequenti",
-   "pagina_pdf": 57,
+   "pagina_pdf": 58,
    "pagine": [
     "Perché non vedo alcune pagine?",
     "Ho salvato un turno ma compare un avviso sul riposo.",
@@ -477,32 +477,32 @@
     {
      "titolo": "Perché non vedo alcune pagine?",
      "id": "",
-     "pagina_pdf": 57
+     "pagina_pdf": 58
     },
     {
      "titolo": "Ho salvato un turno ma compare un avviso sul riposo.",
      "id": "",
-     "pagina_pdf": 57
+     "pagina_pdf": 58
     },
     {
      "titolo": "Non riesco a modificare un giorno.",
      "id": "",
-     "pagina_pdf": 57
+     "pagina_pdf": 58
     },
     {
      "titolo": "Cosa significa «Da consuntivare»?",
      "id": "",
-     "pagina_pdf": 57
+     "pagina_pdf": 58
     },
     {
      "titolo": "Il portale chiede di nuovo password e codice.",
      "id": "",
-     "pagina_pdf": 57
+     "pagina_pdf": 58
     },
     {
      "titolo": "Le email partono davvero?",
      "id": "",
-     "pagina_pdf": 57
+     "pagina_pdf": 58
     }
    ]
   },
@@ -510,7 +510,7 @@
    "numero": 14,
    "id": "demo",
    "titolo": "Demo pubblica e portale aziendale",
-   "pagina_pdf": 58,
+   "pagina_pdf": 59,
    "pagine": [],
    "sezioni": []
   }
@@ -534,7 +534,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 72405,
+   "byte": 72486,
    "parte": null,
    "parti": null
   },
@@ -545,7 +545,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 958,
-   "byte": 110168,
+   "byte": 109997,
    "parte": null,
    "parti": null
   },
@@ -556,7 +556,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 88225,
+   "byte": 88341,
    "parte": null,
    "parti": null
   },
@@ -567,7 +567,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 660,
-   "byte": 151106,
+   "byte": 159502,
    "parte": 1,
    "parti": 2
   },
@@ -578,7 +578,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 681,
-   "byte": 93216,
+   "byte": 91137,
    "parte": 2,
    "parti": 2
   },
@@ -589,7 +589,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 194368,
+   "byte": 218284,
    "parte": null,
    "parti": null
   },
@@ -600,7 +600,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 200358,
+   "byte": 205585,
    "parte": null,
    "parti": null
   },
@@ -611,7 +611,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 986,
-   "byte": 199709,
+   "byte": 205572,
    "parte": 1,
    "parti": 2
   },
@@ -628,12 +628,12 @@
   },
   {
    "id": "pag-settings",
-   "figura": 38,
+   "figura": 40,
    "didascalia": "«Parametri struttura»: la pagina con il profilo Amministratore. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 735,
-   "byte": 149491,
+   "altezza": 741,
+   "byte": 156124,
    "parte": 1,
    "parti": 2
   },
@@ -644,29 +644,29 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1166,
-   "byte": 104498,
+   "byte": 103810,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "parametri-fasce",
-   "figura": 39,
+   "figura": 41,
    "didascalia": "Parametri struttura, linguetta «Fasce orarie»: le righe del registro con codice, descrizione, orari, pausa e colore.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 883,
-   "byte": 156475,
+   "altezza": 889,
+   "byte": 162847,
    "parte": null,
    "parti": null
   },
   {
    "id": "parametri-causali",
-   "figura": 40,
+   "figura": 42,
    "didascalia": "Parametri struttura, linguetta «Causali»: turni, assenze e riposi selezionabili nel registro, con le fasce autorizzate. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 786,
-   "byte": 150694,
+   "altezza": 792,
+   "byte": 157017,
    "parte": 1,
    "parti": 2
   },
@@ -677,40 +677,40 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 821,
-   "byte": 89808,
+   "byte": 89942,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "pag-centers",
-   "figura": 41,
+   "figura": 43,
    "didascalia": "«Strutture»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 134029,
+   "byte": 139670,
    "parte": null,
    "parti": null
   },
   {
    "id": "pag-users",
-   "figura": 42,
+   "figura": 44,
    "didascalia": "«Accessi e ruoli»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1044,
-   "byte": 208225,
+   "byte": 215183,
    "parte": null,
    "parti": null
   },
   {
    "id": "pag-backups",
-   "figura": 45,
+   "figura": 47,
    "didascalia": "«Backup»: la pagina con il profilo Amministratore. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 516,
-   "byte": 103158,
+   "byte": 110590,
    "parte": 1,
    "parti": 2
   },
@@ -721,29 +721,29 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 758,
-   "byte": 105439,
+   "byte": 103218,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "pag-import",
-   "figura": 46,
+   "figura": 48,
    "didascalia": "«Importa Excel»: la pagina con il profilo Amministratore.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 151268,
+   "byte": 157095,
    "parte": null,
    "parti": null
   },
   {
    "id": "importa-anteprima",
-   "figura": 47,
+   "figura": 49,
    "didascalia": "Anteprima dell’importazione di un file Excel di prova: numeri, avvisi, celle non importate, persone riconosciute e scelta della destinazione. Nulla è stato ancora scritto. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 984,
-   "byte": 188375,
+   "byte": 194374,
    "parte": 1,
    "parti": 2
   },
@@ -760,12 +760,12 @@
   },
   {
    "id": "pag-guide",
-   "figura": 48,
+   "figura": 50,
    "didascalia": "«Guida»: la pagina con il profilo Amministratore. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1095,
-   "byte": 214725,
+   "byte": 231813,
    "parte": 1,
    "parti": 2
   },
@@ -776,18 +776,18 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1105,
-   "byte": 162990,
+   "byte": 161257,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "pag-roles",
-   "figura": 49,
+   "figura": 51,
    "didascalia": "«Ruoli e permessi»: la pagina con il profilo Amministratore. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 764,
-   "byte": 178169,
+   "byte": 184385,
    "parte": 1,
    "parti": 2
   },
@@ -798,7 +798,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 782,
-   "byte": 127093,
+   "byte": 126740,
    "parte": 2,
    "parti": 2
   },
@@ -808,8 +808,8 @@
    "didascalia": "«Il mio account»: la pagina con il profilo Amministratore. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 472,
-   "byte": 93832,
+   "altezza": 478,
+   "byte": 101412,
    "parte": 1,
    "parti": 2
   },
@@ -820,7 +820,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 740,
-   "byte": 104095,
+   "byte": 103239,
    "parte": 2,
    "parti": 2
   },
@@ -830,8 +830,8 @@
    "didascalia": "«Registro presenze»: la pagina con il profilo Responsabile di struttura. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 791,
-   "byte": 156844,
+   "altezza": 880,
+   "byte": 216813,
    "parte": 1,
    "parti": 2
   },
@@ -841,30 +841,63 @@
    "didascalia": "«Registro presenze»: la pagina con il profilo Responsabile di struttura. Parte 2 di 2: seguito della pagina, scorrendo verso il basso.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 797,
-   "byte": 87507,
+   "altezza": 861,
+   "byte": 72224,
    "parte": 2,
    "parti": 2
   },
   {
-   "id": "presenze-registrazione",
+   "id": "presenze-scelta-rapida",
    "figura": 16,
-   "didascalia": "Il dialogo di registrazione: si apre con un clic su una casella del registro. Causale, orari proposti dalla fascia, sede di lavoro, festivo e nota.",
+   "didascalia": "Il riquadro di scelta rapida: si apre con un tocco su una casella e mostra le causali ammesse nella fascia. Toccandone una la registrazione è salvata subito; l’avviso in basso ha «Annulla».",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 212303,
+   "byte": 245933,
    "parte": null,
    "parti": null
   },
   {
-   "id": "presenze-pianificato",
+   "id": "presenze-registrazione",
    "figura": 17,
+   "didascalia": "La finestra completa («Dettagli e orari…»): causale, orari proposti dalla fascia, sede di lavoro, festivo e nota.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 860,
+   "byte": 228451,
+   "parte": null,
+   "parti": null
+  },
+  {
+   "id": "presenze-compilazione-rapida",
+   "figura": 18,
+   "didascalia": "La «Compilazione rapida»: si sceglie una causale nella tavolozza e si toccano le caselle da compilare una dopo l’altra; la gomma le svuota. Le caselle con la tinta chiara sono giorni passati senza registrazione. Parte 1 di 2.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 993,
+   "byte": 257783,
+   "parte": 1,
+   "parti": 2
+  },
+  {
+   "id": "presenze-compilazione-rapida-parte2",
+   "figura": null,
+   "didascalia": "La «Compilazione rapida»: si sceglie una causale nella tavolozza e si toccano le caselle da compilare una dopo l’altra; la gomma le svuota. Le caselle con la tinta chiara sono giorni passati senza registrazione. Parte 2 di 2: seguito della pagina, scorrendo verso il basso.",
+   "formato": "png",
+   "larghezza": 1366,
+   "altezza": 962,
+   "byte": 79169,
+   "parte": 2,
+   "parti": 2
+  },
+  {
+   "id": "presenze-pianificato",
+   "figura": 19,
    "didascalia": "Il registro in vista «Pianificato»: i turni previsti restano tratteggiati finché non si registra il consuntivo. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 791,
-   "byte": 151723,
+   "altezza": 880,
+   "byte": 208377,
    "parte": 1,
    "parti": 2
   },
@@ -874,19 +907,19 @@
    "didascalia": "Il registro in vista «Pianificato»: i turni previsti restano tratteggiati finché non si registra il consuntivo. Parte 2 di 2: seguito della pagina, scorrendo verso il basso.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 797,
-   "byte": 83278,
+   "altezza": 861,
+   "byte": 58010,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "pag-month",
-   "figura": 18,
+   "figura": 20,
    "didascalia": "«Controlli e chiusura»: la pagina con il profilo Responsabile di struttura. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 983,
-   "byte": 200822,
+   "altezza": 989,
+   "byte": 207548,
    "parte": 1,
    "parti": 2
   },
@@ -897,73 +930,73 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 953,
-   "byte": 130689,
+   "byte": 127264,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "pag-approvals",
-   "figura": 19,
+   "figura": 21,
    "didascalia": "«Approvazioni»: la pagina con il profilo Responsabile di struttura.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1125,
-   "byte": 178809,
+   "byte": 184958,
    "parte": null,
    "parti": null
   },
   {
    "id": "pag-coverage",
-   "figura": 20,
+   "figura": 22,
    "didascalia": "«Copertura turni»: la pagina con il profilo Responsabile di struttura.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 884,
-   "byte": 170901,
+   "byte": 176440,
    "parte": null,
    "parti": null
   },
   {
    "id": "pag-people",
-   "figura": 21,
+   "figura": 23,
    "didascalia": "«Persone e fascicoli»: la pagina con il profilo HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 948,
-   "byte": 194661,
+   "byte": 200202,
    "parte": null,
    "parti": null
   },
   {
    "id": "persone-fascicolo",
-   "figura": 22,
+   "figura": 24,
    "didascalia": "La scheda di un fascicolo: le linguette raccolgono anagrafica, recapiti, contratto, amministrazione, qualifiche, inserimento, documenti, scadenze e storico.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 156727,
+   "byte": 161969,
    "parte": null,
    "parti": null
   },
   {
    "id": "persone-fascicolo-documenti",
-   "figura": 23,
+   "figura": 25,
    "didascalia": "Linguetta «Documenti» del fascicolo: allegati con categoria, scadenza e stato della verifica di HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 148661,
+   "byte": 154511,
    "parte": null,
    "parti": null
   },
   {
    "id": "persone-fascicolo-inserimento",
-   "figura": 24,
+   "figura": 26,
    "didascalia": "Linguetta «Inserimento»: le attività previste dal modello della struttura, con scadenze, referenti e stato. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
-   "altezza": 612,
-   "byte": 135600,
+   "altezza": 618,
+   "byte": 144512,
    "parte": 1,
    "parti": 2
   },
@@ -974,51 +1007,51 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 667,
-   "byte": 120743,
+   "byte": 117906,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "pag-documents",
-   "figura": 25,
+   "figura": 27,
    "didascalia": "«Documenti»: la pagina con il profilo HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 185498,
+   "byte": 190641,
    "parte": null,
    "parti": null
   },
   {
    "id": "pag-workforce",
-   "figura": 26,
+   "figura": 28,
    "didascalia": "«Personale di gruppo»: la pagina con il profilo HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1061,
-   "byte": 205947,
+   "byte": 212050,
    "parte": null,
    "parti": null
   },
   {
    "id": "pag-departures",
-   "figura": 27,
+   "figura": 29,
    "didascalia": "«Uscite e dotazioni»: la pagina con il profilo HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 142066,
+   "byte": 147247,
    "parte": null,
    "parti": null
   },
   {
    "id": "pag-structures",
-   "figura": 28,
+   "figura": 30,
    "didascalia": "«Rubrica strutture»: la pagina con il profilo HR centrale. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 742,
-   "byte": 137165,
+   "byte": 142066,
    "parte": 1,
    "parti": 2
   },
@@ -1029,29 +1062,29 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 741,
-   "byte": 64498,
+   "byte": 65632,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "pag-agreements",
-   "figura": 29,
+   "figura": 31,
    "didascalia": "«Accordi e calcoli»: la pagina con il profilo HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1063,
-   "byte": 195913,
+   "byte": 200939,
    "parte": null,
    "parti": null
   },
   {
    "id": "pag-collaborators",
-   "figura": 30,
+   "figura": 32,
    "didascalia": "«Collaboratori e compensi»: la pagina con il profilo HR centrale. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 596,
-   "byte": 139089,
+   "byte": 145754,
    "parte": 1,
    "parti": 2
   },
@@ -1062,18 +1095,18 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 654,
-   "byte": 103265,
+   "byte": 103760,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "pag-payroll",
-   "figura": 31,
+   "figura": 33,
    "didascalia": "«Paghe»: la pagina con il profilo HR centrale. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1081,
-   "byte": 205019,
+   "byte": 210166,
    "parte": 1,
    "parti": 2
   },
@@ -1090,18 +1123,18 @@
   },
   {
    "id": "pag-mail",
-   "figura": 32,
+   "figura": 34,
    "didascalia": "«Comunicazioni»: la pagina con il profilo HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1084,
-   "byte": 165953,
+   "byte": 171826,
    "parte": null,
    "parti": null
   },
   {
    "id": "comunicazioni-anteprima",
-   "figura": 33,
+   "figura": 35,
    "didascalia": "Anteprima di una comunicazione: destinatari validi ed esclusi, avvisi e i primi messaggi personalizzati. La bozza si crea solo dopo il controllo.",
    "formato": "png",
    "larghezza": 1046,
@@ -1112,23 +1145,23 @@
   },
   {
    "id": "pag-reminders",
-   "figura": 34,
+   "figura": 36,
    "didascalia": "«Promemoria»: la pagina con il profilo HR centrale.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 1121,
-   "byte": 175057,
+   "byte": 181181,
    "parte": null,
    "parti": null
   },
   {
    "id": "pag-stats",
-   "figura": 35,
+   "figura": 37,
    "didascalia": "«Statistiche»: la pagina con il profilo Direzione · consultazione. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 595,
-   "byte": 117583,
+   "byte": 121484,
    "parte": 1,
    "parti": 2
   },
@@ -1139,13 +1172,13 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 748,
-   "byte": 65222,
+   "byte": 60237,
    "parte": 2,
    "parti": 2
   },
   {
    "id": "statistiche-grafico",
-   "figura": 36,
+   "figura": 38,
    "didascalia": "Il grafico dei turni effettivi per mese nella pagina Statistiche: passando sulle colonne si legge il valore di ogni mese.",
    "formato": "png",
    "larghezza": 1046,
@@ -1156,12 +1189,12 @@
   },
   {
    "id": "pag-exports",
-   "figura": 37,
+   "figura": 39,
    "didascalia": "«Esportazioni»: la pagina con il profilo Direzione · consultazione. Parte 1 di 2.",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 710,
-   "byte": 150266,
+   "byte": 149082,
    "parte": 1,
    "parti": 2
   },
@@ -1172,7 +1205,7 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 674,
-   "byte": 93226,
+   "byte": 92496,
    "parte": 2,
    "parti": 2
   },
@@ -1183,7 +1216,7 @@
    "formato": "jpeg",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 65120,
+   "byte": 65224,
    "parte": null,
    "parti": null
   },
@@ -1194,7 +1227,7 @@
    "formato": "png",
    "larghezza": 780,
    "altezza": 1688,
-   "byte": 140336,
+   "byte": 153207,
    "parte": null,
    "parti": null
   },
@@ -1205,7 +1238,7 @@
    "formato": "png",
    "larghezza": 780,
    "altezza": 1688,
-   "byte": 170399,
+   "byte": 199024,
    "parte": null,
    "parti": null
   },
@@ -1216,18 +1249,18 @@
    "formato": "png",
    "larghezza": 780,
    "altezza": 1688,
-   "byte": 189200,
+   "byte": 195098,
    "parte": null,
    "parti": null
   },
   {
    "id": "accessi-nuovo-account",
-   "figura": 43,
+   "figura": 45,
    "didascalia": "Il dialogo «Nuovo account»: nome, nome utente, ruolo e strutture assegnate (account fittizio di esempio).",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 205591,
+   "byte": 212060,
    "parte": null,
    "parti": null
   },
@@ -1238,18 +1271,18 @@
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 194669,
+   "byte": 199779,
    "parte": null,
    "parti": null
   },
   {
    "id": "accessi-codice",
-   "figura": 44,
+   "figura": 46,
    "didascalia": "Il codice di attivazione appena generato: si comunica di persona o per telefono, vale 7 giorni e una sola volta (account fittizio).",
    "formato": "png",
    "larghezza": 1366,
    "altezza": 860,
-   "byte": 237051,
+   "byte": 242801,
    "parte": null,
    "parti": null
   }
@@ -1260,12 +1293,11 @@
   "problemi": 0,
   "pagine_pdf_minime": true,
   "html_sotto_16MB": true,
-  "figure_in_ordine": false,
+  "figure_in_ordine": true,
   "indice_con_pagine": true,
   "pagine_quasi_vuote": [
    14,
-   22,
-   56
+   57
   ]
  }
 }

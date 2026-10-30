@@ -36,8 +36,8 @@ const BASE = (process.argv[3] || 'http://127.0.0.1:8095').replace(/\/+$/, '');  
   let saved = 'cella non trovata';
   if (cell) {
     await cell.click();
-    await page.waitForSelector('dialog[open]');
-    await page.click('dialog[open] .dialog-foot .btn.primary');
+    await page.waitForSelector('.quick-pick');                 // riquadro di scelta rapida della causale
+    await page.click('.quick-pick .quick-code >> nth=0');      // la prima causale ammessa nella fascia: salva subito
     await page.waitForTimeout(800);
     const after = await page.$$eval('table.register .code', els => els.length);
     saved = after > before ? 'registrazione salvata' : `nessuna nuova casella (${before} → ${after})`;
