@@ -98,9 +98,11 @@ async function enter() {
 let refs = {};
 
 function shell() {
+  // Sul telefono il menu è un cassetto: ha un pulsante di chiusura e, nel piede, tema e account (tolti dalla barra stretta).
+  const navClose = button('', { kind: 'ghost icon nav-close', ic: 'x', aria: 'Chiudi il menu', onClick: () => toggleNav(false) });
   const nav = h('nav', { class: 'sidebar', id: 'sidebar', 'aria-label': 'Menu principale' },
-    h('a', { class: 'brand', href: '#/' }, h('img', { src: 'img/emblema.png', alt: '' }),
-      h('div', { class: 'brand-name' }, 'NefroCenter WR', h('span', { text: 'Work Resources' }))));
+    h('div', { class: 'nav-head' }, h('a', { class: 'brand', href: '#/' }, h('img', { src: 'img/emblema.png', alt: '' }),
+      h('div', { class: 'brand-name' }, 'NefroCenter WR', h('span', { text: 'Work Resources' }))), navClose));
   let group = null;
   let groupEl = null;
   for (const p of PAGES) {
@@ -113,7 +115,19 @@ function shell() {
     groupEl.append(h('a', { class: 'nav-link', href: '#/' + p.path, dataset: { page: p.id } }, icon(p.icon), h('span', { text: p.label }),
       p.id === 'todo' ? h('span', { class: 'nav-count hidden', id: 'todo-count' }) : null));
   }
-  nav.append(h('div', { class: 'sidebar-foot' }, h('div', null, h('strong', { text: app.me.user.name })),
+  const themeIcon = () => (document.documentElement.dataset.theme === 'dark' ? 'sun' : 'moon');
+  const themeLabel = () => (document.documentElement.dataset.theme === 'dark' ? 'Tema chiaro' : 'Tema scuro');
+  const switchTheme = () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    store('theme', next);
+    applyTheme(next);
+    themeBtn.replaceChildren(icon(themeIcon()));
+    footTheme.replaceChildren(icon(themeIcon()), themeLabel());
+  };
+  const footTheme = button(themeLabel(), { kind: 'ghost small', ic: themeIcon(), onClick: switchTheme });
+  const footAccount = button('Il mio account', { kind: 'ghost small', ic: 'lock', onClick: () => { toggleNav(false); location.hash = '#/sicurezza'; } });
+  nav.append(h('div', { class: 'sidebar-foot' }, h('div', { class: 'foot-tools' }, footTheme, footAccount),
+    h('div', null, h('strong', { text: app.me.user.name })),
     h('div', { text: app.me.user.role_label }), h('div', { text: `${app.me.product} ${app.me.version}` })));
 
   const centerSelect = h('select', { class: 'context-center', 'aria-label': 'Struttura', on: { change: e => setContext(e.target.value, app.month) } },
@@ -124,13 +138,7 @@ function shell() {
     monthInput,
     button('', { kind: 'ghost icon', ic: 'chevronRight', aria: 'Mese successivo', onClick: () => setContext(app.cid, shiftMonth(app.month, 1)) }));
   const title = h('div', { class: 'page-title' });
-  const themeBtn = button('', { kind: 'ghost icon', ic: document.documentElement.dataset.theme === 'dark' ? 'sun' : 'moon', aria: 'Cambia tema',
-    onClick: () => {
-      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-      store('theme', next);
-      applyTheme(next);
-      themeBtn.replaceChildren(icon(next === 'dark' ? 'sun' : 'moon'));
-    } });
+  const themeBtn = button('', { kind: 'ghost icon', ic: themeIcon(), aria: 'Cambia tema', onClick: switchTheme });
   const userMenu = button('', { kind: 'ghost icon', ic: 'lock', aria: 'Il mio account', onClick: () => { location.hash = '#/sicurezza'; } });
   const logout = button('', { kind: 'ghost icon', ic: 'logout', aria: 'Esci', onClick: async () => {
     await post('session/logout').catch(() => null);
@@ -149,7 +157,11 @@ function shell() {
     text: 'Demo pubblica · dati fittizi · le modifiche restano solo in questa scheda del browser' }) : null, topbar, content), helpPanel);
   nav.addEventListener('click', e => { if (e.target.closest('a')) toggleNav(false); });
   clear(app.root, shellEl);
-  refs = { shell: shellEl, nav, title, context, centerSelect, monthInput, monthBox, content, helpPanel };
+  refs = { shell: shellEl, nav, navClose, menuBtn, title, context, centerSelect, monthInput, monthBox, content, helpPanel };
+  if (!app.escapeBound) {
+    app.escapeBound = true;
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && refs.shell?.classList.contains('nav-open')) toggleNav(false); });
+  }
   refreshTodoCount();
 }
 
@@ -168,12 +180,15 @@ export async function reloadProfile() {
 }
 
 function toggleNav(open) {
+  const wasOpen = refs.shell.classList.contains('nav-open');
   refs.shell.classList.toggle('nav-open', open);
   document.querySelector('.scrim')?.remove();
   if (open) {
     const scrim = h('div', { class: 'scrim', on: { click: () => toggleNav(false) } });
     refs.shell.append(scrim);
-    refs.nav.querySelector('a')?.focus();
+    (refs.navClose.offsetParent ? refs.navClose : refs.nav.querySelector('a'))?.focus();
+  } else if (wasOpen && refs.menuBtn.offsetParent) {
+    refs.menuBtn.focus();
   }
 }
 
@@ -216,6 +231,7 @@ async function route() {
   refs.monthBox.classList.toggle('hidden', !ctx.includes('month'));
   refs.context.classList.toggle('hidden', !ctx.length);
   toggleHelp(false);
+  if (app.current && app.current.id !== page.id) window.scrollTo(0, 0);   // nuova pagina: si riparte dall'alto
   app.current = page;
   if (page.cap && !app.can(page.cap)) {
     clear(refs.content, h('div', { class: 'alert warn' }, 'Questa pagina non è disponibile per il tuo profilo.'));

@@ -447,40 +447,202 @@ dialog::backdrop { background: rgba(10, 18, 40, .45); backdrop-filter: blur(2px)
 .boot-error .boot-card { border-color: var(--bad); }
 .boot-error #boot-status { color: var(--bad); font-weight: 600; }
 
-/* ---------- Schermi piccoli ---------- */
-@media (max-width: 1100px) {
-  .grid-main, .grid-3, .grid-side { grid-template-columns: 1fr; }
+/* ---------- Adattamento a ogni dispositivo ----------
+   Prima le regole che valgono sempre (ricadute in dvh, guardie contro lo sforamento), poi per fasce di larghezza:
+   fino a 1240 px (tablet in orizzontale e portatili stretti, barra laterale visibile), fino a 900 px (il menu diventa
+   un cassetto), fino a 560 px (telefono); infine schermi bassi (telefono in orizzontale) e puntatore grossolano (tocco).
+   Da 1240 px in su la resa resta quella di sempre. */
+
+/* Guardie: nessun contenuto può allargare la pagina oltre lo schermo, nessuna altezza legata a 100vh sui telefoni. */
+.grid > *, .card { min-width: 0; }
+.table-wrap { max-width: 100%; }
+.segmented { flex-wrap: wrap; max-width: 100%; }
+.dialog-foot { flex-wrap: wrap; }
+.result-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); }
+.result-grid .mono { overflow-wrap: anywhere; }
+.form-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.video-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+.toast svg { width: 18px; height: 18px; flex: none; margin-top: 2px; }
+.kpi-value { font-size: clamp(1.25rem, 2.2vw, 1.85rem); }
+.shell { min-height: 100dvh; }
+.sidebar { height: 100dvh; }
+.sidebar-foot { padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px)); }
+.nav-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; }
+.nav-head .brand { flex: 1; min-width: 0; }
+.nav-close { display: none; color: #fff; flex: none; margin-top: 2px; }
+.nav-close:hover { background: rgba(255, 255, 255, .12); }
+.foot-tools { display: none; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+.foot-tools .btn { color: #dbe3f6; }
+.foot-tools .btn:hover { background: rgba(255, 255, 255, .1); }
+.register-wrap { max-height: calc(100dvh - 300px); }
+dialog { display: flex; flex-direction: column; max-height: calc(100dvh - 16px); }
+.dialog-body { flex: 1 1 auto; min-height: 0; max-height: none; }
+
+/* Tablet in orizzontale e portatili stretti: tabelle con prima colonna fissa e ombra di scorrimento, schede a capo. */
+@media (max-width: 1240px) {
+  .grid-main { grid-template-columns: minmax(0, 1fr); }
+  .tabs { flex-wrap: wrap; overflow: visible; row-gap: 0; }
+  .table-wrap {
+    background:
+      linear-gradient(90deg, var(--surface) 30%, transparent) left / 40px 100% no-repeat local,
+      linear-gradient(270deg, var(--surface) 30%, transparent) right / 40px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgba(10, 18, 40, .22), transparent) left / 14px 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgba(10, 18, 40, .22), transparent) right / 14px 100% no-repeat scroll;
+  }
+  .table-wrap .table th:first-child, .table-wrap .table td:first-child { position: sticky; left: 0; z-index: 1; background: var(--surface); }
+  .table-wrap .table th:first-child { z-index: 2; background: var(--surface-2); }
+  .table-wrap .table tbody tr:hover td:first-child { background: var(--surface-2); }
+  .table-wrap .table tr.total-row td:first-child { background: var(--surface-2); }
+  .table-wrap .table tr.total-row.grand td:first-child { background: var(--brand-soft); }
+  .table.editor select { width: auto; min-width: 12ch; }
+  .table.editor td:nth-child(2) input { min-width: 180px; }
+  .table.editor input[type="time"] { width: 7.5em; min-width: 7.5em; }
+  .table.editor input[type="number"] { width: 5.5em; min-width: 72px; }
+  .table.editor th { white-space: normal; line-height: 1.2; }
+  .topbar input[type="month"] { width: 150px; }
+  .topbar .context .row .btn.icon { display: none; }
+  .context-center { max-width: 220px; }
+  .page-head .eyebrow { font-size: .8rem; }
+  .register thead th .wd { font-size: .74rem; }
+  .register .name-cell span { font-size: .78rem; }
+  .register .name-cell { min-width: 150px; max-width: 150px; }
+  .register .name-cell strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .register .slot-cell { left: 150px; }
+  .table .mono { font-size: .86rem; }
 }
+@media (max-width: 1100px) {
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .grid-side { grid-template-columns: minmax(0, 1fr); }
+}
+/* Barra laterale compatta quando lo schermo è basso (tablet in orizzontale, portatili piccoli). */
+@media (min-width: 901px) and (max-height: 860px) {
+  .sidebar { padding: 10px 10px; gap: 2px; }
+  .brand { padding-bottom: 8px; }
+  .nav-group { margin-top: 4px; }
+  .nav-group-title { padding: 4px 12px; }
+  .nav-link { padding: 6px 10px; font-size: .88rem; }
+}
+
+/* Il menu diventa un cassetto; il registro e le tabelle lunghe scorrono al loro interno. */
 @media (max-width: 900px) {
   .shell { grid-template-columns: 1fr; }
-  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: min(300px, 86vw); z-index: 50; transform: translateX(-102%); transition: transform .2s ease; }
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; height: auto; width: min(300px, 86vw); z-index: 50; transform: translateX(-102%); transition: transform .2s ease; padding-top: max(14px, env(safe-area-inset-top, 0px)); }
   .shell.nav-open .sidebar { transform: none; box-shadow: var(--shadow-lg); }
   .scrim { position: fixed; inset: 0; background: rgba(10, 18, 40, .45); z-index: 45; }
+  .nav-close { display: inline-flex; }
+  .foot-tools { display: flex; }
   .topbar .menu-button { display: inline-flex; }
   .topbar { height: auto; min-height: 56px; padding: 8px 12px; gap: 6px 8px; flex-wrap: wrap; }
   .topbar .page-title { flex: 1; }
   .topbar .context { order: 3; width: 100%; margin-left: 0; gap: 8px; }
   .topbar .context .row { flex: none; }
   .context-center { max-width: none; flex: 1; }
-  .topbar input[type="month"] { width: 150px; }
-  .content { padding: 18px 14px 50px; }
-  .grid-2 { grid-template-columns: 1fr; }
+  .content { padding: 18px max(14px, env(safe-area-inset-right, 0px)) 50px max(14px, env(safe-area-inset-left, 0px)); }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+  .kpis { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
   .auth-page { grid-template-columns: 1fr; }
   .auth-hero { padding: 28px 22px; }
   .auth-hero h1 { font-size: 1.6rem; margin-top: 18px; }
   .auth-hero ul { display: none; }
-  .register-wrap { max-height: none; }
+  .register-wrap { max-height: calc(100vh - 180px); max-height: calc(100dvh - 180px); min-height: 320px; }
+  .register .name-cell { min-width: 150px; max-width: 150px; }
+  .register .name-cell strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .register .slot-cell { left: 150px; }
+  .table-wrap { max-height: 75vh; max-height: 75dvh; overflow: auto; }
+  .table thead th { position: sticky; top: 0; z-index: 2; }
+  .table-wrap .table thead th:first-child { z-index: 3; }
 }
+/* Fra 700 e 900 px c'è spazio per tenere struttura e mese sulla stessa riga del titolo. */
+@media (min-width: 700px) and (max-width: 900px) {
+  .topbar .context { order: 0; width: auto; margin-left: auto; }
+  .context-center { max-width: 220px; flex: none; }
+}
+
+/* Telefono in verticale. */
 @media (max-width: 560px) {
   h1 { font-size: 1.3rem; }
-  .topbar .context .row .btn.icon { display: none; }
+  input, select, textarea { font-size: 16px; }   /* i campi sotto 16 px fanno ingrandire la pagina a iOS */
   .topbar input[type="month"] { width: 138px; }
+  .topbar .tools .btn[aria-label="Cambia tema"], .topbar .tools .btn[aria-label="Il mio account"] { display: none; }
+  .topbar .page-title { white-space: normal; line-height: 1.15; font-size: .98rem; }
+  .topbar .btn.icon { width: 36px; }
+  .page-head { margin-bottom: 12px; gap: 8px; }
+  .page-head h1 { font-size: 1.15rem; }
+  .page-head .row { gap: 4px 6px; }
+  .page-head .badge { font-size: .7rem; padding: 1px 8px; }
+  .page-actions { gap: 6px; width: 100%; }
+  .page-actions .btn { flex: 1 1 45%; }
+  .btn:not(.icon):not(.cell) { white-space: normal; height: auto; min-height: 40px; padding: 8px 14px; max-width: 100%; line-height: 1.2; }
+  .btn.small { min-height: 36px; padding: 6px 12px; }
+  .tabs { gap: 2px 0; }
+  .tab { padding: 8px 10px; font-size: .84rem; }
   .card-head .row > input, .card-head .row > select { width: 100%; }
   .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .kpi { padding: 12px 14px; }
   .kpi-value { font-size: 1.5rem; }
   .codes { grid-template-columns: 1fr; }
   .table th, .table td { padding: 9px 10px; }
+  .table.counters th:first-child, .table.counters td:first-child { min-width: 130px; }
+  .mono { font-size: .92em; }
+  .register .name-cell { min-width: 112px; max-width: 112px; padding: 0 8px; }
+  .register .name-cell strong { white-space: normal; font-size: .8rem; overflow: visible; text-overflow: clip; line-height: 1.2; }
+  .register .name-cell span { display: none; }
+  .register .slot-cell { left: 112px; min-width: 34px; }
+  .day-person { grid-template-columns: 1fr; }
+  .steps { display: grid; gap: 10px; }
+  .step { text-align: left; padding: 0 0 0 36px; min-height: 26px; display: flex; align-items: center; }
+  .step::before { left: 0; transform: none; }
+  .step::after { display: none; }
+  dialog, dialog.wide { width: 100%; max-width: 100%; margin: auto 0 0; border-radius: 16px 16px 0 0; max-height: calc(100dvh - 24px); }
+  .dialog-foot { border-radius: 0; padding: 12px 16px; }
+  .dialog-foot .btn { flex: 1 1 auto; min-width: 0; }
+  .dialog-head { padding: 14px 16px; }
+  .dialog-body { padding: 16px; }
+  .toasts { left: 12px; right: 12px; bottom: 12px; }
+  .toast { max-width: none; }
+  .auth-hero { padding: 20px 18px; }
+  .auth-hero h1 { font-size: 1.4rem; margin: 14px 0 6px; }
+  .auth-hero p { font-size: .92rem; }
+  .auth-hero .legal { display: none; }
+  .auth-panel { padding: 18px 12px; }
+  .demo-role { padding: 10px 12px; }
+}
+
+/* Schermo basso (telefono in orizzontale): la barra superiore non resta fissa, finestre e avvisi compatti. */
+@media (max-height: 500px) {
+  .topbar { position: static; }
+  .demo-banner { padding: 3px 8px; font-size: .74rem; }
+  .page-head { margin-bottom: 10px; }
+  .kpis { margin-bottom: 10px; }
+  .dialog-head, .dialog-foot { padding: 8px 16px; }
+  .dialog-head h2 { font-size: 1rem; }
+  .dialog-body { padding: 12px 16px; }
+  .toasts { bottom: auto; top: 8px; right: 8px; left: auto; }
+  .toast { padding: 8px 12px; font-size: .84rem; max-width: 420px; }
+  .register-wrap { max-height: calc(100vh - 120px); max-height: calc(100dvh - 120px); min-height: 200px; }
+}
+@media (max-height: 500px) and (min-width: 700px) {
+  .auth-page { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+  .auth-hero { padding: 18px 20px; }
+  .auth-hero h1 { font-size: 1.3rem; margin: 10px 0 6px; }
+  .auth-hero p { display: none; }
+  .auth-panel { padding: 16px 12px; }
+}
+
+/* Tocco: bersagli di almeno 40-44 px senza ingrandire nulla sul computer. */
+@media (pointer: coarse) {
+  .btn { min-height: 44px; }
+  .btn.icon { width: 44px; height: 44px; }
+  .btn.small { min-height: 40px; height: 40px; padding: 0 14px; }
+  .segmented button { min-height: 38px; padding: 8px 14px; }
+  .tab { padding: 12px 14px; }
+  input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; }
+  .register th, .register td { height: 42px; }
+  .cell { height: 41px; }
+  .register thead th { min-width: 42px; }
+  .table.editor input:not([type="checkbox"]), .table.editor select { min-height: 40px; }
+  summary { padding: 8px 0; }
+  .day-slots .btn { min-height: 44px; min-width: 64px; flex: 1 1 40%; }
 }
 @media print {
   .sidebar, .topbar, .page-actions, .toasts, .help-panel, .demo-banner { display: none !important; }
