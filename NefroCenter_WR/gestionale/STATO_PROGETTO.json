@@ -1,81 +1,137 @@
 {
-  "progetto": "NefroCenter WR · Work Resources",
-  "versione": "1.0.0",
-  "schema_archivio": 1,
-  "data": "2026-10-30",
-  "lingua": "it",
-  "installazione_aziendale": "non eseguita",
-  "demo_pubblica": "non pubblicata su un indirizzo aziendale; copia privata di prova su claude.ai (30/10/2026, visibile solo al titolare); si costruisce con demo/costruisci_demo.py",
-  "demo_pacchetto": "NefroCenter_WR_Demo_1.0.0.zip: cartella dist con Pyodide incluso, manuale illustrato e videoguide, avvia_demo.py e lanciatori per Windows, macOS e Linux",
-  "documenti": {
-    "leggimi": "../LEGGIMI.md",
-    "passaggio": "../PASSAGGIO_PROGETTO.md",
-    "installazione": "INSTALLAZIONE.md",
-    "migrazione": "MIGRAZIONE_DALLA_0.11.md",
-    "novita": "NOVITA_WR_1.0.md",
-    "verifica": "VERIFICA.md",
-    "studio_modello_excel": "docs/STUDIO_MODELLO_EXCEL.md",
-    "posta": "docs/POSTA.md",
-    "paghe": "docs/PAGHE.md"
+ "progetto": "NefroCenter WR · Work Resources",
+ "versione": "1.0.0",
+ "schema_archivio": 1,
+ "data": "2026-10-30",
+ "lingua": "it",
+ "installazione_aziendale": "non eseguita",
+ "demo_pubblica": "non pubblicata su un indirizzo aziendale; copia privata di prova su claude.ai (30/10/2026, visibile solo al titolare); si costruisce con demo/costruisci_demo.py",
+ "demo_pacchetto": "NefroCenter_WR_Demo_1.0.0.zip: cartella dist con Pyodide incluso, manuale illustrato e videoguide, avvia_demo.py e lanciatori per Windows, macOS e Linux",
+ "documenti": {
+  "leggimi": "../LEGGIMI.md",
+  "passaggio": "../PASSAGGIO_PROGETTO.md",
+  "installazione": "INSTALLAZIONE.md",
+  "migrazione": "MIGRAZIONE_DALLA_0.11.md",
+  "novita": "NOVITA_WR_1.0.md",
+  "verifica": "VERIFICA.md",
+  "studio_modello_excel": "docs/STUDIO_MODELLO_EXCEL.md",
+  "posta": "docs/POSTA.md",
+  "paghe": "docs/PAGHE.md",
+  "dimensionamento": "docs/DIMENSIONAMENTO_ARCHIVIO.md"
+ },
+ "avvio": [
+  "manage.py serve (--processes N per più processi di lavoro)",
+  "manage.py init",
+  "strumenti/anteprima.py"
+ ],
+ "tecnologie": {
+  "motore": "Python 3.12/3.13 standard library + cryptography + tzdata; waitress, xlsxwriter, segno inclusi",
+  "archivio": "SQLite WAL sul disco locale del server (verificato con 3000 dipendenti: docs/DIMENSIONAMENTO_ARCHIVIO.md); servizio con 1 o più processi di lavoro (--processes / WR_PROCESSES)",
+  "interfaccia": "HTML, CSS, JavaScript (moduli ES, senza compilazione)",
+  "demo": "stesso motore eseguito nel browser con Pyodide 0.26.4"
+ },
+ "verifica": {
+  "prove_automatiche": 159,
+  "prove_superate": true,
+  "giro_interfaccia_profili": 5,
+  "giro_interfaccia_pagine": {
+   "admin": 26,
+   "hr": 22,
+   "manager": 20,
+   "operator": 12,
+   "viewer": 12
   },
-  "avvio": [
-    "manage.py serve",
-    "manage.py init",
-    "strumenti/anteprima.py"
+  "larghezze_browser": [
+   320,
+   390,
+   412,
+   844,
+   768,
+   810,
+   834,
+   1080,
+   1194,
+   1280,
+   1440,
+   1920,
+   2560
   ],
-  "tecnologie": {
-    "motore": "Python 3.12/3.13 standard library + cryptography + tzdata; waitress, xlsxwriter, segno inclusi",
-    "archivio": "SQLite WAL sul disco locale del server",
-    "interfaccia": "HTML, CSS, JavaScript (moduli ES, senza compilazione)",
-    "demo": "stesso motore eseguito nel browser con Pyodide 0.26.4"
-  },
-  "verifica": {
-    "prove_automatiche": 154,
-    "prove_superate": true,
-    "giro_interfaccia_profili": 5,
-    "giro_interfaccia_pagine": {
-      "admin": 26,
-      "hr": 22,
-      "manager": 20,
-      "operator": 12,
-      "viewer": 12
-    },
-    "larghezze_browser": [320, 390, 412, 844, 768, 810, 834, 1080, 1194, 1280, 1440, 1920, 2560],
-    "dispositivi_emulati": ["Galaxy S9+", "iPhone SE", "iPhone 13 (anche orizzontale)", "Pixel 7 (anche orizzontale)", "iPad Mini", "iPad (gen 7) (anche orizzontale)", "iPad Pro 11 (anche orizzontale)"],
-    "registro_prova_dedicata": "strumenti/prova_registro.cjs (scelta rapida, compilazione rapida, navigazione, telefono)",
-    "demo_browser": "radice, sottocartella e variante solo-file-web (30/10/2026)",
-    "migrazione_archivio_sintetico": true,
-    "importazione_file_reale": true,
-    "revisione_indipendente_importazione": {
-      "rilievi_confermati": 44,
-      "corretti": 44
-    },
-    "python": "3.13.17",
-    "node": "22.22.0",
-    "playwright": "1.63.0"
-  },
-  "guide": {
-    "manuale": "web/help/manuale/Manuale_NefroCenter_WR.pdf (+ .html)",
-    "videoguide": 8,
-    "nel_portale": "scheda «Manuale e video» con lettore video (capitoli, trascrizione), manuale leggibile nel portale e PDF scaricabile; videoguida e capitolo del manuale nel pannello «?» di ogni pagina; compresi nella demo",
-    "generatori": [
-      "../strumenti/guide/manuale.cjs",
-      "../strumenti/guide/video.cjs"
-    ]
-  },
-  "servizi_da_configurare": [
-    "seconda copia dei backup su NAS",
-    "servizio di posta aziendale",
-    "tracciato del consulente paghe",
-    "promemoria automatici",
-    "tariffe e ritenute dei collaboratori"
+  "dispositivi_emulati": [
+   "Galaxy S9+",
+   "iPhone SE",
+   "iPhone 13 (anche orizzontale)",
+   "Pixel 7 (anche orizzontale)",
+   "iPad Mini",
+   "iPad (gen 7) (anche orizzontale)",
+   "iPad Pro 11 (anche orizzontale)"
   ],
-  "non_verificato": [
-    "server aziendale e HTTPS",
-    "rete e carico reali",
-    "NAS",
-    "SMTP",
-    "consulente paghe",
-    "archivio aziendale reale"
+  "registro_prova_dedicata": "strumenti/prova_registro.cjs (scelta rapida, compilazione rapida, navigazione, telefono)",
+  "demo_browser": "radice, sottocartella e variante solo-file-web (30/10/2026)",
+  "migrazione_archivio_sintetico": true,
+  "importazione_file_reale": true,
+  "revisione_indipendente_importazione": {
+   "rilievi_confermati": 44,
+   "corretti": 44
+  },
+  "python": "3.13.17",
+  "node": "22.22.0",
+  "playwright": "1.63.0",
+  "carico_3000_dipendenti": {
+   "data": "2026-10-30",
+   "archivio_prova": "3000 dipendenti, 60 strutture, 12 mesi (+60 su 3), 1.261.865 registrazioni, 1.221.365 righe di giornale, 6000 allegati, 1,5 GB",
+   "registro_ms": {
+    "struttura_normale": 45,
+    "storico_5_anni": 57
+   },
+   "scritture_al_secondo_8_compilatori": 170,
+   "backup_1_5_gb_s": 18.6,
+   "http_6_lettori_registro_ms": {
+    "1_processo": 7300,
+    "4_processi": 147
+   },
+   "pagine_lente_python": {
+    "statistiche_12_mesi_tutte_s": 29.9,
+    "riepilogo_gruppo_s_dopo": 1.9,
+    "da_completare_s": 1.6,
+    "copertura_struttura_s": 1.2
+   },
+   "audit_codice": {
+    "rilievi_confermati": 17,
+    "corretti": 8,
+    "da_fare": 9
+   },
+   "strumenti": [
+    "strumenti/carico_archivio.py",
+    "strumenti/carico_http.py"
+   ],
+   "documento": "docs/DIMENSIONAMENTO_ARCHIVIO.md"
+  }
+ },
+ "guide": {
+  "manuale": "web/help/manuale/Manuale_NefroCenter_WR.pdf (+ .html)",
+  "videoguide": 8,
+  "nel_portale": "scheda «Manuale e video» con lettore video (capitoli, trascrizione), manuale leggibile nel portale e PDF scaricabile; videoguida e capitolo del manuale nel pannello «?» di ogni pagina; compresi nella demo",
+  "generatori": [
+   "../strumenti/guide/manuale.cjs",
+   "../strumenti/guide/video.cjs"
   ]
+ },
+ "servizi_da_configurare": [
+  "seconda copia dei backup su NAS",
+  "servizio di posta aziendale",
+  "tracciato del consulente paghe",
+  "promemoria automatici",
+  "tariffe e ritenute dei collaboratori"
+ ],
+ "non_verificato": [
+  "server aziendale e HTTPS",
+  "rete e carico reali",
+  "NAS",
+  "SMTP",
+  "consulente paghe",
+  "archivio aziendale reale"
+ ],
+ "decisioni_aperte": [
+  "Sede degli allegati prima di caricare i documenti di 3000 persone: file su disco con impronta SHA-256 (consigliato) o secondo file SQLite; conservazione dei backup locali; archiviazione degli anni chiusi (docs/DIMENSIONAMENTO_ARCHIVIO.md §6)"
+ ]
 }

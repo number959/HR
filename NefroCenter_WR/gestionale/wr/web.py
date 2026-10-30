@@ -222,6 +222,20 @@ class App:
             body = _json({'error': {'code': 'conflict', 'message': 'Valore già presente o collegamento non valido: '
                                     'ricaricare la pagina e controllare i dati.'}})
             ctype = 'application/json; charset=utf-8'
+        except sqlite3.OperationalError as exc:
+            ctype = 'application/json; charset=utf-8'
+            if any(word in str(exc).lower() for word in ('locked', 'busy')):
+                # Lucchetto di scrittura occupato oltre il tempo di attesa: niente è stato salvato, si può riprovare.
+                LOG.warning('Archivio occupato: richiesta %s %s rimandata', req.method, req.path)
+                status = 503
+                extra.append(('Retry-After', '2'))
+                body = _json({'error': {'code': 'busy', 'message': 'Archivio momentaneamente occupato: nessuna modifica '
+                                        'salvata. Riprovare tra qualche secondo.'}})
+            else:
+                LOG.exception('Errore del database')
+                status = 500
+                body = _json({'error': {'code': 'server', 'message': 'Errore del servizio. Riprovare; se continua, '
+                                        'avvisare l’amministratore.'}})
         except Exception:
             LOG.exception('Errore applicativo')
             status = 500

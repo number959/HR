@@ -48,6 +48,13 @@ Studiato per intero il file che le strutture compilavano ogni mese (`docs/STUDIO
 
 L'importazione del vecchio file serve solo per i mesi passati e per la transizione.
 
+## Dimensionamento (30 ottobre 2026)
+
+- Prova di carico con un archivio fittizio di **3000 dipendenti, 60 strutture, un anno di presenze** (1,26 milioni di registrazioni, altrettante righe di giornale, 6000 allegati): SQLite risponde in meno di 0,1 s per il registro di una struttura e regge 170 salvataggi al secondo da 8 compilatori insieme, senza errori (`docs/DIMENSIONAMENTO_ARCHIVIO.md`).
+- **Processi di lavoro** (`--processes` / `WR_PROCESSES`): con molti utenti contemporanei il limite è il singolo processo Python, non il database; con 4 processi il registro aperto da 6 persone insieme passa da 7 s a 0,2 s. Valore predefinito invariato (1 processo).
+- Filtro del mese che usa l'indice, controllo della sessione senza lucchetto di scrittura, apertura dei documenti fuori dal lucchetto, file WAL contenuto e manutenzione oraria dell'archivio.
+- Nuovi strumenti `strumenti/carico_archivio.py` e `strumenti/carico_http.py` per ripetere le misure.
+
 ## Cosa resta da fare in azienda
 
 - Installare il portale sul server aziendale (`INSTALLAZIONE.md`) e provarlo sulla rete reale con una struttura pilota.

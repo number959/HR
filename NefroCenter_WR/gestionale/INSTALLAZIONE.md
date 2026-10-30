@@ -6,7 +6,7 @@ Questa guida è il riferimento tecnico; la versione passo per passo, con tutti i
 
 ## Cosa serve
 
-- Un server Linux (consigliato) o Windows, acceso durante l'orario di lavoro, con disco locale per archivio, documenti e backup.
+- Un server Linux (consigliato) o Windows, acceso durante l'orario di lavoro, con disco locale per archivio, documenti e backup. Per gruppi grandi (migliaia di dipendenti, oltre 50 utenti contemporanei) conviene Linux con 2–4 CPU e `WR_PROCESSES=2` o più: l'archivio SQLite regge senza problemi, il limite è il singolo processo Python (`docs/DIMENSIONAMENTO_ARCHIVIO.md`).
 - **Python 3.12 o 3.13 a 64 bit**. Le uniche librerie da installare sono in `requirements.txt` (`cryptography`, `tzdata`); le altre sono incluse nella cartella `vendor/` con le rispettive licenze.
 - Un indirizzo HTTPS raggiungibile dalle sedi (VPN aziendale oppure dominio e reverse proxy). Il proxy gestisce il certificato e inoltra al servizio locale sulla porta 8080, che resta interna al server.
 - Una cartella del **NAS** montata sul server per la seconda copia dei backup: percorso e permessi li decide il tecnico; il portale non contiene destinazioni preimpostate.

@@ -210,7 +210,8 @@ def cmd_demo_data(a):
 
 def cmd_serve(a):
     from wr import server
-    args = ['--data-dir', str(a.data_dir), '--key-file', str(a.key_file), '--origin', a.origin or '', '--port', str(a.port)]
+    args = ['--data-dir', str(a.data_dir), '--key-file', str(a.key_file), '--origin', a.origin or '', '--port', str(a.port),
+            '--processes', str(a.processes), '--threads', str(a.threads)]
     if a.dev_http:
         args.append('--dev-http')
     server.main(args)
@@ -236,6 +237,10 @@ def main(argv=None):
     p.add_argument('--legacy-key', type=Path, help='Chiave del server della versione 0.11, per conservare le app Authenticator')
     p.add_argument('--origin', default=os.environ.get('WR_ORIGIN', ''))
     p.add_argument('--port', type=int, default=int(os.environ.get('WR_PORT', '8080')))
+    p.add_argument('--processes', type=int, default=int(os.environ.get('WR_PROCESSES', '1')),
+                   help='serve: processi di lavoro (predefinito 1; 2-4 su un server con più CPU e molti utenti)')
+    p.add_argument('--threads', type=int, default=int(os.environ.get('WR_THREADS', '8')),
+                   help='serve: thread per processo (predefinito 8)')
     p.add_argument('--dev-http', action='store_true')
     a = p.parse_args(argv)
     try:

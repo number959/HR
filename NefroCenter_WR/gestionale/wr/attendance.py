@@ -52,7 +52,8 @@ def workload_rows(con, center_id, month, cfg, persons, entries):
     roles = {p['id']: p['role'] for p in persons}
     in_site = _in_site(entries)
     out = []
-    for r in con.execute('SELECT * FROM workload WHERE center_id=? AND day LIKE ? ORDER BY day, slot', (center_id, month + '-%')):
+    for r in con.execute('SELECT * FROM workload WHERE center_id=? AND day>=? AND day<=? ORDER BY day, slot',
+                         (center_id, *months.bounds(month))):
         here = [e for e in in_site if e['day'] == r['day'] and e['slot'] == r['slot']]
         nurses = len({e['person_id'] for e in here if roles.get(e['person_id']) in cfg['nurse_roles']})
         doctors = len({e['person_id'] for e in here if roles.get(e['person_id']) in cfg['doctor_roles']})
@@ -384,7 +385,8 @@ def apply_rules(db, actor, center_id, month, raw):
         actor, center = centers.scoped(con, actor, center_id, 'mese.regole')
         state = _writable(con, actor, center_id, month)
         months.check_version(state, raw['version'])
-        if con.execute('SELECT 1 FROM entries WHERE center_id=? AND day LIKE ? LIMIT 1', (center_id, month + '-%')).fetchone():
+        if con.execute('SELECT 1 FROM entries WHERE center_id=? AND day>=? AND day<=? LIMIT 1',
+                       (center_id, *months.bounds(month))).fetchone():
             raise Invalid('Il mese contiene registrazioni: per conservare lo storico i nuovi parametri valgono dai mesi '
                           'non ancora compilati.')
         before = state['rules_version']

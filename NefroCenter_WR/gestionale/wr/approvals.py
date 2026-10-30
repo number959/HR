@@ -62,8 +62,8 @@ def fingerprint(con, center_id, month):
                 for p in people],
         entries=[{k: e[k] for k in months.ENTRY_FIELDS if k not in ('updated_at', 'updated_by')}
                  for e in sorted(months.entries(con, center_id, month), key=lambda e: e['id'])],
-        workload=rows('SELECT day,slot,ordinary,isolated FROM workload WHERE center_id=? AND day LIKE ? ORDER BY day,slot',
-                      (center_id, month + '-%')),
+        workload=rows('SELECT day,slot,ordinary,isolated FROM workload WHERE center_id=? AND day>=? AND day<=? ORDER BY day,slot',
+                      (center_id, *months.bounds(month))),
         agreements=rows('SELECT person_id,data,version FROM agreements WHERE center_id=? AND month=? ORDER BY person_id',
                         (center_id, month)),
         contracts=rows(f'''SELECT id,person_id,valid_from,valid_to,data,version FROM contracts WHERE person_id IN ({marks})
@@ -91,18 +91,23 @@ def available_actions(user, pol, wf, closed, stale):
     return []
 
 
-def _status(con, user, center_id, month):
+def _status(con, user, center_id, month, *, need_fingerprint=True):
     pol = policy(con, center_id)
     wf = workflow(con, center_id, month)
     state = months.get(con, center_id, month)
-    current = fingerprint(con, center_id, month)
+    # L'impronta (tutte le registrazioni del mese serializzate e firmate) è il passaggio più costoso:
+    # i riassunti la calcolano solo se serve a capire se i dati sono cambiati dopo un invio.
+    if need_fingerprint or (wf['fingerprint'] and wf['status'] in FROZEN):
+        current = fingerprint(con, center_id, month)
+    else:
+        current = ''
     stale = bool(wf['fingerprint'] and wf['status'] in FROZEN and wf['fingerprint'] != current)
     return pol, wf, state, current, stale
 
 
 def metadata(con, user, center_id, month):
     """Riassunto per la pagina presenze (connessione già autorizzata dal chiamante)."""
-    pol, wf, state, _, stale = _status(con, user, center_id, month)
+    pol, wf, state, _, stale = _status(con, user, center_id, month, need_fingerprint=False)
     return dict(enabled=pol['enabled'], status=wf['status'], label=wf['label'], version=wf['version'],
                 frozen=bool(pol['enabled'] and wf['status'] in FROZEN), stale=stale,
                 legacy_closed=bool(state['closed'] and wf['status'] != 'hr_approved'))
@@ -141,7 +146,7 @@ def queue(db, user, month):
         for c in centers.visible(con, user):
             if not c['active']:
                 continue
-            pol, wf, state, _, stale = _status(con, user, c['id'], month)
+            pol, wf, state, _, stale = _status(con, user, c['id'], month, need_fingerprint=False)
             acts = available_actions(user, pol, wf, state['closed'], stale)
             out.append(dict(center_id=c['id'], center=c['name'], enabled=pol['enabled'], status=wf['status'],
                             label=wf['label'] if pol['enabled'] else ('Chiuso' if state['closed'] else 'Percorso non attivo'),

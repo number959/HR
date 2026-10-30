@@ -25,7 +25,9 @@ def group(db, user, month):
             entries = months.entries(con, c['id'], month)
             summary = rules.summarize(persons, entries, today().isoformat())
             wf = approvals.metadata(con, user, c['id'], month)
-            last = con.execute('SELECT max(at) FROM audit WHERE center_id=?', (c['id'],)).fetchone()[0]
+            # L'ultima riga di giornale per id (indice audit_center): max(at) scorrerebbe tutto il giornale della struttura.
+            last_row = con.execute('SELECT at FROM audit WHERE center_id=? ORDER BY id DESC LIMIT 1', (c['id'],)).fetchone()
+            last = last_row[0] if last_row else None
             rows.append(dict(id=c['id'], name=c['name'], code=c['code'], closed=state['closed'], verified=state['verified'],
                              recorded=bool(entries), people=sum(p['active'] for p in persons),
                              minutes=sum(r['minutes'] for r in summary), shifts=sum(r['shifts'] for r in summary),

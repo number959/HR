@@ -66,9 +66,18 @@ def entry_dict(r):
     return out
 
 
+def bounds(month):
+    """Primo e ultimo giorno (compresi) con cui filtrare la colonna `day` del mese.
+
+    Un intervallo (>= e <=) usa l'indice (center_id, day); un filtro LIKE 'AAAA-MM-%' no:
+    con molti anni di storico SQLite leggerebbe tutte le righe della struttura."""
+    return month + '-01', month + '-31'
+
+
 def entries(con, center_id, month):
+    first, last = bounds(month)
     return [entry_dict(r) for r in con.execute(
-        'SELECT * FROM entries WHERE center_id=? AND day LIKE ? ORDER BY day, slot', (center_id, month + '-%'))]
+        'SELECT * FROM entries WHERE center_id=? AND day>=? AND day<=? ORDER BY day, slot', (center_id, first, last))]
 
 
 def people(con, center_id):

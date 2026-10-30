@@ -24,6 +24,7 @@ class Auth:
     ANON_LIFE = 3600
     PENDING_LIFE = 300
     IDLE = 900
+    TOUCH_EVERY = 60  # secondi fra due registrazioni dell'attività di una sessione
     FULL_LIFE = 8 * 3600
     STEP_UP_WINDOW = 300
     ACTIVATION_DAYS = 7
@@ -118,25 +119,32 @@ class Auth:
         return self._new(con, **kwargs)
 
     def session(self, raw, *, touch=True):
+        """Controlla la sessione in sola lettura; scrive solo per cancellarla o per registrare l'attività,
+        al massimo una volta ogni TOUCH_EVERY secondi: così le pagine di sola lettura non prendono
+        il lucchetto unico di scrittura di SQLite a ogni richiesta."""
         if not raw or len(raw) > 200:
             raise Unauthorized('Sessione scaduta. Accedere di nuovo.')
         now = self.clock()
-        with self.db.write() as con:
+        with self.db.read() as con:
             row = con.execute('SELECT * FROM sessions WHERE id=?', (security.digest(raw),)).fetchone()
             expired = (not row or row['expires'] <= now or (row['stage'] == 'full' and now - row['touched'] > self.IDLE))
-            if expired:
-                if row:
-                    con.execute('DELETE FROM sessions WHERE id=?', (row['id'],))
-                raise Unauthorized('Sessione scaduta. Accedere di nuovo.')
-            if row['user_id']:
+            revoked = False
+            if not expired and row['user_id']:
                 sec = con.execute('''SELECT u.active, s.generation FROM users u JOIN user_security s ON s.user_id=u.id
                                      WHERE u.id=?''', (row['user_id'],)).fetchone()
-                if not sec or not sec['active'] or sec['generation'] != row['generation']:
+                revoked = not sec or not sec['active'] or sec['generation'] != row['generation']
+        if expired or revoked:
+            if row:
+                with self.db.write() as con:
                     con.execute('DELETE FROM sessions WHERE id=?', (row['id'],))
-                    raise Unauthorized('Accesso revocato o aggiornato. Accedere di nuovo.')
-            if touch:
+            raise Unauthorized('Sessione scaduta. Accedere di nuovo.' if expired
+                               else 'Accesso revocato o aggiornato. Accedere di nuovo.')
+        row = dict(row)
+        if touch and now - row['touched'] >= self.TOUCH_EVERY:
+            with self.db.write() as con:
                 con.execute('UPDATE sessions SET touched=? WHERE id=?', (now, row['id']))
-            return dict(row)
+            row['touched'] = now
+        return row
 
     def ensure(self, raw):
         """Sessione esistente oppure una nuova sessione anonima (con token anti-falsificazione)."""

@@ -173,7 +173,7 @@ Aprire `http://127.0.0.1:8080` **sullo stesso computer**: scegliere «Primo acce
 ### 2.5 Servizio automatico e HTTPS (Linux)
 
 1. **Utente di servizio** (senza accesso interattivo): `sudo useradd --system --home /var/lib/nefrocenter-wr --shell /usr/sbin/nologin nefrocenter-wr`. Dare a questo utente la proprietà di `/var/lib/nefrocenter-wr` e la lettura di `/opt/nefrocenter-wr` e della chiave.
-2. **Variabili del servizio**: copiare `gestionale/deploy/wr.env.example` in `/etc/nefrocenter-wr/wr.env` e impostare `WR_ORIGIN=https://IL-NOME-DEL-SITO` (per esempio `https://wr.azienda.it`), `WR_DATA_DIR`, `WR_KEY_FILE`, `WR_PORT=8080`, `TZ=Europe/Rome`. Permessi `600`, proprietario l'utente di servizio.
+2. **Variabili del servizio**: copiare `gestionale/deploy/wr.env.example` in `/etc/nefrocenter-wr/wr.env` e impostare `WR_ORIGIN=https://IL-NOME-DEL-SITO` (per esempio `https://wr.azienda.it`), `WR_DATA_DIR`, `WR_KEY_FILE`, `WR_PORT=8080`, `TZ=Europe/Rome` (e `WR_PROCESSES`, vedere 2.6 bis). Permessi `600`, proprietario l'utente di servizio.
 3. **Servizio systemd**: copiare `gestionale/deploy/nefrocenter-wr.service` in `/etc/systemd/system/` (adattare i percorsi se diversi) e poi:
    ```bash
    sudo systemctl daemon-reload
@@ -193,6 +193,15 @@ Aprire `http://127.0.0.1:8080` **sullo stesso computer**: scegliere «Primo acce
 5. Impostazioni: «Se l'attività non riesce, riavvia ogni 1 minuto», «Arresta l'attività se è in esecuzione da più di» **deselezionato**.
 6. Variabili d'ambiente: impostare a livello di sistema (Pannello di controllo → Sistema → Variabili d'ambiente) `WR_DATA_DIR=C:\NefroCenterWR\dati`, `WR_KEY_FILE=C:\NefroCenterWR\riservato\server.key`, `WR_PORT=8080`, `TZ=Europe/Rome`; riavviare l'attività.
 7. HTTPS: installare Caddy per Windows con lo stesso blocco di configurazione del punto 2.5 (il proxy inoltra a `127.0.0.1:8080`), oppure usare la VPN aziendale con il proxy già esistente. Aprire nel firewall solo la porta del proxy.
+
+### 2.6 bis Molti utenti contemporanei (gruppi grandi, 3000 dipendenti e oltre)
+
+L'archivio SQLite regge senza problemi migliaia di dipendenti e milioni di registrazioni (misure in `docs/DIMENSIONAMENTO_ARCHIVIO.md`). Il limite è un altro: Python esegue un solo thread per volta in ogni processo, quindi quando molti compilatori aprono il registro **nello stesso istante** un processo unico risponde lento anche se il database è veloce. Su un server Linux con almeno 2 CPU si avviano più processi di lavoro:
+
+- nel file `/etc/nefrocenter-wr/wr.env` impostare `WR_PROCESSES=2` (o 4 con 4 CPU e oltre 100 utenti), poi `sudo systemctl restart nefrocenter-wr`;
+- oppure aggiungere `--processes 2` al comando `manage.py serve`.
+
+Il processo principale apre la porta e tiene per sé backup e promemoria; i processi di lavoro servono le richieste dalla stessa porta e vengono riavviati da soli se si fermano. Con 1 processo (valore predefinito) il comportamento è identico a prima. Su Windows l'opzione non è disponibile: resta un processo solo, adatto a poche decine di utenti contemporanei. Il registro di avvio (`journalctl -u nefrocenter-wr`) mostra «processi N, thread per processo 8».
 
 ### 2.7 Dopo l'installazione: i primi passi nel portale
 

@@ -15,6 +15,8 @@ from . import SCHEMA_VERSION
 from .schema import LEGACY_TABLES, MIGRATIONS
 from .util import stamp
 
+WAL_SIZE_LIMIT = 64 * 1024 * 1024  # byte: oltre questa soglia il file -wal viene accorciato al checkpoint successivo
+
 
 class LegacyArchive(RuntimeError):
     """L'archivio indicato appartiene alla versione 0.11 e va migrato, non aperto."""
@@ -29,6 +31,9 @@ class Database:
         con = sqlite3.connect(self.path, timeout=15, isolation_level=None)
         con.row_factory = sqlite3.Row
         con.execute('PRAGMA foreign_keys=ON')
+        if self.wal:
+            # Vale per connessione: il file -wal viene accorciato al primo checkpoint oltre la soglia.
+            con.execute(f'PRAGMA journal_size_limit={WAL_SIZE_LIMIT}')
         return con
 
     @contextmanager
@@ -109,6 +114,18 @@ class Database:
         finally:
             con.close()
         return SCHEMA_VERSION
+
+    def maintenance(self):
+        """Manutenzione leggera, da eseguire periodicamente (ogni ora dal servizio): riporta il file -wal
+        nell'archivio principale e lascia a SQLite l'aggiornamento delle statistiche per il pianificatore.
+        Restituisce quante pagine del WAL erano in attesa. Non blocca le letture in corso."""
+        con = self.connect()
+        try:
+            busy, pages, moved = con.execute('PRAGMA wal_checkpoint(TRUNCATE)').fetchone()
+            con.execute('PRAGMA optimize')
+            return dict(busy=bool(busy), pages=pages, moved=moved)
+        finally:
+            con.close()
 
     def snapshot(self, *, reason='manuale', directory=None):
         """Copia coerente dell'archivio (API di backup di SQLite) con verifica di integrità."""

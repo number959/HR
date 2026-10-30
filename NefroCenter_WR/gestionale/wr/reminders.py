@@ -131,7 +131,8 @@ def candidates(con, cfg, route_map, on):
                     add(center_id, 'onboarding', f'onboarding:{p["id"]}:{t["id"]}', t['due'], p['name'])
         last = previous_month(on.strftime('%Y-%m'))
         state = months.get(con, center_id, last)
-        has_entries = con.execute('SELECT 1 FROM entries WHERE center_id=? AND day LIKE ? LIMIT 1', (center_id, last + '-%')).fetchone()
+        has_entries = con.execute('SELECT 1 FROM entries WHERE center_id=? AND day>=? AND day<=? LIMIT 1',
+                                  (center_id, *months.bounds(last))).fetchone()
         if has_entries and not state['closed'] and not state['verified']:
             add(center_id, 'attendance', f'attendance:{last}', on.replace(day=1).isoformat(), last)
     return sorted(rows, key=lambda x: (x['due'], x['center_id'], x['topic'], x['source_key'], x['email']))

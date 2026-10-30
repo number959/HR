@@ -25,6 +25,19 @@ class Archive(unittest.TestCase):
             self.assertEqual(con.execute('PRAGMA journal_mode').fetchone()[0], 'wal')
             self.assertEqual(con.execute('PRAGMA foreign_keys').fetchone()[0], 1)
 
+    def test_wal_size_limit_and_hourly_maintenance(self):
+        db = Database(self.path)
+        db.migrate()
+        with db.write() as con:
+            con.execute("INSERT INTO meta(key,value) VALUES('prova','x')")
+        with db.read() as con:
+            self.assertEqual(con.execute('PRAGMA journal_size_limit').fetchone()[0], 64 * 1024 * 1024)
+        result = db.maintenance()
+        self.assertFalse(result['busy'])
+        self.assertEqual(result['pages'], result['moved'])
+        wal = self.path.with_name(self.path.name + '-wal')
+        self.assertTrue(not wal.exists() or wal.stat().st_size == 0)
+
     def test_legacy_archive_is_never_modified(self):
         con = sqlite3.connect(self.path)
         con.executescript('CREATE TABLE periods(cid TEXT, month TEXT, data TEXT); PRAGMA user_version=8;')

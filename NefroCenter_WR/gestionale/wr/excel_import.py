@@ -17,6 +17,7 @@ import calendar
 import hashlib
 import io
 import math
+import pickle
 import posixpath
 import re
 import threading
@@ -59,8 +60,57 @@ IGNORED_HEADERS = ('total', 'note', 'pazienti', 'turno', 'rapporto', 'efficienza
 PATIENT_SLOTS = {'mattina': 'm', 'pomeriggio': 'p', 'serale': 's', 'sera': 's', 'notte': 'n'}
 GROUP_LABELS = {'dipendente': 'Personale dipendente', 'consulente': 'Collaboratori a prestazione', '': 'Sezione non indicata'}
 EMPLOYMENT = re.compile(r'\b(T\.?\s?I\.?|T\.?\s?D\.?|TEMPO|FULL|PART|P\.?\s?T\.?|INDETERMINATO|DETERMINATO)\b', re.I)
-_PENDING = {}
 _LOCK = threading.Lock()
+PENDING_KEY = re.compile(r'[0-9a-f]{32}')
+PENDING_MAX = 6
+
+
+# --- Anteprime in attesa di conferma ----------------------------------------------------------
+# Salvate su disco accanto all'archivio (non in memoria): con più processi di lavoro la conferma può
+# arrivare a un processo diverso da quello che ha letto il file. Contenuto prodotto dal server stesso.
+
+def _pending_dir(db):
+    folder = db.path.parent / 'import_pending'
+    folder.mkdir(mode=0o700, exist_ok=True)
+    return folder
+
+
+def _pending_path(db, key):
+    if not isinstance(key, str) or not PENDING_KEY.fullmatch(key):
+        raise NotFound('Anteprima non valida o scaduta: caricare di nuovo il file.')
+    return _pending_dir(db) / f'{key}.pending'
+
+
+def _pending_put(db, key, item):
+    with _LOCK:
+        folder = _pending_dir(db)
+        now = time.time()
+        files = sorted(folder.glob('*.pending'), key=lambda p: p.stat().st_mtime)
+        for path in files:
+            if now - path.stat().st_mtime > PENDING_SECONDS:
+                path.unlink(missing_ok=True)
+        files = [p for p in files if p.exists()]
+        while len(files) >= PENDING_MAX:
+            files.pop(0).unlink(missing_ok=True)
+        tmp = folder / f'{key}.tmp'
+        tmp.write_bytes(pickle.dumps(item, protocol=pickle.HIGHEST_PROTOCOL))
+        tmp.replace(folder / f'{key}.pending')
+
+
+def _pending_get(db, key):
+    path = _pending_path(db, key)
+    try:
+        item = pickle.loads(path.read_bytes())
+    except (FileNotFoundError, pickle.UnpicklingError, EOFError):
+        return None
+    if time.time() - item['created'] > PENDING_SECONDS:
+        path.unlink(missing_ok=True)
+        return None
+    return item
+
+
+def _pending_pop(db, key):
+    _pending_path(db, key).unlink(missing_ok=True)
 
 
 # --- Funzioni di servizio ---------------------------------------------------------------------
@@ -846,10 +896,10 @@ def _target_problem(con, model, cid):
         return 'mese già chiuso'
     if approvals.workflow(con, cid, model['month'])['status'] in approvals.FROZEN:
         return 'mese inviato in approvazione'
-    like = model['month'] + '-%'
-    if con.execute('SELECT 1 FROM entries WHERE center_id=? AND day LIKE ? LIMIT 1', (cid, like)).fetchone():
+    first, last = months.bounds(model['month'])
+    if con.execute('SELECT 1 FROM entries WHERE center_id=? AND day>=? AND day<=? LIMIT 1', (cid, first, last)).fetchone():
         return 'il mese contiene già registrazioni'
-    if con.execute('SELECT 1 FROM workload WHERE center_id=? AND day LIKE ? LIMIT 1', (cid, like)).fetchone():
+    if con.execute('SELECT 1 FROM workload WHERE center_id=? AND day>=? AND day<=? LIMIT 1', (cid, first, last)).fetchone():
         return 'il mese contiene già pazienti per fascia'
     cfg, _ = months.configuration(con, cid, state)
     missing_codes, missing_slots = _missing(model, cfg)
@@ -897,12 +947,7 @@ def preview(db, actor, data):
         already = _already(con, model['hash'])
     blocking = _check_new(model)
     key = new_id()
-    with _LOCK:
-        for k in [k for k, item in _PENDING.items() if time.monotonic() - item['created'] > PENDING_SECONDS]:
-            _PENDING.pop(k)
-        while len(_PENDING) >= 6:
-            _PENDING.pop(next(iter(_PENDING)))
-        _PENDING[key] = dict(owner=actor.id, created=time.monotonic(), model=model)
+    _pending_put(db, key, dict(owner=actor.id, created=time.time(), model=model))
     counts = {}
     for e in model['entries']:
         counts[e['person_id']] = counts.get(e['person_id'], 0) + 1
@@ -1041,9 +1086,8 @@ def _add_to_center(con, actor, model, cid):
 
 
 def confirm(db, actor, key, target=None):
-    with _LOCK:
-        pending = _PENDING.get(key)
-    if not pending or pending['owner'] != actor.id or time.monotonic() - pending['created'] > PENDING_SECONDS:
+    pending = _pending_get(db, key)
+    if not pending or pending['owner'] != actor.id:
         raise NotFound('Anteprima non valida o scaduta: caricare di nuovo il file.')
     model = pending['model']
     with db.read() as con:
@@ -1080,8 +1124,7 @@ def confirm(db, actor, key, target=None):
                                 skipped=len(model['skipped']), workload=len(model['workload']), warnings=model['warnings'],
                                 dropped_proposals=dropped,
                                 skipped_cells=[(s['cell'], s['value'], s['person'], s['reason']) for s in model['skipped'][:500]]))
-    with _LOCK:
-        _PENDING.pop(key, None)
+    _pending_pop(db, key)
     return dict(center_id=cid, month=model['month'], already_imported=False, people=total, new_people=created,
                 skipped=len(model['skipped']), dropped_proposals=dropped)
 

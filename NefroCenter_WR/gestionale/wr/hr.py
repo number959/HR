@@ -486,12 +486,15 @@ def _document(con, center_id, doc_id):
 
 
 def open_document(db, actor, center_id, doc_id, inline):
-    with db.write() as con:
+    # Lettura e verifica del file fuori dal lucchetto di scrittura (un PDF da 6 MB non deve fermare gli altri);
+    # la riga di giornale si scrive dopo, in una transazione brevissima.
+    with db.read() as con:
         actor, _ = centers.scoped(con, actor, center_id, 'hr.fascicoli')
         doc = _document(con, center_id, doc_id)
         data = bytes(doc['content'])
-        if hashlib.sha256(data).hexdigest() != doc['sha256']:
-            raise Invalid('Il documento non corrisponde all’impronta registrata: avvisare l’amministratore.')
+    if hashlib.sha256(data).hexdigest() != doc['sha256']:
+        raise Invalid('Il documento non corrisponde all’impronta registrata: avvisare l’amministratore.')
+    with db.write() as con:
         audit.record(con, actor, 'Documento visualizzato' if inline else 'Documento scaricato', center_id, entity='document',
                      entity_id=doc['id'], after=dict(person_id=doc['person_id'], sha256=doc['sha256']))
     headers = [('Content-Security-Policy', DOCUMENT_CSP)] if inline else []
