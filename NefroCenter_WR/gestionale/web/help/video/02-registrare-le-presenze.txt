@@ -5,17 +5,21 @@ Apri «Registro presenze» dal menu. In alto scegli struttura e mese: qui Capodi
 
 Ogni riga è una persona con le sue fasce: m mattina, p pomeriggio, s serale, n notte. Ogni colonna è un giorno del mese.
 
-Clicca una casella vuota: scegliamo Paolo Greco, giovedì 22 ottobre, fascia Mattina.
+Sotto il titolo: frecce per cambiare mese, «Oggi» e la riga «Stai vedendo» che riassume registro, vista e filtri.
 
-Nella finestra scegli la causale: un turno (m, p, s, n) oppure un’assenza, per esempio FE ferie o MA malattia.
+Tocca una casella vuota: scegliamo Paolo Greco, giovedì 22 ottobre, fascia Mattina.
 
-Gli orari sono quelli proposti dalla fascia. Il compilatore non li cambia: se serve, li corregge il responsabile.
+Si apre il riquadro con le causali ammesse nella fascia: un turno (m, p, s, n) oppure un’assenza, per esempio FE ferie o MA malattia.
 
-Premi «Salva»: la casella mostra il turno registrato.
+Tocca «m · Mattina»: la casella è registrata subito, con gli orari della fascia. L’avviso in basso ha «Annulla» per tornare indietro.
 
-Per correggere, clicca una casella già compilata: si riapre la registrazione.
+Per correggere, tocca la casella e scegli un’altra causale, per esempio «PS · Permesso». Ogni modifica resta nello storico del mese.
 
-Cambia la causale, per esempio in «PS · Permesso», e salva di nuovo. Ogni modifica resta nello storico del mese.
+Orari, sede, festivo e nota sono in «Dettagli e orari…», la finestra completa. Gli orari seguono la fascia: li cambia solo il responsabile.
+
+«Compilazione rapida»: scegli una causale nella tavolozza e tocca le caselle da compilare, una dopo l’altra. Le caselle colorate sono i giorni passati senza registrazione.
+
+«Solo da completare» mostra solo chi ha giorni passati senza registrazione; accanto al nome c’è il conteggio.
 
 La vista «Giorno» elenca le persone di un giorno con un pulsante per ogni fascia: è comoda sul telefono.
 

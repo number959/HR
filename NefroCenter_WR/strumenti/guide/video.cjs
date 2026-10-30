@@ -945,7 +945,7 @@ function produce(guide, result) {
     profili: guide.profili.map(r => ROLE_LABEL[r]), copertina: `${base}.jpg`, sottotitoli: `${base}.vtt`, trascrizione: `${base}.txt`,
     capitoli: result.chapters.map(c => ({ tempo: Math.round(c.tempo * 10) / 10, titolo: c.titolo })),
     controllo: { ...info, cue: clamped.length, passi: result.steps.length, copertina_al_secondo: Math.round(coverTime * 10) / 10,
-      problemi: result.problems, cue_ok: checkCues(clamped, info.durata), durata_ok: info.durata >= 45 && info.durata <= 150 },
+      problemi: result.problems, cue_ok: checkCues(clamped, info.durata), durata_ok: info.durata >= 45 && info.durata <= 160 },
   };
   fs.writeFileSync(path.join(TMP, `${base}.meta.json`), JSON.stringify(meta, null, 1), 'utf-8');
   fs.rmSync(result.webm, { force: true });

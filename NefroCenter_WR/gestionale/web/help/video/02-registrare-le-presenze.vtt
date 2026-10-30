@@ -1,94 +1,129 @@
 WEBVTT
 
 1
-00:00:00.482 --> 00:00:03.748
+00:00:00.513 --> 00:00:03.782
 Apri «Registro presenze» dal menu.
 
 2
-00:00:03.828 --> 00:00:09.949
+00:00:03.862 --> 00:00:09.987
 In alto scegli struttura e mese:
 qui Capodichino, ottobre 2026.
 
 3
-00:00:10.029 --> 00:00:16.587
+00:00:10.067 --> 00:00:16.639
 Ogni riga è una persona con le sue fasce:
 m mattina, p pomeriggio, s serale, n notte.
 
 4
-00:00:16.667 --> 00:00:19.242
+00:00:16.719 --> 00:00:19.300
 Ogni colonna è un giorno del mese.
 
 5
-00:00:19.322 --> 00:00:26.839 line:8%
-Clicca una casella vuota: scegliamo Paolo
-Greco, giovedì 22 ottobre, fascia Mattina.
+00:00:19.380 --> 00:00:22.607
+Sotto il titolo: frecce per cambiare mese,
 
 6
-00:00:26.919 --> 00:00:30.940 line:8%
-Nella finestra scegli la
-causale: un turno (m, p, s,
+00:00:22.687 --> 00:00:28.118
+«Oggi» e la riga «Stai vedendo» che
+riassume registro, vista e filtri.
 
 7
-00:00:31.020 --> 00:00:35.436 line:8%
-n) oppure un’assenza, per
-esempio FE ferie o MA malattia.
+00:00:28.198 --> 00:00:35.286
+Tocca una casella vuota: scegliamo Paolo
+Greco, giovedì 22 ottobre, fascia Mattina.
 
 8
-00:00:35.516 --> 00:00:38.895 line:8%
-Gli orari sono quelli proposti dalla fascia.
+00:00:35.366 --> 00:00:40.626
+Si apre il riquadro con le causali
+ammesse nella fascia: un turno (m,
 
 9
-00:00:38.975 --> 00:00:44.240 line:8%
-Il compilatore non li cambia: se
-serve, li corregge il responsabile.
+00:00:40.706 --> 00:00:45.501
+p, s, n) oppure un’assenza, per
+esempio FE ferie o MA malattia.
 
 10
-00:00:44.320 --> 00:00:50.668 line:8%
-Premi «Salva»: la casella
-mostra il turno registrato.
+00:00:45.581 --> 00:00:52.785
+Tocca «m · Mattina»: la casella è registrata
+subito, con gli orari della fascia.
 
 11
-00:00:50.748 --> 00:00:57.727 line:8%
-Per correggere, clicca una casella già
-compilata: si riapre la registrazione.
+00:00:52.865 --> 00:00:57.520
+L’avviso in basso ha «Annulla»
+per tornare indietro.
 
 12
-00:00:57.807 --> 00:01:04.466 line:8%
-Cambia la causale, per esempio in
-«PS · Permesso», e salva di nuovo.
+00:00:57.600 --> 00:01:03.058
+Per correggere, tocca la casella
+e scegli un’altra causale,
 
 13
-00:01:04.546 --> 00:01:08.728 line:8%
-Ogni modifica resta nello storico del mese.
+00:01:03.138 --> 00:01:09.817
+per esempio «PS · Permesso». Ogni
+modifica resta nello storico del mese.
 
 14
-00:01:08.808 --> 00:01:14.182
+00:01:09.897 --> 00:01:18.249
+Orari, sede, festivo e nota sono in
+«Dettagli e orari…», la finestra completa.
+
+15
+00:01:18.329 --> 00:01:24.736
+Gli orari seguono la fascia:
+li cambia solo il responsabile.
+
+16
+00:01:24.816 --> 00:01:31.762
+«Compilazione rapida»: scegli
+una causale nella tavolozza
+
+17
+00:01:31.842 --> 00:01:38.294
+e tocca le caselle da
+compilare, una dopo l’altra. Le
+
+18
+00:01:38.374 --> 00:01:45.566
+caselle colorate sono i giorni
+passati senza registrazione.
+
+19
+00:01:45.646 --> 00:01:53.954
+«Solo da completare» mostra solo chi
+ha giorni passati senza registrazione;
+
+20
+00:01:54.034 --> 00:01:57.644
+accanto al nome c’è il conteggio.
+
+21
+00:01:57.724 --> 00:02:03.112
 La vista «Giorno» elenca
 le persone di un giorno con
 
-15
-00:01:14.262 --> 00:01:19.531
+22
+00:02:03.192 --> 00:02:08.474
 un pulsante per ogni fascia:
 è comoda sul telefono.
 
-16
-00:01:19.611 --> 00:01:23.353
+23
+00:02:08.554 --> 00:02:12.330
 Torniamo alla vista «Mese».
 
-17
-00:01:23.433 --> 00:01:27.266
+24
+00:02:12.410 --> 00:02:16.275
 «Consuntivo» mostra i turni svolti davvero.
 
-18
-00:01:27.346 --> 00:01:33.182
+25
+00:02:16.355 --> 00:02:22.239
 «Pianificato» mostra i turni
 previsti, con il bordo tratteggiato.
 
-19
-00:01:33.262 --> 00:01:40.599
+26
+00:02:22.319 --> 00:02:29.704
 Nel consuntivo una fascia pianificata ma
 non ancora confermata resta tratteggiata:
 
-20
-00:01:40.679 --> 00:01:42.860
+27
+00:02:29.784 --> 00:02:31.980
 cliccala per registrarla.

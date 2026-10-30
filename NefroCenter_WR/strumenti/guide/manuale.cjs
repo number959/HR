@@ -61,7 +61,7 @@ const PROFILE_OF = {
 };
 // Schermate aggiuntive mostrate nella scheda di una pagina (dopo la schermata principale).
 const EXTRAS = {
-  attendance: ['presenze-registrazione', 'presenze-pianificato'],
+  attendance: ['presenze-scelta-rapida', 'presenze-registrazione', 'presenze-compilazione-rapida', 'presenze-pianificato'],
   people: ['persone-fascicolo', 'persone-fascicolo-documenti', 'persone-fascicolo-inserimento'],
   mail: ['comunicazioni-anteprima'],
   stats: ['statistiche-grafico'],
@@ -309,12 +309,22 @@ async function run() {
     const managerHooks = {
       attendance: async () => {
         await page.locator('table.register .cell:has(.code:not(.planned))').first().click();
+        const pick = page.locator('.quick-pick');
+        await pick.waitFor();
+        await page.waitForTimeout(300);
+        await shot(page, 'presenze-scelta-rapida', 'Il riquadro di scelta rapida: si apre con un tocco su una casella e mostra le causali ammesse nella fascia. Toccandone una la registrazione è salvata subito; l’avviso in basso ha «Annulla».', { full: false });
+        await page.click('.quick-pick .quick-foot .btn:has-text("Dettagli")');
         const dlg = page.locator('dialog[open]');
         await dlg.waitFor();
         await page.waitForTimeout(300);
-        await shot(page, 'presenze-registrazione', 'Il dialogo di registrazione: si apre con un clic su una casella del registro. Causale, orari proposti dalla fascia, sede di lavoro, festivo e nota.', { full: false });
+        await shot(page, 'presenze-registrazione', 'La finestra completa («Dettagli e orari…»): causale, orari proposti dalla fascia, sede di lavoro, festivo e nota.', { full: false });
         await page.keyboard.press('Escape');
         await dlg.waitFor({ state: 'detached' }).catch(() => {});
+        await page.click('.page-actions .btn:has-text("Compilazione rapida")');
+        await settle(page);
+        await shot(page, 'presenze-compilazione-rapida', 'La «Compilazione rapida»: si sceglie una causale nella tavolozza e si toccano le caselle da compilare una dopo l’altra; la gomma le svuota. Le caselle con la tinta chiara sono giorni passati senza registrazione.');
+        await page.click('.quick-bar .btn:has-text("Esci")');
+        await settle(page);
         await page.click('.segmented button:has-text("Pianificato")');
         await settle(page);
         await shot(page, 'presenze-pianificato', 'Il registro in vista «Pianificato»: i turni previsti restano tratteggiati finché non si registra il consuntivo.');
