@@ -1701,7 +1701,7 @@ Programmare riepiloghi HR dopo aver verificato destinatari, contenuti e limiti d
 | Anticipi in giorni | Da uno a otto interi fra 0 e 365, separati da virgola. Ogni soglia viene elaborata una volta per evento e recapito; 0 copre scadenza e arretrati. | 30,15,7,0. |
 | Arretrati: massimo giorni | Da 1 a 90 giorni. Le scadenze più vecchie restano consultabili nel portale e sono escluse dai riepiloghi automatici. | 30 esclude gli eventi scaduti da oltre un mese. |
 | Destinazione | Referente HR della struttura, solo ufficio HR centrale o entrambi. Indirizzi uguali per la stessa sede sono deduplicati. | Entrambi per informare sede e ufficio centrale. |
-| Email ufficio HR centrale | Recapito esplicito obbligatorio per destinazione centrale o entrambe; non utilizza indirizzi personali dei dipendenti. | hr@azienda.it. |
+| Email ufficio HR centrale | Recapito esplicito obbligatorio per destinazione centrale o entrambe; non utilizza indirizzi personali dei dipendenti. | hr@esempio.it. |
 | Ora locale di avvio | Intero da 0 a 23 nel fuso Europe/Rome. Il worker controlla periodicamente dopo questa ora; non è un appuntamento al minuto. | 8 per iniziare i controlli al mattino. |
 | Massimo messaggi al giorno | Limite da 1 a 200 per tutti i riepiloghi automatici. Si sommano anche i vincoli orari e di lotto SMTP condivisi con le comunicazioni. | 20 per contenere il volume quotidiano. |
 | Genera anteprima | Calcola gli eventi correnti e mostra tutti i recapiti da autorizzare. Non effettua invii. Mostra fino a 100 messaggi di esempio e il totale completo. | Controlla il recapito di ogni struttura prima di confermare. |

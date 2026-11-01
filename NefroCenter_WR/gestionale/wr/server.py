@@ -54,7 +54,7 @@ def parser():
     p.add_argument('--data-dir', type=Path, default=Path(os.environ.get('WR_DATA_DIR', 'data')))
     p.add_argument('--key-file', type=Path, default=Path(os.environ.get('WR_KEY_FILE', 'private/server.key')))
     p.add_argument('--origin', default=os.environ.get('WR_ORIGIN', ''),
-                   help='Indirizzo pubblico del portale, per esempio https://wr.azienda.it')
+                   help='Indirizzo pubblico del portale, per esempio https://wr.esempio.it')
     p.add_argument('--port', type=int, default=int(os.environ.get('WR_PORT', '8080')))
     p.add_argument('--threads', type=int, default=8, help='Thread per processo (predefinito 8)')
     p.add_argument('--processes', type=int, default=int(os.environ.get('WR_PROCESSES', '1')),
@@ -144,7 +144,7 @@ def main(argv=None):
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(name)s: %(message)s')
     args = parser().parse_args(argv)
     if not args.origin:
-        raise SystemExit('Indicare --origin con l’indirizzo del portale (per esempio https://wr.azienda.it).')
+        raise SystemExit('Indicare --origin con l’indirizzo del portale (per esempio https://wr.esempio.it).')
     db_path = args.data_dir / factory.DB_NAME
     if not db_path.exists():
         raise SystemExit('Archivio non trovato: per una nuova installazione usare «python manage.py init».')

@@ -73,7 +73,7 @@ Su Windows il servizio si avvia con un'attività pianificata (account dedicato, 
 |---|---|
 | `WR_DATA_DIR` | cartella dell'archivio (`wr.sqlite3`), dei documenti e dei backup locali |
 | `WR_KEY_FILE` | chiave del server (cifra i segreti dell'app Authenticator) |
-| `WR_ORIGIN` | indirizzo pubblico del portale, per esempio `https://wr.azienda.it` |
+| `WR_ORIGIN` | indirizzo pubblico del portale, per esempio `https://wr.esempio.it` |
 | `WR_PORT` | porta locale (predefinita 8080) |
 | `WR_SMTP_PASSWORD` | password dell'account di posta: solo nell'ambiente del servizio, mai nell'archivio |
 

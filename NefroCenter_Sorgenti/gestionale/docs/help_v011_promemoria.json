@@ -98,7 +98,7 @@
       "section": "Promemoria automatici",
       "label": "Email ufficio HR centrale",
       "effect": "Recapito esplicito obbligatorio per destinazione centrale o entrambe; non utilizza indirizzi personali dei dipendenti.",
-      "example": "hr@azienda.it."
+      "example": "hr@esempio.it."
     },
     {
       "id": "reminder.hour",

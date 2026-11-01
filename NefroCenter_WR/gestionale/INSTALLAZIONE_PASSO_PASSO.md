@@ -173,7 +173,7 @@ Aprire `http://127.0.0.1:8080` **sullo stesso computer**: scegliere «Primo acce
 ### 2.5 Servizio automatico e HTTPS (Linux)
 
 1. **Utente di servizio** (senza accesso interattivo): `sudo useradd --system --home /var/lib/nefrocenter-wr --shell /usr/sbin/nologin nefrocenter-wr`. Dare a questo utente la proprietà di `/var/lib/nefrocenter-wr` e la lettura di `/opt/nefrocenter-wr` e della chiave.
-2. **Variabili del servizio**: copiare `gestionale/deploy/wr.env.example` in `/etc/nefrocenter-wr/wr.env` e impostare `WR_ORIGIN=https://IL-NOME-DEL-SITO` (per esempio `https://wr.azienda.it`), `WR_DATA_DIR`, `WR_KEY_FILE`, `WR_PORT=8080`, `TZ=Europe/Rome` (e `WR_PROCESSES`, vedere 2.6 bis). Permessi `600`, proprietario l'utente di servizio.
+2. **Variabili del servizio**: copiare `gestionale/deploy/wr.env.example` in `/etc/nefrocenter-wr/wr.env` e impostare `WR_ORIGIN=https://IL-NOME-DEL-SITO` (per esempio `https://wr.esempio.it`), `WR_DATA_DIR`, `WR_KEY_FILE`, `WR_PORT=8080`, `TZ=Europe/Rome` (e `WR_PROCESSES`, vedere 2.6 bis). Permessi `600`, proprietario l'utente di servizio.
 3. **Servizio systemd**: copiare `gestionale/deploy/nefrocenter-wr.service` in `/etc/systemd/system/` (adattare i percorsi se diversi) e poi:
    ```bash
    sudo systemctl daemon-reload
@@ -285,7 +285,7 @@ python3 strumenti/anteprima.py --port 8092 --aziendale
 # installazione aziendale
 python3 -m venv .venv && .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python manage.py init  --data-dir DATI --key-file CHIAVE
-.venv/bin/python manage.py serve --data-dir DATI --key-file CHIAVE --origin https://wr.azienda.it
+.venv/bin/python manage.py serve --data-dir DATI --key-file CHIAVE --origin https://wr.esempio.it
 .venv/bin/python manage.py check --data-dir DATI --key-file CHIAVE
 .venv/bin/python manage.py backup --data-dir DATI --key-file CHIAVE
 .venv/bin/python manage.py migra-011 --source presenze.sqlite3 --legacy-key chiave-0.11.key --data-dir DATI --key-file CHIAVE
