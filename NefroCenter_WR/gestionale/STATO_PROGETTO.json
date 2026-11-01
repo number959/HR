@@ -24,7 +24,8 @@
  "avvio": [
   "manage.py serve (--processes N per più processi di lavoro)",
   "manage.py init",
-  "strumenti/anteprima.py"
+  "strumenti/anteprima.py",
+  "strumenti/importa_personale.py (database del personale → archivio WR)"
  ],
  "tecnologie": {
   "motore": "Python 3.12/3.13 standard library + cryptography + tzdata; waitress, xlsxwriter, segno inclusi",
@@ -33,7 +34,7 @@
   "demo": "stesso motore eseguito nel browser con Pyodide 0.26.4"
  },
  "verifica": {
-  "prove_automatiche": 160,
+  "prove_automatiche": 166,
   "prove_superate": true,
   "giro_interfaccia_profili": 5,
   "giro_interfaccia_pagine": {
@@ -136,6 +137,19 @@
     "rilievi_confermati": 18,
     "rilievi_verificati": 20
    }
+  },
+  "importazione_personale": {
+   "data": "2026-11-01",
+   "strumento": "strumenti/importa_personale.py",
+   "file": "DATABASE PERSONALE V 1.3.xlsx del titolare (fuori dal repository, non conservato)",
+   "righe": 2616,
+   "strutture": 101,
+   "persone": 2563,
+   "contratti": 1073,
+   "collegamenti_gruppo": 229,
+   "avvisi": 30,
+   "prove": "6 prove con una cartella Excel fittizia (tests/test_import_personale.py)",
+   "archivi_consegnati": "archivio vuoto e archivio con il personale consegnati al titolare con chiave e codice di attivazione; nessun dato reale nel repository"
   }
  },
  "guide": {

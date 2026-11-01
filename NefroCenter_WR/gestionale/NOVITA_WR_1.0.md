@@ -54,6 +54,7 @@ L'importazione del vecchio file serve solo per i mesi passati e per la transizio
 - **Processi di lavoro** (`--processes` / `WR_PROCESSES`): con molti utenti contemporanei il limite è il singolo processo Python, non il database; con 4 processi il registro aperto da 6 persone insieme passa da 7 s a 0,2 s. Valore predefinito invariato (1 processo).
 - Filtro del mese che usa l'indice, controllo della sessione senza lucchetto di scrittura, apertura dei documenti fuori dal lucchetto, file WAL contenuto e manutenzione oraria dell'archivio.
 - Nuovi strumenti `strumenti/carico_archivio.py` e `strumenti/carico_http.py` per ripetere le misure.
+- **Importazione del database del personale** (`strumenti/importa_personale.py`, 1° novembre 2026): dalla cartella Excel del gruppo crea le strutture (una per società), le persone con fascicolo compilato, i campi aggiuntivi per idoneità e scadenze di sicurezza, i contratti storici e i collegamenti di gruppo per codice fiscale. Rapporto con soli conteggi.
 
 ## Cosa resta da fare in azienda
 
