@@ -89,9 +89,9 @@ Risultato atteso: pagina iniziale, statistiche e Da completare sotto 0,3–0,4 s
 - **Manuale leggero nel portale.** «Leggi nel portale» e il collegamento al manuale nel pannello «?» scaricano ogni volta 11,6 MB, perché le 52 schermate sono dentro il file come testo. Le immagini già compresse non si comprimono, quindi passano circa 8,7 MB anche con Caddy: circa 7 s a 10 Mbit/s, più centinaia di millisecondi di pagina ferma. Il generatore salverà le schermate come file separati caricati solo quando si scorre fino a loro. Il testo scende a circa 25 KB compressi e si scaricano solo le immagini della sezione aperta. (1 giorno più la rigenerazione del manuale)
 - **Una connessione al database riusata per ogni thread** invece di tre aperte e chiuse a ogni richiesta. Su Linux il risparmio è di 1–1,5 ms per richiesta; su Windows con antivirus probabilmente di più, ma non è stato misurato. (1 giorno)
 
-### Consegna 6 — Allegati fuori dall'archivio e guardia permanente (circa 6 giorni)
+### Consegna 6 — Allegati fuori dall'archivio e guardia permanente (circa 9 giorni)
 
-- **Allegati come file su disco**, nominati con l'impronta SHA-256 già calcolata. Nel database restano solo i metadati. Le pagine di documenti e fascicoli smettono di attraversare i PDF per leggere data e autore. Il backup giornaliero torna sotto 1 GB l'anno e gli allegati si copiano solo quando sono nuovi. Dettagli e alternative in `DIMENSIONAMENTO_ARCHIVIO.md` §6. (4 giorni)
+- **Allegati in un archivio SQLite separato** (scelta del titolare del 1° novembre 2026), indirizzati per impronta SHA-256. Nell'archivio principale restano solo i metadati. Le pagine di documenti e fascicoli smettono di attraversare i PDF per leggere data e autore: archivio documenti misurato da 234 a 72 ms. Il backup giornaliero dell'archivio principale torna sotto 1 GB l'anno e gli allegati si copiano solo quando sono nuovi. Procedimento completo, rivisto da due revisori indipendenti, in `ALLEGATI_ARCHIVIO_SEPARATO.md`. Si può anticipare da sola, prima dell'installazione aziendale. (7 giorni)
 - **Guardia della velocità.** Un nuovo strumento, `strumenti/misura_velocita.py`, ripete le misure di questo piano su un archivio da 3000 dipendenti: browser in rete locale e in sede simulata, pagine principali, salvataggio, carico con molti utenti. Si ferma con un errore se un obiettivo della tabella §1 non è rispettato. Si aggiungono prove automatiche che contano le query per pagina, per esempio «il registro non supera N query», così una regressione si vede subito. Entra nei controlli dopo ogni modifica, insieme alle prove e al giro dell'interfaccia. (2 giorni)
 
 ## 4. Tempi e ordine
@@ -102,7 +102,7 @@ Risultato atteso: pagina iniziale, statistiche e Da completare sotto 0,3–0,4 s
 | 3–4 | 3 (riepiloghi pronti) | amministrazione, HR, direzione: pagina iniziale, statistiche, Da completare, copertura |
 | 5 | 4 (liste grandi) | HR: documenti, personale di gruppo |
 | 6 | 5 (avvio, file, manuale) | tutti: F5, primo accesso, guida |
-| 7 | 6 (allegati e guardia) | backup, pagine HR, misura permanente |
+| 7–8 | 6 (allegati e guardia) | backup, pagine HR, misura permanente |
 
 | Consegna | Giorni/persona |
 |---|---|
@@ -111,9 +111,9 @@ Risultato atteso: pagina iniziale, statistiche e Da completare sotto 0,3–0,4 s
 | 3 · Riepiloghi pronti | 8 |
 | 4 · Liste grandi | 5,5 |
 | 5 · Avvio, file del portale e manuale | 4,5 |
-| 6 · Allegati e guardia della velocità | 6 |
+| 6 · Allegati e guardia della velocità | 9 |
 | Rigenerazione di manuale e videoguide dove cambia l'aspetto | 1 |
-| **Totale** | **circa 35**, cioè 7 settimane di una persona |
+| **Totale** | **circa 38**, cioè 7–8 settimane di una persona |
 
 Le consegne 1 e 2 da sole, circa 10 giorni, danno già il salto più grande per chi compila ogni giorno.
 
@@ -149,6 +149,6 @@ Valgono da qui in avanti per ogni modifica, e la guardia della consegna 6 le con
 Il piano è pronto da eseguire, ma due scelte spettano all'azienda:
 
 1. **Ordine delle consegne.** Il piano parte da chi usa il registro tutti i giorni. Se la priorità è la direzione, la consegna 3 può passare prima.
-2. **Allegati fuori dall'archivio**: file su disco, consigliato, oppure un secondo file SQLite (`DIMENSIONAMENTO_ARCHIVIO.md` §6). Va deciso prima di caricare i documenti di tutti i dipendenti.
+2. **Allegati fuori dall'archivio**: deciso il 1° novembre 2026, archivio SQLite separato (`ALLEGATI_ARCHIVIO_SEPARATO.md`). Restano da fissare la conservazione dei backup e il periodo di attesa prima di cancellare i contenuti non più usati.
 
 Le misure vanno ripetute sul server aziendale prima e dopo, con gli stessi strumenti: questi tempi vengono da un contenitore Linux con 4 CPU, non dalla rete reale delle sedi.

@@ -18,7 +18,8 @@
   "posta": "docs/POSTA.md",
   "paghe": "docs/PAGHE.md",
   "dimensionamento": "docs/DIMENSIONAMENTO_ARCHIVIO.md",
-  "piano_velocita": "docs/PIANO_VELOCITA.md"
+  "piano_velocita": "docs/PIANO_VELOCITA.md",
+  "allegati_archivio_separato": "docs/ALLEGATI_ARCHIVIO_SEPARATO.md"
  },
  "avvio": [
   "manage.py serve (--processes N per più processi di lavoro)",
@@ -162,7 +163,10 @@
   "archivio aziendale reale"
  ],
  "decisioni_aperte": [
-  "Sede degli allegati prima di caricare i documenti di 3000 persone: file su disco con impronta SHA-256 (consigliato) o secondo file SQLite; conservazione dei backup locali; archiviazione degli anni chiusi (docs/DIMENSIONAMENTO_ARCHIVIO.md §6)",
-  "Piano «ultra veloce» (docs/PIANO_VELOCITA.md): approvare ordine delle consegne e avvio; circa 35 giorni/persona in 6 consegne indipendenti"
+  "Piano «ultra veloce» (docs/PIANO_VELOCITA.md): approvare ordine delle consegne e avvio; circa 38 giorni/persona in 6 consegne indipendenti",
+  "Conservazione dei backup dell'archivio principale e periodo di attesa prima di cancellare i contenuti degli allegati non più usati (proposta 90 giorni); conservazione dei backup locali; archiviazione degli anni chiusi"
+ ],
+ "decisioni_prese": [
+  "2026-11-01: allegati in un archivio SQLite separato (wr_allegati.sqlite3) indirizzato per impronta SHA-256; progetto in docs/ALLEGATI_ARCHIVIO_SEPARATO.md, non ancora realizzato"
  ]
 }

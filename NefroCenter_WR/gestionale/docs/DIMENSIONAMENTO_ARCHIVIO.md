@@ -121,6 +121,8 @@ Gli allegati (PDF) stanno dentro il database, nella stessa tabella dei loro meta
 
 Conseguenze già visibili nel codice (audit §7): ogni pagina che elenca documenti legge colonne che stanno *dopo* il contenuto nella riga, quindi SQLite percorre le pagine del PDF anche solo per mostrare data e autore del caricamento; il backup copia ogni giorno tutti gli allegati anche se non è cambiato nulla.
 
+**Decisione del 1° novembre 2026: archivio SQLite separato per gli allegati.** Procedimento, misure e rischi in `ALLEGATI_ARCHIVIO_SEPARATO.md`. Il testo che segue è l'analisi di partenza.
+
 Scelta consigliata per la prossima versione, da fare **prima** di caricare gli allegati di 3000 persone: tenere nel database solo i metadati e salvare i file su disco (`data/documenti/<impronta>`), nominati con l'impronta SHA-256 che il portale già calcola. Il backup dell'archivio torna a 1 GB l'anno, gli allegati si copiano in modo incrementale (solo i nuovi) con gli strumenti di sistema o la seconda copia esistente, e l'integrità si verifica per impronta. In alternativa più semplice, un secondo file SQLite solo per i contenuti. In entrambi i casi serve una migrazione dei documenti già caricati, con copia di sicurezza prima.
 
 Da aggiungere insieme: una **conservazione dei backup locali** (per esempio ultimi 14 giornalieri + 12 mensili) e un comando di **archiviazione degli anni chiusi** (registrazioni, mesi, giornale) in un file separato di sola lettura, utile anche per i dipendenti usciti.
