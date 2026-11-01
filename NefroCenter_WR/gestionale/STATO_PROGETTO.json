@@ -5,7 +5,7 @@
  "data": "2026-10-30",
  "lingua": "it",
  "installazione_aziendale": "non eseguita",
- "demo_pubblica": "non pubblicata su un indirizzo aziendale; copia privata di prova su claude.ai (30/10/2026, visibile solo al titolare); si costruisce con demo/costruisci_demo.py",
+ "demo_pubblica": "ricostruita e ripubblicata il 2026-11-01 (variante --includi-pyodide --solo-file-web, 90 file, 67,5 MB) sulla pagina privata claude.ai del titolare, versione 6; motore aggiornato alle correzioni del 30-31 ottobre; prova Chromium: avvio 5,6 s, 19 pagine, registrazione salvata, CSV scaricato, nessun errore; non pubblicata su un indirizzo dell'azienda",
  "demo_pacchetto": "NefroCenter_WR_Demo_1.0.0.zip: cartella dist con Pyodide incluso, manuale illustrato e videoguide, avvia_demo.py e lanciatori per Windows, macOS e Linux",
  "documenti": {
   "leggimi": "../LEGGIMI.md",
@@ -69,7 +69,7 @@
    "iPad Pro 11 (anche orizzontale)"
   ],
   "registro_prova_dedicata": "strumenti/prova_registro.cjs (scelta rapida, compilazione rapida, navigazione, telefono)",
-  "demo_browser": "radice, sottocartella e variante solo-file-web (30/10/2026)",
+  "demo_browser": "radice, sottocartella e variante solo-file-web (30/10/2026); ricostruzione e nuova prova il 01/11/2026 prima della ripubblicazione",
   "migrazione_archivio_sintetico": true,
   "importazione_file_reale": true,
   "revisione_indipendente_importazione": {
